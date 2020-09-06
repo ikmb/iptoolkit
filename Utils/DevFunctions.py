@@ -8,12 +8,14 @@ import pandas as pd
 from Bio import SeqIO
 import numpy as np
 from typing import List, Set, Dict 
+import random
 from IPTK.DataStructure.Experiment import Experiment
 from IPTK.DataStructure.Proband import Proband
 from IPTK.DataStructure.HLASet import HLASet 
 from IPTK.DataStructure.Tissue import Tissue
 from IPTK.DataStructure.Database import SeqDB
 from IPTK.Utils.UtilityFunction import generate_random_name
+
 # define the functions
 def simulate_an_experimental_ident_table_from_fasta(path2load: str, num_pep: int, num_prot: int )->pd.DataFrame:
     """
@@ -105,3 +107,19 @@ def simulate_random_experiment(alleles: List[str],  path2fasta: str,  tissue_nam
     return Experiment(proband=proband,hla_set=hla_set,tissue=tissue,database=database,
     ident_table=ident_table)
 
+def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->List[str]:
+    """
+    @brief: generate a list of random peptides for testing and developing purposes.
+    @param: peptide_length: The peptide length 
+    @param: num_peptides: the number of peptides in the generate list  
+    """
+    # define amino acids 
+    amino_acids=['G','A','L','M','F','W','K','Q','E','S','P','V','I','C','Y','H','R','N','D','T']
+    results=[]
+    # generate the sequences
+    for _ in range(num_peptides):
+        results.append(
+            ''.join([random.choice(amino_acids) for _ in range(peptide_length)])
+        )
+    # return the results 
+    return results

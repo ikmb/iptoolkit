@@ -16,8 +16,8 @@ import matplotlib
 import string
 import random
 import pickle 
-
-
+from typing import List 
+# define the functions 
 def padd_mapped_proteins(pre_pad:bool =True)->np.ndarray:
     """
     @brief pad the provided list of array into a 2D tensor of shape
@@ -34,7 +34,7 @@ def generate_random_name(name_length: int)->str:
     chars.extend([str(elem) for elem in list(range(10))]) # extend the vocab 
     return ''.join([random.choice(chars) for _ in range(name_length)]) # generate the name 
 
-def append_to_calling_string(param, def_value, cur_val, calling_string):
+def append_to_calling_string(param:str, def_value, cur_val, calling_string:str, is_flag: bool = False)->str:
     """
     @brief: a help function that take a calling string, a parameter, a default value and current value 
     if the parameter does not equal its default value the function append the parameter with its current 
@@ -42,10 +42,16 @@ def append_to_calling_string(param, def_value, cur_val, calling_string):
     @param: param: the name of the parameter that will be append to the calling string 
     @param: def_value: the default value for the parameter 
     @param: cur_val: the current value for the parameter
-    @param: calling_string: the calling string in which the parameter and the current value might be appended to 
+    @param: calling_string: the calling string in which the parameter and the current value might be appended to it 
+    @param: is_flag: if the parameter is a control flag, i.e. a boolean switch, it append the parameter to the calling 
+    string without associating a value to it 
     """
+    if is_flag: 
+        if def_value != cur_val:
+            calling_string += ' -'+param
+        return calling_string
     if def_value != cur_val: 
-        calling_string+=" -"+str(param)+" "+str(cur_val)
+        calling_string+=" -"+param+" "+str(cur_val)
     return calling_string
 
 def generate_random_protein_mapping(protein_len: int , max_coverage: int) -> np.ndarray:
