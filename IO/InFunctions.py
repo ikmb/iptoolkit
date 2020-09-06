@@ -30,7 +30,7 @@ def load_identification_table(input_path: str, sep:str) -> pd.DataFrame:
     if table.shape[1]!= 4:
         raise ValueError(f'The provided table does not have the expected number of columns, Expected 4 columns, however, {table.shape} columns were found')
     # set the column names
-    table.column=['peptide','protein','start_index','end_index']
+    table.columns=['peptide','protein','start_index','end_index']
     # return the table 
     return table 
 
