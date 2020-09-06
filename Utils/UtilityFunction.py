@@ -1,0 +1,130 @@
+#!/usr/bin/env Python 
+"""
+@author: Hesham ElAbd
+@brief: utility functions that are used through the library 
+@version: 0.0.1
+@date: 19.08.2020  
+"""
+# load the models 
+from Bio import SeqIO
+from IPTK.Utils.Types import FastaSet
+import numpy as np
+import pandas as pd
+import os
+import matplotlib.pyplot as plt
+import matplotlib 
+import string
+import random
+import pickle 
+
+
+def padd_mapped_proteins(pre_pad:bool =True)->np.ndarray:
+    """
+    @brief pad the provided list of array into a 2D tensor of shape
+    number of arrays by maxlength. 
+    """
+    pass
+
+def generate_random_name(name_length: int)->str:
+    """
+    @brief generate a random ASCII based string
+    @param name_length the number of charachter in the name 
+    """
+    chars=[char for char in string.ascii_uppercase] # get ASCII upper chars 
+    chars.extend([str(elem) for elem in list(range(10))]) # extend the vocab 
+    return ''.join([random.choice(chars) for _ in range(name_length)]) # generate the name 
+
+def append_to_calling_string(param, def_value, cur_val, calling_string):
+    """
+    @brief: a help function that take a calling string, a parameter, a default value and current value 
+    if the parameter does not equal its default value the function append the parameter with its current 
+    value to the calling string adding a space before the calling_string 
+    @param: param: the name of the parameter that will be append to the calling string 
+    @param: def_value: the default value for the parameter 
+    @param: cur_val: the current value for the parameter
+    @param: calling_string: the calling string in which the parameter and the current value might be appended to 
+    """
+    if def_value != cur_val: 
+        calling_string+=" -"+str(param)+" "+str(cur_val)
+    return calling_string
+
+def generate_random_protein_mapping(protein_len: int , max_coverage: int) -> np.ndarray:
+    """
+    @brief: generate a numpy array with shape of 1 by protein_len where the elements in the array 
+    is a random integer between zero &  max_coverage 
+    @param: protein_len: the protein length 
+    @param: max_coverage: the maximum coverage at each position in the amino acid position  
+    """
+    return np.random.randint(low=0, high= max_coverage, size=(protein_len,))
+
+def generate_color_scale(color_ranges: int )-> matplotlib.colors.LinearSegmentedColormap: 
+    """
+    @brief: generate a color gradient with number of steps equal to color_ranges -1 
+    @param: color_ranges: the number of colors in the range, 
+    """
+    return plt.cm.get_cmap('hsv',color_ranges)
+
+def simulate_protein_representation(num_conditions, protein_len, protein_coverage):
+    """
+    @brief: simulate protein peptide coverage under-different conditions
+    @param: num_conditions: The number of condition to simulate 
+    @param: protein_len: The length of the protein  
+    @param: protein_coverage: The maximum protein coverage 
+    """
+    sim_res=dict()
+    color_gradient=generate_color_scale(num_conditions)
+    for idx in range(num_conditions): 
+        sim_res['COND_'+str(idx)]={'name': 'COND_'+str(idx),
+                                   'mapped_protein':generate_random_protein_mapping(protein_len,protein_coverage),
+                                   'color':color_gradient(idx)
+                                   }
+    return sim_res
+
+def simulate_protein_binary_represention(num_conditions: int, protein_length: int): 
+    """
+    @brief: Return a 2D matrix of shape protein_length by number of conditions, where each element can be either 
+    zero.
+    @num_conditions: The number of conditions to simulate 
+    @protein_length: The Length of the protein  
+    """
+    return np.random.randint(low=0, high=2, size=(protein_length,num_conditions)).astype(np.float64)
+ 
+def save_3d_figure(outpath: str, fig2save: plt.Figure) ->None:
+    """
+    @brief: write a picklized version of the a 3D figure so it can be loaded later for more interactive analysis
+    @param: outpath: The output path of the writer function 
+    @param: fig2save: The figure to save to the output file
+    """    
+    try: 
+        with open(outpath,'wb') as writer_buf:
+            pickle.dump(fig2save,writer_buf)
+    except Exception as exp:
+        raise IOError(f'While writing the figure to the provided path the following error was encountered: {exp}')
+
+def load_3d_figure(file_path: str) ->plt.Figure: 
+    """
+    @brief: load a picklized 3D figure from thr provided path 
+    @param: file_path: the path of the pickilized figure. 
+    """    
+    try:
+        with open(file_path, 'rb') as reader_buf:
+            fig=pickle.load(reader_buf)
+        return fig 
+    except Exception as exp: 
+        raise IOError(f'While loading your figure, the following error was encountered: {exp}')   
+
+def build_sequence_table(sequence_dict:dict)->pd.DataFrame:
+    """
+    @brief construct a sequecnes database from sequecnes dict object  
+    """
+    return pd.DataFrame(sequence_dict)
+
+def get_idx_peptide_in_sequence_table(sequence_table:pd.DataFrame, peptide:str):
+    """
+    @brief check the sequences table if the provided peptide is locate in one of its sequences and returns 
+    a list of protein identifiers containing the identifier of the hit proteins. 
+    """
+    if sequence_table.columns != ['Sequences']: 
+        sequence_table.columns=['Sequences']
+    return sequence_table.loc[sequence_table['Sequences'].str.contains(peptide)].index.tolist()
+
