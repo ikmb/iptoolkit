@@ -31,6 +31,7 @@ These Tutorial can be found at the Tutorial directory</p>
 
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
+
 ![IKMB_LOGO](/Media/RTG1743.png)
 
 
