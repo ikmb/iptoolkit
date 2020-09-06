@@ -83,13 +83,13 @@ def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
     # return the results 
     return ident_table
      
-def parse_xml_based_format_to_identification_table(path2PepXML: str, path2fastaDB: str,
+def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fastaDB: str,
     decoy_prefix: str ='DECOY', is_idXML: bool = False, 
     fasta_reader_param: Dict[str,str]={'filter_decoy':True, 'decoy_string':'DECOY' }, 
     remove_if_not_matched: bool = True)->pd.DataFrame:
     """
     @brief: parse either a pepXML or an idXML file to generate an identification table , 
-    @param: path2PepXML: The path to the input pepXML files
+    @param: path2XML_file: The path to the input pepXML files
     @param: path2fastaDB: The path to a fasta sequence database to obtain the protein sequences
     @param: decoy_prefix: the prefix of the decoy sequences, default is DECOY
     @param: is_idXML: Whether or not the provided file is an idXML, default is false which assume the provided file is a pepXML file 
@@ -103,14 +103,14 @@ def parse_xml_based_format_to_identification_table(path2PepXML: str, path2fastaD
     except Exception as exp:
         raise IOError(f'While parsing your input fasta file: {path2fastaDB}, the following error was encountered: {exp}')
     # parse that the file exists:  
-    if not os.path.exists(path2PepXML):
-        raise ValueError(f'The provided path: {path2PepXML} does not exist!')
+    if not os.path.exists(path2XML_file):
+        raise ValueError(f'The provided path: {path2XML_file} does not exist!')
     # allocate a list to hold peptide and protein list 
     peptides: List[str] = []
     protein_acc: List[str] = []
     #  parse the XML file 
     if is_idXML: 
-        with idxml.IDXML(path2PepXML) as reader:
+        with idxml.IDXML(path2XML_file) as reader:
             for elem in reader:
                 for hit in elem['PeptideHit']:
                     for prot in hit['protein']: 
@@ -118,7 +118,7 @@ def parse_xml_based_format_to_identification_table(path2PepXML: str, path2fastaD
                             peptides.append(hit['sequence'])
                             protein_acc.append(prot['accession'].split('|')[1])
     else: 
-        with pepxml.read(path2PepXML) as reader: 
+        with pepxml.read(path2XML_file) as reader: 
             for elem in reader:
                 for hit in elem['search_hit']:
                     for protein in hit['proteins']: 
