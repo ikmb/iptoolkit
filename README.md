@@ -22,13 +22,14 @@ These Tutorial can be found at the Tutorial directory</p>
 ```
  pip install  TBD
  ```
+
  or through conda at 
  ```
  conda install -c bioconda TBD
  ```
 
 ### Funding ###
-<p> The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) </p>
+The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
 ![IKMB_LOGO](/Media/RTG1743.png)
 
 
