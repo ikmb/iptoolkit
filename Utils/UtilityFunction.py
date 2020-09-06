@@ -3,7 +3,6 @@
 @author: Hesham ElAbd
 @brief: utility functions that are used through the library 
 @version: 0.0.1
-@date: 19.08.2020  
 """
 # load the models 
 from Bio import SeqIO
@@ -16,14 +15,46 @@ import matplotlib
 import string
 import random
 import pickle 
-from typing import List 
+import urllib
+from typing import List, Dict
 # define the functions 
-def padd_mapped_proteins(pre_pad:bool =True)->np.ndarray:
+def pad_mapped_proteins(list_array: List[np.ndarray],
+                pre_pad:bool =True, padding_char: int =-1)->np.ndarray:
     """
     @brief pad the provided list of array into a 2D tensor of shape
     number of arrays by maxlength. 
+    @param: list_array: a list of numpy arrays where each array is a mapped_protein array, 
+    the expected shape of these arrays is 1 by protein length.
+    @param: pre_pad: pre or post padding of shorter array in the library.Default is pre-padding.
+    @param: padding_char: The padding char, Default is -1. 
     """
-    pass
+    # reshape the resulting arrays
+    for idx in range(len(list_array)):
+        list_array[idx].reshape(1,-1) # reshape te array into shape 1* number of elements 
+    # getting the max 
+    max_len: int =max([elem.shape[1] for elem in list_array])
+    # compute the padding distance 
+    paddling_lens: List[int]=[max_len-elem.shape[1] for elem in list_array]
+    # making arrays to hold padding_arrays
+    padding_arrays: List[np.ndarray]= []
+    # generate the padding distance 
+    for idx in range(len(list_array)):
+        padding_arrays.append(np.array([padding_char]*paddling_lens[idx]).reshape(1,-1))
+    # allocate a list to hold the results 
+    resulting_arrays: List[np.ndarray] = []
+    # fuse the arrays 
+    for idx in range(len(list_array)):
+        if pre_pad:
+            resulting_arrays.append(
+                np.concatenate([padding_arrays[idx], list_array[idx]],axis=1)
+            )
+        else: 
+            resulting_arrays.append(
+                np.concatenate([list_array[idx], padding_arrays[idx] ],axis=1)
+            )
+    # concat the results array 
+    results_array: np.ndarray = np.concatenate(resulting_arrays,axis=0)
+    return results_array
 
 def generate_random_name(name_length: int)->str:
     """
@@ -134,3 +165,39 @@ def get_idx_peptide_in_sequence_table(sequence_table:pd.DataFrame, peptide:str):
         sequence_table.columns=['Sequences']
     return sequence_table.loc[sequence_table['Sequences'].str.contains(peptide)].index.tolist()
 
+def map_from_uniprot_pdb(unitpots: List[str])-> pd.DataFrame:
+    """
+    @brief: map from uniprot id to protein data bank identifiers
+    @param: uniprot_id: a list of uniprot IDs 
+    """
+    url: str ='https://www.uniprot.org/uploadlists/'
+    # define the query parameters 
+    q_params: Dict[str, str]={
+        'from': 'ACC+ID', 
+        'to': 'PDB_ID',
+        'format': 'tab',
+        'query': ' '.join(unitpots)
+    }
+    data: bytes =urllib.parse.urlencode(q_params).encode('utf-8')
+    request: urllib.request.Request = urllib.request.Request(url,data)
+    # read the request
+    with urllib.request.urlopen(request) as input_file: 
+        results: str =input_file.read().decode('utf-8')
+    # parse the resulting strings 
+    mapped_pairs: List[str] = results.split('\n')
+    # allocate to lists to hold the results 
+    unitpot_ids: List[str] = []
+    pdb_ids: List[str] = []
+    # parse the results 
+    for pair in mapped_pairs:
+        temp_lists: List[str] = pair.split('\t')
+        if len(temp_lists) ==2:
+            unitpot_ids.append(temp_lists[0])
+            pdb_ids.append(temp_lists[1])
+    # combine the data into a dataframe 
+    results: pd.DataFrame = pd.DataFrame({
+        'Uniprot-ID':unitpot_ids,
+        'PDB':pdb_ids
+    })
+    # return the results 
+    return results

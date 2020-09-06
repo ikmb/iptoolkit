@@ -1,18 +1,19 @@
 #!/usr/bin/env Python 
 """
 @author: Hesham ElAbd
-@brief: CPU impelementation of the analysis functions
+@brief: CPU implementation of the analysis functions
 @version: 0.0.1
-@date: 19.08.2020  
 """
 # load the modules: 
 import numpy as np 
 import pandas as pd 
 import subprocess as sp 
-from typing import List, Callable
+import os
+from Bio.PDB import PDBList
+from Bio.motifs.meme import Motif 
+from typing import List, Callable, Dict 
 from IPTK.IO import MEMEInterface as memeIF
 from IPTK.IO import OutFunctions as out_func
-from Bio.PDB import PDBList
 from IPTK.DataStructure.Experiment import Experiment
 # define some types 
 Peptides=List[str]
@@ -27,14 +28,14 @@ def get_binnary_peptide_overlap(exp1:Experiment, exp2:Experiment)->Peptides:
     """ 
     peptide_one=exp1.get_peptides()
     peptide_two=exp2.get_peptides()
-    return peptide_one.intersection(peptide_two)
+    return list(peptide_one.intersection(peptide_two))
      
 def get_binnary_protein_overlap(exp1:Experiment, exp2:Experiment)->Proteins:
     """
     @brief: compare the protein overlap between two experimental objects
     @param: exp1: an instance of class Experiment
     @param: exp2: an instance of class Experiment
-    @return: a list of peptides that have been identified in both experiment   
+    @return: a list of proteins that have been identified in both experiment   
     """ 
     protein_one=exp1.get_proteins()
     protein_two=exp2.get_proteins()
@@ -59,43 +60,39 @@ def compute_binary_distance(peptides: List[str],dist_func:Callable)->np.ndarray:
     # return the results 
     return distance_matrix
 
-def get_sequence_motif(method_params,peptides:Peptides, method:str='meme', keep_temp:bool=False,
+def get_sequence_motif(peptides:Peptides, keep_temp:bool=False, 
                        temp_dir: str ="./TEMP_DIR", verbose: bool = False, 
-                       ):
+                       meme_params:Dict[str,str]={}
+                       )->List[Motif]:
     """
-    @brief: compute the sequences motif from a collection of peptide sequences.
-    @details: The function use the subprocess module to make a system call to the function 
-    specified using the @param: method. and call the function @@xx@@ defined in @@yy@@ to parse the method
-    output to a specific parameters.  
+    @brief: compute the sequences motif from a collection of peptide sequences using meme software.
     @param: peptides: a list of string containing the peptide sequences 
-    @param: method: the method to call to compute the motif, can be any of MEME,
-    NNAlgin, mhc x , case insenstive.   
     @param: keep_temp: whether or not to keep the temp file written to the temp_directory, default is False. 
-    @param: temp_dir: the temp directory to write temp-directory to it
-    @param: verbose: whether or not to print the output of the motif discovery to the screen.  
-    @param: method_params: a dict object that contain method specific parameters 
+    @param: temp_dir: the temp directory to write temp-files to it
+    @param: verbose: whether or not to print the output of the motif discovery tool to the stdout.  
+    @param: meme_params: a dict object that contain meme controlling parameters.
+    @see: IPTK.IO.MEMEInterface for more details 
     """
-    if method=='meme':
-        # check the meme is installed 
-        if not memeIF.is_meme_callable():
-            raise FileNotFoundError(memeIF.MEME_IS_NOT_INSTALLED_ERROR)
-        # check the temp directory exists
-        try:
-            os.mkdir(temp_dir)
-        except FileExistsError: 
-            pass 
-        # write the sequences 
-        outfile_seq_file=os.join.path(temp_dir,'TEMP_FASTA_SEQ.fasta')
-        out_func.write_auto_named_peptide_to_fasta(peptides,outfile_seq_file)
-        # call meme to compute the motif(s)
-        meme_results_dir=os.path.join(temp_dir,'TEMP_MEME_RES')
-        memeIF.call_meme(outfile_seq_file,
-                        output_dir=os.path.join(temp_dir,'TEMP_MEME_RES'), 
-                        verbose=verbose, **method_params)
-        # parse the results 
-        motifs=memeIF.parse_meme_results(meme_results_dir)
-        return motfis 
-    pass
+    # check the meme is installed 
+    if not memeIF.is_meme_callable():
+        raise FileNotFoundError(f"meme is either not installed or not part of the PATH ==> {os.environ['PATH']}")
+    # check the temp directory
+    try:
+        os.mkdir(temp_dir)
+    except FileExistsError: 
+        pass 
+    # write the sequences 
+    outfile_seq_file=os.path.join(temp_dir,'TEMP_FASTA_SEQ.fasta')
+    out_func.write_auto_named_peptide_to_fasta(peptides,outfile_seq_file)
+    # call meme to compute the motif(s)
+    meme_results_dir=os.path.join(temp_dir,'TEMP_MEME_RES')
+    memeIF.call_meme(outfile_seq_file,
+                output_dir=os.path.join(temp_dir,'TEMP_MEME_RES'), 
+                verbose=verbose, **meme_params)
+    # parse the results 
+    motifs=memeIF.parse_meme_results(meme_results_dir)
+    return motifs 
+    
 
 def download_structure_file(pdb_id:str)->None:
     """
@@ -105,5 +102,3 @@ def download_structure_file(pdb_id:str)->None:
     pdb_list=PDBList()
     pdb_list.retrieve_pdb_file(pdb_id)
     return 
-
-

@@ -123,3 +123,19 @@ def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->List[str
         )
     # return the results 
     return results
+
+def simulate_mapped_array_list(min_len: int = 20, max_len: int = 100, num_elem: int = 100)->List[np.ndarray]:
+    """
+    @brief: simulate a list of mapped arrays proteins to be used for developing purposes 
+    @param: min_len: the minmum length of the protein 
+    @param: max_len: the maximum length for the protein 
+    @param: num_elem: the number of arrays in the protein 
+    """
+    # allocate a list to hold the results 
+    results: List[np.ndarray] = []
+    # fill the list with arrays: 
+    for _ in range(num_elem):
+        array_length: int = np.random.randint(low=min_len,high=max_len)
+        results.append(np.random.randint(low=0,high=2,size=(1,array_length)))
+    # return the results 
+    return results
