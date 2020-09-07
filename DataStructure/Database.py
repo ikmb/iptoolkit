@@ -80,7 +80,7 @@ class CellularLocationDB:
 	@see: https://www.proteinatlas.org/about/download
 	"""
 	def __init__(self, 
-				path2data: str = '../resources/subcellular_location.tsv',
+				path2data: str ,
 				sep: str = '\t')->CellularLocationDB:
 		"""
 		@param: path2data: the path to the subcellular locations 
@@ -225,20 +225,18 @@ class CellularLocationDB:
 			self._table=pd.concat([self._table, genes_to_add.get_table()],axis=1)
 		except Exception as exp: 
 			raise RuntimeError(f'While combing the database, the following error was encountered: {exp}')
+	# define some magic functions 
+	def __len__(self)->int:
+		"""
+		@brief: return the number of unique genes in the current instance
+		"""
+		return len(set(self._table.shape[0]))
+		
+	def __str__(self)->str: 
+		return f' A sub-cellular localization database covering {len(self)} genes'
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	def __repr__(self)->str: 
+		return str(self)
 
 
 class GeneExpressionDB: 
@@ -246,7 +244,7 @@ class GeneExpressionDB:
 	@brief: provides an API to access gene expression data stored in RNA consensus tissue gene data from Human proteome Atlas 
 	@see: https://www.proteinatlas.org/about/download for more details 
 	"""
-	def __init__(self, path2data: str = '../resources/rna_tissue_consensus.tsv', 
+	def __init__(self, path2data: str, 
 					sep: str = '\t')->GeneExpressionDB: 
 		"""
 		@param: path2data: the path to the subcellular locations 

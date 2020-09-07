@@ -10,7 +10,6 @@ import pandas as pd
 import numpy as np 
 from typing import Union, List, Dict 
 from IPTK.DataStructure.Database import CellularLocationDB, GeneExpressionDB
-
 # define the tissue class 
 class ExpressionProfile: 
 	"""
@@ -50,7 +49,7 @@ class ExpressionProfile:
 			self._exp_map=pd.concat([self._exp_map,aux_proteins],axis=0)
 		return
 
-	def get_get_id_expression(self,gene_id: str)-> float: 
+	def get_gene_id_expression(self,gene_id: str)-> float: 
 		"""
 		@brief: return the expression value of the provided gene id.
 		@param: gene_id: the gene id to retrive its expression value from the database
@@ -73,7 +72,13 @@ class ExpressionProfile:
 		@brief: get the name of the tissue 
 		"""
 		return self._name
-	
+
+	def __len__(self)->int: 
+		"""
+		@brief: return the number of unique genes in the profile 
+		"""
+		return len(set(self._exp_map.shape[0]))
+
 	def __str__(self)->str:
 		"""
 		@brief: compute a string representation for the class instance 
@@ -85,6 +90,7 @@ class ExpressionProfile:
 		@brief: a string representation for the class 
 		"""
 		return str(self)
+
 ## define the second class, annotated tissue 
 class Tissue:
 	def __init__(self, name: str, main_exp_value: GeneExpressionDB, 
@@ -127,5 +133,9 @@ class Tissue:
 		"""
 		return self._cell_loc
 	
-
+	def __str__(self)->str:
+		"""
+		@brief: return a string representation for the current instance
+		"""
+		return f'{self._exp_prof.get_name()} with an associated expression profile covering: {len(self._exp_prof)} genes and a sub-cellular location covering: {len(self._cell_loc)} genes '
 		
