@@ -25,14 +25,13 @@ class Experiment:
 	@brief A representation of an immunopeptidomic experiment. 
 	"""
 	def __init__(self, proband:Proband, hla_set:HLASet, tissue:Tissue,  database:SeqDB,
-				ident_table:pd.DataFrame, sep: str ='/t')->Experiment: 
+				ident_table:pd.DataFrame)->Experiment: 
 		"""
 		@brief: Construct an experiment instance. 
 		@param: Proband_name:a proband instance that contain the proband, name& other  meta-data . 
 		@param: Tissue: an instance of type tissue that store expression values for the corresponding tissue, @see tissue for more details
 		@param: database: database to exact the sequence of the identified proteins. 
 		@param: ident_table: The identification table @see IO.InFunctions for more details. 
-		@param: sep: The separator to parse the provided table. 
 		@see: IPTK.IO.InFunctions.load_identification_table for more details. 
 		"""
 		# check the type of the inputs 
@@ -76,6 +75,13 @@ class Experiment:
 				Protein(ident_table.iloc[idx,1], self._database.get_seq(ident_table.iloc[idx,1])), 
 				ident_table.iloc[idx,2],ident_table.iloc[idx,3])
 		# the instance sequence has been filled 
+	
+	def get_peptides_length(self)->List[int]: 
+		"""
+		@brief: return a list containing the length of each unique peptide in the database 
+		"""
+		return [len(pep) for pep in self.get_peptides()]
+		
 
 	def add_org_info(self, prot2org: ProteinSource)->None:
 		"""
@@ -98,16 +104,17 @@ class Experiment:
 		the flanking regions from all the parents of each peptide.
 		@param: flank_length: the length of the flanking region 
 		""" 
-		results=[]
+		results: List[str]=[]
 		for pep_idx in self._peptides.keys(): 
 			results.extend(self._peptides[pep_idx].get_flanked_peptide(flank_length))
+		return results
 	
 	def get_negative_example(self, fold: int= 2)->Sequences: 
 		"""
 		@brief: generate negative examples, i.e., non-bounding peptides from the proteins identified in the current experiment.  
 		@param: fold: the number of negative example to generate relative to the number of identified peptides. Default is 2 
 		"""
-		results=[]
+		results: List[str]=[]
 		for _ in range(fold): 
 			for pep_idx in self._peptides.keys(): 
 				results.extend(self._peptides[pep_idx].get_non_presented_peptides(len(pep_idx)))
@@ -171,7 +178,7 @@ class Experiment:
 		"""
 		@brief: return a list of peptides that have only one protein
 		"""
-		results=[]
+		results: List[Peptide]=[]
 		for pep in self._peptides.keys():
 			if self._peptides[pep].get_number_of_parents()==1:
 				results.append(self._peptides[pep])
@@ -181,7 +188,7 @@ class Experiment:
 		"""
 		@brief: return a list of peptides that have more than one parent 
 		"""
-		results=[]
+		results: List[Peptide]=[]
 		for pep in self._peptides.keys():
 			if self._peptides[pep].get_number_of_parents()>1:
 				results.append(self._peptides[pep])

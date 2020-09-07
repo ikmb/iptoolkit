@@ -9,14 +9,15 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker 
 import seaborn as sns 
 import logomaker as lgm 
-from Colour import Color 
+from colour import Color 
 from Bio.PDB import MMCIFParser
 import os 
 import nglview as nv 
 from nglview.color import ColormakerRegistry 
 import pandas as pd 
 import numpy as np 
-from IPTK.Types.Types import PlottingKeywards, MappedProteinRepresentation
+from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
+from typing import List, Dict 
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -229,6 +230,83 @@ def imposed_coverage_on_3D_structure(path2mmCIF: str, mapped_protein: np.ndarray
     view.backbone=background_color
     view
     return view  
+
+def visualize_peptide_length_dist(pep_length: List[int],
+                         plotting_kwargs: Dict[str,str]={}, 
+                         x_label: str = 'Peptide Length',
+                         y_label: str = 'Frequency',
+                         title: str = 'Peptide Length distribution'):
+    """
+    @brief: visualize a histogram of the eluted peptide length 
+    @param: pep_length: a list of integer containing the peptides' lengths
+    @param: plotting_kwargs: a dict object containing parameters for the function
+    seaborn::distplot
+    @param: x_label: the label of the x-axis 
+    @param: y_label: the label of the y-axis 
+    @param: title: the title of the figure
+    """
+    fig=sns.distplot(pep_length,**plotting_kwargs)  
+    fig.set_xlabel(x_label)
+    fig.set_ylabel(y_label)
+    fig.set_title(title)
+    return fig
+
+def visualize_num_peptide_per_parent(nums_table: pd.DataFrame,
+                        num_prot: int = -1, 
+                        plotting_kwargs: Dict[str,str]={}, 
+                        x_label: str = 'Number of peptides',
+                        y_label: str = 'Protein ID',
+                        title: str = 'Number of peptides per protein'):
+    """
+    @brief: visualize a histogram of the eluted peptide length.  
+    @param: nums_table: a pandas dataframe containing number of peptides identified from each protein. 
+    @param: num_prot, the number of protein to show relative to the first element, for example, the first 10, 20 etc.
+    If the default value of -1 is used then all protein will be plotted, however, this might lead to a crowded figure.
+    @param: plotting_kwargs: a dict object containing parameters for the function
+    seaborn::barplot
+    @param: x_label: the label of the x-axis 
+    @param: y_label: the label of the y-axis 
+    @param: title: the title of the figure
+    """ 
+    # check the number of proteins to plot 
+    if num_prot !=-1: 
+        if num_prot > nums_table.shape[0]: 
+            raise ValueError(f'The provided protein number of proteins to plot: {num_prot} is bigger than the number of proteins in the provided table: {nums_table.shape[0]}')
+        nums_table=nums_table.iloc[:num_prot,]
+    # plot the results 
+    ax=sns.barplot(x='Number_of_Peptides', y='Proteins', data=nums_table, **plotting_kwargs)
+    ax.set_xlabel('Number of peptides')
+    ax.set_ylabel('Protein ID')
+    ax.set_title(title)
+    return ax
+
+
+def plot_gene_expression_vs_num_peptides():
+    """
+    @brief: plot the correlation between the gene expression and the num of peptids 
+    """
+    pass
+
+def plot_locations_vs_num_peptides():
+    """
+    @brief: plot the correlation between the sub-cellular location and the number of observed peptides 
+    """
+    pass 
+
+def plot_num_parent_per_peptide():
+    """
+    @brief: plot the number of peptids of parent protein
+    """
+    pass 
+
+def plot_correlation_in_motife():
+    """
+    @brief: plot the correlation in motif
+    """
+    pass 
+
+
+
 
 def plot_cleavage_around_peptide(flank_region, Peptide)->None:
     """

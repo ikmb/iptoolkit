@@ -91,7 +91,6 @@ class ExpressionProfile:
 		"""
 		return str(self)
 
-## define the second class, annotated tissue 
 class Tissue:
 	def __init__(self, name: str, main_exp_value: GeneExpressionDB, 
 	main_location: CellularLocationDB, aux_exp_value: GeneExpressionDB = None,
@@ -126,6 +125,12 @@ class Tissue:
 		@brief: provide the expresion profile of the current tissue 
 		"""
 		return self._exp_prof
+	
+	def get_name(self)->str:
+		"""
+		@brief: return the name of the tissue 
+		"""
+		return self._exp_prof.get_name()
 
 	def get_subCellular_locations(self) ->CellularLocationDB:
 		"""
