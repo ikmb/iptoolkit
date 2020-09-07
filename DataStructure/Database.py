@@ -2,7 +2,6 @@
 """
 @author: Hesham ElAbd
 @brief: a sequence database class handler
-@date: 12.08.2020 
 @version: 0.0.1
 """
 # load the modules: 
@@ -76,7 +75,8 @@ class SeqDB:
 
 class CellularLocationDB:
 	"""
-	@brief: The class provide an API to access the human Proteome Atlas Database 
+	@brief: The class provide an API to access the human Proteome Atlas Database covering 
+	the sub-cellular location of the proteins.  
 	@see: https://www.proteinatlas.org/about/download
 	"""
 	def __init__(self, 
@@ -200,8 +200,47 @@ class CellularLocationDB:
 		# split the locations 
 		locations: List[str] =  go_ids.split(';')
 		# return the resuts 
-		return locations 
-	
+		return locations
+
+	def get_table(self) -> pd.DataFrame:
+		"""
+		@brief: return the instance table 
+		"""
+		return self._table
+
+	def add_to_database(self,genes_to_add: CellularLocationDB )->None:
+		"""
+		@brief: add the the location of more proteins to the database. 
+		@param: genes_to_add: a CellularLocationDB instance containing the genes that shall be added to 
+		the database.   
+		"""
+		# check that the genes in provided database do not exist in the current instance.
+		genes: List[str] = genes_to_add.get_genes()
+
+		for gene in genes: 
+			if gene in self.get_genes():
+				raise ValueError(f'The provided gene: {gene} is already defined in current instance table')
+		# add the genes to the database, concat the databases  
+		try: 
+			self._table=pd.concat([self._table, genes_to_add.get_table()],axis=1)
+		except Exception as exp: 
+			raise RuntimeError(f'While combing the database, the following error was encountered: {exp}')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 class GeneExpressionDB: 
 	"""
 	@brief: provides an API to access gene expression data stored in RNA consensus tissue gene data from Human proteome Atlas 
@@ -273,11 +312,32 @@ class GeneExpressionDB:
 			raise KeyError(f"The provided tissue: {tissue_name} is not support, currently supported tissue are:  {','.join(self.get_tissues())} ")
 		# return the table 
 		try: 
-			return self._table.loc[self._table.iloc[:,2]==tissue_name]
+			table: pd.DataFrame = self._table.loc[self._table.iloc[:,2]==tissue_name]
+			res: pd.DataFrame = table[['Gene','Gene name','NX']]
+			return res
 		except Exception as exp:
 			raise RuntimeError(f'While loading the database the following error was encountered: {exp}')
+	
+	def get_table(self)->pd.DataFrame:
+		"""
+		@brief: return a table containing the expression value of all the genes in the database
+		"""
+		return self._table[['Gene', 'Gene name', 'NX']]
 
-
+	def __len__(self)->int: 
+		"""
+		@brief: return the number of tissues in the database
+		"""
+		return len(self.get_tissues())
+	
+	def __str__(self)-> str:
+		"""
+		@brief: a string representation of the class
+		"""
+		return f'an expression database covering: {len(self.get_genes())} genes accross {len(self)} tissues'
+	
+	def __repr__(self) ->str: 
+		return str(self)
 
 
 	

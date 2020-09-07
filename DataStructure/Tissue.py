@@ -8,17 +8,22 @@
 from __future__ import annotations
 import pandas as pd
 import numpy as np 
+from typing import Union, List, Dict 
+from IPTK.DataStructure.Database import CellularLocationDB, GeneExpressionDB
+
 # define the tissue class 
-class Tissue: 
+class ExpressionProfile: 
 	"""
 	@brief: a representation of tissue reference expression value. 
 	"""
-	def __init__(self, name: str, expression_table: pd.DataFrame, aux_proteins: pd.DataFrame = None)->Tissue: 
+	def __init__(self, name: str,
+	 	expression_table: pd.DataFrame, 
+		aux_proteins: pd.DataFrame = None)->ExpressionProfile: 
 		"""
-		@brief: Initialize a tissue reference expression values. 
+		@brief: create an expression profile instance from an expression table. 
 		@param: name: the name of the tissue 
 		@param: expression_table: a pandas dataframe with the following three columns 
-				Transcript name, protein name, expression value in TPM  
+				gene id, gene name, and the expression value.   
 		@param: aux_proteins: A table that contain the expression table of auxillary proteins that does not belong to the tissue per sa,
 		for example, pathogen-derived genes.
 		"""
@@ -32,35 +37,36 @@ class Tissue:
 		
 		if expression_table.shape[1] != 3:  
 			raise ValueError(f"The provided expression table must have three columns, however, your table have: {expression_table.shape[1]}")
+		
 		self._exp_map=expression_table
 		# set the columns name 
-		self._exp_map.columns=['Transcript_name', 'Protein_name','Expression_value']
+		self._exp_map.columns=['gene', 'gene_name','exp_value']
 		# parse the auxillary table 
 		if aux_proteins is not None:
 			if aux_proteins.shape[1]!=3:
 				raise ValueError(f'The provided auxillary proteins table must have three columns, however, your table have: {aux_proteins.shape[1]}')
-			aux_proteins.columns=['Transcript_name', 'Protein_name','Expression_value']
+			aux_proteins.columns=['gene', 'gene_name','exp_value']
 			# concatenate the results 
 			self._exp_map=pd.concat([self._exp_map,aux_proteins],axis=0)
 		return
 
-	def get_transcript_expression(self,transcript_id: str)-> float: 
+	def get_get_id_expression(self,gene_id: str)-> float: 
 		"""
-		@brief: return the expression value of the provided transcript 
-		@param: transcript_id: the transcript id to retrive its expression value from the database
+		@brief: return the expression value of the provided gene id.
+		@param: gene_id: the gene id to retrive its expression value from the database
 		"""
-		if transcript_id not in self._exp_map.iloc[:,0].tolist(): 
-			raise KeyError(f"The provided transcript id is not defined in the database: {transcript_id}")
-		return self._exp_map.loc[self._exp_map.iloc[:,0]==transcript_id,:].iloc[0,2]
+		if gene_id not in self._exp_map.iloc[:,0].tolist(): 
+			raise KeyError(f"The provided gene id: {gene_id} is not defined in the database")
+		return self._exp_map.loc[self._exp_map.iloc[:,0]==gene_id,:].iloc[0,2]
 	
-	def get_protein_expression(self,protein_id: str)-> float: 
+	def get_gene_name_expression(self,gene_name: str)-> float: 
 		"""
-		@brief: return the expression value of the provided protein id 
-		@param: protein_id: the protein id to retrive its expression value from the database
+		@brief: return the expression value of the provided gene name. 
+		@param: gene_name: the gene name to retrive its expression value from the database.
 		"""
-		if protein_id not in self._exp_map.iloc[:,1].tolist(): 
-			raise KeyError(f"The provided protein id is not defined in the database: {protein_id}")
-		return self._exp_map.loc[self._exp_map.iloc[:,1]==protein_id,:].iloc[0,2]
+		if gene_name not in self._exp_map.iloc[:,1].tolist(): 
+			raise KeyError(f"The provided gene name: {gene_name} is not defined in the database.")
+		return self._exp_map.loc[self._exp_map.iloc[:,1]==gene_name,:].iloc[0,2]
 	
 	def get_name(self)->str:
 		"""
@@ -72,12 +78,54 @@ class Tissue:
 		"""
 		@brief: compute a string representation for the class instance 
 		"""
-		return f'{self._name} with {self._exp_map.shape[0]} transcript expression value'
+		return f'{self._name} with an expression profile covering {self._exp_map.shape[0]} genes.'
 	
 	def __repr__(self)->str:
 		"""
-		@brief: a representation for the class 
+		@brief: a string representation for the class 
 		"""
 		return str(self)
+## define the second class, annotated tissue 
+class Tissue:
+	def __init__(self, name: str, main_exp_value: GeneExpressionDB, 
+	main_location: CellularLocationDB, aux_exp_value: GeneExpressionDB = None,
+	aux_location: CellularLocationDB = None) -> Tissue:
+		"""
+	  	@brief: the initializer of the AnnotatedTissue class 
+	  	@param: name: the name of the tissue 
+	  	@param: main_exp_value: a GeneExpressionDB instace contain the gene expression accross different tissues 
+	  	@param: main_location: a CellularLocationDB instance that contain the sub cellular locations for the proteins expressed in the tissue.  
+	  	@param: aux_exp_value: a GeneExpressionDB instance that contain the expression table of auxillary proteins that does not belong to the tissue per sa,
+	  	for example, pathogen-derived genes or extra-cellular matrix.
+	  	@param: aux_location:  CellularLocationDB instance that contain the sub cellular locations for proteins that does not belong to the tissue of interest per sa
+	  	for example, pathogen-derived proteins or media-added proteins. 
+	  	"""
+		if name not in main_exp_value.get_tissues():
+			raise KeyError(f'The provided tissue name: {name} is not in the provided main expression database')
+		# add the expression profile 
+		if aux_exp_value is not None: 
+			self._exp_prof: ExpressionProfile = ExpressionProfile(name=name,
+			expression_table=main_exp_value.get_expression_in_tissue(name),
+			aux_proteins=aux_exp_value.get_table())
+		else: 
+			self._exp_prof: ExpressionProfile = ExpressionProfile(
+				name=name, expression_table=main_exp_value.get_expression_in_tissue(name))	
+		# add the cellular location profile:  
+		self._cell_loc = main_location
+		if aux_location is not None:
+			self._cell_loc.add_to_database(aux_location)
+	
+	def get_expression_profile(self)->ExpressionProfile: 
+		"""
+		@brief: provide the expresion profile of the current tissue 
+		"""
+		return self._exp_prof
+
+	def get_subCellular_locations(self) ->CellularLocationDB:
+		"""
+		@brief: provide the sub-cellular localization of the proteins stored in current instance resources. 
+		"""
+		return self._cell_loc
+	
 
 		

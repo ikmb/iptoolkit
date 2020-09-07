@@ -165,39 +165,3 @@ def get_idx_peptide_in_sequence_table(sequence_table:pd.DataFrame, peptide:str):
         sequence_table.columns=['Sequences']
     return sequence_table.loc[sequence_table['Sequences'].str.contains(peptide)].index.tolist()
 
-def map_from_uniprot_pdb(unitpots: List[str])-> pd.DataFrame:
-    """
-    @brief: map from uniprot id to protein data bank identifiers
-    @param: uniprot_id: a list of uniprot IDs 
-    """
-    url: str ='https://www.uniprot.org/uploadlists/'
-    # define the query parameters 
-    q_params: Dict[str, str]={
-        'from': 'ACC+ID', 
-        'to': 'PDB_ID',
-        'format': 'tab',
-        'query': ' '.join(unitpots)
-    }
-    data: bytes =urllib.parse.urlencode(q_params).encode('utf-8')
-    request: urllib.request.Request = urllib.request.Request(url,data)
-    # read the request
-    with urllib.request.urlopen(request) as input_file: 
-        results: str =input_file.read().decode('utf-8')
-    # parse the resulting strings 
-    mapped_pairs: List[str] = results.split('\n')
-    # allocate to lists to hold the results 
-    unitpot_ids: List[str] = []
-    pdb_ids: List[str] = []
-    # parse the results 
-    for pair in mapped_pairs:
-        temp_lists: List[str] = pair.split('\t')
-        if len(temp_lists) ==2:
-            unitpot_ids.append(temp_lists[0])
-            pdb_ids.append(temp_lists[1])
-    # combine the data into a dataframe 
-    results: pd.DataFrame = pd.DataFrame({
-        'Uniprot-ID':unitpot_ids,
-        'PDB':pdb_ids
-    })
-    # return the results 
-    return results
