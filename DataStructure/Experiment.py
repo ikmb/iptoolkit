@@ -164,9 +164,10 @@ class Experiment:
 		# return the results 
 		return protein.get_peptides_map(start_idxs,end_idxs)
 		
-	def get_expression_of_parent_proteins(self)->pd.DataFrame:
+	def get_expression_of_parent_proteins(self, non_mapped_dval: float = -1)->pd.DataFrame:
 		"""
 		@brief: return a table containing the expression of the protein identified in the current experiment in the provided tissue.
+		@param: non_mapped_dval: A default value to be added incase the parent protein is not define in the expression database. Default is -1
 		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
 		"""
 		proteins: List[str] = list(self.get_proteins())
@@ -176,9 +177,14 @@ class Experiment:
 		# allocate a list to hold the expression values 
 		expression: List[float] = []
 		for ensemble_id in ensemble_ids: 
-			expression.append(self._tissue.get_expression_profile().get_gene_id_expression(ensemble_id))
+			try: 
+				expression.append(self._tissue.get_expression_profile().get_gene_id_expression(ensemble_id))
+			except KeyError:
+				expression.append(non_mapped_dval) 
 		# construct the dataframe 
-		results: pd.DataFrame= pd.DataFrame({'proteins':ensemble_ids, 'Expression':expression})
+		print(f'Number of proteins is: {len(proteins)} ')
+		print(f'Number of expression is: {len(expression)} ')
+		results: pd.DataFrame= pd.DataFrame({'proteins':proteins, 'Expression':expression})
 		return results
 	
 	def get_main_sub_cellular_location_of_parent_proteins(self)->pd.DataFrame:

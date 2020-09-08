@@ -9,7 +9,8 @@ from __future__ import annotations
 from Bio import SeqIO 
 import os
 import pandas as pd 
-from typing import List 
+from typing import List, Dict 
+from Bio import SeqIO
 # define the class 
 class SeqDB: 
 	"""
@@ -337,6 +338,78 @@ class GeneExpressionDB:
 	def __repr__(self) ->str: 
 		return str(self)
 
-
+class OrganismDB:
+	"""
+	@brief: extract information about the source organsim of a collection of protein sequences  
+	from a fasta file and provides an API to query the results.  
+	"""
+	def __init__(self,path2Fasta:str)->OrganismDB:
+		"""
+		@param: path2fastaDB: The path to a fasta sequence database to obtain the protein sequences
+		@note: The function expect the input fasta file to have header written in the FASTA format. 
+		"""
+		try: 
+			seq_gene=SeqIO.parse(path2Fasta,'fasta')
+		except Exception as exp: 
+			raise IOError(f'While loading your input database: {path2Fasta}, the following error was encountered: {exp}')
+		# define a dict that hold the map 
+		self._map: Dict[str,str] = dict()
+		# fill the elements in the map 
+		for seq in seq_gene: 
+			temp_name_org: List[str]=seq.id.split('|')
+			self._map[temp_name_org[1]]= temp_name_org[2].split('_')[1]
 	
+	def get_unique_orgs(self)->List[str]:
+		"""
+		@brief: get the number of unique organism in the database. 
+		"""
+		return list(set(self._map.values()))
+	
+	def get_number_protein_per_organism(self)->pd.DataFrame:
+		"""
+		@brief: provides a table containing the number of protein per organism. 
+		"""
+		unique_orgs: List[str] = self.get_unique_orgs()
+		# create a dict counter 
+		counter: Dict[str,int]= dict()
+		# Initialize the counts to 0s 
+		for org in unique_orgs: 
+			counter[org]=0
+		# fill the dict with counts 
+		for key in self._map.keys(): 
+			counter[self._map[key]]+=1
+		# chaning the map from int -> List[int] to fit the dataframe requirements 
+		for key in counter: 
+			counter[key]=[counter[key]]
+		# create the dataframe 
+		res: pd.DataFrame = pd.DataFrame(counter).T 
+		# add the org-names as keys  
+		res['Names'] = res.index.tolist()
+		# return the results 
+		return res 
+	
+	def get_org(self,prot_id:str)->str: 
+		"""
+		@brief: return the parent organism of the provided proteins
+		@param: prot_id: the provided protein id  
+		"""
+		return self._map[prot_id]
+	
+	def __len__(self)->int: 
+		"""
+		@brief: return the number of elements in the database
+		"""
+		return len(self._map)
+	
+	def __str__(self)->str: 
+		"""
+		@brief: return a string representation of the class 
+		"""
+		return str(f'An organism database with: {len(self)} entry.')
+
+	def __repr__(self)->str: 
+		return str(self)
+
+		
+
 	

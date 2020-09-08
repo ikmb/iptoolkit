@@ -282,6 +282,31 @@ def visualize_num_peptides_per_parent(nums_table: pd.DataFrame,
     ax.set_title(title)
     return fig
 
+def visualize_parent_protein_expression_in_tissue(expression_table: pd.DataFrame, 
+    tissue_name: str, plotting_kwargs: Dict[str,str]={}, def_value: float = -1,
+    ylabel: str = 'Normalized Expression', title: str = 'Parent proteins gene expression') -> plt.Figure:
+    """
+    @brief: plot the parent protein expression in tissue 
+    @param: expression_table: The protein expression table which contains the expresion value for each parent protein
+    @param: tissue_name: The name of the tissue 
+    @param: def_value: The default value for proteins that could not be mapped to the expression database 
+    @param: plotting_kwargs: a dict object containing parameters for the sns.violinplot function.
+    @param: ylabel: the label on the y-axis. 
+    @param: title: the title of the figure.
+    """
+    # First filter the DB for the non-mapped 
+    df=expression_table.loc[expression_table.iloc[:,1]!=def_value,]
+    # get the num of un-mapped
+    num_un_mapped: int = expression_table.shape[0]-df.shape[0]
+    # create a figure to plot to it 
+    fig= plt.figure()
+    ax=sns.violinplot(df.iloc[:,0], **plotting_kwargs)
+    # set the axis of the axes, legend, label, etc 
+    ax.set_ylabel(ylabel+'in'+tissue_name)
+    ax.set_xlabel(f'Number of proteins: {expression_table.shape[0]}, Number of proteins without reference expression value: {num_un_mapped}')
+    ax.set_title(title)
+    return fig
+
 
 def plot_gene_expression_vs_num_peptides():
     """
