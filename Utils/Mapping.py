@@ -78,7 +78,7 @@ def map_from_uniprot_gene(uniprots: List[str])->pd.DataFrame:
     # combine the data into a dataframe 
     results: pd.DataFrame = pd.DataFrame({
         'Uniprot-ID':unitpot_ids,
-        'PDB':ensemble_ids
+        'Gene-ID':ensemble_ids
     })
     # return the results 
     return results

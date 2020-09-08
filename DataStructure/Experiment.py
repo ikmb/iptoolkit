@@ -14,8 +14,9 @@ from IPTK.DataStructure.Proband import Proband
 from IPTK.DataStructure.HLASet import HLASet
 from IPTK.DataStructure.Tissue import Tissue
 from IPTK.DataStructure.Database import SeqDB
+from IPTK.Utils.Mapping import map_from_uniprot_gene
 from IPTK.Utils.Types import Sequences, MappedProtein, MappedProteins,ProteinSource
-from typing import List, Dict 
+from typing import List, Dict, Set, Tuple 
 # define the analysis types 
 Peptides=List[Peptide]
 Proteins=List[Protein]
@@ -81,7 +82,7 @@ class Experiment:
 		@brief: return a list containing the length of each unique peptide in the database 
 		"""
 		return [len(pep) for pep in self.get_peptides()]
-		
+
 
 	def add_org_info(self, prot2org: ProteinSource)->None:
 		"""
@@ -163,7 +164,179 @@ class Experiment:
 		# return the results 
 		return protein.get_peptides_map(start_idxs,end_idxs)
 		
-		
+	def get_expression_of_parent_proteins(self)->pd.DataFrame:
+		"""
+		@brief: return a table containing the expression of the protein identified in the current experiment in the provided tissue.
+		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
+		"""
+		proteins: List[str] = list(self.get_proteins())
+		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
+		# get a list of ensemble IDs 
+		ensemble_ids: List[str]= map2Ensemble['Gene-ID'].tolist()
+		# allocate a list to hold the expression values 
+		expression: List[float] = []
+		for ensemble_id in ensemble_ids: 
+			expression.append(self._tissue.get_expression_profile().get_gene_id_expression(ensemble_id))
+		# construct the dataframe 
+		results: pd.DataFrame= pd.DataFrame({'proteins':ensemble_ids, 'Expression':expression})
+		return results
+	
+	def get_main_sub_cellular_location_of_parent_proteins(self)->pd.DataFrame:
+		"""
+		@brief: retrun a the main cellular location for the identified proteins 
+		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
+		"""
+		proteins: List[str] = list(self.get_proteins())
+		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
+		# get a list of ensemble IDs 
+		ensemble_ids: List[str]= map2Ensemble['Gene-ID'].tolist()
+		# allocate a list to hold the main location
+		main_location: List[float] = []
+		for ensemble_id in ensemble_ids: 
+			main_location.append(';'.join(self._tissue.get_subCellular_locations().get_main_location(ensemble_id)))
+		# construct the dataframe 
+		results: pd.DataFrame= pd.DataFrame({'proteins':ensemble_ids, 'Main_locations':main_location})
+		return results
+	
+	def get_go_location_id_parent_proteins(self)->pd.DataFrame:
+		"""
+		@brief: retrun a the gene ontology,GO, location terms for the identified proteins. 
+		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
+		"""
+		proteins: List[str] = list(self.get_proteins())
+		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
+		# get a list of ensemble IDs 
+		ensemble_ids: List[str]= map2Ensemble['Gene-ID'].tolist()
+		# allocate a list to hold the main location
+		go_ids: List[float] = []
+		for ensemble_id in ensemble_ids: 
+			go_ids.append(';'.join(self._tissue.get_subCellular_locations().get_go_names(ensemble_id)))
+		# construct the dataframe 
+		results: pd.DataFrame= pd.DataFrame({'proteins':ensemble_ids, 'GO_Terms':go_ids})
+		return results
+
+	def get_num_peptide_expression_table(self)->pd.DataFrame:
+		"""
+		@brief: Get a table that contain the id of all parent proteins, number of peptide per-proteins and the expression value 
+		of these parent transcripts. 
+		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
+		"""
+		# get the number of tables per peptides 
+		num_peptides_per_protein: pd.DataFrame = self.get_peptides_per_protein()
+		expression_level: pd.DataFrame = self.get_expression_of_parent_proteins()
+		# merge the tables 
+		results: pd.DataFrame =pd.merge(num_peptides_per_protein,expression_level)
+		# return the results 
+		return results
+
+	def get_number_of_proteins_per_compartment(self) -> pd.DataFrame: 
+		"""
+		@brief: get number of proteins from each compartment 
+		"""
+		# get the main locations: 
+		parent_protein_locations: pd.DataFrame = self.get_main_sub_cellular_location_of_parent_proteins()
+		# obtain the locations as a list 
+		locations: List[str] = []
+		for loc in parent_protein_locations.iloc[:,1].tolist(): 
+			locations.extend(loc.split(';'))
+		# construct a dictionary to hold the counts 
+		unique_compartments: Set[str] = set(locations)
+		compartment_counts: Dict[str,int] = dict()
+		# initialize the counts 
+		for comp in unique_compartments: 
+			compartment_counts[comp]=0
+		# update the counter 
+		for loc in locations: 
+			compartment_counts[loc]+=1
+		# construct a data frame from the results 
+		res: pd.DataFrame = pd.DataFrame(compartment_counts).T
+		# add the index as an extra-columns 
+		res['Compartment'] = res.index.tolist()
+		return res
+
+	def get_number_of_proteins_per_go_term(self) -> pd.DataFrame: 
+		"""
+		@brief: get the number of proteins per each GO term 
+		"""
+		# get the go-terms
+		parent_protein_go_term : pd.DataFrame = self.get_go_location_id_parent_proteins()
+		# obtain the locations as a list 
+		go_terms: List[str] = []
+		for terms in parent_protein_go_term.iloc[:,1].tolist(): 
+			go_terms.extend(terms.split(';'))
+		# construct a dictionary to hold the counts 
+		unique_terms: Set[str] = set(go_terms)
+		terms_counts: Dict[str,int] = dict()
+		# initialize the counts 
+		for term in unique_terms: 
+			terms_counts[term]=0
+		# update the counter 
+		for term in go_terms: 
+			terms_counts[term]+=1
+		# construct a data frame from the results 
+		res: pd.DataFrame(terms_counts).T
+		# add the terms as a column
+		res['Terms']= res.index.tolist()
+		return res
+
+	def get_num_peptide_per_location(self)->pd.DataFrame:
+		"""
+		@brief: retrun the number of peptides obtained from proteins localized to different sub-cellular compartments  
+		""" 
+		# get unique compartments 
+		unique_locations: List[str]= self.get_number_of_proteins_per_go_term().iloc[:,0].tolist()
+		# initialize the counter to zeros
+		pep_per_loc: Dict[str,int]=dict()
+		for loc in unique_locations:
+			pep_per_loc[loc]=0
+		# get the location of each parent protein 
+		parent_protein_locs: pd.DataFrame = self.get_main_sub_cellular_location_of_parent_proteins()
+		peptide_count_parents: pd.DataFrame = self.get_peptides_per_protein()
+		# loop over the parent proteins and update the countert 
+		for idx in range(parent_protein_locs.shape[0]):
+			# get the number of peptides belonging to this protein  
+			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_locs.iloc[idx,0],1]
+			# get the locations 
+			locations: List[str] = parent_protein_locs.iloc[idx,1].split(';')
+			# add the locations to the list 
+			for loc in locations:
+				pep_per_loc[loc]+=num_peptides
+		# construct a data frame from the results 
+		res: pd.DataFrame = pd.DataFrame(pep_per_loc).T
+		# add the index as a columns 
+		res['Compartment']=res.index.tolist()
+		# return the results 
+		return res 
+
+	def get_num_peptide_per_go_term(self)->pd.DataFrame:
+		"""
+		@brief: retrun the number of GO-Terms obtained from proteins localized to different sub-cellular compartments  
+		""" 
+		# get GO terms 
+		unique_go_terms: List[str]= self.get_number_of_proteins_per_go_term().iloc[:,0].tolist()
+		# initialize the counter to zeros
+		pep_per_term: Dict[str,int]=dict()  
+		for loc in unique_go_terms:
+			pep_per_term[loc]=0
+		# get the Go-Terms of each parent protein 
+		parent_protein_go_terms: pd.DataFrame = self.get_go_location_id_parent_proteins()
+		peptide_count_parents: pd.DataFrame = self.get_peptides_per_protein()
+		# loop over the parent proteins and update the countert 
+		for idx in range(parent_protein_go_terms.shape[0]):
+			# get the number of peptides belonging to this protein  
+			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_go_terms.iloc[idx,0],1]
+			# get the locations 
+			go_terms: List[str] = parent_protein_go_terms.iloc[idx,1].split(';')
+			# add the locations to the list 
+			for term in go_terms:
+				pep_per_term[term]+=num_peptides
+		# construct a data frame from the results 
+		res: pd.DataFrame = pd.DataFrame(pep_per_term).T
+		# add the index as a columns 
+		res['Compartment']=res.index.tolist()
+		# return the results 
+		return res 
+
 	def get_mapped_proteins(self)->MappedProteins: 
 		"""
 		@brief: return a dictionary of all the proteins identified in the current experiment with all inferred

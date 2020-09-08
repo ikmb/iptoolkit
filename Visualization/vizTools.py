@@ -245,13 +245,14 @@ def visualize_peptide_length_dist(pep_length: List[int],
     @param: y_label: the label of the y-axis 
     @param: title: the title of the figure
     """
-    fig=sns.distplot(pep_length,**plotting_kwargs)  
-    fig.set_xlabel(x_label)
-    fig.set_ylabel(y_label)
-    fig.set_title(title)
+    fig=plt.figure()
+    ax=sns.distplot(pep_length,**plotting_kwargs)  
+    ax.set_xlabel(x_label)
+    ax.set_ylabel(y_label)
+    ax.set_title(title)
     return fig
 
-def visualize_num_peptide_per_parent(nums_table: pd.DataFrame,
+def visualize_num_peptides_per_parent(nums_table: pd.DataFrame,
                         num_prot: int = -1, 
                         plotting_kwargs: Dict[str,str]={}, 
                         x_label: str = 'Number of peptides',
@@ -263,7 +264,7 @@ def visualize_num_peptide_per_parent(nums_table: pd.DataFrame,
     @param: num_prot, the number of protein to show relative to the first element, for example, the first 10, 20 etc.
     If the default value of -1 is used then all protein will be plotted, however, this might lead to a crowded figure.
     @param: plotting_kwargs: a dict object containing parameters for the function
-    seaborn::barplot
+    seaborn::barplot, enable more finetune control of the function behavior. 
     @param: x_label: the label of the x-axis 
     @param: y_label: the label of the y-axis 
     @param: title: the title of the figure
@@ -274,11 +275,12 @@ def visualize_num_peptide_per_parent(nums_table: pd.DataFrame,
             raise ValueError(f'The provided protein number of proteins to plot: {num_prot} is bigger than the number of proteins in the provided table: {nums_table.shape[0]}')
         nums_table=nums_table.iloc[:num_prot,]
     # plot the results 
+    fig=plt.figure()
     ax=sns.barplot(x='Number_of_Peptides', y='Proteins', data=nums_table, **plotting_kwargs)
     ax.set_xlabel('Number of peptides')
     ax.set_ylabel('Protein ID')
     ax.set_title(title)
-    return ax
+    return fig
 
 
 def plot_gene_expression_vs_num_peptides():
