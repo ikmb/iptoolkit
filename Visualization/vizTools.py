@@ -18,6 +18,7 @@ import pandas as pd
 import numpy as np 
 from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
 from typing import List, Dict 
+from scipy.stats import pearsonr
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -231,7 +232,7 @@ def imposed_coverage_on_3D_structure(path2mmCIF: str, mapped_protein: np.ndarray
     view
     return view  
 
-def visualize_peptide_length_dist(pep_length: List[int],
+def plot_peptide_length_dist(pep_length: List[int],
                          plotting_kwargs: Dict[str,str]={}, 
                          x_label: str = 'Peptide Length',
                          y_label: str = 'Frequency',
@@ -252,7 +253,7 @@ def visualize_peptide_length_dist(pep_length: List[int],
     ax.set_title(title)
     return fig
 
-def visualize_num_peptides_per_parent(nums_table: pd.DataFrame,
+def plot_num_peptides_per_parent(nums_table: pd.DataFrame,
                         num_prot: int = -1, 
                         plotting_kwargs: Dict[str,str]={}, 
                         x_label: str = 'Number of peptides',
@@ -282,8 +283,8 @@ def visualize_num_peptides_per_parent(nums_table: pd.DataFrame,
     ax.set_title(title)
     return fig
 
-def visualize_parent_protein_expression_in_tissue(expression_table: pd.DataFrame, 
-    tissue_name: str, plotting_kwargs: Dict[str,str]={}, def_value: float = -1,
+def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame, 
+    tissue_name: str, plotting_kwargs: Dict[str,str]={'orient':'v'}, def_value: float = -1,
     ylabel: str = 'Normalized Expression', title: str = 'Parent proteins gene expression') -> plt.Figure:
     """
     @brief: plot the parent protein expression in tissue 
@@ -300,19 +301,55 @@ def visualize_parent_protein_expression_in_tissue(expression_table: pd.DataFrame
     num_un_mapped: int = expression_table.shape[0]-df.shape[0]
     # create a figure to plot to it 
     fig= plt.figure()
-    ax=sns.violinplot(df.iloc[:,0], **plotting_kwargs)
+    ax=sns.violinplot(df.iloc[:,1], **plotting_kwargs)
     # set the axis of the axes, legend, label, etc 
-    ax.set_ylabel(ylabel+'in'+tissue_name)
+    ax.set_ylabel(ylabel+' in '+tissue_name)
     ax.set_xlabel(f'Number of proteins: {expression_table.shape[0]}, Number of proteins without reference expression value: {num_un_mapped}')
     ax.set_title(title)
     return fig
 
+def plot_num_protein_per_org(counts_table: pd.DataFrame,
+                            plotting_kwargs: Dict[str,str]={}
+                            )->plt.Figure:
+    """
+    """
+    pass 
 
-def plot_gene_expression_vs_num_peptides():
+def plot_gene_expression_vs_num_peptides(exp_count_table: pd.DataFrame, tissue_name: str,
+    def_value: float = -1, plotting_kwargs: Dict[str,str] = {}, 
+    xlabel: str = 'Number of peptides', ylabel: str = 'Expression value', 
+    title: str= 'Peptides per protein Vs. Expression Level'):
     """
-    @brief: plot the correlation between the gene expression and the num of peptids 
+    @brief: plot the correlation between the gene expression and the num of peptids per protein 
+    @param: exp_count_table: A table that contain the number of peptides and the expresion value for each protein in the database. 
+    @param: tissue_name: The name of the tissue 
+    @param: def_value: The default value for proteins that could not be mapped to the expression database 
+    @param: plotting_kwargs: a dict object containing parameters for the sns.scatter function.
+    @param: ylabel: the label on the y-axis. 
+    @param: title: the title of the figure.
+    @param: title: the title of the figure.
     """
-    pass
+    # First filter the DB for the non-mapped 
+    df=exp_count_table.loc[exp_count_table.iloc[:,2]!=def_value,]
+    # get the num of un-mapped
+    num_un_mapped: int = exp_count_table.shape[0]-df.shape[0]
+    # create a figure to plot to it 
+    fig= plt.figure()
+    ax=sns.scatterplot(df.iloc[:,1],df.iloc[:,2], **plotting_kwargs)
+    ax.set_ylabel(ylabel+' in '+tissue_name)
+    ax.set_xlabel(xlabel)
+    ax.set_title(title)
+    return fig
+
+
+
+
+
+
+
+
+
+
 
 def plot_locations_vs_num_peptides():
     """

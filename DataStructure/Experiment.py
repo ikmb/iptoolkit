@@ -172,18 +172,34 @@ class Experiment:
 		"""
 		proteins: List[str] = list(self.get_proteins())
 		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
-		# get a list of ensemble IDs 
-		ensemble_ids: List[str]= map2Ensemble['Gene-ID'].tolist()
 		# allocate a list to hold the expression values 
 		expression: List[float] = []
-		for ensemble_id in ensemble_ids: 
-			try: 
-				expression.append(self._tissue.get_expression_profile().get_gene_id_expression(ensemble_id))
-			except KeyError:
-				expression.append(non_mapped_dval) 
+		for prot in proteins:
+			# get  all transcripts that map to the protein -> port
+			temp_df: pd.DataFrame = map2Ensemble.loc[map2Ensemble.iloc[:,0]==prot]
+			# if one-to-one mapping is returned 
+			if temp_df.shape[0] ==1:
+				# we try to extract the expression value of the protein
+				try:
+					expression.append(self._tissue.get_expression_profile().get_gene_id_expression(temp_df.iloc[0,1]))
+				except KeyError:
+					expression.append(non_mapped_dval)
+			else: # we have more than one mapping 
+				temp_ens_ids: List[str] =  temp_df.iloc[:,1].tolist()
+				temp_res_raw: List[int] = []
+				for ens_id in temp_ens_ids:
+					try: 
+						temp_res_raw.append(self._tissue.get_expression_profile().get_gene_id_expression(ens_id))
+					except KeyError:
+						temp_res_raw.append(non_mapped_dval)
+				# filter out default value 
+				temp_res_pross: List[int] = [elem for elem in temp_res_raw if elem != non_mapped_dval]
+				# if the list is empty, all the transcript can not be mapped 
+				if len(temp_res_pross)==0:
+					expression.append(non_mapped_dval)
+				else: 
+					expression.append(np.mean(temp_res_pross))	 
 		# construct the dataframe 
-		print(f'Number of proteins is: {len(proteins)} ')
-		print(f'Number of expression is: {len(expression)} ')
 		results: pd.DataFrame= pd.DataFrame({'proteins':proteins, 'Expression':expression})
 		return results
 	
@@ -218,7 +234,7 @@ class Experiment:
 		for ensemble_id in ensemble_ids: 
 			go_ids.append(';'.join(self._tissue.get_subCellular_locations().get_go_names(ensemble_id)))
 		# construct the dataframe 
-		results: pd.DataFrame= pd.DataFrame({'proteins':ensemble_ids, 'GO_Terms':go_ids})
+		results: pd.DataFrame= pd.DataFrame({'Proteins':ensemble_ids, 'GO_Terms':go_ids})
 		return results
 
 	def get_num_peptide_expression_table(self)->pd.DataFrame:
