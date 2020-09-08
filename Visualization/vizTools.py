@@ -331,8 +331,6 @@ def plot_gene_expression_vs_num_peptides(exp_count_table: pd.DataFrame, tissue_n
     """
     # First filter the DB for the non-mapped 
     df=exp_count_table.loc[exp_count_table.iloc[:,2]!=def_value,]
-    # get the num of un-mapped
-    num_un_mapped: int = exp_count_table.shape[0]-df.shape[0]
     # create a figure to plot to it 
     fig= plt.figure()
     ax=sns.scatterplot(df.iloc[:,1],df.iloc[:,2], **plotting_kwargs)
