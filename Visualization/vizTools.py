@@ -308,6 +308,7 @@ def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame,
     ax.set_title(title)
     return fig
 
+
 def plot_num_protein_per_org(counts_table: pd.DataFrame,
                             plotting_kwargs: Dict[str,str]={}
                             )->plt.Figure:
@@ -318,7 +319,7 @@ def plot_num_protein_per_org(counts_table: pd.DataFrame,
 def plot_gene_expression_vs_num_peptides(exp_count_table: pd.DataFrame, tissue_name: str,
     def_value: float = -1, plotting_kwargs: Dict[str,str] = {}, 
     xlabel: str = 'Number of peptides', ylabel: str = 'Expression value', 
-    title: str= 'Peptides per protein Vs. Expression Level'):
+    title: str= 'Peptides per protein Vs. Expression Level')->plt.Figure:
     """
     @brief: plot the correlation between the gene expression and the num of peptids per protein 
     @param: exp_count_table: A table that contain the number of peptides and the expresion value for each protein in the database. 
@@ -339,6 +340,32 @@ def plot_gene_expression_vs_num_peptides(exp_count_table: pd.DataFrame, tissue_n
     ax.set_title(title)
     return fig
 
+def plot_num_protein_per_location(protein_loc: pd.DataFrame, 
+    tissue_name: str, plotting_kwargs: Dict[str,str] = {}, 
+    drop_unknown: bool = False, xlabel: str = 'Number of Proteins',
+    ylabel: str = 'Compartment', title: str= 'Number of proteins per sub-cellular compartment'
+    )->plt.Figure: 
+    """
+    @brief: plot the number of proteins per each sub-cellular compartment
+    @param: protein_loc: A table that contain the count of protein from each location.  
+    @param: tissue_name: The name of the tissue. 
+    @param: plotting_kwargs: a dict object containing parameters for the sns.barplot function.
+    @param: drop_unknown: whether or not to drop protein with unknown location. Default is False.  
+    @param: ylabel: the label on the y-axis. 
+    @param: title: the title of the figure.
+    @param: title: the title of the figure.
+    """
+    if drop_unknown:
+        protein_loc=protein_loc.loc[protein_loc.iloc[:,0]!='UNK',]
+    # create a figure 
+    fig=plt.figure()
+    ax=sns.barplot(y='Compartment',x='Counts',data=protein_loc, **plotting_kwargs)
+    # set the labels 
+    ax.set_ylabel(ylabel+' in '+tissue_name)
+    ax.set_xlabel(xlabel)
+    ax.set_title(title)
+    # return the results 
+    return fig
 
 
 
