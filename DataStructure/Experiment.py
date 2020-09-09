@@ -203,22 +203,50 @@ class Experiment:
 		results: pd.DataFrame= pd.DataFrame({'proteins':proteins, 'Expression':expression})
 		return results
 	
-	def get_main_sub_cellular_location_of_parent_proteins(self)->pd.DataFrame:
+	def get_main_sub_cellular_location_of_parent_proteins(self, not_mapped_val: str = 'UNK')->pd.DataFrame:
 		"""
-		@brief: retrun a the main cellular location for the identified proteins 
+		@brief: retrun a the main cellular location for the identified proteins.
+		@param: not_mapped_val: the default value to return incase the location of the protein can not be extracted. 
 		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
 		"""
 		proteins: List[str] = list(self.get_proteins())
 		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
-		# get a list of ensemble IDs 
-		ensemble_ids: List[str]= map2Ensemble['Gene-ID'].tolist()
 		# allocate a list to hold the main location
-		main_location: List[float] = []
-		for ensemble_id in ensemble_ids: 
-			main_location.append(';'.join(self._tissue.get_subCellular_locations().get_main_location(ensemble_id)))
+		main_locations: List[str] = []
+		for prot in proteins:
+			# we get a pandas dataframe that contain all the ensemble ids belonging to this protein.  
+			temp_df: pd.DataFrame = map2Ensemble.loc[map2Ensemble.iloc[:,0]==prot]
+			if temp_df.shape[0]==1: 
+				try:
+					print(temp_df.iloc[0,1])
+					main_locations.append(';'.join(self._tissue.get_subCellular_locations().get_main_location(temp_df.iloc[0,1])))
+				except KeyError: 
+					main_locations.append(not_mapped_val)
+			else: 
+				temp_ens_ids: List[str] = temp_df.iloc[:,1].tolist()
+				temp_res_raw: List[str] = []
+				for ens_id in temp_ens_ids:
+					try: 
+						temp_res_raw.append(';'.join(self._tissue.get_subCellular_locations().get_main_location(ens_id)))
+					except KeyError: 
+						temp_res_raw.append(not_mapped_val)
+				# filter out default value 
+				temp_res_pross: List[int] = [elem for elem in temp_res_raw if elem != not_mapped_val]
+				# if the list is empty, all the proteins can not be mapped 
+				if len(temp_res_pross)==0:
+					main_locations.append(not_mapped_val)
+				else: 
+					# get a set of the unique location from different mapping 
+					temp_unique_poss: Set[str] = set()
+					for elem in temp_res_pross: 
+						for loc in elem.split(';'):
+							temp_unique_poss.add(loc)
+					# append the results into one string and add it to the database elements 		
+					main_locations.append(';'.join(temp_unique_poss))
 		# construct the dataframe 
-		results: pd.DataFrame= pd.DataFrame({'proteins':ensemble_ids, 'Main_locations':main_location})
+		results: pd.DataFrame= pd.DataFrame({'Proteins':proteins, 'Main_locations':main_locations})
 		return results
+
 	
 	def get_go_location_id_parent_proteins(self)->pd.DataFrame:
 		"""

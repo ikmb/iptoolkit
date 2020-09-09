@@ -109,6 +109,7 @@ class CellularLocationDB:
 		@brief: return the main location(s) of the provided gene id or gene name 
 		@param: gene_id: the id of the gene of interest 
 		@param: gene_name: the name of the gene of interest 
+		@note: if both gene Id and gene name are provided, both gene_id has a higher precedence 
 		"""
 		if gene_id is None and gene_name is None:
 			raise ValueError(f'gene_name and gene_id can not be None')
@@ -120,20 +121,19 @@ class CellularLocationDB:
 		if gene_name is not None:
 			if gene_name not in self.get_gene_names():
 				raise KeyError(f'The provided gene name : {gene_name} is not in the database')
-		
-		if self._table.loc[self._table._iloc[:,0]==gene_name]['Gene name']!=gene_name:
-			raise ValueError('The provided gene names: {gene_name} does not match the provided gene id: {gene_id}')
-		
 		# get the main location 
 		try:
 			if gene_id is not None:  
-				main_location: str = self._table.loc[self._table.iloc[:,0]==gene_id,]['Main location'].tolist()[0]  
+				main_location: str = self._table.loc[self._table.iloc[:,0]==gene_id,]['Main location'] 
 			else: 
-				main_location: str = self._table.loc[self._table.iloc[:,1]==gene_name,]['Main location'].tolist()[0]  
+				main_location: str = self._table.loc[self._table.iloc[:,1]==gene_name,]['Main location'] 
 		except Exception as exp: 
 			raise RuntimeError(f'While getting the main cellular location the following error was encounter: {exp}')
 		# split the locations 
-		locations: List[str] =  main_location.split(';')
+		if main_location.isna().any():
+			locations: List[str] = ['UNK']
+		else: 
+			locations: List[str] = main_location.tolist()[0].split(';')
 		# return the resuts 
 		return locations 
 	
@@ -142,6 +142,7 @@ class CellularLocationDB:
 		@brief: return the location of the provided gene id or gene name 
 		@param: gene_id: the id of the gene of interest 
 		@param: gene_name: the name of the gene of interest 
+		@note: if both gene Id and gene name are provided, both gene_id has a higher precedence 
 		"""
 		if gene_id is None and gene_name is None:
 			raise ValueError(f'gene_name and gene_id can not be None')
@@ -154,19 +155,19 @@ class CellularLocationDB:
 			if gene_name not in self.get_gene_names():
 				raise KeyError(f'The provided gene name : {gene_name} is not in the database')
 		
-		if self._table.loc[self._table._iloc[:,0]==gene_name]['Gene name']!=gene_name:
-			raise ValueError('The provided gene names: {gene_name} does not match the provided gene id: {gene_id}')
-		
 		# get the approved locations 
 		try:
 			if gene_id is not None:  
-				approved_locations: str = self._table.loc[self._table.iloc[:,0]==gene_id,]['Approved'].tolist()[0]  
+				approved_locations: str = self._table.loc[self._table.iloc[:,0]==gene_id,]['Approved']  
 			else: 
-				approved_locations: str = self._table.loc[self._table.iloc[:,1]==gene_name,]['Approved'].tolist()[0]  
+				approved_locations: str = self._table.loc[self._table.iloc[:,1]==gene_name,]['Approved']
 		except Exception as exp: 
 			raise RuntimeError(f'While getting the approved locations the following error was encounter: {exp}')
 		# split the locations 
-		locations: List[str] =  approved_locations.split(';')
+		if approved_locations.isna().any(): 
+			locations: List[str] =  ['UNK']
+		else: 
+			locations: List[str] =  approved_locations.tolist()[0].split(';')	
 		# return the resuts 
 		return locations 
 	
@@ -175,6 +176,7 @@ class CellularLocationDB:
 		@brief: return the location of the provided gene id or gene name 
 		@param: gene_id: the id of the gene of interest 
 		@param: gene_name: the name of the gene of interest 
+		@note: if both gene Id and gene name are provided, both gene_id has a higher precedence 
 		"""
 		if gene_id is None and gene_name is None:
 			raise ValueError(f'gene_name and gene_id can not be None')
@@ -187,21 +189,21 @@ class CellularLocationDB:
 			if gene_name not in self.get_gene_names():
 				raise KeyError(f'The provided gene name : {gene_name} is not in the database')
 		
-		if self._table.loc[self._table._iloc[:,0]==gene_name]['Gene name']!=gene_name:
-			raise ValueError('The provided gene names: {gene_name} does not match the provided gene id: {gene_id}')
-		
 		# get gene ontology IDs
 		try:
 			if gene_id is not None:  
-				go_ids : str = self._table.loc[self._table.iloc[:,0]==gene_id,]['GO id'].tolist()[0]  
+				go_ids : str = self._table.loc[self._table.iloc[:,0]==gene_id,]['GO id'] 
 			else: 
-				go_ids: str = self._table.loc[self._table.iloc[:,1]==gene_name,]['GO id'].tolist()[0]  
+				go_ids: str = self._table.loc[self._table.iloc[:,1]==gene_name,]['GO id']
 		except Exception as exp: 
 			raise RuntimeError(f'While getting the approved locations the following error was encounter: {exp}')
 		# split the locations 
-		locations: List[str] =  go_ids.split(';')
+		if go_ids.isna().any(): 
+			_ids: List[str] =  ['UNK']
+		else: 
+			_ids: List[str] =  go_ids.tolist()[0].split(';')	
 		# return the resuts 
-		return locations
+		return _ids
 
 	def get_table(self) -> pd.DataFrame:
 		"""
@@ -231,7 +233,7 @@ class CellularLocationDB:
 		"""
 		@brief: return the number of unique genes in the current instance
 		"""
-		return len(set(self._table.shape[0]))
+		return len(set(self._table.iloc[:,0]))
 		
 	def __str__(self)->str: 
 		return f' A sub-cellular localization database covering {len(self)} genes'
@@ -291,7 +293,7 @@ class GeneExpressionDB:
 			if gene_name not in self.get_gene_names():
 				raise KeyError(f'The provided gene name : {gene_name} is not in the database')
 		
-		if self._table.loc[self._table._iloc[:,0]==gene_name]['Gene name']!=gene_name:
+		if self._table.loc[self._table.iloc[:,0]==gene_name]['Gene name']!=gene_name:
 			raise ValueError('The provided gene names: {gene_name} does not match the provided gene id: {gene_id}')
 		# get the expression accross all tissues 			
 		try: 
