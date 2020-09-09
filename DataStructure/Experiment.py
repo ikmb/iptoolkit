@@ -379,7 +379,7 @@ class Experiment:
 		@brief: retrun the number of peptides obtained from proteins localized to different sub-cellular compartments  
 		""" 
 		# get unique compartments 
-		unique_locations: List[str]= self.get_number_of_proteins_per_go_term().iloc[:,0].tolist()
+		unique_locations: List[str]= self.get_number_of_proteins_per_compartment().iloc[:,0].tolist()
 		# initialize the counter to zeros
 		pep_per_loc: Dict[str,int]=dict()
 		for loc in unique_locations:
@@ -390,16 +390,26 @@ class Experiment:
 		# loop over the parent proteins and update the countert 
 		for idx in range(parent_protein_locs.shape[0]):
 			# get the number of peptides belonging to this protein  
-			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_locs.iloc[idx,0],1]
+			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_locs.iloc[idx,0]]['Number_of_Peptides'].tolist()[0]
 			# get the locations 
 			locations: List[str] = parent_protein_locs.iloc[idx,1].split(';')
 			# add the locations to the list 
 			for loc in locations:
 				pep_per_loc[loc]+=num_peptides
+		# make the dict compatible with dataframes 
+		for key in pep_per_loc.keys():
+			pep_per_loc[key]=[pep_per_loc[key]]
 		# construct a data frame from the results 
 		res: pd.DataFrame = pd.DataFrame(pep_per_loc).T
 		# add the index as a columns 
 		res['Compartment']=res.index.tolist()
+		res.columns=['Counts','Compartment']
+		# reformat the dataframe 
+		res.reset_index(drop=True,inplace=True)
+		# swap the columns
+		res=res.reindex(columns=['Compartment','Counts'])
+		# sort the results 
+		res=res.sort_values(by='Counts',ascending=False)
 		# return the results 
 		return res 
 
@@ -419,16 +429,26 @@ class Experiment:
 		# loop over the parent proteins and update the countert 
 		for idx in range(parent_protein_go_terms.shape[0]):
 			# get the number of peptides belonging to this protein  
-			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_go_terms.iloc[idx,0],1]
+			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_go_terms.iloc[idx,0]]['Number_of_Peptides'].tolist()[0]
 			# get the locations 
 			go_terms: List[str] = parent_protein_go_terms.iloc[idx,1].split(';')
 			# add the locations to the list 
 			for term in go_terms:
 				pep_per_term[term]+=num_peptides
+		# make the dict compatible with dataframes 
+		for key in pep_per_term.keys():
+			pep_per_term[key]=[pep_per_term[key]]
 		# construct a data frame from the results 
 		res: pd.DataFrame = pd.DataFrame(pep_per_term).T
 		# add the index as a columns 
 		res['Compartment']=res.index.tolist()
+		res.columns=['Counts','GO-Terms']
+		# reformat the dataframe 
+		res.reset_index(drop=True,inplace=True)
+		# swap the columns
+		res=res.reindex(columns=['GO-Terms','Counts'])
+		# sort the results 
+		res=res.sort_values(by='Counts',ascending=False)
 		# return the results 
 		return res 
 

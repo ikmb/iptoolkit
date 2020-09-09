@@ -394,13 +394,60 @@ def plot_num_protein_per_go_term(protein2goTerm: pd.DataFrame,
     # return the results 
     return fig
 
+def plot_num_peptide_per_location(pep2loc: pd.DataFrame,
+    tissue_name: str, plotting_kwargs: Dict[str,str] = {}, 
+    drop_unknown: bool = False, xlabel: str = 'Number of peptides',
+    ylabel: str = 'Compartment', 
+    title: str= 'Number of peptides per sub-cellular compartment' ) -> plt.Figure:
+    """
+    @brief: plot the number of peptides obtained from each compartment. 
+    @param: pep2code: A table that contain the count of peptides from each  location 
+    @param: tissue_name: The name of the tissue. 
+    @param: plotting_kwargs: a dict object containing parameters for the sns.barplot function.
+    @param: drop_unknown: whether or not to drop protein with unknown location. Default is False.  
+    @param: ylabel: the label on the y-axis. 
+    @param: title: the title of the figure.
+    @param: title: the title of the figure.
+    """
+    if drop_unknown:
+        pep2loc=pep2loc.loc[pep2loc.iloc[:,0]!='UNK',]
+    # create a figure 
+    fig=plt.figure()
+    ax=sns.barplot(y='Compartment',x='Counts',data=pep2loc, **plotting_kwargs)
+    # set the labels 
+    ax.set_ylabel(ylabel+' in '+tissue_name)
+    ax.set_xlabel(xlabel)
+    ax.set_title(title)
+    # return the results 
+    return fig
 
-
-
-
-
-
-
+def plot_num_peptide_per_go_term(pep2goTerm: pd.DataFrame,
+    tissue_name: str, plotting_kwargs: Dict[str,str] = {}, 
+    drop_unknown: bool = False, xlabel: str = 'Number of peptides',
+    ylabel: str = 'GO-Term', 
+    title: str= 'Number of peptides per sub-cellular compartment' ) -> plt.Figure:
+    """
+    @brief: plot the number of peptides obtained per Go-Term 
+    @param: pep2goTerm: A table that contain the count of peptides from each GO-Term 
+    @param: tissue_name: The name of the tissue. 
+    @param: plotting_kwargs: a dict object containing parameters for the sns.barplot function.
+    @param: drop_unknown: whether or not to drop protein with unknown location. Default is False.  
+    @param: ylabel: the label on the y-axis. 
+    @param: title: the title of the figure.
+    @param: title: the title of the figure.
+    """
+    if drop_unknown:
+        pep2goTerm=pep2goTerm.loc[pep2goTerm.iloc[:,0]!='UNK',]
+    # create a figure 
+    fig=plt.figure()
+    ax=sns.barplot(y='GO-Terms',x='Counts',data=pep2goTerm, **plotting_kwargs)
+    # set the labels 
+    ax.set_ylabel(ylabel+' in '+tissue_name)
+    ax.set_xlabel(xlabel)
+    ax.set_title(title)
+    # return the results 
+    return fig
+    
 def plot_locations_vs_num_peptides():
     """
     @brief: plot the correlation between the sub-cellular location and the number of observed peptides 
