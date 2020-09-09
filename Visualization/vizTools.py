@@ -367,7 +367,32 @@ def plot_num_protein_per_location(protein_loc: pd.DataFrame,
     # return the results 
     return fig
 
-
+def plot_num_protein_per_go_term(protein2goTerm: pd.DataFrame, 
+    tissue_name: str, plotting_kwargs: Dict[str,str] = {}, 
+    drop_unknown: bool = False, xlabel: str = 'Number of Proteins',
+    ylabel: str = 'Compartment', title: str= 'Number of proteins per sub-cellular compartment'
+    )->plt.Figure: 
+    """
+    @brief: plot the number of proteins per each GO Term 
+    @param: protein2goTerm: A table that contain the count of proteins from each GO-Term  
+    @param: tissue_name: The name of the tissue. 
+    @param: plotting_kwargs: a dict object containing parameters for the sns.barplot function.
+    @param: drop_unknown: whether or not to drop protein with unknown location. Default is False.  
+    @param: ylabel: the label on the y-axis. 
+    @param: title: the title of the figure.
+    @param: title: the title of the figure.
+    """
+    if drop_unknown:
+        protein2goTerm=protein2goTerm.loc[protein2goTerm.iloc[:,0]!='UNK',]
+    # create a figure 
+    fig=plt.figure()
+    ax=sns.barplot(y='GO-Terms',x='Counts',data=protein2goTerm, **plotting_kwargs)
+    # set the labels 
+    ax.set_ylabel(ylabel+' in '+tissue_name)
+    ax.set_xlabel(xlabel)
+    ax.set_title(title)
+    # return the results 
+    return fig
 
 
 

@@ -362,9 +362,16 @@ class Experiment:
 		for key in  terms_counts.keys():
 			terms_counts[key]= [terms_counts[key]]
 		# construct a data frame from the results 
-		res: pd.DataFrame(terms_counts).T
+		res: pd.DataFrame= pd.DataFrame(terms_counts).T
 		# add the terms as a column
 		res['Terms']= res.index.tolist()
+		res.columns=['Counts','GO-Terms']
+		# reformat the dataframe 
+		res.reset_index(drop=True,inplace=True)
+		# swap the columns
+		res=res.reindex(columns=['GO-Terms','Counts'])
+		# sort the results 
+		res=res.sort_values(by='Counts',ascending=False)
 		return res
 
 	def get_num_peptide_per_location(self)->pd.DataFrame:
