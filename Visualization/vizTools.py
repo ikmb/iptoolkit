@@ -131,12 +131,17 @@ def plot_overlay_representation(proteins, alpha: float = 0.5, title: str = None,
 def plot_protein_coverage(mapped_protein: np.ndarray, col: str = 'r', prot_name: str = None)->plt.Figure:
     """
     @brief: plot the mapped protein array 
-    @param:  mapped_protein: a numpy array with shape of 1 by protein length
+    @param:  mapped_protein: a numpy array with shape of 1 by protein length or shape protein-length
     @param: col: the color of the coverage respresentation
     @param: prot_name: the default protein name
     """
+    if len(mapped_protein.shape)==2:
+        mapped_protein=mapped_protein.reshape(-1) 
+    # create a figure 
     fig=plt.figure()
+    # plot the boundary
     plt.plot(mapped_protein, col)
+    # plot the coverage 
     plt.fill_between(range(len(mapped_protein)), mapped_protein, color=col)
     plt.xlabel('Amino acid position')
     plt.ylabel('Coverage')
@@ -447,7 +452,7 @@ def plot_num_peptide_per_go_term(pep2goTerm: pd.DataFrame,
     ax.set_title(title)
     # return the results 
     return fig
-    
+
 def plot_locations_vs_num_peptides():
     """
     @brief: plot the correlation between the sub-cellular location and the number of observed peptides 

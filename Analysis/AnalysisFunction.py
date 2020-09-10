@@ -15,6 +15,8 @@ from typing import List, Callable, Dict
 from IPTK.IO import MEMEInterface as memeIF
 from IPTK.IO import OutFunctions as out_func
 from IPTK.DataStructure.Experiment import Experiment
+from IPTK.Utils.UtilityFunction import check_peptide_made_of_std_20_aa
+
 # define some types 
 Peptides=List[str]
 Proteins=List[str]
@@ -81,6 +83,12 @@ def get_sequence_motif(peptides:Peptides, keep_temp:bool=False,
         os.mkdir(temp_dir)
     except FileExistsError: 
         pass 
+    # check that amino acids have the same length 
+    if len(set([len(pep) for pep in peptides])) !=1:
+        raise ValueError('The provided peptides MUST have the same length!')
+    # check that only the 20 classical amino acids are in the motif object 
+    curated_sequences: List[str] =  [check_peptide_made_of_std_20_aa(pep) for pep in peptides]
+    curated_sequences = [elem for elem in curated_sequences if elem !='']
     # write the sequences 
     outfile_seq_file=os.path.join(temp_dir,'TEMP_FASTA_SEQ.fasta')
     out_func.write_auto_named_peptide_to_fasta(peptides,outfile_seq_file)
@@ -90,10 +98,9 @@ def get_sequence_motif(peptides:Peptides, keep_temp:bool=False,
                 output_dir=os.path.join(temp_dir,'TEMP_MEME_RES'), 
                 verbose=verbose, **meme_params)
     # parse the results 
-    motifs=memeIF.parse_meme_results(meme_results_dir)
+    motifs=memeIF.parse_meme_results(os.path.join(meme_results_dir,'meme.txt'))
     return motifs 
     
-
 def download_structure_file(pdb_id:str)->None:
     """
     @brief:  downlaod PDB/mmCIF file containgthe pbd_id from PDB using BioPython Module 
@@ -102,3 +109,9 @@ def download_structure_file(pdb_id:str)->None:
     pdb_list=PDBList()
     pdb_list.retrieve_pdb_file(pdb_id)
     return 
+
+def compare_motif_correlation(motif_one, motif_two) -> float:
+    """
+    @brief: 
+    """
+    pass 

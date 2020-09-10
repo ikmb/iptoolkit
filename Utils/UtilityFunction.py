@@ -165,3 +165,14 @@ def get_idx_peptide_in_sequence_table(sequence_table:pd.DataFrame, peptide:str):
         sequence_table.columns=['Sequences']
     return sequence_table.loc[sequence_table['Sequences'].str.contains(peptide)].index.tolist()
 
+def check_peptide_made_of_std_20_aa(peptide:str)->str:
+    """
+    @brief: check if the peptide is made of the standard 20 amino acids, if this is the case, 
+    it return the peptide sequence, otherwise it return an empty string
+    @param: peptide: the sequence of the peptide to check 
+    """
+    amino_acids=['A','R','N','D','C','E','Q','G','H','I','L','K','M','F','P','S','T','W','Y','V']
+    for amino_acid in peptide: 
+        if amino_acid not in amino_acids: 
+            return ''
+    return peptide

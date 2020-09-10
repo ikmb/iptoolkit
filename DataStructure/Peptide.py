@@ -202,9 +202,12 @@ class Peptide:
 		results=[]
 		# loop over all the parent to obtain the upstream sequences 
 		for parent in self._parent_proteins.keys(): 
+			# get the parent protein 
 			parent_protein=self._parent_proteins[parent]
+			# get the end of the protein 
 			end_index=parent_protein['end_index']
-			protein_length=len(parent_protein['protein'])
+			# get the protein length  
+			protein_length=len(parent_protein['protein']) 		
 			if end_index+flank_len>protein_length: # ==> avoid indexing outside of the parent protein
 				results.append(parent_protein['protein'][end_index:protein_length])
 			else: 

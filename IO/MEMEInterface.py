@@ -33,7 +33,7 @@ def call_meme(input_fasta_file:str, output_dir:str, verbose: bool=True, objfunc:
               use_llr: bool = False, shuf: int = 2, hsfrac: float = 0.5, cefrac: float = 0.25, 
               searchsize: int= -1, maxsize: int = -1 , norand: bool = False, csites: int = -1, seed: int = -1,
               mod: str='oops', nmotifs: int= -1, evt: float = -1.0, time: int = -1, nsite: int = -1, 
-              minsites: int = -1, maxsite: int = -1, wnsites: int = -1, w: int = -1, minw: int = -1, 
+              minsites: int = -1, maxsite: int = -1, nsites: int = -1, w: int = -1, minw: int = -1, 
               maxw: int = -1, nomatrim: bool = False, wg: int = -1, ws: int = -1, noendgaps: bool = False,
               maxiter: int = -1, prior: str = 'dirichlet', b: int = -1, p: int = -1 )->None:
     """
@@ -67,7 +67,7 @@ def call_meme(input_fasta_file:str, output_dir:str, verbose: bool=True, objfunc:
     calling_string=append_to_calling_string('nsite', -1, nsite, calling_string,False)
     calling_string=append_to_calling_string('minsites', -1, minsites, calling_string,False)
     calling_string=append_to_calling_string('maxsite', -1, maxsite, calling_string,False)
-    calling_string=append_to_calling_string('wnsites', -1, wnsites, calling_string,False)
+    calling_string=append_to_calling_string('nsites', -1, nsites, calling_string,False)
     calling_string=append_to_calling_string('minw', -1, minw, calling_string,False)
     calling_string=append_to_calling_string('maxw', -1, maxw, calling_string,False)
     calling_string=append_to_calling_string('nomatrim', False, nomatrim, calling_string,True)
@@ -103,7 +103,7 @@ def parse_meme_results(path_to_meme_file):
     try: 
         with open(path_to_meme_file,'r') as input_buf: 
             res=motifs.parse(input_buf,'meme')
-    except Exception as exp: 
+    except Exception as exp:    
         raise RuntimeError(f'While parsing the file: {path_to_meme_file} The following error was encountered: {exp}')
     # return the results
     return  res 
