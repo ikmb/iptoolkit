@@ -29,6 +29,8 @@ def map_from_uniprot_pdb(uniprots: List[str])-> pd.DataFrame:
         results: str =input_file.read().decode('utf-8')
     # parse the resulting strings 
     mapped_pairs: List[str] = results.split('\n')
+    # pop the first element as it contain the words from and to 
+    mapped_pairs.pop(0)
     # allocate to lists to hold the results 
     unitpot_ids: List[str] = []
     pdb_ids: List[str] = []

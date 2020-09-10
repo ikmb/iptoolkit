@@ -192,7 +192,7 @@ def plot_protein_presentation_3D(proteins, plotting_args = {'color':'red'}, titl
     return fig
 
 def imposed_coverage_on_3D_structure(path2mmCIF: str, mapped_protein: np.ndarray, 
-                                    background_color: str ='black', low: str ='red', high: str ='violet')->None: 
+                                    background_color: str ='black', low: str ='red', high: str ='blue')->None: 
     """
     @brief: A function to impose the peptide coverage ontop of a protein 3D structure
     where the color of each position is marked by a color gradient that reflect the number of peptides 
@@ -209,22 +209,33 @@ def imposed_coverage_on_3D_structure(path2mmCIF: str, mapped_protein: np.ndarray
     # Check the file exists 
     if not os.path.exists(path2mmCIF): 
         raise ValueError(f'The provided path to the mmCIF file: {path2mmCIF} does not exist!')
+    # check that it is a directory 
+    if os.path.isdir(path2mmCIF): 
+        hits_in_path: List[str] = [elem for elem in os.listdir(path2mmCIF) if 'cif' in elem]
+        if len(hits_in_path) ==0: 
+            raise IOError(f'No cif file can be located in the provided path: {path2mmCIF}!') 
+        if len(hits_in_path)>1:
+            raise IOError(f'{len(hits_in_path)} files have been found in the provided path. The function expect only one function')
+        path2mmCIF= os.path.join(path2mmCIF,hits_in_path[0])
     # Load the file 
     parser=MMCIFParser()
+    # check that the file is a one-D array 
+    if len(mapped_protein.shape)==2: 
+        mapped_protein=mapped_protein.reshape(-1)
     # Get the structure 
     structure=parser.get_structure('VIS_STRUC',path2mmCIF)
     lowest_coverage=np.min(mapped_protein)
     highest_coverage=np.max(mapped_protein)
-    difference=highest_coverage-lowest_coverage
+    difference=int(highest_coverage-lowest_coverage)+1
     # Generate the gradient
     low_col=Color(low)
     color_gradient=list(low_col.range_to(Color(high),difference))
     # generate the color of each position 
     colors=[]
-    aa_counter=0 # coloring head is pointing to position zero 
-    for pos in mapped_protein.ravel(): 
-        color_gradient.append([str(color_gradient[pos]),aa_counter])
-        aa_counter+=1 # set the head to point to thenext amino acids 
+    #aa_counter=0 # coloring head is pointing to position zero 
+    for idx in range(mapped_protein.shape[0]): 
+        amino_acid_col: str = str(color_gradient[int(mapped_protein[idx])])
+        colors.append([amino_acid_col,str(idx)])
     ## visualize the results using NGLview 
     # set the color map
     cm = ColormakerRegistry
@@ -233,7 +244,7 @@ def imposed_coverage_on_3D_structure(path2mmCIF: str, mapped_protein: np.ndarray
     view=nv.show_biopython(structure)
     view.clear_representations()
     view.add_cartoon(color='VIS_STRUC')
-    view.backbone=background_color
+    view.background=background_color
     view
     return view  
 
@@ -452,38 +463,3 @@ def plot_num_peptide_per_go_term(pep2goTerm: pd.DataFrame,
     ax.set_title(title)
     # return the results 
     return fig
-
-def plot_locations_vs_num_peptides():
-    """
-    @brief: plot the correlation between the sub-cellular location and the number of observed peptides 
-    """
-    pass 
-
-def plot_num_parent_per_peptide():
-    """
-    @brief: plot the number of peptids of parent protein
-    """
-    pass 
-
-def plot_correlation_in_motife():
-    """
-    @brief: plot the correlation in motif
-    """
-    pass 
-
-
-
-
-def plot_cleavage_around_peptide(flank_region, Peptide)->None:
-    """
-    @brief: return a mapping of the flanking region and the peptide core. 
-    n_terminal_cleavage 1         c_terminal_cleavage 1
-    n_terminal_cleavage 2         c_terminal_cleavage 2
-    n_terminal_cleavage 3         c_terminal_cleavage 3
-        .                 Peptide         .
-        .                                 .
-        .                                 .
-    n_terminal_cleavage n        c_terminal_cleavage n
-    """
-    pass 
-    

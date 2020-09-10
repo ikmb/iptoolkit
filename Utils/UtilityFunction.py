@@ -176,3 +176,4 @@ def check_peptide_made_of_std_20_aa(peptide:str)->str:
         if amino_acid not in amino_acids: 
             return ''
     return peptide
+

@@ -7,9 +7,10 @@
 # load the models 
 import pandas as pd 
 import numpy as np 
-from typing import Dict, List 
+from typing import Dict, List
+import os  
 from Bio import SeqIO
-import os 
+from Bio.PDB import PDBList
 from pyteomics.mztab import MzTab
 from pyteomics import pepxml, auxiliary
 from pyteomics.openms import idxml
@@ -258,7 +259,6 @@ def parse_text_table(path2file: str,
             start_index.append(temp_start_idx)
             end_index.append(temp_start_idx+len(row[seq_column]))            
     # build the data frame 
-    print(len(peptides),len(protein_acc),len(start_index),len(end_index))
     ident_table: pd.DataFrame = pd.DataFrame({
         'peptide': peptides,
         'protein': protein_acc,
@@ -293,3 +293,14 @@ def fasta2dict(path2fasta:str, filter_decoy: bool = True,
             results[seq.id.split('|')[1]]=str(seq.seq)  
     # return the results 
     return results
+
+def download_pdb_entry(prot_id: str) ->str: 
+    """
+    @brief: download the structure of a protein from protein databank form as mmCIF file 
+    """
+    pdb_res=PDBList()
+    try: 
+        return pdb_res.retrieve_pdb_file(prot_id)
+    except Exception as exp: 
+        raise IOError(f'While Downloading the structure of protein: {prot_id}, the following error was encountered: {exp}')
+
