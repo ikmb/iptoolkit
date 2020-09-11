@@ -1,0 +1,90 @@
+*******************************************************************************
+Test tomtom1 ...
+tomtom -oc results/tomtom1 -verbosity 1 -evalue -thresh 10 -m TGCm1C -mi 3 -xalph -bfile common/dna_with_covalent.bg -dist allr common/dna_with_covalent.meme common/dna_with_covalent.meme common/Jaspar-subset.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.dna_with_covalent.tsv output results/tomtom1/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.dna_with_covalent.html output results/tomtom1/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_allr ...
+tomtom -verbosity 1 -dist allr -oc results/tomtom2 -incomplete-scores common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.allr.tsv output results/tomtom2/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.allr.html output results/tomtom2/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_ed ...
+tomtom -verbosity 1 -dist ed -oc results/tomtom3 -incomplete-scores common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.ed.tsv output results/tomtom3/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.ed.html output results/tomtom3/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_kullback ...
+tomtom -verbosity 1 -dist kullback -oc results/tomtom4 -incomplete-scores common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.kullback.tsv output results/tomtom4/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.kullback.html output results/tomtom4/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_pearson ...
+tomtom -verbosity 1 -dist pearson -oc results/tomtom5 -incomplete-scores common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.pearson.tsv output results/tomtom5/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.pearson.html output results/tomtom5/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_sandelin ...
+tomtom -verbosity 1 -dist sandelin -oc results/tomtom6 -incomplete-scores common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.sandelin.tsv output results/tomtom6/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.sandelin.html output results/tomtom6/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_blic1 ...
+tomtom -verbosity 1 -dist blic1 -oc results/tomtom7 -incomplete-scores common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.blic1.tsv output results/tomtom7/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.blic1.html output results/tomtom7/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_blic5 ...
+tomtom -verbosity 1 -dist blic5 -oc results/tomtom8 -incomplete-scores common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.blic5.tsv output results/tomtom8/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.out.blic5.html output results/tomtom8/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_allr_cs ...
+tomtom -verbosity 1 -dist allr -oc results/tomtom9 common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.allr.tsv output results/tomtom9/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.allr.html output results/tomtom9/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_ed_cs ...
+tomtom -verbosity 1 -dist ed -oc results/tomtom10 common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.ed.tsv output results/tomtom10/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.ed.html output results/tomtom10/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_kullback_cs ...
+tomtom -verbosity 1 -dist kullback -oc results/tomtom11 common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.kullback.tsv output results/tomtom11/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.kullback.html output results/tomtom11/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_pearson_cs ...
+tomtom -verbosity 1 -dist pearson -oc results/tomtom12 common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.pearson.tsv output results/tomtom12/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.pearson.html output results/tomtom12/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_sandelin_cs ...
+tomtom -verbosity 1 -dist sandelin -oc results/tomtom13 common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.sandelin.tsv output results/tomtom13/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.sandelin.html output results/tomtom13/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_blic1_cs ...
+tomtom -verbosity 1 -dist blic1 -oc results/tomtom14 common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.blic1.tsv output results/tomtom14/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.blic1.html output results/tomtom14/tomtom.html
+PASSED!
+*******************************************************************************
+Test tomtom_blic5_cs ...
+tomtom -verbosity 1 -dist blic5 -oc results/tomtom15 common/sample.meme common/sample.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.blic5.tsv output results/tomtom15/tomtom.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/tomtom/tomtom.complete.out.blic5.html output results/tomtom15/tomtom.html
+PASSED!

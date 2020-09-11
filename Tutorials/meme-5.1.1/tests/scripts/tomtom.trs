@@ -1,0 +1,15 @@
+:test-result: PASS tomtom1 -m, -mi, -xalph, -bfile, -evalue, -thresh, -dist allr
+:test-result: PASS tomtom_allr 
+:test-result: PASS tomtom_ed 
+:test-result: PASS tomtom_kullback 
+:test-result: PASS tomtom_pearson 
+:test-result: PASS tomtom_sandelin 
+:test-result: PASS tomtom_blic1 
+:test-result: PASS tomtom_blic5 
+:test-result: PASS tomtom_allr_cs 
+:test-result: PASS tomtom_ed_cs 
+:test-result: PASS tomtom_kullback_cs 
+:test-result: PASS tomtom_pearson_cs 
+:test-result: PASS tomtom_sandelin_cs 
+:test-result: PASS tomtom_blic1_cs 
+:test-result: PASS tomtom_blic5_cs 

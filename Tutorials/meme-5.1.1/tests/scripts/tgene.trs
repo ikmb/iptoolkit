@@ -1,0 +1,4 @@
+:test-result: PASS tgene1 tgene P300 chr21 -no-closest-locus
+:test-result: PASS tgene2 tgene P300 chr21 with empty tissues
+:test-result: PASS tgene3 tgene Rxra Chr21, no H3k4me3, -no-closest-locus -no-closest-tss
+:test-result: PASS tgene4 tgene P300 chr21 -no-closest-locus no panel

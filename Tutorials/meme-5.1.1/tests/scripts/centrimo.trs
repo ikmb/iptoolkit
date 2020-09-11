@@ -1,0 +1,9 @@
+:test-result: PASS centrimo1 centrimo with flip, sequence bg (default)
+:test-result: PASS centrimo2 centrimo with flip, motif bg
+:test-result: PASS centrimo3 centrimo with flip, uniform bg
+:test-result: PASS centrimo4 --cd, --xalph, sequence bg, --inc, --exc, --noseq
+:test-result: PASS centrimo5 centrimo with --neg, sequence bg (default)
+:test-result: PASS centrimo6 --cd, centrimo with flip, sequence bg (default)
+:test-result: PASS centrimo7 centrimo with --local, --sep, --neg, --bfile file
+:test-result: PASS centrimo8 centrimo with --neg, sequence bg (default), --use-lo-fraction
+:test-result: PASS centrimo9 centrimo with --neg, sequence bg (default), --use-pvalues

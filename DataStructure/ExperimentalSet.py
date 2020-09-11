@@ -11,6 +11,7 @@ import pandas as pd
 from IPTK.DataStructure.Experiment import Experiment 
 from IPTK.Analysis.AnalysisFunction import get_binnary_peptide_overlap, get_binnary_protein_overlap 
 from IPTK.DataStructure.Peptide import Peptide
+from IPTK.Analysis.AnalysisFunction import compute_change_in_protein_representation
 from typing import Dict, List 
 ## define some types 
 Experiments=Dict[str,Experiment]
@@ -202,7 +203,7 @@ class ExperimentSet:
         @brief: compute the set of unique peptides in the experimentalSet 
         @return: A list of all the protein that overlap over the experimentalSet
         """
-        res=[]
+        res:List[str]=[]
         for exp_name in self.get_experimental_names(): 
             res.extend(self[exp_name].get_peptides())
         return list(set(res))
@@ -212,7 +213,7 @@ class ExperimentSet:
         @brief: compute the set of unique proteins in the experimentalset
         @return: a list of all proteins that overlap over the experimentSet
         """
-        res=[]
+        res:List[str]=[]
         for exp in self.get_experimental_names():
             res.extend(self[exp].get_proteins())
         return list(set(res))
@@ -258,12 +259,12 @@ class ExperimentSet:
                 results.append(pep)
         return results 
     
-    def get_protein_present_in_all(self)->Proteins:
+    def get_proteins_present_in_all(self)->Proteins:
         """
         @brief: return the proteins that are inferred in all experiments of the set 
         """
         all_proteins=self.get_unique_proteins()
-        results=[]
+        results: List[str]=[]
         for protein in all_proteins: 
             if self.is_protein_present_in_all(protein):
                 results.append(protein)
@@ -315,16 +316,17 @@ class ExperimentSet:
         """
         @brief: compute the number of times a peptide was observed accross all experiments in the set 
         """
-        results=dict()
-        unique_peptides=self.get_unique_peptides()
+        # define the results object 
+        results: Dict[str, int]=dict()
+        unique_peptides: List[str]=self.get_unique_peptides()
         # fill the dictionary and initialize the counts to zeros 
-        for pep in unique_peptides:
-            results[pep]=0
+        for peptide in unique_peptides:
+            results[peptide]=0
         # loop over all the experiment to count the peptides 
         for peptide in unique_peptides:
             for exp_name in self.get_experimental_names():
                 if self[exp_name].is_member(peptide):
-                    results[pep]+=1
+                    results[peptide]+=1
         # return the results after filling it 
         return results 
     
@@ -361,4 +363,76 @@ class ExperimentSet:
                         results[prot]=self[exp_name].get_mapped_protein(prot)
         # return the results after filling the array 
         return results
+
+
+    def compute_compute_correlation_in_experssion(self)->pd.DataFrame:
+        """
+        @brief: compute the correlation in parent protein gene-expression across all the experiments
+        in the set.  
+        @note: see the function **compute_binary_correlation** in the analysis module 
+        for information about the computational logic. 
+        """
+         
+
+    def compute_change_in_protein_representation(self)->np.ndarray:
+        """
+        @brief: compute the change in protein representation among the proteins the are presented/ detect in all of the 
+        sets experiments. 
+        @note: The function returns a 3D tensor, T, with shape of (num-experiments, num-experiments, num-proteins),
+        where T[i,j,k] is a the difference between experiment i & j with respect to the k th protein. 
+        @note: for more information related to counts between experiments, see the function 
+        """
+        # get the number of experiments and proteins 
+        present_in_all: List[str] = self.get_peptides_present_in_all()
+        num_exps: int = self.get_num_experiments_in_the_set()
+        # allocate an array to hold the results 
+        results_array: np.ndarray = np.zeros(shape=(num_exps, num_exps,len(present_in_all)))
+        ## fill the array 
+        # create some counters 
+        col_counter: int = 0
+        row_counter: int= 0
+        for prod_idx in range(len(present_in_all)): 
+            for exp_col in self.get_experiments().keys():
+                for exp_row in self.get_experiments().keys():
+                    results_array[row_counter,col_counter,prod_idx]=compute_change_in_protein_representation(
+                        self.get_experiments()[exp_row].get_mapped_protein(present_in_all[prod_idx]), 
+                        self.get_experiments()[exp_col].get_mapped_protein(present_in_all[prod_idx])
+                    )
+                # increase the row counters 
+                row_counter+=1
+            # increase the columns counter
+            col_counter+=1 
+        # return the results
+        return results_array
+
+    def compute_average_distance_between_exps(self)->pd.DataFrame: 
+        """
+        @brief: compute the average distance between experiments by taking the average over the z-axis
+        of the 3D tensor summarizing computed by the function compute_change_in_protein_representation.
+        """
+        diff_protein_overlap: np.ndarray = self.compute_change_in_protein_representation()
+        # average overlap is: 
+        average_scores: np.ndarray = np.sum(diff_protein_overlap,axis=-1)
+        # construct a dataframe of the results 
+        results_df: pd.DataFrame = pd.DataFrame(average_scores)
+        # add the colnames 
+        results_df.columns=list(self.get_experiments().keys())
+        results_df.index=list(self.get_experiments().keys())
+        # return the results 
+        return results_df
     
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+

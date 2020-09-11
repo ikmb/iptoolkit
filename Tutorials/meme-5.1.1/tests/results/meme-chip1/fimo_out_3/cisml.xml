@@ -1,0 +1,414 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
+<!-- Document definition -->
+<!-- http://zlab.bu.edu/~phaverty/SupplementalData/CisML/cisml.dtd -->
+<!DOCTYPE cis-element-search[
+<!ELEMENT cis-element-search (program-name, parameters, (pattern | multi-pattern-scan)*)>
+<!ELEMENT program-name (#PCDATA)>
+<!ELEMENT parameters (
+  pattern-file, 
+  sequence-file, 
+  background-seq-file?,
+  pattern-pvalue-cutoff?,
+  sequence-pvalue-cutoff?,
+  site-pvalue-cutoff?,
+  sequence-filtering,
+  ANY*
+ )>
+<!ELEMENT command-line (#PCDATA)>
+<!ELEMENT pattern-file (#PCDATA)>
+<!ELEMENT sequence-file (#PCDATA)>
+<!ELEMENT background-seq-file (#PCDATA)>
+<!ELEMENT pattern-pvalue-cutoff (#PCDATA)>
+<!ELEMENT sequence-pvalue-cutoff (#PCDATA)>
+<!ELEMENT site-pvalue-cutoff (#PCDATA)>
+<!ELEMENT sequence-filtering EMPTY>
+<!ELEMENT multi-pattern-scan (pattern+, ANY*)>
+<!ELEMENT pattern (scanned-sequence+, ANY*)>
+<!ELEMENT scanned-sequence (matched-element*, ANY*)>
+<!ELEMENT matched-element (sequence)>
+<!ELEMENT sequence (#PCDATA)>
+<!ATTLIST cis-element-search
+xmlns:xsi CDATA #IMPLIED
+xmlns:mem CDATA #IMPLIED
+xsi:schemaLocation CDATA #IMPLIED
+>
+<!ATTLIST sequence-filtering
+on-off CDATA #REQUIRED
+type CDATA #IMPLIED
+>
+<!ATTLIST multi-pattern-scan
+score CDATA #IMPLIED
+pvalue CDATA #IMPLIED
+>
+<!ATTLIST pattern
+accession CDATA #REQUIRED
+name CDATA #REQUIRED
+pvalue CDATA #IMPLIED
+score CDATA #IMPLIED
+db CDATA #IMPLIED
+lsid CDATA #IMPLIED
+>
+<!ATTLIST scanned-sequence
+accession CDATA #REQUIRED
+name CDATA #REQUIRED
+score CDATA #IMPLIED
+pvalue CDATA #IMPLIED
+length CDATA #IMPLIED
+db CDATA #IMPLIED
+lsid CDATA #IMPLIED
+>
+<!ATTLIST matched-element
+start CDATA #REQUIRED
+stop CDATA #REQUIRED
+score CDATA #IMPLIED
+pvalue CDATA #IMPLIED
+clusterid CDATA #IMPLIED
+>
+
+]>
+<cis-element-search
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://zlab.bu.edu/schema/cisml cisml.xsd"
+  xmlns="http://zlab.bu.edu/schema/cisml"
+  xmlns:mem="http://noble.gs.washington.edu/meme"
+>
+<program-name>fimo</program-name>
+<parameters>
+<command-line>fimo --parse-genomic-coord --verbosity 1 --oc results/meme-chip1/fimo_out_3 --bgfile results/meme-chip1/background --motif MA0140.2 meme-chip/JASPAR_CORE_2014_vertebrates.meme results/meme-chip1/Klf1.100.fa</command-line>
+<pattern-file>meme-chip/JASPAR_CORE_2014_vertebrates.meme</pattern-file>
+<sequence-file>results/meme-chip1/Klf1.100.fa</sequence-file>
+<site-pvalue-cutoff>0.0001</site-pvalue-cutoff>
+<sequence-filtering on-off="off"/>
+</parameters>
+<pattern accession="MA0140.2" name="TAL1::GATA1">
+<scanned-sequence accession="chr1" name="chr1">
+</scanned-sequence>
+<scanned-sequence accession="chr8" name="chr8">
+</scanned-sequence>
+<scanned-sequence accession="chr15" name="chr15">
+</scanned-sequence>
+<scanned-sequence accession="chr6" name="chr6">
+<matched-element start="57695600" stop="57695583" score="16.9818" pvalue="8.05e-07">
+<sequence>CTTATCACCATCGTGCAG</sequence>
+<mem:qvalue>0.0139</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr10" name="chr10">
+</scanned-sequence>
+<scanned-sequence accession="chr1" name="chr1">
+<matched-element start="36148143" stop="36148160" score="12.7273" pvalue="2.47e-05">
+<sequence>ATAATCTGCTGAGCGCAG</sequence>
+<mem:qvalue>0.0945</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr4" name="chr4">
+</scanned-sequence>
+<scanned-sequence accession="chr19" name="chr19">
+</scanned-sequence>
+<scanned-sequence accession="chr13" name="chr13">
+</scanned-sequence>
+<scanned-sequence accession="chr6" name="chr6">
+</scanned-sequence>
+<scanned-sequence accession="chr6" name="chr6">
+</scanned-sequence>
+<scanned-sequence accession="chr10" name="chr10">
+<matched-element start="110604644" stop="110604627" score="16.3091" pvalue="1.81e-06">
+<sequence>CCTATCTCCCAAGAGCAG</sequence>
+<mem:qvalue>0.0179</mem:qvalue>
+</matched-element>
+<matched-element start="110604430" stop="110604447" score="10.3636" pvalue="8.05e-05">
+<sequence>GTAATCTTTGCATGCCAG</sequence>
+<mem:qvalue>0.179</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr3" name="chr3">
+</scanned-sequence>
+<scanned-sequence accession="chr2" name="chr2">
+</scanned-sequence>
+<scanned-sequence accession="chr18" name="chr18">
+</scanned-sequence>
+<scanned-sequence accession="chr3" name="chr3">
+<matched-element start="153454842" stop="153454825" score="14.2" pvalue="1.01e-05">
+<sequence>ATTATCAGGCTTATGCAC</sequence>
+<mem:qvalue>0.0538</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+</scanned-sequence>
+<scanned-sequence accession="chr4" name="chr4">
+</scanned-sequence>
+<scanned-sequence accession="chr15" name="chr15">
+</scanned-sequence>
+<scanned-sequence accession="chr3" name="chr3">
+<matched-element start="138480313" stop="138480330" score="11.5091" pvalue="4.75e-05">
+<sequence>TCTATCAAGAATTCACAG</sequence>
+<mem:qvalue>0.115</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+</scanned-sequence>
+<scanned-sequence accession="chr4" name="chr4">
+</scanned-sequence>
+<scanned-sequence accession="chr1" name="chr1">
+</scanned-sequence>
+<scanned-sequence accession="chr10" name="chr10">
+<matched-element start="126642626" stop="126642609" score="13.0909" pvalue="2e-05">
+<sequence>CTTATCTTCTCTTTACAC</sequence>
+<mem:qvalue>0.0873</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr18" name="chr18">
+</scanned-sequence>
+<scanned-sequence accession="chr6" name="chr6">
+</scanned-sequence>
+<scanned-sequence accession="chr17" name="chr17">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+</scanned-sequence>
+<scanned-sequence accession="chr7" name="chr7">
+</scanned-sequence>
+<scanned-sequence accession="chr17" name="chr17">
+</scanned-sequence>
+<scanned-sequence accession="chr12" name="chr12">
+<matched-element start="90222893" stop="90222910" score="16.6" pvalue="1.3e-06">
+<sequence>CTTATCTCACTTGTGCAG</sequence>
+<mem:qvalue>0.0153</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr5" name="chr5">
+<matched-element start="37112460" stop="37112443" score="12" pvalue="3.69e-05">
+<sequence>CATATCACACACTGGCAG</sequence>
+<mem:qvalue>0.11</mem:qvalue>
+</matched-element>
+<matched-element start="37112520" stop="37112503" score="11.4727" pvalue="4.83e-05">
+<sequence>ATTATCTGGCTCTGCCTG</sequence>
+<mem:qvalue>0.115</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr19" name="chr19">
+</scanned-sequence>
+<scanned-sequence accession="chr1" name="chr1">
+</scanned-sequence>
+<scanned-sequence accession="chr1" name="chr1">
+</scanned-sequence>
+<scanned-sequence accession="chr17" name="chr17">
+</scanned-sequence>
+<scanned-sequence accession="chr3" name="chr3">
+<matched-element start="104477762" stop="104477779" score="16.1636" pvalue="2.11e-06">
+<sequence>CTTATCACACTTGTGCAG</sequence>
+<mem:qvalue>0.0182</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr13" name="chr13">
+</scanned-sequence>
+<scanned-sequence accession="chr6" name="chr6">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+<matched-element start="105013792" stop="105013775" score="11.9273" pvalue="3.83e-05">
+<sequence>CTAATCTGATCACAGCAC</sequence>
+<mem:qvalue>0.11</mem:qvalue>
+</matched-element>
+<matched-element start="105013973" stop="105013956" score="10.7273" pvalue="6.87e-05">
+<sequence>GCTATCTCTGTGTTCCAT</sequence>
+<mem:qvalue>0.158</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr8" name="chr8">
+</scanned-sequence>
+<scanned-sequence accession="chr9" name="chr9">
+</scanned-sequence>
+<scanned-sequence accession="chr6" name="chr6">
+</scanned-sequence>
+<scanned-sequence accession="chr8" name="chr8">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+</scanned-sequence>
+<scanned-sequence accession="chr12" name="chr12">
+</scanned-sequence>
+<scanned-sequence accession="chr14" name="chr14">
+</scanned-sequence>
+<scanned-sequence accession="chr15" name="chr15">
+</scanned-sequence>
+<scanned-sequence accession="chr6" name="chr6">
+</scanned-sequence>
+<scanned-sequence accession="chr19" name="chr19">
+</scanned-sequence>
+<scanned-sequence accession="chr12" name="chr12">
+</scanned-sequence>
+<scanned-sequence accession="chr4" name="chr4">
+<matched-element start="117504829" stop="117504846" score="11.5636" pvalue="4.62e-05">
+<sequence>TCTATCAGACCTGACCAC</sequence>
+<mem:qvalue>0.115</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr17" name="chr17">
+</scanned-sequence>
+<scanned-sequence accession="chr12" name="chr12">
+</scanned-sequence>
+<scanned-sequence accession="chr7" name="chr7">
+<matched-element start="106743023" stop="106743006" score="18.4545" pvalue="6e-08">
+<sequence>CTTATCTCCCAGATGCAG</sequence>
+<mem:qvalue>0.00414</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+</scanned-sequence>
+<scanned-sequence accession="chr9" name="chr9">
+</scanned-sequence>
+<scanned-sequence accession="chr5" name="chr5">
+</scanned-sequence>
+<scanned-sequence accession="chr18" name="chr18">
+<matched-element start="60666887" stop="60666904" score="12.6182" pvalue="2.62e-05">
+<sequence>ACTATCACCCCTCTCCAG</sequence>
+<mem:qvalue>0.0952</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr5" name="chr5">
+<matched-element start="140280330" stop="140280347" score="12.9636" pvalue="2.15e-05">
+<sequence>CCTATCTTATCAGCCCAG</sequence>
+<mem:qvalue>0.0873</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr10" name="chr10">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+<matched-element start="31712398" stop="31712415" score="14.9273" pvalue="6.15e-06">
+<sequence>CTTATCTCAGGCACTCAG</sequence>
+<mem:qvalue>0.0435</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chrX" name="chrX">
+<matched-element start="146984395" stop="146984412" score="14.8909" pvalue="6.31e-06">
+<sequence>TTTATCTATGGTCTGCAG</sequence>
+<mem:qvalue>0.0435</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr5" name="chr5">
+</scanned-sequence>
+<scanned-sequence accession="chr3" name="chr3">
+<matched-element start="107899746" stop="107899763" score="12.3455" pvalue="3.06e-05">
+<sequence>GCTATCAACCGCCAACAG</sequence>
+<mem:qvalue>0.101</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr6" name="chr6">
+<matched-element start="41654373" stop="41654390" score="11.9273" pvalue="3.83e-05">
+<sequence>TTTATCTTAGTTTCTCAG</sequence>
+<mem:qvalue>0.11</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr13" name="chr13">
+</scanned-sequence>
+<scanned-sequence accession="chr14" name="chr14">
+</scanned-sequence>
+<scanned-sequence accession="chr12" name="chr12">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+</scanned-sequence>
+<scanned-sequence accession="chr7" name="chr7">
+</scanned-sequence>
+<scanned-sequence accession="chr10" name="chr10">
+</scanned-sequence>
+<scanned-sequence accession="chr10" name="chr10">
+</scanned-sequence>
+<scanned-sequence accession="chr12" name="chr12">
+<matched-element start="41693528" stop="41693511" score="12.3273" pvalue="3.09e-05">
+<sequence>CTTATCTCTCCAGCACAA</sequence>
+<mem:qvalue>0.101</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr2" name="chr2">
+<matched-element start="25869448" stop="25869431" score="13.6727" pvalue="1.41e-05">
+<sequence>CTTATCTTTGACCACCTG</sequence>
+<mem:qvalue>0.0696</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr5" name="chr5">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+<matched-element start="69760089" stop="69760072" score="14.6182" pvalue="7.66e-06">
+<sequence>GTTATCAATGCCCCACAG</sequence>
+<mem:qvalue>0.048</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr3" name="chr3">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+<matched-element start="50038496" stop="50038479" score="16.5818" pvalue="1.33e-06">
+<sequence>GTTATCTCTAGCTAGCAG</sequence>
+<mem:qvalue>0.0153</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr6" name="chr6">
+<matched-element start="38874349" stop="38874332" score="14.4545" pvalue="8.57e-06">
+<sequence>CTTATCTGGTACCCACAT</sequence>
+<mem:qvalue>0.0493</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr18" name="chr18">
+</scanned-sequence>
+<scanned-sequence accession="chr5" name="chr5">
+</scanned-sequence>
+<scanned-sequence accession="chr15" name="chr15">
+<matched-element start="58828872" stop="58828889" score="11.6727" pvalue="4.37e-05">
+<sequence>AATATCTACAGCAAGCAG</sequence>
+<mem:qvalue>0.115</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr7" name="chr7">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+<matched-element start="68709978" stop="68709961" score="17.3273" pvalue="4.91e-07">
+<sequence>CTTATCACTTATCAACAG</sequence>
+<mem:qvalue>0.0113</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr18" name="chr18">
+</scanned-sequence>
+<scanned-sequence accession="chr12" name="chr12">
+<matched-element start="3795659" stop="3795676" score="11.5818" pvalue="4.58e-05">
+<sequence>TCTATCACCTAGCCACAC</sequence>
+<mem:qvalue>0.115</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr17" name="chr17">
+</scanned-sequence>
+<scanned-sequence accession="chr7" name="chr7">
+<matched-element start="135432677" stop="135432660" score="17.4909" pvalue="3.8e-07">
+<sequence>GTTATCAGAGAGCTGCAG</sequence>
+<mem:qvalue>0.0113</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr5" name="chr5">
+</scanned-sequence>
+<scanned-sequence accession="chrX" name="chrX">
+</scanned-sequence>
+<scanned-sequence accession="chr17" name="chr17">
+<matched-element start="84179788" stop="84179771" score="10.1636" pvalue="8.76e-05">
+<sequence>CTAATCTACGAGGTCCAT</sequence>
+<mem:qvalue>0.189</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr7" name="chr7">
+</scanned-sequence>
+<scanned-sequence accession="chr15" name="chr15">
+</scanned-sequence>
+<scanned-sequence accession="chr7" name="chr7">
+</scanned-sequence>
+<scanned-sequence accession="chr18" name="chr18">
+</scanned-sequence>
+<scanned-sequence accession="chr11" name="chr11">
+<matched-element start="86477180" stop="86477197" score="12.9636" pvalue="2.15e-05">
+<sequence>ATTATCATACAGCCACAC</sequence>
+<mem:qvalue>0.0873</mem:qvalue>
+</matched-element>
+</scanned-sequence>
+<scanned-sequence accession="chr19" name="chr19">
+</scanned-sequence>
+<scanned-sequence accession="chr8" name="chr8">
+</scanned-sequence>
+<mem:has-qvalues>yes</mem:has-qvalues>
+</pattern>
+</cis-element-search>

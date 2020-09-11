@@ -11,12 +11,13 @@ import subprocess as sp
 import os
 from Bio.PDB import PDBList
 from Bio.motifs.meme import Motif 
-from typing import List, Callable, Dict 
+from typing import List, Callable, Dict, Set
 from IPTK.IO import MEMEInterface as memeIF
 from IPTK.IO import OutFunctions as out_func
 from IPTK.DataStructure.Experiment import Experiment
 from IPTK.Utils.UtilityFunction import check_peptide_made_of_std_20_aa
-
+from IPTK.Utils.Mapping import map_from_uniprot_gene
+from scipy.stats import pearsonr
 # define some types 
 Peptides=List[str]
 Proteins=List[str]
@@ -103,7 +104,7 @@ def get_sequence_motif(peptides:Peptides, keep_temp:bool=False,
     
 def download_structure_file(pdb_id:str)->None:
     """
-    @brief:  downlaod PDB/mmCIF file containgthe pbd_id from PDB using BioPython Module 
+    @brief: Download PDB/mmCIF file containing the pbd_id from PDB using BioPython library 
     @param: pdb_id: the protein id in protein databank 
     """
     pdb_list=PDBList()
@@ -115,3 +116,152 @@ def compare_motif_correlation(motif_one, motif_two) -> float:
     @brief: 
     """
     pass 
+
+def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
+    """
+    @brief: compute the correlation in the gene expression between two experiments by constructing a union
+    of all the proteins expressed in the first and second experiments, extract the gene expression 
+    of these genes and then compute the correlation using scipy stat module. 
+    @param: exp1: The first experimental object 
+    @param: exp2: The second experimental object 
+    """
+    # get the expression tables 
+    protein_exp1: Set[str] = set(exp1.get_proteins())
+    protein_exp2: Set[str] = set(exp2.get_proteins())
+    unique_proteins = list(protein_exp1.union(protein_exp2))
+    # get the gene id 
+    prot2Ense: pd.DataFrame = map_from_uniprot_gene(unique_proteins)
+    # allocate lists to hold the results 
+    gene_expression_exp1: List[float] = []
+    gene_expression_exp2: List[float] = [] 
+    # get the expression from experiment one 
+    for prot in unique_proteins:
+        temp_df: pd.DataFrame = prot2Ense.loc[prot2Ense.iloc[:,0]==prot]
+        if temp_df.shape[0] == 1: # we got only one match 
+            gene_id: str = temp_df['Gene-ID'].tolist()[0]
+            try: 
+                gene_expression_exp1.append(exp1.get_tissue().get_expression_profile().get_gene_id_expression(gene_id=gene_id))
+            except KeyError:
+                gene_expression_exp1.append(-1)
+        else:
+            temp_gene_expression: List[float] = []
+            for gene in temp_df.iloc[:,1].tolist():
+                try: 
+                    temp_gene_expression.append(
+                        exp1.get_tissue().get_expression_profile().get_gene_id_expression(gene_id=gene))
+                except KeyError: 
+                    temp_gene_expression.append(-1)
+            # filter the temp_genes for default value 
+            temp_gene_process: List[str] = [elem for elem in temp_gene_expression if elem != -1]
+            # add the gene expression as the average if all values have been filtered 
+            if len(temp_gene_process) ==0:
+                gene_expression_exp1.append(-1)
+            else: 
+                gene_expression_exp1.append(np.mean(temp_gene_process))
+    # ge the expression from exp2: 
+    for prot in unique_proteins:
+        temp_df: pd.DataFrame = prot2Ense.loc[prot2Ense.iloc[:,0]==prot]
+        if temp_df.shape[0] == 1: # we got only one match 
+            gene_id: str = temp_df['Gene-ID'].tolist()[0]
+            try: 
+                gene_expression_exp2.append(exp2.get_tissue().get_expression_profile().get_gene_id_expression(gene_id=gene_id))
+            except KeyError:
+                gene_expression_exp2.append(-1)
+        else:
+            temp_gene_expression: List[float] = []
+            for gene in temp_df.iloc[:,1].tolist():
+                try: 
+                    temp_gene_expression.append(
+                        exp2.get_tissue().get_expression_profile().get_gene_id_expression(gene_id=gene))
+                except KeyError: 
+                    temp_gene_expression.append(-1)
+            # filter the temp_genes for default value 
+            temp_gene_process: List[str] = [elem for elem in temp_gene_expression if elem != -1]
+            # add the gene expression as the average 
+            if len(temp_gene_process) ==0:
+                gene_expression_exp2.append(-1)
+            else: 
+                gene_expression_exp2.append(np.mean(temp_gene_process))
+    # compute construct a dataframe 
+    temp_paired_exp_df: pd.DataFrame = pd.DataFrame({
+        'exp2': gene_expression_exp1, 
+        'exp1': gene_expression_exp2
+    })
+    # filter the un-mapped from exp1
+    temp_paired_exp_df= temp_paired_exp_df.loc[temp_paired_exp_df.iloc[:,0]!=-1,]
+    # filter the unmapped from exp2 
+    temp_paired_exp_df= temp_paired_exp_df.loc[temp_paired_exp_df.iloc[:,1]!=-1,]
+    
+    # compute the correlation 
+    return pearsonr(temp_paired_exp_df.iloc[:,0],temp_paired_exp_df.iloc[:,1])[0]
+
+def compute_change_in_protein_representation(mapped_prot_cond1: np.ndarray, 
+    mapped_prot_cond2: np.ndarray)->float:
+    """
+    @brief: compute the change in the protein representation between two conditions, by computing 
+    the difference in the area under the curve, AUC.
+    @param: mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
+    @param: mapped_prot_cond2: a mapped protein instance containing the protein coverage in the second condition  
+    """
+    # un-roll the arrays to 1D arrays.
+    if len(mapped_prot_cond1.shape)==2:
+        mapped_prot_cond1=mapped_prot_cond1.reshape(-1)
+    
+    if len(mapped_prot_cond2.shape)==2:
+        mapped_prot_cond2=mapped_prot_cond2.reshape(-1)
+    
+    # assert that the protein have same length 
+    if len(mapped_prot_cond1)!=len(mapped_prot_cond2):
+        raise ValueError(f'The provided proteins are of different length, found: {len(mapped_prot_cond1)} and {len(mapped_prot_cond1)}') 
+    
+    # compute the AUC 
+    sum_array_one: float = np.sum(mapped_prot_cond1)
+    sum_array_two: float = np.sum(mapped_prot_cond2)
+    # compute the differences 
+    difference: float = np.abs(sum_array_one-sum_array_two)
+    # return the results 
+    return difference
+
+def compute_difference_in_representation(mapped_prot_cond1: np.ndarray, 
+    mapped_prot_cond2: np.ndarray) -> np.ndarray:
+    """
+    @brief: return the difference in the representation of protein between two proteins.
+    @param: mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
+    @param: mapped_prot_cond2: a mapped protein instance containing the protein coverage in the second condition  
+    """
+     # un-roll the arrays to 1D arrays.
+    if len(mapped_prot_cond1.shape)==2:
+        mapped_prot_cond1=mapped_prot_cond1.reshape(-1)
+    
+    if len(mapped_prot_cond2.shape)==2:
+        mapped_prot_cond2=mapped_prot_cond2.reshape(-1)
+    
+    # assert that the protein have same length 
+    if len(mapped_prot_cond1)!=len(mapped_prot_cond2):
+        raise ValueError(f'The provided proteins are of different length, found: {len(mapped_prot_cond1)} and {len(mapped_prot_cond1)}') 
+
+    return mapped_prot_cond1-mapped_prot_cond2
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

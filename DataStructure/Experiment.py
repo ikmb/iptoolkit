@@ -627,6 +627,12 @@ class Experiment:
 			return True
 		return False 
 	
+	def get_tissue(self)->Tissue: 
+		"""
+		@brief: return the tissue of the current experiment.  
+		"""
+		return self._tissue
+
 	def	__len__(self)->int: 
 		"""
 		@brief: a magic function for the len function, return the number of peptides in the experiment.

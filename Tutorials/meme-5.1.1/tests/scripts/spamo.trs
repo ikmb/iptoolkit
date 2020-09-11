@@ -1,0 +1,4 @@
+:test-result: PASS spamo1 limits test
+:test-result: PASS spamo2 random distributed unambiguous
+:test-result: PASS spamo3 -xalph, sequence bg, -inc, -exc, -primary
+:test-result: PASS spamo4 dumpseqs test

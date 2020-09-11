@@ -1,0 +1,54 @@
+*******************************************************************************
+Test meme-chip1 ...
+meme-chip -oc results/meme-chip1 -db meme-chip/JASPAR_CORE_2014_vertebrates.meme meme-chip/Klf1.100.fa &> log
+Starting getsize: getsize results/meme-chip1/Klf1.100.fa 1> $metrics
+getsize ran successfully in 0.176886 seconds
+Starting fasta-most: fasta-most -min 50 < results/meme-chip1/Klf1.100.fa 1> $metrics
+fasta-most ran successfully in 0.218458 seconds
+Starting fasta-center: fasta-center -dna -len 100 < results/meme-chip1/Klf1.100.fa 1> results/meme-chip1/seqs-centered
+fasta-center ran successfully in 0.054701 seconds
+Starting fasta-shuffle-letters: fasta-shuffle-letters results/meme-chip1/seqs-centered results/meme-chip1/seqs-shuffled -kmer 2 -tag -dinuc -dna -seed 1
+fasta-shuffle-letters ran successfully in 0.218256 seconds
+Starting fasta-get-markov: fasta-get-markov -nostatus -nosummary -dna -m 1 results/meme-chip1/Klf1.100.fa results/meme-chip1/background
+fasta-get-markov ran successfully in 0.175219 seconds
+Starting meme: meme results/meme-chip1/seqs-centered -oc results/meme-chip1/meme_out -mod zoops -nmotifs 3 -minw 6 -maxw 30 -bfile results/meme-chip1/background -dna -revcomp -nostatus
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+Warning: Cannot convert EPS file to PNG as no install of Image Magick or Ghostscript is usable.
+meme ran successfully in 15.619376 seconds
+Starting dreme: dreme -verbosity 1 -oc results/meme-chip1/dreme_out -png -dna -p results/meme-chip1/seqs-centered -n results/meme-chip1/seqs-shuffled
+Failed to create PNG file. Have you got ghostscript installed?
+Failed to create PNG file. Have you got ghostscript installed?
+dreme ran successfully in 1.120291 seconds
+Starting centrimo: centrimo -seqlen 500 -verbosity 1 -oc results/meme-chip1/centrimo_out -bfile results/meme-chip1/background results/meme-chip1/Klf1.100.fa results/meme-chip1/meme_out/meme.xml results/meme-chip1/dreme_out/dreme.xml meme-chip/JASPAR_CORE_2014_vertebrates.meme
+centrimo ran successfully in 0.503064 seconds
+Starting tomtom: tomtom -verbosity 1 -oc results/meme-chip1/meme_tomtom_out -min-overlap 5 -dist pearson -evalue -thresh 1 -no-ssc results/meme-chip1/meme_out/meme.xml meme-chip/JASPAR_CORE_2014_vertebrates.meme
+tomtom ran successfully in 1.480994 seconds
+Starting tomtom: tomtom -verbosity 1 -oc results/meme-chip1/dreme_tomtom_out -min-overlap 5 -dist pearson -evalue -thresh 1 -no-ssc results/meme-chip1/dreme_out/dreme.xml meme-chip/JASPAR_CORE_2014_vertebrates.meme
+tomtom ran successfully in 0.198678 seconds
+Starting tomtom: tomtom -verbosity 1 -text -thresh 0.1 results/meme-chip1/combined.meme results/meme-chip1/combined.meme 1> results/meme-chip1/motif_alignment.txt
+tomtom ran successfully in 0.10195 seconds
+Starting spamo: spamo -verbosity 1 -oc results/meme-chip1/spamo_out_1 -bgfile results/meme-chip1/background -keepprimary -primary WGGGYGTGGY results/meme-chip1/Klf1.100.fa results/meme-chip1/meme_out/meme.xml results/meme-chip1/meme_out/meme.xml results/meme-chip1/dreme_out/dreme.xml meme-chip/JASPAR_CORE_2014_vertebrates.meme
+spamo ran successfully in 0.693655 seconds
+Starting spamo: spamo -verbosity 1 -oc results/meme-chip1/spamo_out_2 -bgfile results/meme-chip1/background -keepprimary -primary WGCYYCHBCCCTCYC results/meme-chip1/Klf1.100.fa results/meme-chip1/meme_out/meme.xml results/meme-chip1/meme_out/meme.xml results/meme-chip1/dreme_out/dreme.xml meme-chip/JASPAR_CORE_2014_vertebrates.meme
+spamo ran successfully in 0.54775 seconds
+Starting spamo: spamo -verbosity 1 -oc results/meme-chip1/spamo_out_3 -bgfile results/meme-chip1/background -keepprimary -primary MA0140.2 results/meme-chip1/Klf1.100.fa meme-chip/JASPAR_CORE_2014_vertebrates.meme results/meme-chip1/meme_out/meme.xml results/meme-chip1/dreme_out/dreme.xml meme-chip/JASPAR_CORE_2014_vertebrates.meme
+spamo ran successfully in 0.503883 seconds
+Starting fimo: fimo --parse-genomic-coord --verbosity 1 --oc results/meme-chip1/fimo_out_1 --bgfile results/meme-chip1/background --motif WGGGYGTGGY results/meme-chip1/meme_out/meme.xml results/meme-chip1/Klf1.100.fa
+fimo ran successfully in 0.074521 seconds
+Starting fimo: fimo --parse-genomic-coord --verbosity 1 --oc results/meme-chip1/fimo_out_2 --bgfile results/meme-chip1/background --motif WGCYYCHBCCCTCYC results/meme-chip1/meme_out/meme.xml results/meme-chip1/Klf1.100.fa
+fimo ran successfully in 0.074784 seconds
+Starting fimo: fimo --parse-genomic-coord --verbosity 1 --oc results/meme-chip1/fimo_out_3 --bgfile results/meme-chip1/background --motif MA0140.2 meme-chip/JASPAR_CORE_2014_vertebrates.meme results/meme-chip1/Klf1.100.fa
+fimo ran successfully in 0.11094 seconds
+Starting meme-chip_html_to_tsv: meme-chip_html_to_tsv results/meme-chip1/meme-chip.html results/meme-chip1/summary.tsv "meme-chip -oc results/meme-chip1 -db meme-chip/JASPAR_CORE_2014_vertebrates.meme meme-chip/Klf1.100.fa" 5.1.1 "Wed Jan 29 15\:00\:42 2020 -0800"
+meme-chip_html_to_tsv exited with error code 2
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/meme-chip/meme-chip.html output results/meme-chip1/meme-chip.html
+-------------------------------------------------------------------------------
+A difference was detected between the reference and tested json files.
+Got data:programs@6:outputs but expected data:programs@6:messages_file.
+meme-chip did not create the file "results/meme-chip1/summary.tsv"
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/meme-chip/combined.meme output results/meme-chip1/combined.meme
+FAILED!

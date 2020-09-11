@@ -1,0 +1,13 @@
+:test-result: PASS ame1 
+:test-result: PASS ame2 
+:test-result: PASS ame3 
+:test-result: PASS ame4 
+:test-result: PASS ame5 
+:test-result: PASS ame6 
+:test-result: PASS ame7 
+:test-result: PASS ame8 
+:test-result: PASS ame9 
+:test-result: PASS ame10 
+:test-result: PASS ame11 
+:test-result: PASS ame12 
+:test-result: PASS ame13 --xalph, --inc, --exc, --bgfile, --kmer, --motif-pseudo

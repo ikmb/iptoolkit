@@ -1,0 +1,63 @@
+*******************************************************************************
+Test centrimo1 ...
+centrimo --verbosity 1 --oc results/centrimo1 --flip --motif-pseudo 1 common/Klf1.fa /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/dreme-Klf1.xml &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/seq_bg_site_counts.txt output results/centrimo1/site_counts.txt
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/seq_bg_centrimo.tsv output results/centrimo1/centrimo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/seq_bg_centrimo.html output results/centrimo1/centrimo.html
+PASSED!
+*******************************************************************************
+Test centrimo2 ...
+centrimo --verbosity 1 --oc results/centrimo2 --flip --bfile --motif-- --motif-pseudo 1 common/Klf1.fa /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/dreme-Klf1.xml &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/motif_bg_site_counts.txt output results/centrimo2/site_counts.txt
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/motif_bg_centrimo.tsv output results/centrimo2/centrimo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/motif_bg_centrimo.html output results/centrimo2/centrimo.html
+PASSED!
+*******************************************************************************
+Test centrimo3 ...
+centrimo --verbosity 1 --oc results/centrimo3 --flip --bfile --uniform-- --motif-pseudo 1 common/Klf1.fa /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/dreme-Klf1.xml &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/uni_bg_site_counts.txt output results/centrimo3/site_counts.txt
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/uni_bg_centrimo.tsv output results/centrimo3/centrimo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/uni_bg_centrimo.html output results/centrimo3/centrimo.html
+PASSED!
+*******************************************************************************
+Test centrimo4 ...
+centrimo --oc results/centrimo4 --verbosity 1 --cd --xalph common/dna_with_covalent.alph --noseq --inc MA00\* --inc MA04\* --exc MA007\* --inc T\* common/dna_with_covalent.fa common/Jaspar-subset.meme common/Jaspar-subset2.meme common/dna_with_covalent.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/dna_with_covalent_site_counts.txt output results/centrimo4/site_counts.txt
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/dna_with_covalent_centrimo.tsv output results/centrimo4/centrimo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/dna_with_covalent_centrimo.html output results/centrimo4/centrimo.html
+PASSED!
+*******************************************************************************
+Test centrimo5 ...
+centrimo --verbosity 1 --oc results/centrimo5 --neg common/Klf1-200.fa --motif-pseudo 1 common/Klf1.fa common/Jaspar-subset.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/neg_site_counts.txt output results/centrimo5/site_counts.txt
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/neg_centrimo.tsv output results/centrimo5/centrimo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/neg_centrimo.html output results/centrimo5/centrimo.html
+PASSED!
+*******************************************************************************
+Test centrimo6 ...
+centrimo --verbosity 1 --oc results/centrimo6 --cd -flip --motif-pseudo 1 --ethresh 1e-43 common/Klf1.fa /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/dreme-Klf1.xml &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/cd_seq_bg_site_counts.txt output results/centrimo6/site_counts.txt
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/cd_seq_bg_centrimo.tsv output results/centrimo6/centrimo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/cd_seq_bg_centrimo.html output results/centrimo6/centrimo.html
+PASSED!
+*******************************************************************************
+Test centrimo7 ...
+centrimo --verbosity 1 --oc results/centrimo7 --ethresh 0.03 --local --sep --neg common/Klf1-200.fa --motif-pseudo 1 --bfile common/non-uniform.bg common/Klf1.fa common/Jaspar-subset.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/local_neg_site_counts.txt output results/centrimo7/site_counts.txt
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/local_neg_centrimo.tsv output results/centrimo7/centrimo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/local_neg_centrimo.html output results/centrimo7/centrimo.html
+PASSED!
+*******************************************************************************
+Test centrimo8 ...
+centrimo --verbosity 1 --oc results/centrimo8 --neg common/Klf1-200.fa --use-lo-fraction --motif-pseudo 1 common/Klf1.fa common/Jaspar-subset.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/neg_lo_site_counts.txt output results/centrimo8/site_counts.txt
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/neg_lo_centrimo.tsv output results/centrimo8/centrimo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/neg_lo_centrimo.html output results/centrimo8/centrimo.html
+PASSED!
+*******************************************************************************
+Test centrimo9 ...
+centrimo --verbosity 1 --oc results/centrimo9 --neg common/Klf1-200.fa --use-pvalues --score 0.1 --motif-pseudo 1 common/Klf1.fa common/Jaspar-subset.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/neg_pv_site_counts.txt output results/centrimo9/site_counts.txt
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/neg_pv_centrimo.tsv output results/centrimo9/centrimo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/centrimo/neg_pv_centrimo.html output results/centrimo9/centrimo.html
+PASSED!

@@ -19,6 +19,7 @@ import numpy as np
 from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
 from typing import List, Dict 
 from scipy.stats import pearsonr
+from statannot import add_stat_annotation 
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -31,7 +32,7 @@ def major_formatter(x,pos):
         return str(-x)
     return str(x)
 # define the plotting functions 
-def plot_overlap_heatmap(results_df:pd.DataFrame, plotting_kwargs: PlottingKeywards)->sns.matrix.ClusterGrid:
+def plot_overlap_heatmap(results_df:pd.DataFrame, plotting_kwargs: PlottingKeywards={})->sns.matrix.ClusterGrid:
     """
     @brief: plot the peptide/protein overlap clustermap
     @param: results_df: a pandas dataframe table that hold the overlapping results.
@@ -300,11 +301,14 @@ def plot_num_peptides_per_parent(nums_table: pd.DataFrame,
     return fig
 
 def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame, 
-    tissue_name: str, plotting_kwargs: Dict[str,str]={'orient':'v'}, def_value: float = -1,
+    ref_expression: pd.DataFrame , tissue_name: str, sampling_num: int = 10,
+    plotting_kwargs: Dict[str,str]={'orient':'v'}, def_value: float = -1,
     ylabel: str = 'Normalized Expression', title: str = 'Parent proteins gene expression') -> plt.Figure:
     """
     @brief: plot the parent protein expression in tissue 
     @param: expression_table: The protein expression table which contains the expresion value for each parent protein
+    @param: ref_expression: The reference expression of the tissue under investigation. 
+    @param: sampling_num: the number of times to sample from the non-prsenter. 
     @param: tissue_name: The name of the tissue 
     @param: def_value: The default value for proteins that could not be mapped to the expression database 
     @param: plotting_kwargs: a dict object containing parameters for the sns.violinplot function.
@@ -315,10 +319,31 @@ def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame,
     df=expression_table.loc[expression_table.iloc[:,1]!=def_value,]
     # get the num of un-mapped
     num_un_mapped: int = expression_table.shape[0]-df.shape[0]
+    # assert that the number of genes in the database is bigger than the present number of parent proteins
+    if ref_expression.shape[0] <= expression_table.shape[0]:
+        raise ValueError('The provided reference gene expression table is smaller than the number of parents!')
+    # extract the genes that have not-been presented 
+    np_df=ref_expression.loc[~ref_expression.iloc[:,0].isin(df.iloc[:,0])].reset_index(drop=True)
+    # sample the expression value 
+    exp_value: np.ndarray = np.zeros((sampling_num, df.shape[0]))
+    # fil the array 
+    for idx in range(sampling_num):
+        selected_genes: np.ndarray = list(np.random.randint(low=0,high=np_df.shape[0],
+                size=(df.shape[0],)))
+        # get the expression value
+        exp_value[idx,:]=np_df.loc[selected_genes].iloc[:,-1].tolist()
+    # compute the average representation of proteins 
+    average_np_gen: np.ndarray=np.mean(exp_value,axis=0)
+    # construct a dataframe that contain the presented and non-presented protein expression 
+    gene_exp_p_np: pd.DataFrame = pd.DataFrame({
+        'Presented':df.iloc[:,1].tolist(),
+        'Not-Presented':average_np_gen.reshape(-1)
+    })
     # create a figure to plot to it 
     fig= plt.figure()
-    ax=sns.violinplot(df.iloc[:,1], **plotting_kwargs)
+    ax=sns.violinplot(data=gene_exp_p_np, **plotting_kwargs)
     # set the axis of the axes, legend, label, etc 
+    plt.text()
     ax.set_ylabel(ylabel+' in '+tissue_name)
     ax.set_xlabel(f'Number of proteins: {expression_table.shape[0]}, Number of proteins without reference expression value: {num_un_mapped}')
     ax.set_title(title)
@@ -463,3 +488,4 @@ def plot_num_peptide_per_go_term(pep2goTerm: pd.DataFrame,
     ax.set_title(title)
     # return the results 
     return fig
+

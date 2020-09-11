@@ -1,0 +1,75 @@
+*******************************************************************************
+Test spamo1 ...
+spamo -oc results/spamo1 -verbosity 1 -margin 20 -shared 1 -bgfile --uniform-- /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/limits.fasta /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/primary.meme /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/secondary.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/limits.html output results/spamo1/spamo.html
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/limits.tsv output results/spamo1/spamo.tsv
+PASSED!
+*******************************************************************************
+Test spamo2 ...
+spamo -oc results/spamo2 -verbosity 1 -margin 20 -shared 1 -bgfile --motif-- /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/random.fasta /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/primary.meme /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/secondary.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/random.html output results/spamo2/spamo.html
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/random.tsv output results/spamo2/spamo.tsv
+PASSED!
+*******************************************************************************
+Test spamo3 ...
+spamo -oc results/spamo3 -verbosity 3 -xalph -primary TGCm1C -keepprimary -margin 20 -shared 1 -inc MA00\* -inc T\* -exc MA007\* common/dna_with_covalent.fa common/dna_with_covalent.meme common/Jaspar-subset.meme common/dna_with_covalent.meme common/dna_with_covalent.meme &> log
+The output directory 'results/spamo3' already exists.
+Its contents will be overwritten.
+Loading Primary Motif (name=TGCm1C)
+Loading All Sequences
+Loaded 2499 Sequences
+Determining Best Primary Matches
+Eliminating Sequences Without Primary Matches
+Eliminated 1553 Sequences Without Primary Match
+Trimming Sequences
+Freeing Unneeded Sequences
+Loading Secondary Motifs from file 'common/Jaspar-subset.meme'
+Discarding motif 'MA0140.1' in 'common/Jaspar-subset.meme' because it did not match any -inc pattern.
+Discarding motif 'MA0079.1' in 'common/Jaspar-subset.meme' it matched an -exc pattern.
+Discarding motif 'MA0079.2' in 'common/Jaspar-subset.meme' it matched an -exc pattern.
+Discarding motif 'MA0163.1' in 'common/Jaspar-subset.meme' because it did not match any -inc pattern.
+Discarding motif 'MA0270.1' in 'common/Jaspar-subset.meme' because it did not match any -inc pattern.
+Discarding motif 'MA0300.1' in 'common/Jaspar-subset.meme' because it did not match any -inc pattern.
+Discarding motif 'MA0309.1' in 'common/Jaspar-subset.meme' because it did not match any -inc pattern.
+Discarding motif 'MA0443.1' in 'common/Jaspar-subset.meme' because it did not match any -inc pattern.
+Loading Secondary Motifs from file 'common/dna_with_covalent.meme'
+Discarding motif 'CCTTCC' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'GCAGCA' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'GCAm1C' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'GCAm7C' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'GCm1C1' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'Gm1TGC' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'Gm7GCA' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'TGCmGC' in file 'common/dna_with_covalent.meme' (non-unique ID).
+Warning: The following secondary motifs in 'common/dna_with_covalent.meme' were excluded as they didn't fit in the margin:
+   Tm1m1m1m1m1m1m1m1m1m1m1m1
+Loading Secondary Motifs from file 'common/dna_with_covalent.meme'
+Discarding motif 'CCTTCC' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'GCAGCA' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'GCAm1C' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'GCAm7C' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'GCm1C1' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'Gm1TGC' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'Gm7GCA' in 'common/dna_with_covalent.meme' because it did not match any -inc pattern.
+Discarding motif 'TGCmGC' in file 'common/dna_with_covalent.meme' (non-unique ID).
+Warning: The following duplicate secondary motifs in 'common/dna_with_covalent.meme' were excluded:
+   TGCmGC TGCm1C
+Warning: The following secondary motifs in 'common/dna_with_covalent.meme' were excluded as they didn't fit in the margin:
+   Tm1m1m1m1m1m1m1m1m1m1m1m1
+Scanning For Secondary Matches
+Scanned 20% Scanned 40% Scanned 60% Scanned 80% Scanned 100% 
+Sorting Significant Secondary Motifs
+Grouping Redundant Secondary Motifs
+Outputting TSV
+run_time cpu=  0.22 real=  0.00
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/dna_with_covalent.html output results/spamo3/spamo.html
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/dna_with_covalent.tsv output results/spamo3/spamo.tsv
+PASSED!
+*******************************************************************************
+Test spamo4 ...
+spamo -oc results/spamo4 -verbosity 1 -margin 20 -shared 1 -bgfile --uniform-- -dumpseqs -primary MA0039.2 -keepprimary -inc MA0039.2 -inc MA0140.1 common/Klf1.fa common/Jaspar-subset.meme common/Jaspar-subset.meme &> log
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/dumpseqs.html output results/spamo4/spamo.html
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/dumpseqs.tsv output results/spamo4/spamo.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/dumpseqs.seqs_MA0039.2_db1_MA0039.2.tsv output results/spamo4/seqs_MA0039.2_db1_MA0039.2.tsv
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/spamo/dumpseqs.seqs_MA0039.2_db1_MA0140.1.tsv output results/spamo4/seqs_MA0039.2_db1_MA0140.1.tsv
+PASSED!

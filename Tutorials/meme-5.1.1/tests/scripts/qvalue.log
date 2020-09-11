@@ -1,0 +1,14 @@
+*******************************************************************************
+Test qvalue1 ...
+qvalue --header 1 --append --column 2 --seed 7718 /Users/heshamelabd/Downloads/meme-5.1.1/tests/qvalue/uniform.txt 1> results/qvalue1/qvalue_7rsXz_stdout 2> log
+Read 1000 values from /Users/heshamelabd/Downloads/meme-5.1.1/tests/qvalue/uniform.txt.
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/qvalue/uniform.out output results/qvalue1/qvalue_7rsXz_stdout
+PASSED!
+*******************************************************************************
+Test qvalue2 ...
+qvalue --null /Users/heshamelabd/Downloads/meme-5.1.1/tests/qvalue/null.txt /Users/heshamelabd/Downloads/meme-5.1.1/tests/qvalue/observed.txt 1> results/qvalue2/qvalue_jMxVm_stdout 2> log
+Read 5 values from /Users/heshamelabd/Downloads/meme-5.1.1/tests/qvalue/observed.txt.
+Read 10 values from /Users/heshamelabd/Downloads/meme-5.1.1/tests/qvalue/null.txt.
+Converting scores to p-values.
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/qvalue/observed.out output results/qvalue2/qvalue_jMxVm_stdout
+PASSED!

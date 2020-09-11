@@ -66,10 +66,10 @@ class ExpressionProfile:
 		if gene_name not in self._exp_map.iloc[:,1].tolist(): 
 			raise KeyError(f"The provided gene name: {gene_name} is not defined in the database.")
 		return self._exp_map.loc[self._exp_map.iloc[:,1]==gene_name,:].iloc[0,2]
-	
+
 	def get_name(self)->str:
 		"""
-		@brief: get the name of the tissue 
+		@brief: get the name of the tissue which the instance profile its gene expression 
 		"""
 		return self._name
 

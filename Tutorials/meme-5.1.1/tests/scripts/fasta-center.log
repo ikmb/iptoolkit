@@ -1,0 +1,5 @@
+*******************************************************************************
+Test fasta-center1 ...
+fasta-center -len 100 -dna < common/Klf1-200.fa 1> results/fasta-center1/fasta-center_OY8UR_stdout 2> log
+reference common/Klf1-200-100.no_fasta.fa output results/fasta-center1/fasta-center_OY8UR_stdout
+PASSED!

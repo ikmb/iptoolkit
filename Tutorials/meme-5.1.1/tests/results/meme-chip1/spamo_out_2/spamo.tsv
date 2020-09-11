@@ -1,0 +1,5 @@
+prim_db	prim_id	prim_alt	prim_cons	sec_db	sec_id	sec_alt	sec_cons	trim_left	trim_right	red_db	red_id	red_alt	E-value	gap	orient	count	total	adj_p-value	p-value
+
+# SpaMo (Spaced Motif Analysis Tool): Version 5.1.1 compiled on Sep  6 2020 at 08:43:22
+# The format of this file is described at http://meme-suite.org//doc/spamo-output-format.html.
+# spamo -verbosity 1 -oc results/meme-chip1/spamo_out_2 -bgfile results/meme-chip1/background -keepprimary -primary WGCYYCHBCCCTCYC results/meme-chip1/Klf1.100.fa results/meme-chip1/meme_out/meme.xml results/meme-chip1/meme_out/meme.xml results/meme-chip1/dreme_out/dreme.xml meme-chip/JASPAR_CORE_2014_vertebrates.meme

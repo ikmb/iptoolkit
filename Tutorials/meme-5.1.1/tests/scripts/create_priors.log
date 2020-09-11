@@ -1,0 +1,30 @@
+*******************************************************************************
+Test create-priors1 ...
+create-priors -oc results/create-priors1 /Users/heshamelabd/Downloads/meme-5.1.1/tests/create-priors/chrX.fa /Users/heshamelabd/Downloads/meme-5.1.1/tests/create-priors/DNaseHS_gm12878.wig &> log
+Creating priors with alpha=1.0 and beta=10000
+Sequence size is 3000000 bases.
+Scores were observed for 4140 bases.
+Minimum score is 1
+Median score is 1
+Maximum score is 3.97638
+Sum of scores is 7156.07
+Sum of un-normalized priors is 762695
+Sum of normalized priors = 10000
+Sum of prior distribution = 1
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/create-priors/priors.wig output results/create-priors1/priors.wig
+PASSED!
+*******************************************************************************
+Test create-priors2 ...
+create-priors -oc results/create-priors2 /Users/heshamelabd/Downloads/meme-5.1.1/tests/create-priors/chrX.fa /Users/heshamelabd/Downloads/meme-5.1.1/tests/create-priors/DNaseHS_gm12878.wig &> log
+Creating priors with alpha=1.0 and beta=10000
+Sequence size is 3000000 bases.
+Scores were observed for 4140 bases.
+Minimum score is 1
+Median score is 1
+Maximum score is 3.97638
+Sum of scores is 7156.07
+Sum of un-normalized priors is 762695
+Sum of normalized priors = 10000
+Sum of prior distribution = 1
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/create-priors/priors.dist output results/create-priors2/priors.dist
+PASSED!

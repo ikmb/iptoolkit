@@ -1,0 +1,44 @@
+*******************************************************************************
+Test fimo1 ...
+fimo --oc results/fimo1 --motif-pseudo 0.01 /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/MCM1.meme.html /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/spiked.fasta &> log
+Using motif +TTTCCYDWTTBGGAAATW of width 18.
+Using motif -TTTCCYDWTTBGGAAATW of width 18.
+Computing q-values.
+  Estimating pi_0 from a uniformly sampled set of 5298 p-values.
+  Estimating pi_0.
+  Estimated pi_0=0.799106
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/fimo.tsv output results/fimo1/fimo.tsv
+PASSED!
+*******************************************************************************
+Test fimo2 ...
+fimo --oc results/fimo2 --motif CGGYGGGG --motif GCATCRGRBSAGA --no-qvalue --thresh 0.01 common/crp0.meme.xml /Users/heshamelabd/Downloads/meme-5.1.1/tests/motiph/spiked.fasta &> log
+Skipping motif +TKTGANCNABNTCACAHWT.
+Skipping motif -TKTGANCNABNTCACAHWT.
+Using motif +CGGYGGGG of width 8.
+Using motif -CGGYGGGG of width 8.
+Using motif +GCATCRGRBSAGA of width 13.
+Using motif -GCATCRGRBSAGA of width 13.
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/fimo-motif23.tsv output results/fimo2/fimo.tsv
+PASSED!
+*******************************************************************************
+Test fimo3 ...
+fimo --oc results/fimo3 --psp /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/GCN4_YPD.psp --prior-dist /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/prior.dist.txt /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/GCN4.meme.txt /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/GCN4_YPD.fasta &> log
+Using motif +MA0303.1 of width 21.
+Using motif -MA0303.1 of width 21.
+Computing q-values.
+  Estimating pi_0 from a uniformly sampled set of 10000 p-values.
+  Estimating pi_0.
+  Estimated pi_0=1
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/fimo-priors.tsv output results/fimo3/fimo.tsv
+PASSED!
+*******************************************************************************
+Test fimo4 ...
+fimo --oc results/fimo4 --parse-genomic-coord --psp /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/GCN4_YPD-genomic.psp --prior-dist /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/prior.dist.txt /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/GCN4.meme.txt /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/GCN4_YPD-genomic.fasta &> log
+Using motif +MA0303.1 of width 21.
+Using motif -MA0303.1 of width 21.
+Computing q-values.
+  Estimating pi_0 from a uniformly sampled set of 10000 p-values.
+  Estimating pi_0.
+  Estimated pi_0=1
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/fimo/fimo-priors-genomic.tsv output results/fimo4/fimo.tsv
+PASSED!

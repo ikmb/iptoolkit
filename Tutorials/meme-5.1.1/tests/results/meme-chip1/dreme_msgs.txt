@@ -1,0 +1,2 @@
+Failed to create PNG file. Have you got ghostscript installed?
+Failed to create PNG file. Have you got ghostscript installed?

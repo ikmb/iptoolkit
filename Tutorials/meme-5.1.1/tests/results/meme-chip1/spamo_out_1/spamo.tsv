@@ -1,0 +1,8 @@
+prim_db	prim_id	prim_alt	prim_cons	sec_db	sec_id	sec_alt	sec_cons	trim_left	trim_right	red_db	red_id	red_alt	E-value	gap	orient	count	total	adj_p-value	p-value
+meme.xml	WGGGYGTGGY	MEME-1	WGGGYGTGGY	JASPAR_CORE_2014_vertebrates	MA0088.1	znf143	BAHYTCCCAKVATKCMWYGM	0	0	.	.	.	2.67e+00	2	0	2	3	1.21e-06	1.09e-05
+meme.xml	WGGGYGTGGY	MEME-1	WGGGYGTGGY	JASPAR_CORE_2014_vertebrates	MA0029.1	Mecom	AAGAYAAGATAANA	0	0	.	.	.	8.38e+00	3	3	2	5	3.69e-06	3.32e-05
+meme.xml	WGGGYGTGGY	MEME-1	WGGGYGTGGY	JASPAR_CORE_2014_vertebrates	MA0042.1	FOXI1	KBDTRTTTRTTT	0	0	.	.	.	9.88e+00	109	7	2	3	4.30e-06	3.87e-05
+
+# SpaMo (Spaced Motif Analysis Tool): Version 5.1.1 compiled on Sep  6 2020 at 08:43:22
+# The format of this file is described at http://meme-suite.org//doc/spamo-output-format.html.
+# spamo -verbosity 1 -oc results/meme-chip1/spamo_out_1 -bgfile results/meme-chip1/background -keepprimary -primary WGGGYGTGGY results/meme-chip1/Klf1.100.fa results/meme-chip1/meme_out/meme.xml results/meme-chip1/meme_out/meme.xml results/meme-chip1/dreme_out/dreme.xml meme-chip/JASPAR_CORE_2014_vertebrates.meme

@@ -1,0 +1,7 @@
+*******************************************************************************
+Test glam2scan1 ...
+glam2scan -O results/glam2scan1 p /Users/heshamelabd/Downloads/meme-5.1.1/tests/glam2/glam2.txt common/At.s &> log
+The output directory 'results/glam2scan1' already exists.
+Its contents will be overwritten.
+reference /Users/heshamelabd/Downloads/meme-5.1.1/tests/glam2scan/glam2scan.txt output results/glam2scan1/glam2scan.txt
+PASSED!
