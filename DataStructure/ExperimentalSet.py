@@ -12,6 +12,7 @@ from IPTK.DataStructure.Experiment import Experiment
 from IPTK.Analysis.AnalysisFunction import get_binnary_peptide_overlap, get_binnary_protein_overlap 
 from IPTK.DataStructure.Peptide import Peptide
 from IPTK.Analysis.AnalysisFunction import compute_change_in_protein_representation
+from IPTK.Analysis.AnalysisFunction import compute_expression_correlation
 from typing import Dict, List 
 ## define some types 
 Experiments=Dict[str,Experiment]
@@ -62,6 +63,17 @@ class ExperimentSet:
         """
         return self._exps
     
+    def get_experiment(self, exp_name:str)->Experiment:
+        """
+        @brief: return the experiment pointed to by the provided experimental name
+        @param: exp_name: the name of the experiment 
+        """
+        # define the experiment name 
+        if exp_name not in self._exps.keys():
+            raise KeyError(f"The provided experimental name: {exp_name} is not defined in the current experiment") 
+        # return the experiment 
+        return self._exps[exp_name]
+
     def get_experimental_names(self)->Names:
         """
         @brief: return a list with all the experiments associated names or identifiers  
@@ -372,7 +384,24 @@ class ExperimentSet:
         @note: see the function **compute_binary_correlation** in the analysis module 
         for information about the computational logic. 
         """
-         
+        # get the experimental index
+        exps_ids: List[str] = self.get_experimental_names()  
+        # allocate an array to hold the results
+        res_array: np.ndarray = np.zeros((len(exps_ids),len(exps_ids)))
+        # fill the array with the expression correlation 
+        for row_idx in range(len(exps_ids)): 
+            for col_idx in range(len(exps_ids)):
+                res_array[row_idx,col_idx] = compute_expression_correlation(
+                    self.get_experiment(exps_ids[row_idx]),
+                    self.get_experiment(exps_ids[col_idx])
+                )
+        # create a dataframe 
+        res: pd.DataFrame =pd.DataFrame(res_array)
+        # add the col and row names 
+        res.columns=exps_ids
+        res.index=exps_ids
+        # return the results 
+        return res 
 
     def compute_change_in_protein_representation(self)->np.ndarray:
         """
@@ -383,7 +412,7 @@ class ExperimentSet:
         @note: for more information related to counts between experiments, see the function 
         """
         # get the number of experiments and proteins 
-        present_in_all: List[str] = self.get_peptides_present_in_all()
+        present_in_all: List[str] = self.get_proteins_present_in_all()
         num_exps: int = self.get_num_experiments_in_the_set()
         # allocate an array to hold the results 
         results_array: np.ndarray = np.zeros(shape=(num_exps, num_exps,len(present_in_all)))
@@ -395,13 +424,15 @@ class ExperimentSet:
             for exp_col in self.get_experiments().keys():
                 for exp_row in self.get_experiments().keys():
                     results_array[row_counter,col_counter,prod_idx]=compute_change_in_protein_representation(
-                        self.get_experiments()[exp_row].get_mapped_protein(present_in_all[prod_idx]), 
-                        self.get_experiments()[exp_col].get_mapped_protein(present_in_all[prod_idx])
+                        self.get_experiment(exp_row).get_mapped_protein(present_in_all[prod_idx]), 
+                        self.get_experiment(exp_col).get_mapped_protein(present_in_all[prod_idx])
                     )
-                # increase the row counters 
-                row_counter+=1
-            # increase the columns counter
-            col_counter+=1 
+                    # increase the row counters 
+                    print(row_counter)
+                    row_counter+=1
+                # increase the columns counter
+                print(col_counter)
+                col_counter+=1 
         # return the results
         return results_array
 
