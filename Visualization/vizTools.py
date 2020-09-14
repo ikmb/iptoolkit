@@ -488,4 +488,3 @@ def plot_num_peptide_per_go_term(pep2goTerm: pd.DataFrame,
     ax.set_title(title)
     # return the results 
     return fig
-

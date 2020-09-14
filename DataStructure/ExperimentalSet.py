@@ -424,15 +424,15 @@ class ExperimentSet:
             for exp_col in self.get_experiments().keys():
                 for exp_row in self.get_experiments().keys():
                     results_array[row_counter,col_counter,prod_idx]=compute_change_in_protein_representation(
-                        self.get_experiment(exp_row).get_mapped_protein(present_in_all[prod_idx]), 
-                        self.get_experiment(exp_col).get_mapped_protein(present_in_all[prod_idx])
-                    )
+                            self.get_experiment(exp_row).get_mapped_protein(present_in_all[prod_idx]), 
+                            self.get_experiment(exp_col).get_mapped_protein(present_in_all[prod_idx])
+                        )
                     # increase the row counters 
-                    print(row_counter)
                     row_counter+=1
+                row_counter=0
                 # increase the columns counter
-                print(col_counter)
                 col_counter+=1 
+            col_counter=0
         # return the results
         return results_array
 
