@@ -73,6 +73,13 @@ class ExpressionProfile:
 		"""
 		return self._name
 
+	def get_table(self)->pd.DataFrame:
+		"""
+		@brief: return a table that contain the expression of all the transcript in the current profile
+		this include core and auxiliary proteins
+		"""
+		return self._exp_map
+	
 	def __len__(self)->int: 
 		"""
 		@brief: return the number of unique genes in the profile 

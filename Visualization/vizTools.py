@@ -1,7 +1,8 @@
 #!/usr/bin/env Python 
 """
 @author: Hesham ElAbd
-@brief: visualizaton functions  
+@brief: The module contain visualization functions the can be used to plot the results obtained from the 
+datastructures API or from the analysis functions defined in the Analysis Module.   
 @version: 0.0.1
 """
 # import the module 
@@ -19,6 +20,7 @@ import numpy as np
 from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
 from typing import List, Dict 
 from scipy.stats import pearsonr
+from scipy.stats import ttest_ind
 from statannot import add_stat_annotation 
 # define some helper and formater functions 
 @ticker.FuncFormatter
@@ -303,7 +305,7 @@ def plot_num_peptides_per_parent(nums_table: pd.DataFrame,
 def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame, 
     ref_expression: pd.DataFrame , tissue_name: str, sampling_num: int = 10,
     plotting_kwargs: Dict[str,str]={'orient':'v'}, def_value: float = -1,
-    ylabel: str = 'Normalized Expression', title: str = 'Parent proteins gene expression') -> plt.Figure:
+    ylabel: str = 'Normalized Expression') -> plt.Figure:
     """
     @brief: plot the parent protein expression in tissue 
     @param: expression_table: The protein expression table which contains the expresion value for each parent protein
@@ -313,7 +315,6 @@ def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame,
     @param: def_value: The default value for proteins that could not be mapped to the expression database 
     @param: plotting_kwargs: a dict object containing parameters for the sns.violinplot function.
     @param: ylabel: the label on the y-axis. 
-    @param: title: the title of the figure.
     """
     # First filter the DB for the non-mapped 
     df=expression_table.loc[expression_table.iloc[:,1]!=def_value,]
@@ -339,11 +340,16 @@ def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame,
         'Presented':df.iloc[:,1].tolist(),
         'Not-Presented':average_np_gen.reshape(-1)
     })
+    # compute the t-test between the two population
+    ttest_res=ttest_ind(a= gene_exp_p_np['Presented'].tolist(),
+                        b= gene_exp_p_np['Not-Presented'].tolist())
     # create a figure to plot to it 
     fig= plt.figure()
+    # format the label
+    title=f't-test score: {ttest_res.statistic}, P-val: {ttest_res.pvalue }'
+    # plot the results 
     ax=sns.violinplot(data=gene_exp_p_np, **plotting_kwargs)
-    # set the axis of the axes, legend, label, etc 
-    plt.text()
+    # set the axis of the axes and the title 
     ax.set_ylabel(ylabel+' in '+tissue_name)
     ax.set_xlabel(f'Number of proteins: {expression_table.shape[0]}, Number of proteins without reference expression value: {num_un_mapped}')
     ax.set_title(title)
@@ -484,6 +490,34 @@ def plot_num_peptide_per_go_term(pep2goTerm: pd.DataFrame,
     ax=sns.barplot(y='GO-Terms',x='Counts',data=pep2goTerm, **plotting_kwargs)
     # set the labels 
     ax.set_ylabel(ylabel+' in '+tissue_name)
+    ax.set_xlabel(xlabel)
+    ax.set_title(title)
+    # return the results 
+    return fig
+
+def plot_num_peptides_per_organism(pep_per_org: pd.DataFrame, log_scale: bool =False, 
+    plotting_kwargs: Dict[str,str] = {},  xlabel: str = 'Number of peptides',
+    ylabel: str = 'Organism', title: str= 'Number of peptides per organism' ) -> plt.Figure:
+    """
+    @brief: plot the number of peptides per each organism inferred from the experiment.
+    @param: pep2goTerm: A table that contain the count of peptides from each organism.
+    @param: log_scale: Whether or not to scale the number of peptide using a log scale, default is False.
+    @param: tissue_name: The name of the tissue. 
+    @param: plotting_kwargs: a dict object containing parameters for the sns.barplot function.
+    @param: drop_unknown: whether or not to drop protein with unknown location. Default is False.  
+    @param: ylabel: the label on the y-axis. 
+    @param: title: the title of the figure.
+    @param: title: the title of the figure.
+    """
+    # create a figure 
+    fig=plt.figure()
+    if log_scale:
+        pep_per_org['Counts']=np.log10(pep_per_org['Counts'])
+    ax=sns.barplot(y='Organisms',x='Counts',data=pep_per_org, **plotting_kwargs)
+    # set the labels 
+    if log_scale:
+        xlabel="log10 of "+xlabel
+    ax.set_ylabel(ylabel)
     ax.set_xlabel(xlabel)
     ax.set_title(title)
     # return the results 

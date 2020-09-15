@@ -324,7 +324,7 @@ class GeneExpressionDB:
 		@brief: return a table containing the expression value of all the genes in the database
 		"""
 		return self._table[['Gene', 'Gene name', 'NX']]
-
+		
 	def __len__(self)->int: 
 		"""
 		@brief: return the number of tissues in the database

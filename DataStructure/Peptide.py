@@ -131,7 +131,7 @@ class Peptide:
  		"""
  		@brief return the set of all the parent of the instance peptide 
  		"""
- 		return set(self._parent_proteins.keys())
+ 		return list(set(self._parent_proteins.keys()))
 
  	
 	def is_child_of(self,pro_id:str)->bool:

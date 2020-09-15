@@ -109,7 +109,7 @@ class Experiment:
 		unique_results: List[str]=[]
 		# get the organisms
 		for peptide in self.get_peptides():
-			unique_results.extend(peptide.get_parents_org())
+			unique_results.extend(self._peptides[peptide].get_parents_org())
 		# create a set the contain the unique proteins
 		unique_results = list(set(unique_results))
 		# return the results 
@@ -129,7 +129,7 @@ class Experiment:
 			 peptides_per_organims[org] = 0
 		# obtain the data from the peptides 
 		for pep in self.get_peptides(): 
-			for org in pep.get_parents_org():
+			for org in self._peptides[pep].get_parents_org():
 				peptides_per_organims[org]+=1 # increment the counter 
 		# make the data compatible with data frames 
 		for org in peptides_per_organims.keys(): 
@@ -152,11 +152,24 @@ class Experiment:
 		@brief: Drop the all the peptides that belong to a user provided organism. 
 		@note: This function will IRREVERSIBLY remove the peptide from the experimental object. 
 		"""
+		# remove the peptides belonging to the provided organisms
 		for pep in self.get_peptides():
-			if org in pep.get_parents_org():
-				self.get_peptides().pop(org) # remove the peptide from the database 
+			if org in self._peptides[pep].get_parents_org():
+				self._peptides.pop(pep) # remove the peptide from the database 
+		# update the list of proteins in the database by dropping proteins with no associated peptide 
+		new_proteins: List[str] = []
+		for pep in self.get_peptides():
+			new_proteins.extend(self._peptides[pep].get_parent_proteins())
+		# update the list of parent proteins
+		self._proteins=list(set(new_proteins))
 		return 
-		
+	
+	def get_experiment_reference_tissue_expression(self) ->pd.DataFrame:
+		"""
+		@brief: return the reference gene expression for the current tissue 
+		"""
+		return self._tissue.get_expression_profile().get_table()
+
 	def add_org_info(self, prot2org: ProteinSource)->None:
 		"""
 		@brief: annotated the inferred proteins with their source organism
@@ -675,7 +688,7 @@ class Experiment:
 		@brief: return a set of all the peptide stored in the experimental object
 		"""
 		return set(self._peptides.keys())
-	
+
 	def get_proteins(self)->Proteins:
 		"""
 		@brief: get a set of all the proteins in the experimental object
