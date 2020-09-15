@@ -115,7 +115,7 @@ class Experiment:
 		# return the results 
 		return unique_results
 
-	def get_peptides_per_organims(self)->pd.DataFrame:
+	def get_peptides_per_organism(self)->pd.DataFrame:
 		"""
 		@brief: return a pandas dataframe that contain the count of peptides belonging to each organism in
 		the database. 

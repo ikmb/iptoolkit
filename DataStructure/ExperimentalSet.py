@@ -80,6 +80,93 @@ class ExperimentSet:
         """
         return list(self._exps.keys())
     
+    def get_unique_orgs(self)->List[str]:
+        """
+        @brief: return a list of the unique organisms in the set
+        """
+        unique_orgs: List[str] = []
+        for name in self.get_experimental_names():
+             unique_orgs.extend(self._exps[name].get_orgs())
+        # compute the unique organisms in the list of organisms 
+        unique_orgs=list(set(unique_orgs))
+        return unique_orgs
+
+    def get_total_peptide_per_org_count(self) ->pd.DataFrame:
+        """
+        @brief: return the total count of peptides per organism accross the whole dataset. 
+        """
+        # first, get the unique organisms in the set.  
+        unique_orgs: List[str] = self.get_unique_orgs()
+        # create a counter and initialize it to zero to hold the results 
+        org_counter=dict()
+        for org in unique_orgs:
+            org_counter[org]=0
+        # update the counts 
+        for name in self.get_experimental_names():
+            for _, row in self._exps[name].get_peptides_per_organism().iterrows():
+                 org_counter[row['Organisms']]+=row['Counts']
+       	# make the data compatible with data frames 
+        for org in org_counter.keys():
+            org_counter[org]=[org_counter[org]]
+		# create a dataframe
+        res: pd.DataFrame = pd.DataFrame(org_counter).T
+		# add the index as an extra-columns 
+        res['Organisms'] = res.index.tolist()
+        res.columns=['Counts','Organisms']
+        # reformat the dataframe 
+        res.reset_index(drop=True,inplace=True)
+        res=res.reindex(columns=['Organisms','Counts'])
+        # sort the results 
+        res=res.sort_values(by='Counts',ascending=False)
+        return res
+
+    def compare_org_count_among_exps(self, org:str, abs_count: bool =False) ->pd.DataFrame: 
+        """
+        @brief: return the count of the peptides that belong to a specific organism in the database. 
+        @param: org: The name of the organism to query the database for it. 
+        @param: abs_count: The absolute count 
+        """
+        # allocate and array to hold the results 
+        res: np.ndarray = np.zeros((len(self),len(self)))
+        # loop over all the experiments in the set 
+        # initialize the counters 
+        experimental_name: List[str] = self.get_experimental_names()
+        for row_idx in range(len(experimental_name)):
+            # get the counts per column 
+            org_row: pd.DataFrame = self._exps[experimental_name[row_idx]].get_peptides_per_organism()
+            org_row_count: int = org_row.loc[org_row.iloc[:,0]==org]['Counts'] 
+            if org_row_count.empty:
+                org_row_count=0
+            else:
+                org_row_count=org_row_count.tolist()[0]
+            # get the counts per row 
+            for col_idx in range(len(experimental_name)):
+                # get the row-column
+                org_col: pd.DataFrame = self._exps[experimental_name[col_idx]].get_peptides_per_organism()
+                org_col_count: int = org_col.loc[org_col.iloc[:,0]==org]['Counts'] 
+                if org_col_count.empty: 
+                    org_col_count=0
+                else: 
+                    org_col_count=org_col_count.tolist()[0]
+                # add the count to the
+                res[row_idx,col_idx]= org_row_count-org_col_count
+        # return a data frame of the results 
+        res=pd.DataFrame(res)
+        # add the name of columns and index 
+        res.columns=experimental_name
+        res.index=experimental_name
+        # return the results
+        return res 
+    
+    def drop_peptides_belong_to_org(self, org_name: str) -> None:
+        """
+        @brief: drop all the peptides that belong to a use provided organisms from all experiments in the set. 
+        @param: org_name: the name of the organism to drop 
+        """
+        for name in self.get_experimental_names():
+            self[name].drop_peptide_belong_to_org(org_name)
+        return 
+
     def __getitem__(self, name)->Experiment:
         """
         @brief: a magic function for accessing the experiments stored in the set 
@@ -324,7 +411,7 @@ class ExperimentSet:
         # return the results 
         return results_df 
     
-    def compute_peptide_representation_count(self)->Counts:
+    def compute_peptide_representation_count(self)->Counts: # should be a dataframe 
         """
         @brief: compute the number of times a peptide was observed accross all experiments in the set 
         """
@@ -342,7 +429,7 @@ class ExperimentSet:
         # return the results after filling it 
         return results 
     
-    def compute_protein_representation_count(self)->Counts:
+    def compute_protein_representation_count(self)->Counts: # should be pd.df
         """
         @brief: compute the number of times a protein was observed accross all the experiment in the set
         """
@@ -377,7 +464,7 @@ class ExperimentSet:
         return results
 
 
-    def compute_compute_correlation_in_experssion(self)->pd.DataFrame:
+    def compute_correlation_in_experssion(self)->pd.DataFrame:
         """
         @brief: compute the correlation in parent protein gene-expression across all the experiments
         in the set.  

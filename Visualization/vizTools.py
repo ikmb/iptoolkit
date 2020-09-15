@@ -522,3 +522,45 @@ def plot_num_peptides_per_organism(pep_per_org: pd.DataFrame, log_scale: bool =F
     ax.set_title(title)
     # return the results 
     return fig
+
+def plot_change_in_presentation_between_experiment(
+    change_in_presentation_array: np.ndarray, index_first: int, index_second:int, 
+    plotting_kwargs: Dict[str,str] = {},
+    title='Change in protein presentation',
+    xlabel="Proteins", ylabel="magnitude of change in protein count") -> plt.Figure:
+    """ 
+    @brief: plot the change in protein presentation between two experiment 
+    @param: change_in_presentation_array: a 3D tensor of shape number of experiments by 
+    number of experiment by number of identified proteins. 
+    @param: index_first: the index of the first experiment in the tensor. 
+    @param: index_second: the index of the second experiment in the tensor. 
+    @param: plotting_kwargs: a dict object containing parameters for the sns.scatterplot function.
+    @param: title: The title of the figure
+    @param: xlabel: The x-axis label of the figure 
+    @param: ylabel: the y-axis label of the figure
+    """
+    # check the correct index 
+    if len(change_in_presentation_array.shape)!=3:
+        raise ValueError(f"The provided tensor must of be of rank 3, current tensor has rank: {len(change_in_presentation_array.shape)}")    
+    
+    if index_first > change_in_presentation_array.shape[0]:
+        raise IndexError(f"The provided index for the first experiment is out of bound. Number of elements along the first axis is: {change_in_presentation_array.shape[0]}")
+    
+    if index_second > change_in_presentation_array.shape[1]:
+        raise IndexError(f"The provided index for the second experiment is out of bound. Number of elements along the second axis is: {change_in_presentation_array.shape[1]}")
+    # get the tensor 
+    change_tensor=change_in_presentation_array[index_first,index_second,:].reshape(-1)
+    # sort the tensor 
+    change_tensor.sort()
+    change_tensor=change_tensor[::-1]
+    # plot the tensor elements 
+    fig=plt.figure()
+    ax=sns.scatterplot(x=np.arange(len(change_tensor)),y= change_tensor, **plotting_kwargs)
+    plt.hlines(y=np.median(change_tensor), xmin=0,xmax=len(change_tensor),color='red')
+    # add the axis labels 
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    # add the title
+    ax.set_title(title)
+    # return the results 
+    return fig
