@@ -10,10 +10,7 @@
         "version": "5.1.1",
         "release": "Wed Jan 29 15:00:42 2020 -0800",
         "stop_reason": "Stopped because requested number of motifs (1) found.",
-        "cmd": [
-          "meme", "./TEMP_DIR/TEMP_FASTA_SEQ.fasta", "-nsites", "100", "-oc",
-          "./TEMP_DIR/TEMP_MEME_RES"
-        ],
+        "cmd": ["meme", "TEMP_FASTA_SEQ.fasta", "-nsites", "100"],
         "options": {
           "mod": "zoops",
           "revcomp": false,
@@ -159,7 +156,7 @@
           ]
         },
         "sequence_db": {
-          "primary_source": "./TEMP_DIR/TEMP_FASTA_SEQ.fasta",
+          "primary_source": "TEMP_FASTA_SEQ.fasta",
           "primary_count": 5379,
           "primary_positions": 53790,
           "control_source": "--none--",
@@ -183,7 +180,7 @@
             "re": 34.2,
             "llr": 2373,
             "bt": 8.83743,
-            "time": 2.037087,
+            "time": 1.977718,
             "psm": [
               [
                 -1001, -877, -957, -1063, -977, -885, -894, -1115, 400, -1045,

@@ -1,7 +1,8 @@
 #!/usr/bin/env Python 
 """
 @author: Hesham ElAbd
-@brief: CPU implementation of the analysis functions
+@brief: The module contain a collection of analysis function that can be used by the methods of the analysis
+module. 
 @version: 0.0.1
 """
 # load the modules: 
@@ -24,10 +25,10 @@ Proteins=List[str]
 ## Define the peptide overlap 
 def get_binnary_peptide_overlap(exp1:Experiment, exp2:Experiment)->Peptides:
     """
-    @brief: compare the peptide overlap between two experimental objects
-    @param: exp1: an instance of class Experiment
-    @param: exp2: an instance of class Experiment
-    @return: a list of peptides that have been identified in both experiment   
+    @brief: compare the peptide overlap between two experimental objects.
+    @param: exp1: an instance of class Experiment.
+    @param: exp2: an instance of class Experiment.
+    @return: a list of peptides that have been identified in both experiments.    
     """ 
     peptide_one=exp1.get_peptides()
     peptide_two=exp2.get_peptides()
@@ -35,10 +36,10 @@ def get_binnary_peptide_overlap(exp1:Experiment, exp2:Experiment)->Peptides:
      
 def get_binnary_protein_overlap(exp1:Experiment, exp2:Experiment)->Proteins:
     """
-    @brief: compare the protein overlap between two experimental objects
-    @param: exp1: an instance of class Experiment
-    @param: exp2: an instance of class Experiment
-    @return: a list of proteins that have been identified in both experiment   
+    @brief: compare the protein overlap between two experimental objects.
+    @param: exp1: an instance of class Experiment.
+    @param: exp2: an instance of class Experiment.
+    @return: a list of proteins that have been identified in both experiments.   
     """ 
     protein_one=exp1.get_proteins()
     protein_two=exp2.get_proteins()
@@ -47,9 +48,9 @@ def get_binnary_protein_overlap(exp1:Experiment, exp2:Experiment)->Proteins:
 def compute_binary_distance(peptides: List[str],dist_func:Callable)->np.ndarray:
     """
     @brief: compare the distance between every pair of peptides in a collection of peptides. 
-    @param: peptides: a collection of peptides sequence
-    @param: dist_func: function to compute the distance between each pair of peptides 
-    @note: make sure that the dist_function is suitable with the peptides which might have different lengths
+    @param: peptides: a collection of peptides sequences.
+    @param: dist_func: function to compute the distance between each pair of peptides. 
+    @note: make sure that the dist_function is suitable with the peptides which might have different lengths.
     """
     num_peptides=len(peptides)
     distance_matrix=np.zeros(shape=(num_peptides,num_peptides))
@@ -66,7 +67,7 @@ def compute_binary_distance(peptides: List[str],dist_func:Callable)->np.ndarray:
 def get_sequence_motif(peptides:Peptides, keep_temp:bool=False, 
                        temp_dir: str ="./TEMP_DIR", verbose: bool = False, 
                        meme_params:Dict[str,str]={}
-                       )->List[Motif]:
+                       )->None:
     """
     @brief: compute the sequences motif from a collection of peptide sequences using meme software.
     @param: peptides: a list of string containing the peptide sequences 
@@ -96,11 +97,9 @@ def get_sequence_motif(peptides:Peptides, keep_temp:bool=False,
     # call meme to compute the motif(s)
     meme_results_dir=os.path.join(temp_dir,'TEMP_MEME_RES')
     memeIF.call_meme(outfile_seq_file,
-                output_dir=os.path.join(temp_dir,'TEMP_MEME_RES'), 
+                output_dir=meme_results_dir, 
                 verbose=verbose, **meme_params)
-    # parse the results 
-    motifs=memeIF.parse_meme_results(os.path.join(meme_results_dir,'meme.txt'))
-    return motifs 
+    print(f"MEME has finished execution. Results can be found at: {meme_results_dir}")
     
 def download_structure_file(pdb_id:str)->None:
     """
@@ -110,12 +109,6 @@ def download_structure_file(pdb_id:str)->None:
     pdb_list=PDBList()
     pdb_list.retrieve_pdb_file(pdb_id)
     return 
-
-def compare_motif_correlation(motif_one, motif_two) -> float:
-    """
-    @brief: 
-    """
-    pass 
 
 def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
     """

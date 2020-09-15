@@ -13,7 +13,7 @@ from IPTK.DataStructure.Protein import Protein
 from IPTK.DataStructure.Proband import Proband
 from IPTK.DataStructure.HLASet import HLASet
 from IPTK.DataStructure.Tissue import Tissue
-from IPTK.DataStructure.Database import SeqDB
+from IPTK.DataStructure.Database import SeqDB, OrganismDB
 from IPTK.Utils.Mapping import map_from_uniprot_gene
 from IPTK.Utils.Types import Sequences, MappedProtein, MappedProteins,ProteinSource
 from typing import List, Dict, Set, Tuple 
@@ -83,7 +83,80 @@ class Experiment:
 		"""
 		return [len(pep) for pep in self.get_peptides()]
 
+	def annotate_proteins(self, organisms_db: OrganismDB)->None:
+		"""
+		@brief: Extract the parent organisms of each protein in the experiment from an 
+		organism database instance. 
+		@param:  organisms_db: an organsimDB instance that will be used to annotate the proteins
+		identified in the experiment. 
+		"""
+		# get the organism
+		proteins: List[str]= self.get_proteins()
+		# allocate a list to store the parent proteins source organisms
+		orgs: Dict[str,str] = dict()
+		#  fill the list of elements in the list 
+		for protein in proteins:
+			orgs[protein]=organisms_db.get_org(protein) # This might rise a KeyError incase the protein is not in the database
+		# add the organism info 
+		self.add_org_info(orgs)
+		return 	
 
+	def get_orgs(self)->List[str]:
+		"""
+		@brief: return a list of the organisms identified in the current experiment
+		"""
+		# allocate a list to hold the results
+		unique_results: List[str]=[]
+		# get the organisms
+		for peptide in self.get_peptides():
+			unique_results.extend(peptide.get_parents_org())
+		# create a set the contain the unique proteins
+		unique_results = list(set(unique_results))
+		# return the results 
+		return unique_results
+
+	def get_peptides_per_organims(self)->pd.DataFrame:
+		"""
+		@brief: return a pandas dataframe that contain the count of peptides belonging to each organism in
+		the database. 
+		"""
+		# allocate a list to hold the organims per proteins
+		peptides_per_organims : Dict[str, int] = dict()
+		# get the number of organims 
+		organisms: List[str] = self.get_orgs()
+		# initialize the counter with zeros 
+		for org in organisms:
+			 peptides_per_organims[org] = 0
+		# obtain the data from the peptides 
+		for pep in self.get_peptides(): 
+			for org in pep.get_parents_org():
+				peptides_per_organims[org]+=1 # increment the counter 
+		# make the data compatible with data frames 
+		for org in peptides_per_organims.keys(): 
+			peptides_per_organims[org] = [peptides_per_organims[org]]
+		# create a dataframe
+		res: pd.DataFrame = pd.DataFrame(peptides_per_organims).T
+		# add the index as an extra-columns 
+		res['Organisms'] = res.index.tolist()
+		res.columns=['Counts','Organisms']
+		# reformat the dataframe 
+		res.reset_index(drop=True,inplace=True)
+		# swap the columns
+		res=res.reindex(columns=['Organisms','Counts'])
+		# sort the results 
+		res=res.sort_values(by='Counts',ascending=False)
+		return res
+	
+	def drop_peptide_belong_to_org(self, org:str)->None: 
+		"""
+		@brief: Drop the all the peptides that belong to a user provided organism. 
+		@note: This function will IRREVERSIBLY remove the peptide from the experimental object. 
+		"""
+		for pep in self.get_peptides():
+			if org in pep.get_parents_org():
+				self.get_peptides().pop(org) # remove the peptide from the database 
+		return 
+		
 	def add_org_info(self, prot2org: ProteinSource)->None:
 		"""
 		@brief: annotated the inferred proteins with their source organism

@@ -1,7 +1,7 @@
 #!/usr/bin/env Python 
 """
 @author: Hesham ElAbd
-@brief: The module contains functions to parse & call meme software from the command line  
+@brief: The module contains functions to to call meme software via a system call.   
 @version: 0.0.1
 """
 # load the module 
@@ -17,7 +17,7 @@ def is_meme_callable()->bool:
     try: 
         res=sp.run(['meme'],stdout=sp.DEVNULL, stderr=sp.DEVNULL)
         return True
-    except FileNotFoundError as exp: 
+    except FileNotFoundError: 
         return False
 
 def get_meme_help()->None:
@@ -95,19 +95,7 @@ def call_meme(input_fasta_file:str, output_dir:str, verbose: bool=True, objfunc:
     except sp.CalledProcessError as exp: 
         raise RuntimeError(f'While calling meme to compute the motif, the following was encountered: {exp}')
     
-def parse_meme_results(path_to_meme_file):
-    """
-    @brief: Use BioPython to parse the XML file generate by biopython 
-    @param: path_to_results: the path to the XML file
-    """
-    try: 
-        with open(path_to_meme_file,'r') as input_buf: 
-            res=motifs.parse(input_buf,'meme')
-    except Exception as exp:    
-        raise RuntimeError(f'While parsing the file: {path_to_meme_file} The following error was encountered: {exp}')
-    # return the results
-    return  res 
-    
+
 
 
 

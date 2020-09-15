@@ -25,7 +25,7 @@ AAAI Press, Menlo Park, California, 1994.
 ********************************************************************************
 TRAINING SET
 ********************************************************************************
-PRIMARY SEQUENCES= ./TEMP_DIR/TEMP_FASTA_SEQ.fasta
+PRIMARY SEQUENCES= TEMP_FASTA_SEQ.fasta
 CONTROL SEQUENCES= --none--
 ALPHABET= ACDEFGHIKLMNPQRSTVWY
 
@@ -37,7 +37,7 @@ COMMAND LINE SUMMARY
 This information can also be useful in the event you wish to report a
 problem with the MEME software.
 
-command: meme ./TEMP_DIR/TEMP_FASTA_SEQ.fasta -nsites 100 -oc ./TEMP_DIR/TEMP_MEME_RES 
+command: meme TEMP_FASTA_SEQ.fasta -nsites 100 
 
 model:  mod=         zoops    nmotifs=         1    evt=           inf
 objective function:           em=       E-value of product of p-values
@@ -147,7 +147,7 @@ KTRIIPRH
 
 
 
-Time  2.04 secs.
+Time  1.98 secs.
 
 ********************************************************************************
 
@@ -155,6 +155,6 @@ Time  2.04 secs.
 Stopped because requested number of motifs (1) found.
 ********************************************************************************
 
-CPU: UKSHEPI-CW007.p2n-sh.de
+CPU: Heshams-MBP.fritz.box
 
 ********************************************************************************

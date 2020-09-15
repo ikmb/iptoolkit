@@ -1,7 +1,7 @@
 #!/usr/bin/env python 
 """
 @author: Hesham ElAbd
-@brief: an Experimental set which is a collection of experiments.  ∂
+@brief: an Experimental set which is a collection of experiments.  
 @version: 0.0.1
 """
 # load the modules 

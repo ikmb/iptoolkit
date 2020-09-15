@@ -174,7 +174,7 @@
 ]>
 <!-- Begin document body -->
 <MEME version="5.1.1" release="Wed Jan 29 15:00:42 2020 -0800">
-<training_set primary_sequences="./TEMP_DIR/TEMP_FASTA_SEQ.fasta" primary_count="5379" primary_positions="53790" control_sequences="--none--" control_count="0" control_positions="0">
+<training_set primary_sequences="TEMP_FASTA_SEQ.fasta" primary_count="5379" primary_positions="53790" control_sequences="--none--" control_count="0" control_positions="0">
 <alphabet name="Protein" like="protein">
 <letter id="A" symbol="A" name="Alanine" colour="0000CC"/>
 <letter id="C" symbol="C" name="Cysteine" colour="0000CC"/>
@@ -227,7 +227,7 @@
 </letter_frequencies>
 </training_set>
 <model>
-<command_line>meme ./TEMP_DIR/TEMP_FASTA_SEQ.fasta -nsites 100 -oc ./TEMP_DIR/TEMP_MEME_RES </command_line>
+<command_line>meme TEMP_FASTA_SEQ.fasta -oc res -nsites 100 </command_line>
 <host>Heshams-MBP.fritz.box</host>
 <type>zoops</type>
 <nmotifs>1</nmotifs>
@@ -287,7 +287,7 @@
 </background_frequencies>
 </model>
 <motifs>
-<motif id="motif_1" name="KTRIIPRH" alt="MEME-1" width="8" sites="100" ic="34.6" re="34.2" llr="2373" p_value="1.5e-233" e_value="4.9e-046" bayes_threshold="8.83743" elapsed_time="2.037087">
+<motif id="motif_1" name="KTRIIPRH" alt="MEME-1" width="8" sites="100" ic="34.6" re="34.2" llr="2373" p_value="1.5e-233" e_value="4.9e-046" bayes_threshold="8.83743" elapsed_time="1.951740">
 <scores>
 <alphabet_matrix>
 <alphabet_array>
