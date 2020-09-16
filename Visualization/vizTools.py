@@ -564,3 +564,43 @@ def plot_change_in_presentation_between_experiment(
     ax.set_title(title)
     # return the results 
     return fig
+
+def visualize_experiment_set_counts(counts_table:pd.DataFrame, 
+            log_scale: bool =False, plotting_kwargs: Dict[str,str] = {}) -> plt.figure:
+    """
+    @brief: visualize the number of peptides and number of peptides-per-organism per experiment. 
+    @param: counts_table: a pandas dataframe that contain the count, organism name and the count.
+    @param: plotting_kwargs: a dict object containing parameters for the sns.catplot function.  
+    @param: log_scale: Normalize the peptide counts one log 10, default is False 
+    """
+    # Perform log 10 Normalization 
+    if log_scale:
+        counts_table['Counts'] = np.log10(counts_table['Counts'])
+    # create a figure 
+    fig=plt.figure()
+    # plot the results 
+    ax=sns.catplot(data=counts_table,x="Organisms",y="Counts",kind="bar",hue="Names")
+    # change the y-label if log_scale is used 
+    if log_scale: 
+        ax.set_ylabels('Log10 of the Counts')
+    # return the results 
+    return fig
+
+def visualize_peptide_count_per_experiment(counts_table:pd.DataFrame,
+                plotting_kwargs: Dict[str,str] = {}) -> plt.figure: 
+    """
+    @brief: visualize the peptide length distribution among the experiments defined in the set 
+    @param: counts_table: a pandas dataframe that contain the length of each peptide defined in the experiment along with 
+    the experiment name 
+    @param: plotting_kwargs: a dict object containing parameters for the sns.catplot function.  
+    """
+    # create a figure
+    fig=plt.figure()
+    # plot the results 
+    ax= sns.catplot(x="Names",y="Peptide_length", data=counts_table, 
+                    hue="Names",kind="box", **plotting_kwargs)
+    # set the labels 
+    ax.set_xlabels("Experiment IDs")
+    ax.set_ylabels("Peptide length")
+    # return the figure 
+    return fig 

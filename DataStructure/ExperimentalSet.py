@@ -539,6 +539,52 @@ class ExperimentSet:
         # return the results 
         return results_df
     
+    def compare_peptide_counts(self)->pd.DataFrame:
+        """
+        @brief: return a table that contain the total number of peptides and per-organism peptide counts
+        among all experiments in the set.  
+        """
+        # allocate a list to hold the results 
+        total_count: List[str]= []
+        experiment_name: List[str]= []
+        # fill the lists 
+        for name in self.get_experimental_names():
+            experiment_name.append(name)
+            total_count.append(len(self[name].get_peptides()))
+        # create a dataframe to store the results 
+        res: pd.DataFrame = pd.DataFrame({
+            'Organisms':['Total']*len(total_count), 
+            'Counts':total_count,
+            'Names':experiment_name
+        })
+        # get the count per organism in each experiment 
+        for exp_name in self.get_experimental_names():
+            # get the temp results 
+            temp_res: pd.DataFrame = self[exp_name].get_peptides_per_organism()
+            # add the experiment name as an extra column 
+            temp_res['Names'] = [exp_name] * temp_res.shape[0]
+            # concatenate the results
+            res= pd.concat([res,temp_res], axis=0)
+        # return the results 
+        return res
+    
+    def compute_peptide_length_table(self)->pd.DataFrame:
+        """
+        @brief: return a table that contain the length of each peptide in the experiment
+        """ 
+        # allocate a data frame to hold the results 
+        res: pd.DataFrame = pd.DataFrame(columns=['Peptide_length','Names'])
+        # loop over all the experiment
+        for exp_name in self.get_experimental_names():
+            temp_res: pd.DataFrame = pd.DataFrame({
+                'Peptide_length': self[exp_name].get_peptides_length(),
+                'Names': [exp_name]*len(self[exp_name].get_peptides_length())
+            }) 
+            res= pd.concat([res, temp_res],axis=0)
+        # return the results 
+        return res
+
+    
    
 
 
