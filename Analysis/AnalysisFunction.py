@@ -1,9 +1,9 @@
 #!/usr/bin/env Python 
 """
 @author: Hesham ElAbd
-@brief: The module contain a collection of analysis function that can be used by the methods of the analysis
-module. 
-@version: 0.0.1
+@contact: h.elabd@ikmb.uni-kiel.de
+@brief: The module contain a collection of analysis function that can be used by the methods of
+the classes defined in the classes module. 
 """
 # load the modules: 
 import numpy as np 
@@ -15,7 +15,7 @@ from Bio.motifs.meme import Motif
 from typing import List, Callable, Dict, Set
 from IPTK.IO import MEMEInterface as memeIF
 from IPTK.IO import OutFunctions as out_func
-from IPTK.DataStructure.Experiment import Experiment
+from IPTK.Classes.Experiment import Experiment
 from IPTK.Utils.UtilityFunction import check_peptide_made_of_std_20_aa
 from IPTK.Utils.Mapping import map_from_uniprot_gene
 from scipy.stats import pearsonr
@@ -64,14 +64,13 @@ def compute_binary_distance(peptides: List[str],dist_func:Callable)->np.ndarray:
     # return the results 
     return distance_matrix
 
-def get_sequence_motif(peptides:Peptides, keep_temp:bool=False, 
+def get_sequence_motif(peptides:Peptides, 
                        temp_dir: str ="./TEMP_DIR", verbose: bool = False, 
                        meme_params:Dict[str,str]={}
                        )->None:
     """
     @brief: compute the sequences motif from a collection of peptide sequences using meme software.
     @param: peptides: a list of string containing the peptide sequences 
-    @param: keep_temp: whether or not to keep the temp file written to the temp_directory, default is False. 
     @param: temp_dir: the temp directory to write temp-files to it
     @param: verbose: whether or not to print the output of the motif discovery tool to the stdout.  
     @param: meme_params: a dict object that contain meme controlling parameters.

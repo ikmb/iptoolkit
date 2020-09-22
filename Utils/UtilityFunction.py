@@ -1,8 +1,8 @@
 #!/usr/bin/env Python 
 """
 @author: Hesham ElAbd
+@contact: h.elabd@ikmb.uni-kiel.de
 @brief: utility functions that are used through the library 
-@version: 0.0.1
 """
 # load the models 
 from Bio import SeqIO

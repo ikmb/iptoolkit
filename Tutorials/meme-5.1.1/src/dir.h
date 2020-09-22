@@ -1,5 +1,0 @@
-#define MEME_DIR "/Users/heshamelabd/meme"
-#define DATA_DIR "/Users/heshamelabd/meme/share/meme-5.1.1" 
-#define BIN_DIR "/Users/heshamelabd/meme/bin" 
-#define LIBEXEC_DIR "/Users/heshamelabd/meme/libexec/meme-5.1.1" 
-#define TEMP_DIR "" 

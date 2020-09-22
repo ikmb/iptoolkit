@@ -1,8 +1,8 @@
 #!/usr/bin/env Python 
 """
 @author: Hesham ElAbd
-@brief: parse different inputs into user a standard format used by the library. 
-@version: 0.0.1
+@contact: h.elabd@ikmb.uni-kiel.de
+@brief: parse different user inputs into a standard format/tables used by the library. 
 """
 # load the models 
 import pandas as pd 
@@ -14,6 +14,8 @@ from Bio.PDB import PDBList
 from pyteomics.mztab import MzTab
 from pyteomics import pepxml, auxiliary
 from pyteomics.openms import idxml
+# define the functions of the modules
+
 def load_identification_table(input_path: str, sep:str) -> pd.DataFrame:
     """
     @brief: load & process an identification table 

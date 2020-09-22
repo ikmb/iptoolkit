@@ -1,8 +1,9 @@
 #!/usr/bin/env Python 
 """
 @author: Hesham ElAbd
+@contact: h.elabd@ikmb.uni-kiel.de
 @brief: The module contain visualization functions the can be used to plot the results obtained from the 
-datastructures API or from the analysis functions defined in the Analysis Module.   
+methods of the classes defined in the Class module or from the analysis functions defined in the Analysis Module.   
 """
 # import the module 
 import matplotlib.pyplot as plt
@@ -30,7 +31,7 @@ import math
 @ticker.FuncFormatter
 def major_formatter(x,pos):
     """
-    @brief: an override for the y-axis major ticke formater that removes the negative sign
+    @brief: an override for the y-axis major ticker formater that removes the negative sign
     @note: this code was adapted from the great solution posted on stackoverflow 
     https://stackoverflow.com/questions/51086732/how-can-i-remove-the-negative-sign-from-y-tick-labels-in-matplotlib-pyplot-figur
     """
@@ -255,7 +256,8 @@ def plotly_protein_coverage(mapped_protein: np.ndarray, prot_name: str = None)->
     df_res= pd.DataFrame(mapped_protein)
     df_res.columns=['Coverage']
     # plot the figure 
-    fig=px.area(x,y="Coverage",
+    print(df_res)
+    fig=px.area(df_res,y="Coverage",
             labels={'index':'Amino Acid Position'},
             title=f'Peptide Coverage of : {prot_name}')
     # update the background colors 
@@ -481,6 +483,7 @@ def plotly_num_peptides_per_parent(nums_table: pd.DataFrame,
     # return the background colors 
     fig.update_layout(
         {
+            'title':title,
             'plot_bgcolor':'rgba(0,0,0,0)',
             'paper_bgcolor':'rgba(0,0,0,0)'
         }

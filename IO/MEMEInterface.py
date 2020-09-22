@@ -1,8 +1,8 @@
 #!/usr/bin/env Python 
 """
 @author: Hesham ElAbd
+@contact: h.elabd@ikmb.uni-kiel.de
 @brief: The module contains functions to to call meme software via a system call.   
-@version: 0.0.1
 """
 # load the module 
 from Bio import motifs 

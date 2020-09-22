@@ -1,8 +1,8 @@
 #!/usr/bin/env python 
 """
-@brief: a submodule that contain function to map different database keys 
 @author: Hesham ElAbd
-@version: 0.0.1
+@contact: h.elabd@ikmb.uni-kiel.de
+@brief: a submodule that contain function to map different database keys 
 """
 # load the modules: 
 import urllib

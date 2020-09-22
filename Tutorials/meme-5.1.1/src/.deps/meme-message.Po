@@ -1,1 +1,0 @@
-../meme-message.o: ../message.c

@@ -1,7 +1,8 @@
 #!/usr/bin/env python 
 """
-@brief: the module contain functions that can be used for developing & testing other functions of the library 
 @author: Hesham ElAbd
+@contact: h.elabd@ikmb.uni-kiel.de
+@brief: the module contain functions that can be used for developing & testing other functions of the library 
 """
 # import the modules 
 import pandas as pd
@@ -9,13 +10,12 @@ from Bio import SeqIO
 import numpy as np
 from typing import List, Set, Dict 
 import random
-from IPTK.DataStructure.Experiment import Experiment
-from IPTK.DataStructure.Proband import Proband
-from IPTK.DataStructure.HLASet import HLASet 
-from IPTK.DataStructure.Tissue import Tissue
-from IPTK.DataStructure.Database import SeqDB
+from IPTK.Classes.Experiment import Experiment
+from IPTK.Classes.Proband import Proband
+from IPTK.Classes.HLASet import HLASet 
+from IPTK.Classes.Tissue import Tissue
+from IPTK.Classes.Database import SeqDB
 from IPTK.Utils.UtilityFunction import generate_random_name
-
 # define the functions
 def simulate_an_experimental_ident_table_from_fasta(path2load: str, num_pep: int, num_prot: int )->pd.DataFrame:
     """

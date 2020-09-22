@@ -1,5 +1,0 @@
-*******************************************************************************
-Test fasta-dinucleotide-shuffle1 ...
-fasta-dinucleotide-shuffle -f common/Klf1-200-100.fa -t -dinuc 1> results/fasta-dinucleotide-shuffle1/fasta-dinucleotide-shuffle_H0zWK_stdout 2> log
-reference common/Klf1-200-100-shuffled.fa output results/fasta-dinucleotide-shuffle1/fasta-dinucleotide-shuffle_H0zWK_stdout
-PASSED!

@@ -1,13 +1,13 @@
 #!/usr/bin/env python 
 """
 @author: Hesham ElAbd
-@brief: contain a defination of commenly used types through the library 
-@version: 0.0.1
+@contact: h.elabd@ikmb.uni-kiel.de
+@brief: contain a definition of commonly used types through the library 
 """
 # load the modules 
 from typing import List, Set, Tuple, Dict
 import numpy as np
-from IPTK.DataStructure.HLAChain import HLAChain
+from IPTK.Classes.HLAChain import HLAChain
 # define the types
 Sequences = List[str]
 MappedProtein = List[np.ndarray]
