@@ -12,14 +12,20 @@ from typing import List, Dict
 from Bio import SeqIO
 # define the class 
 class SeqDB: 
-	def __init__(self, path2fasta: str) -> SeqDB: 
-		"""
-		@brief: load a fasta file and constructs a lock up dictionary where sequence ids are 
+	"""load a fasta file and constructs a lock up dictionary where sequence ids are 
 		keys and sequences are values. 
-		@param: path2fasta, the path to load the fasta database 
+	"""
+	def __init__(self, path2fasta: str) -> SeqDB: 
+		"""the class constructor 
+
+		:param path2fasta: the path to load the fasta database 
+		:type path2fasta: str
+		:raises FileNotFoundError: In case the provided path does not exist. 
+		:return: a sequence database instance
+		:rtype: SeqDB
 		"""
 		if not os.path.exists(path2fasta): 
-			raise ValueError(f"Your provided path: {path2fasta} does not exist!")
+			raise FileNotFoundError(f"Your provided path: {path2fasta} does not exist!")
 		# define a private variable to hold the results 
 		self._seqs=dict() 
 		seq_gen=SeqIO.parse(path2fasta,'fasta')
@@ -28,60 +34,81 @@ class SeqDB:
 			self._seqs[key]=str(seq.seq) 
 		return
 
-	def get_seq(self,protein_id): 
-		"""
-		@brief: returns the corresponding sequence if the provided protein-id is defined in the database
-		otherwise it raise a keyError.
-		@param: protein_id, the protein id to retrive its sequence. 
+	def get_seq(self,protein_id:str)->str: 
+		"""returns the corresponding sequence if the provided protein-id is defined in the database.
+
+		:param protein_id: The protein id to retrive its sequence. 
+		:type protein_id: str
+		:raises KeyError: If the provided protein does not exist in the database 
+		:return: the protein sequence
+		:rtype: str
 		"""
 		if protein_id not in self._seqs.keys(): 
 			raise KeyError(f"Your provided protein id:{protein_id} is not in the database" )
-		
 		return self._seqs[protein_id] 
 
 	def __len__(self)->int:	
-		"""
-		@brief: a magic function to return the number of the sequence in the database 
+		"""A magic function to return the number of the sequence in the database 
+
+		:return: the number of the sequences in the database 
+		:rtype: int
 		"""
 		return len(self._seqs)
 
 	def __getitem__(self,protein_id: str)->str:
-		"""
-		@brief: a magic function for accessing elements from the database 
+		"""a magic function for indexing through the elements of the library.   
+
+		:param protein_id: the protein id 
+		:type protein_id: str
+		:return: the sequence of the provided id 
+		:rtype: str
 		"""
 		return self.get_seq(protein_id)
 	
 	def __str__(self)->str:
-		"""
-		@brief: return a string representation for the class 
+		"""return a string representation for the class 
+
+
+		:return: return a string representation for the class
+		:rtype: str
 		"""
 		return f'A sequence database with {len(self)} sequence'
 
 	def __repr__(self)->str:
-		"""
-		@brief: return the representation of the database instance 
+		"""return the representation of the database instance 
+
+		:return: a string representation of the class 
+		:rtype: str
 		"""
 		return str(self)
 	
-	def has_sequence(self, sequence_name: str)->bool:
+	def has_sequence(self, sequence_id: str)->bool:
+		"""check if the provided sequence id is an element of the database or not		
+
+		:param sequence_name: The id of the sequence 
+		:type sequence_name: str
+		:return: True if the database has this id, False otherwise. 
+		:rtype: bool
 		"""
-		@brief: check if the provided sequence name is a part of the sequences stored in the database or not
-		@param: sequence_name: the name of the sequence 
-		"""
-		return sequence_name in self._seqs.keys()
+		return sequence_id in self._seqs.keys()
 
 class CellularLocationDB:
-	"""
-	@brief: The class provide an API to access the human Proteome Atlas Database covering 
-	the sub-cellular location of the proteins.  
-	@see: https://www.proteinatlas.org/about/download
+	"""The class provides an API to access the cellular location information from a database 
+	the follow the structure of the human Proteome Atlas sub-cellular location database. See https://www.proteinatlas.org/about/download
+	for more details. 
 	"""
 	def __init__(self, 
 				path2data: str ,
 				sep: str = '\t')->CellularLocationDB:
-		"""
-		@param: path2data: the path to the subcellular locations 
-		@param: sep:  the separator for the database 
+		"""	path2data: the path to the subcellular locations. 
+
+		:param path2data: the path to load the database or the URL to download it. defaults to https://www.proteinatlas.org/download/subcellular_location.tsv.zip
+		:type path2data: str
+		:param sep: the table seperator, defaults to '\t'
+		:type sep: str, optional
+		:raises IOError: incase the provided table could not be loaded 
+		:return: an instance of the class 
+		:rtype: CellularLocationDB
 		"""
 		try: 
 			self._table: pd.DataFrame = pd.read_csv(path2data,sep=sep)
@@ -89,40 +116,52 @@ class CellularLocationDB:
 			raise IOError(f'While loading the sub cellular location dataset the following error: {exp} was encountered.')
 	
 	def get_genes(self)-> List[str]:
-		"""
-		@brief: return a list of all gene ids in the dataset 
+		"""return a list of all gene ids in the dataset 
+
+		:return: all genes ids currently defined in the database 
+		:rtype: List[str]
 		"""
 		return self._table.iloc[:,0].tolist()
 	
 	def get_gene_names(self)->List[str]:
-		"""
-		@brief: return a list of all gene names in the dataset 
+		"""return a list of all gene names in the dataset 
+
+		:return: the names of all genes in the database 
+		:rtype: List[str]
 		"""
 		return self._table.iloc[:,1].tolist()
 	
-	def get_main_location(self, gene_id: str = None, gene_name= None)->List[str]:
+	def get_main_location(self, gene_id: str = None, corresponds= None)->List[str]:
+		"""return the main location(s) of the provided gene id or gene name. 
+		If both gene Id and gene name are provided, both gene_id has a higher precedence 
+
+		:param gene_id: the id of the gene of interest , defaults to None
+		:type gene_id: str, optional
+		:param gene_name: the name of the gene of interest , defaults to None
+		:type gene_name: [type], optional
+		:raises ValueError: if both gene_id and gene_name are None
+		:raises KeyError: if gene_id is None and gene_name is not in the database 
+		:raises KeyError: if gene_name is None and gene_id is not in the database 
+		:raises RuntimeError:incase some error was encountered while running retriving the elements from the database
+		:return: the main location where the protein the corresponds to the provided name or id is located. 
+		:rtype: List[str]
 		"""
-		@brief: return the main location(s) of the provided gene id or gene name 
-		@param: gene_id: the id of the gene of interest 
-		@param: gene_name: the name of the gene of interest 
-		@note: if both gene Id and gene name are provided, both gene_id has a higher precedence 
-		"""
-		if gene_id is None and gene_name is None:
+		if gene_id is None and corresponds is None:
 			raise ValueError(f'gene_name and gene_id can not be None')
 		
 		if gene_id is not None:
 			if gene_id not in self.get_genes():
 				raise KeyError(f'The provided gene id: {gene_id} is not in the database')
 		
-		if gene_name is not None:
-			if gene_name not in self.get_gene_names():
-				raise KeyError(f'The provided gene name : {gene_name} is not in the database')
+		if corresponds is not None:
+			if corresponds not in self.get_gene_names():
+				raise KeyError(f'The provided gene name : {corresponds} is not in the database')
 		# get the main location 
 		try:
 			if gene_id is not None:  
 				main_location: str = self._table.loc[self._table.iloc[:,0]==gene_id,]['Main location'] 
 			else: 
-				main_location: str = self._table.loc[self._table.iloc[:,1]==gene_name,]['Main location'] 
+				main_location: str = self._table.loc[self._table.iloc[:,1]==corresponds,]['Main location'] 
 		except Exception as exp: 
 			raise RuntimeError(f'While getting the main cellular location the following error was encounter: {exp}')
 		# split the locations 
@@ -134,11 +173,18 @@ class CellularLocationDB:
 		return locations 
 	
 	def get_approved_location(self, gene_id: str = None, gene_name= None) -> List[str]:
-		"""
-		@brief: return the location of the provided gene id or gene name 
-		@param: gene_id: the id of the gene of interest 
-		@param: gene_name: the name of the gene of interest 
-		@note: if both gene Id and gene name are provided, both gene_id has a higher precedence 
+		"""return the location of the provided gene id or gene name 
+
+		:param gene_id: the id of the gene of interest , defaults to None
+		:type gene_id: str, optional
+		:param gene_name: the name of the gene of interest , defaults to None
+		:type gene_name: [type], optional
+		:raises ValueError: if both gene_id and gene_name are None
+		:raises KeyError: if gene_id is None and gene_name is not in the database 
+		:raises KeyError: if gene_name is None and gene_id is not in the database 
+		:raises RuntimeError:incase some error was encountered while running retriving the elements from the database
+		:return: the approved location where the protein the corresponds to the provided name or id is located. 
+		:rtype: List[str]
 		"""
 		if gene_id is None and gene_name is None:
 			raise ValueError(f'gene_name and gene_id can not be None')
@@ -167,12 +213,19 @@ class CellularLocationDB:
 		# return the resuts 
 		return locations 
 	
-	def get_go_names(self,gene_id: str = None, gene_name= None ):
-		"""
-		@brief: return the location of the provided gene id or gene name 
-		@param: gene_id: the id of the gene of interest 
-		@param: gene_name: the name of the gene of interest 
-		@note: if both gene Id and gene name are provided, both gene_id has a higher precedence 
+	def get_go_names(self,gene_id: str = None, gene_name= None )->List[str]:
+		"""return the location of the provided gene id or gene name 
+		
+		:param gene_id: the id of the gene of interest , defaults to None
+		:type gene_id: str, optional
+		:param gene_name: the name of the gene of interest , defaults to None
+		:type gene_name: [type], optional
+		:raises ValueError: if both gene_id and gene_name are None
+		:raises KeyError: if gene_id is None and gene_name is not in the database 
+		:raises KeyError: if gene_name is None and gene_id is not in the database 
+		:raises RuntimeError:incase some error was encountered while running retriving the elements from the database
+		:return: the gene ontology, GO,  location where the protein the corresponds to the provided name or id is located. 
+		:rtype: List[str]
 		"""
 		if gene_id is None and gene_name is None:
 			raise ValueError(f'gene_name and gene_id can not be None')
@@ -202,16 +255,21 @@ class CellularLocationDB:
 		return _ids
 
 	def get_table(self) -> pd.DataFrame:
-		"""
-		@brief: return the instance table 
+		"""return the instance table 
+
+		:return: the location table of the instance. 
+		:rtype: pd.DataFrame
 		"""
 		return self._table
 
 	def add_to_database(self,genes_to_add: CellularLocationDB )->None:
-		"""
-		@brief: add the the location of more proteins to the database. 
-		@param: genes_to_add: a CellularLocationDB instance containing the genes that shall be added to 
+		"""add the the location of more proteins to the database. 
+
+		:param genes_to_add: a CellularLocationDB instance containing the genes that shall be added to 
 		the database.   
+		:type genes_to_add: CellularLocationDB
+		:raises ValueError: if the genes to add to the database are already defined in the database
+		:raises RuntimeError: Incase any other error has been encountered while merging the tables.
 		"""
 		# check that the genes in provided database do not exist in the current instance.
 		genes: List[str] = genes_to_add.get_genes()
@@ -224,14 +282,21 @@ class CellularLocationDB:
 			self._table=pd.concat([self._table, genes_to_add.get_table()],axis=1)
 		except Exception as exp: 
 			raise RuntimeError(f'While combing the database, the following error was encountered: {exp}')
+	
 	# define some magic functions 
 	def __len__(self)->int:
-		"""
-		@brief: return the number of unique genes in the current instance
+		"""return the number of unique genes in the current instance
+		
+		:return: [description]
+		:rtype: int
 		"""
 		return len(set(self._table.iloc[:,0]))
 		
 	def __str__(self)->str: 
+		"""
+		:return: a string representation for the instance 
+		:rtype: str
+		"""
 		return f' A sub-cellular localization database covering {len(self)} genes'
 
 	def __repr__(self)->str: 
@@ -239,15 +304,20 @@ class CellularLocationDB:
 
 
 class GeneExpressionDB: 
+	"""provides an API to access gene expression data stored in table that follows the same structure as 
+	the Human proteome Atlas Normalized RNA Expression see  https://www.proteinatlas.org/about/download for more details 
 	"""
-	@brief: provides an API to access gene expression data stored in RNA consensus tissue gene data from Human proteome Atlas 
-	@see: https://www.proteinatlas.org/about/download for more details 
-	"""
-	def __init__(self, path2data: str, 
+	def __init__(self, path2data: str = 'https://www.proteinatlas.org/download/rna_tissue_consensus.tsv.zip', 
 					sep: str = '\t')->GeneExpressionDB: 
-		"""
-		@param: path2data: the path to the subcellular locations 
-		@param: sep:  the separator for the input table 
+		"""The class constructor 
+
+		:param path2data: The path to the subcellular locations, defaults to  
+		:type path2data: str, optional 
+		:param sep: the separator for the input table, defaults to '\t'
+		:type sep: str, optional
+		:raises IOError: Incase the provided table could not be load. 
+		:return: an instance of the class 
+		:rtype: GeneExpressionDB
 		"""
 		try: 
 			self._table: pd.DataFrame = pd.read_csv(path2data,sep=sep)
@@ -255,28 +325,42 @@ class GeneExpressionDB:
 			raise IOError(f'While loading the RNA expression dataset the following error: {exp} was encountered.')
 
 	def get_genes(self)->List[str]:
-		"""
-		@brief: return a list of the gene ids currently in the database 
+		"""return a list of the UNIQUE gene ids currently in the database 
+
+		:return: a list of the UNIQUE gene ids currently in the database 
+		:rtype: List[str]
 		"""
 		return list(set(self._table.iloc[:,0].tolist()))
 	
 	def get_gene_names(self)->List[str]:
-		"""
-		@brief: return a list of the gene names currently in the database 
+		"""return a list of the UNIQUE gene names currently in the database 
+
+		:return: a list of the UNIQUE gene names currently in the database 
+		:rtype: List[str]
 		"""
 		return list(set(self._table.iloc[:,1].tolist()))
 	
 	def get_tissues(self)->List[str]:
-		"""
-		@brief: return a list of the tissues in the current database
+		"""return a list of the tissues in the current database
+		
+		:return: a list containing the names of the UNIQUE tissues in the database.  
+		:rtype: List[str]
 		"""
 		return list(set(self._table.Tissue))
 
 	def get_expression(self, gene_name: str = None, gene_id: str = None) ->pd.DataFrame: 
-		"""
-		@brief: return a table summarizing the expression of the provided gene name or gene id accross different tissues. 
-		@param: gene_id: the id of the gene of interest 
-		@param: gene_name: the name of the gene of interest 
+		"""Return a table summarizing the expression of the provided gene name or gene id accross different tissues. 
+
+		:param gene_id: the id of the gene of interest , defaults to None
+		:type gene_id: str, optional
+		:param gene_name: the name of the gene of interest , defaults to None
+		:type gene_name: [type], optional
+		:raises ValueError: if both gene_id and gene_name are None
+		:raises KeyError: if gene_id is None and gene_name is not in the database 
+		:raises KeyError: if gene_name is None and gene_id is not in the database 
+		:raises RuntimeError:incase some error was encountered while running retriving the elements from the database
+		:return: A table summarizing the expression of the provided gene accross all tissues in the database
+		:rtype: pd.DataFrame
 		"""
 		if gene_id is None and gene_name is None:
 			raise ValueError(f'gene_name and gene_id can not be None')
@@ -301,9 +385,14 @@ class GeneExpressionDB:
 			raise RuntimeError(f'The following error has been encountered while prepearing the table: {exp}') 
 			
 	def get_expression_in_tissue(self, tissue_name:str)-> pd.DataFrame:
-		"""
-		@brief: return the expression profile of the provided gene
-		@param: tissue_name: the name of the provided tissue
+		"""return the expression profile of the provided tissue  
+
+		:param tissue_name: the name of the tissue 
+		:type tissue_name: str
+		:raises KeyError: incase the provided tissue is not provided in the database
+		:raises RuntimeError: in case any error was encountered while generating the expression profile. 
+		:return: a table summarizing the expression of all genes in the provided tissue.
+		:rtype: pd.DataFrame
 		"""
 		if tissue_name not in self.get_tissues():
 			raise KeyError(f"The provided tissue: {tissue_name} is not support, currently supported tissue are:  {','.join(self.get_tissues())} ")
@@ -316,20 +405,25 @@ class GeneExpressionDB:
 			raise RuntimeError(f'While loading the database the following error was encountered: {exp}')
 	
 	def get_table(self)->pd.DataFrame:
-		"""
-		@brief: return a table containing the expression value of all the genes in the database
+		"""return a table containing the expression value of all the genes accross all tissues in the current instance
+
+		:return: The expression of all genes accross all tissues in the database. 
+		:rtype: pd.DataFrame
 		"""
 		return self._table[['Gene', 'Gene name', 'NX']]
 		
 	def __len__(self)->int: 
-		"""
-		@brief: return the number of tissues in the database
+		"""return the number of tissues in the database
+
+		:return: the number of tissues in the database
+		:rtype: int
 		"""
 		return len(self.get_tissues())
 	
 	def __str__(self)-> str:
-		"""
-		@brief: a string representation of the class
+		"""a string representation of the class
+
+		:rtype: str
 		"""
 		return f'an expression database covering: {len(self.get_genes())} genes accross {len(self)} tissues'
 	
@@ -337,14 +431,18 @@ class GeneExpressionDB:
 		return str(self)
 
 class OrganismDB:
-	"""
-	@brief: extract information about the source organsim of a collection of protein sequences  
-	from a fasta file and provides an API to query the results.  
+	"""Extract information about the source organsim of a collection of protein sequences  
+	from a fasta file and provides an API to query the results. 
+	The function expect the input fasta file to have header written in the UNIPROT format. 
 	"""
 	def __init__(self,path2Fasta:str)->OrganismDB:
-		"""
-		@param: path2fastaDB: The path to a fasta sequence database to obtain the protein sequences
-		@note: The function expect the input fasta file to have header written in the FASTA format. 
+		""" The class constructor 
+	
+		:param path2Fasta: The path to a fasta sequence database to obtain the protein sequences
+		:type path2Fasta: str
+		:raises IOError: incase the database could not be loaded 
+		:return: a new OrganismDB instance 
+		:rtype: OrganismDB
 		"""
 		try: 
 			seq_gene=SeqIO.parse(path2Fasta,'fasta')
@@ -358,14 +456,18 @@ class OrganismDB:
 			self._map[temp_name_org[1]]= temp_name_org[2].split('_')[1]
 	
 	def get_unique_orgs(self)->List[str]:
-		"""
-		@brief: get the number of unique organism in the database. 
+		"""get the number of unique organisms in the database
+		
+		:return: a list of all unique organisms in the current instance 
+		:rtype: List[str]
 		"""
 		return list(set(self._map.values()))
 	
 	def get_number_protein_per_organism(self)->pd.DataFrame:
-		"""
-		@brief: provides a table containing the number of protein per organism. 
+		"""provides a table containing the number of proteins per organism. 
+		
+		:return: a table containing the number of proteins per organism
+		:rtype: pd.DataFrame
 		"""
 		unique_orgs: List[str] = self.get_unique_orgs()
 		# create a dict counter 
@@ -387,26 +489,33 @@ class OrganismDB:
 		return res 
 	
 	def get_org(self,prot_id:str)->str: 
+		"""return the parent organism of the provided proteins
+
+		:param prot_id: the id of the protein of interest 
+		:type prot_id: str
+		:raises KeyError: incase the provided identifier is not in the database 
+		:return: the name of the parent organism, i.e. the source organism. 
+		:rtype: str
 		"""
-		@brief: return the parent organism of the provided proteins
-		@param: prot_id: the provided protein id  
-		"""
+		if prot_id not in self._map.keys(): 
+			raise KeyError(f'The provided key is not defined in the database')
 		return self._map[prot_id]
 	
 	def __len__(self)->int: 
-		"""
-		@brief: return the number of elements in the database
+		"""return the number of protein id parent organism pairs currently stored  in the database.
+		
+		:rtype: int
 		"""
 		return len(self._map)
 	
 	def __str__(self)->str: 
-		"""
-		@brief: return a string representation of the class 
+		""" return a string representation of the class 
+				:rtype: str
 		"""
 		return str(f'An organism database with: {len(self)} entry.')
 
-	def __repr__(self)->str: 
-		return str(self)
+	def __repr__(organism)->str: 
+		return str(organism)
 
 		
 
