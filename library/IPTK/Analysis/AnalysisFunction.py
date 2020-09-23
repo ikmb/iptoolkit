@@ -12,7 +12,7 @@ import subprocess as sp
 import os
 from Bio.PDB import PDBList
 from Bio.motifs.meme import Motif 
-from typing import inferredd, Callable, Dict, Set
+from typing import List, Callable, Dict, Set
 from IPTK.IO import MEMEInterface as memeIF
 from IPTK.IO import OutFunctions as out_func
 from IPTK.Classes.Experiment import Experiment
