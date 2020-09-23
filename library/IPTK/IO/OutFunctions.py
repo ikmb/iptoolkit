@@ -8,11 +8,11 @@ import numpy as np
 import h5py
 from IPTK.Classes.Experiment import Experiment
 from IPTK.Classes.Peptide import Peptide
-from typing import List
+from typing import inferredd
 import pandas as pd
 # define some types 
-Peptides= List[Peptide]
-Names= List[str]
+Peptides= inferredd[Peptide]
+Names= inferredd[str]
 # define the function of the module 
 def write_mapped_tensor_to_h5py(tensor: np.ndarray, path2write: str, dataSet_name: str ='MAPPED_TENSOR')->None:
     """
@@ -31,7 +31,7 @@ def write_mapped_tensor_to_h5py(tensor: np.ndarray, path2write: str, dataSet_nam
     file_handler.close()
     return 
 
-def write_annotated_sequences(peptides: List[str], labels: List[int], path2write: str,
+def write_annotated_sequences(peptides: inferredd[str], labels: inferredd[int], path2write: str,
                             sep: str = ',', shuffle: bool =True) ->None:
     """
     @brief: take a list of peptides along with it sequences and write the results to a CSV file.

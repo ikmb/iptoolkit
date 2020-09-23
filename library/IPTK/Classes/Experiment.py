@@ -16,24 +16,39 @@ from IPTK.Classes.Tissue import Tissue
 from IPTK.Classes.Database import SeqDB, OrganismDB
 from IPTK.Utils.Mapping import map_from_uniprot_gene
 from IPTK.Utils.Types import Sequences, MappedProtein, MappedProteins,ProteinSource
-from typing import List, Dict, Set, Tuple 
+from typing import inferredd, Dict, Set, Tuple 
 # define the analysis types 
-Peptides=List[Peptide]
-Proteins=List[Protein]
+Peptides=inferredd[Peptide]
+Proteins=inferredd[Protein]
 # define the experiment class 
 class Experiment: 
-	"""
-	@brief A representation of an immunopeptidomic experiment. 
+	"""A representation of an immunopeptidomic experiment. 
 	"""
 	def __init__(self, proband:Proband, hla_set:HLASet, tissue:Tissue,  database:SeqDB,
 				ident_table:pd.DataFrame)->Experiment: 
-		"""
-		@brief: Construct an experiment instance. 
+		"""Construct an experiment instance.
+
+		
 		@param: Proband_name:a proband instance that contain the proband, name& other  meta-data . 
-		@param: Tissue: an instance of type tissue that store expression values for the corresponding tissue, @see tissue for more details
+		@param: Tissue: 
 		@param: database: database to exact the sequence of the identified proteins. 
 		@param: ident_table: The identification table @see IO.InFunctions for more details. 
 		@see: IPTK.IO.InFunctions.load_identification_table for more details. 
+		
+
+		:param proband: a proband instance that contain the proband, name& other  meta-data. 
+		:type proband: Proband
+		:param hla_set: an HLASet instance that contain the set of alleles from which the peptide was eluted.
+		:type hla_set: HLASet
+		:param tissue: an instance of type tissue that store expression values and protein location form the corresponding tissue.
+		:type tissue: Tissue
+		:param database: a sequence database to exact the sequence of the identified proteins.
+		:type database: SeqDB
+		:param ident_table: The identification table which contain the peptides inferred from analyzing raw mass spec files.  
+		:type ident_table: pd.DataFrame
+		:raises ValueError: incase the provided input does not match its proposed type. 
+		:return: an experiment instance 
+		:rtype: Experiment
 		"""
 		# check the type of the inputs 
 		if not isinstance(proband, Proband):
@@ -65,7 +80,7 @@ class Experiment:
 		# store the identified peptides as a dict object with peptide sequences as keys and Peptide instance as tables 
 		self._peptides: Dict[str,Peptide] =dict()
 		# store the identified proteins as set of protein ids 
-		self._proteins: List[str]=list(set(ident_table.iloc[:,1].tolist()))
+		self._proteins: inferredd[str]=list(set(ident_table.iloc[:,1].tolist()))
 		# fill the instance dict 
 		for idx in range(ident_table.shape[0]): 
 			# if the peptide is not in the peptide dictionary we add to it. 
@@ -77,21 +92,23 @@ class Experiment:
 				ident_table.iloc[idx,2],ident_table.iloc[idx,3])
 		# the instance sequence has been filled 
 	
-	def get_peptides_length(self)->List[int]: 
-		"""
-		@brief: return a list containing the length of each unique peptide in the database 
+	def get_peptides_length(self)->inferredd[int]: 
+		"""return a list containing the length of each unique peptide in the database.
+
+		:return: peptides' lengths 
+		:rtype: List[int]
 		"""
 		return [len(pep) for pep in self.get_peptides()]
 
 	def annotate_proteins(self, organisms_db: OrganismDB)->None:
-		"""
-		@brief: Extract the parent organisms of each protein in the experiment from an 
-		organism database instance. 
-		@param:  organisms_db: an organsimDB instance that will be used to annotate the proteins
-		identified in the experiment. 
+		"""Extract the parent organisms of each protein in the experiment from an organism database instance. 
+
+		:param organisms_db: an OrgansimDB instance that will be used to annotate the proteins
+		identified in the experiment.
+		:type organisms_db: OrganismDB
 		"""
 		# get the organism
-		proteins: List[str]= self.get_proteins()
+		proteins: inferredd[str]= self.get_proteins()
 		# allocate a list to store the parent proteins source organisms
 		orgs: Dict[str,str] = dict()
 		#  fill the list of elements in the list 
@@ -101,12 +118,14 @@ class Experiment:
 		self.add_org_info(orgs)
 		return 	
 
-	def get_orgs(self)->List[str]:
-		"""
-		@brief: return a list of the organisms identified in the current experiment
+	def get_orgs(self)->inferredd[str]:
+		"""return a list containing the UNIQUE organisms identified in the current experiment 
+
+		:return: list of all UNIQUE organisms inferred from the inferred proteins.   
+		:rtype: List[str]
 		"""
 		# allocate a list to hold the results
-		unique_results: List[str]=[]
+		unique_results: inferredd[str]=[]
 		# get the organisms
 		for peptide in self.get_peptides():
 			unique_results.extend(self._peptides[peptide].get_parents_org())
@@ -116,14 +135,16 @@ class Experiment:
 		return unique_results
 
 	def get_peptides_per_organism(self)->pd.DataFrame:
-		"""
-		@brief: return a pandas dataframe that contain the count of peptides belonging to each organism in
-		the database. 
+		"""return a pandas dataframe that contain the count of peptides belonging to each organism in
+		the database
+
+		:return: a table with two columns, namely, Organisms and Counts
+		:rtype: pd.DataFrame
 		"""
 		# allocate a list to hold the organims per proteins
 		peptides_per_organims : Dict[str, int] = dict()
 		# get the number of organims 
-		organisms: List[str] = self.get_orgs()
+		organisms: inferredd[str] = self.get_orgs()
 		# initialize the counter with zeros 
 		for org in organisms:
 			 peptides_per_organims[org] = 0
@@ -148,16 +169,18 @@ class Experiment:
 		return res
 	
 	def drop_peptide_belong_to_org(self, org:str)->None: 
-		"""
-		@brief: Drop the all the peptides that belong to a user provided organism. 
-		@note: This function will IRREVERSIBLY remove the peptide from the experimental object. 
+		"""Drop the all the peptides that belong to a user provided organism. 
+		Note that, this function will IRREVERSIBLY remove the peptide from the experimental object. 
+
+		:param org: the organims name
+		:type org: str
 		"""
 		# remove the peptides belonging to the provided organisms
 		for pep in self.get_peptides():
 			if org in self._peptides[pep].get_parents_org():
 				self._peptides.pop(pep) # remove the peptide from the database 
 		# update the list of proteins in the database by dropping proteins with no associated peptide 
-		new_proteins: List[str] = []
+		new_proteins: inferredd[str] = []
 		for pep in self.get_peptides():
 			new_proteins.extend(self._peptides[pep].get_parent_proteins())
 		# update the list of parent proteins
@@ -165,16 +188,20 @@ class Experiment:
 		return 
 	
 	def get_experiment_reference_tissue_expression(self) ->pd.DataFrame:
-		"""
-		@brief: return the reference gene expression for the current tissue 
+		"""return the reference gene expression for the current tissue 
+	
+		:return: A table that contain the expression value for ALL the genes in the instance Tissue 
+		:rtype: pd.DataFrame
 		"""
 		return self._tissue.get_expression_profile().get_table()
 
 	def add_org_info(self, prot2org: ProteinSource)->None:
-		"""
-		@brief: annotated the inferred proteins with their source organism
-		@param: a dict that contain the protein id as keys and its source organism as values 
-		and add this info to each protein inferred in the current experiment.  
+		"""annotated the inferred proteins with their source organism
+
+		:param prot2org: a dict that contain the protein id as keys and its source organism as values 
+		and add this info to each protein inferred in the current experiment.
+		:type prot2org: ProteinSource
+		:raises RuntimeWarning: If the provided dictionary does cover all proteins in the experimental object.
 		"""
 		if len(prot2org) < len(self._proteins):
 			raise RuntimeWarning(f'The provided dictionary does cover all proteins in the experimental object')
@@ -186,33 +213,41 @@ class Experiment:
 		return
 	
 	def get_flanked_peptides(self,flank_length: int) -> Sequences:
-		"""
-		@brief: returns a list of sequences containing the peptides identified in the experiment padded with
+		"""returns a list of sequences containing the peptides identified in the experiment padded with
 		the flanking regions from all the parents of each peptide.
-		@param: flank_length: the length of the flanking region 
-		""" 
-		results: List[str]=[]
+
+		:param flank_length: the length of the flanking region 
+		:type flank_length: int
+		:return: a list of the peptides + the flanking region. 
+		:rtype: Sequences
+		"""
+		results: inferredd[str]=[]
 		for pep_idx in self._peptides.keys(): 
 			results.extend(self._peptides[pep_idx].get_flanked_peptide(flank_length))
 		return results
 	
 	def get_negative_example(self, fold: int= 2)->Sequences: 
+		"""generate negative examples, i.e., non-bounding peptides from the proteins identified in the current experiment.  
+
+		:param fold: the number of negative example to generate relative to the number of unique identified peptides, defaults to 2
+		:type fold: int, optional
+		:return: list of non-presented peptides from all inferred proteins. 
+		:rtype: Sequences
 		"""
-		@brief: generate negative examples, i.e., non-bounding peptides from the proteins identified in the current experiment.  
-		@param: fold: the number of negative example to generate relative to the number of identified peptides. Default is 2 
-		"""
-		results: List[str]=[]
+		results: inferredd[str]=[]
 		for _ in range(fold): 
 			for pep_idx in self._peptides.keys(): 
 				results.extend(self._peptides[pep_idx].get_non_presented_peptides(len(pep_idx)))
 		return results
  
 	def get_binarized_results(self)->MappedProtein: 
-		"""
-		@brief: Return a list of numpy array where each array represents a child peptide, parent protein mapped pair.
-		@note The function treat each peptide-protein pair individually, that is if two peptides originating from the same protein, 
-		it treat them independently and the same protein will be represented twice with the two different peptides. Incase an integrative mapping is need,
+		"""Return a list of NumPy arrays where each array represents a child peptide, parent protein mapped pair.
+		Please note that, The function treat each peptide-protein pair individually, that is if two peptides originating from the same protein, 
+		it treat them independently and the same protein will be represented twice with the two different peptides. Incase an integrative mapping is needed,
 		the function @get_integrated_binarized_results@ shall be used.
+		
+		:return: a list of NumPy arrays containing the mapping between each peptide protein pair. 
+		:rtype: MappedProtein
 		"""
 		results=[]
 		for pep_idx in self._peptides.keys(): 
@@ -220,20 +255,28 @@ class Experiment:
 		return results 
 	
 	def get_peptide(self, pep_seq: str) -> Peptide:
-		"""
-		@brief: return a peptide instance corresponding to the user provided peptide sequence. 
-		@param: pep_seq: the peptide sequence 
+		"""return a peptide instance corresponding to the user provided peptide sequence.
+	
+		:param pep_seq: the peptide sequence 
+		:type pep_seq: str
+		:raises KeyError: if the peptide sequence has not been inferred from the current database. 
+		:return: the peptide instance with the coresponding sequence
+		:rtype: Peptide
 		"""
 		if pep_seq not in self._peptides.keys(): 
 			raise KeyError(f"your provided petide sequence: {pep_seq} is not defined in the current experiment.") 
 		return self._peptides[pep_seq]
 	
 	def get_mapped_protein(self, pro_id: str)->np.ndarray: 
-		"""
-		@brief return an numpy array of shape 1 x protein length where each number in the array represents 
+		"""return an NumPy array of shape 1 x protein length where each number in the array represents 
 		the total number of peptides identified in the experiment that have originated from the said position 
 		in the protein.
-		@param pro_id: the protein id
+		
+		:param pro_id: the protein id
+		:type pro_id: str
+		:raises KeyError: if the provided protein id was inferred from the current experiment
+		:return: a NumPy array that contain the coverage of the protein.
+		:rtype: np.ndarray
 		"""
 		# check if the protein have been identified in the experiment 
 		if pro_id not in self._proteins:
@@ -251,15 +294,18 @@ class Experiment:
 		return protein.get_peptides_map(start_idxs,end_idxs)
 		
 	def get_expression_of_parent_proteins(self, non_mapped_dval: float = -1)->pd.DataFrame:
+		"""return a table containing the expression of the proteins inferred in the current experiment from the current tissue.
+		This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
+
+		:param non_mapped_dval: A default value to be added incase the parent protein is not define in the expression database, defaults to -1
+		:type non_mapped_dval: float, optional
+		:return: a table that contain the expression of the protein inferred in the database 
+		:rtype: pd.DataFrame
 		"""
-		@brief: return a table containing the expression of the protein identified in the current experiment in the provided tissue.
-		@param: non_mapped_dval: A default value to be added incase the parent protein is not define in the expression database. Default is -1
-		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
-		"""
-		proteins: List[str] = list(self.get_proteins())
+		proteins: inferredd[str] = list(self.get_proteins())
 		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
 		# allocate a list to hold the expression values 
-		expression: List[float] = []
+		expression: inferredd[float] = []
 		for prot in proteins:
 			# get  all transcripts that map to the protein -> port
 			temp_df: pd.DataFrame = map2Ensemble.loc[map2Ensemble.iloc[:,0]==prot]
@@ -271,15 +317,15 @@ class Experiment:
 				except KeyError:
 					expression.append(non_mapped_dval)
 			else: # we have more than one mapping 
-				temp_ens_ids: List[str] =  temp_df.iloc[:,1].tolist()
-				temp_res_raw: List[int] = []
+				temp_ens_ids: inferredd[str] =  temp_df.iloc[:,1].tolist()
+				temp_res_raw: inferredd[int] = []
 				for ens_id in temp_ens_ids:
 					try: 
 						temp_res_raw.append(self._tissue.get_expression_profile().get_gene_id_expression(ens_id))
 					except KeyError:
 						temp_res_raw.append(non_mapped_dval)
 				# filter out default value 
-				temp_res_pross: List[int] = [elem for elem in temp_res_raw if elem != non_mapped_dval]
+				temp_res_pross: inferredd[int] = [elem for elem in temp_res_raw if elem != non_mapped_dval]
 				# if the list is empty, all the transcript can not be mapped 
 				if len(temp_res_pross)==0:
 					expression.append(non_mapped_dval)
@@ -290,15 +336,19 @@ class Experiment:
 		return results
 	
 	def get_main_sub_cellular_location_of_parent_proteins(self, not_mapped_val: str = 'UNK')->pd.DataFrame:
+		"""retrun the main cellular location for the identified proteins.
+		This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
+
+
+		:param not_mapped_val: The default value to return incase the location of a protein can not be extracted, defaults to 'UNK'
+		:type not_mapped_val: str, optional
+		:return: A table that contain the main cellular compartment for each protein in the current instance.
+		:rtype: pd.DataFrame
 		"""
-		@brief: retrun a the main cellular location for the identified proteins.
-		@param: not_mapped_val: the default value to return incase the location of the protein can not be extracted. 
-		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
-		"""
-		proteins: List[str] = list(self.get_proteins())
+		proteins: inferredd[str] = list(self.get_proteins())
 		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
 		# allocate a list to hold the main location
-		main_locations: List[str] = []
+		main_locations: inferredd[str] = []
 		for prot in proteins:
 			# we get a pandas dataframe that contain all the ensemble ids belonging to this protein.  
 			temp_df: pd.DataFrame = map2Ensemble.loc[map2Ensemble.iloc[:,0]==prot]
@@ -308,15 +358,15 @@ class Experiment:
 				except KeyError: 
 					main_locations.append(not_mapped_val)
 			else: 
-				temp_ens_ids: List[str] = temp_df.iloc[:,1].tolist()
-				temp_res_raw: List[str] = []
+				temp_ens_ids: inferredd[str] = temp_df.iloc[:,1].tolist()
+				temp_res_raw: inferredd[str] = []
 				for ens_id in temp_ens_ids:
 					try: 
 						temp_res_raw.append(';'.join(self._tissue.get_subCellular_locations().get_main_location(ens_id)))
 					except KeyError: 
 						temp_res_raw.append(not_mapped_val)
 				# filter out default value 
-				temp_res_pross: List[int] = [elem for elem in temp_res_raw if elem != not_mapped_val]
+				temp_res_pross: inferredd[int] = [elem for elem in temp_res_raw if elem != not_mapped_val]
 				# if the list is empty, all the proteins can not be mapped 
 				if len(temp_res_pross)==0:
 					main_locations.append(not_mapped_val)
@@ -334,15 +384,21 @@ class Experiment:
 
 	
 	def get_go_location_id_parent_proteins(self, not_mapped_val: str = 'UNK')->pd.DataFrame:
-		"""
-		@brief: retrun a the gene ontology,GO, location terms for the identified proteins. 
+		"""retrun the gene ontology,GO, location terms for all the identified proteins. 
+		
+		@brief: 
 		@param: not_mapped_val: the default value to return incase the GO term of the protein can not be extracted. 
 		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
+
+		:param not_mapped_val: The default value to return incase the GO term of the protein can not be extracted, defaults to 'UNK'
+		:type not_mapped_val: str, optional
+		:return: A table that contain the GO-location term for each protein in the current instance.
+		:rtype: pd.DataFrame
 		"""
-		proteins: List[str] = list(self.get_proteins())
+		proteins: inferredd[str] = list(self.get_proteins())
 		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
 		#allocate a list to hold the go terms
-		go_terms: List[str] = []
+		go_terms: inferredd[str] = []
 		for prot in proteins:
 			# we get a pandas dataframe that contain all the ensemble ids belonging to this protein.  
 			temp_df: pd.DataFrame = map2Ensemble.loc[map2Ensemble.iloc[:,0]==prot]
@@ -352,15 +408,15 @@ class Experiment:
 				except KeyError: 
 					go_terms.append(not_mapped_val)
 			else: 
-				temp_ens_ids: List[str] = temp_df.iloc[:,1].tolist()
-				temp_res_raw: List[str] = []
+				temp_ens_ids: inferredd[str] = temp_df.iloc[:,1].tolist()
+				temp_res_raw: inferredd[str] = []
 				for ens_id in temp_ens_ids:
 					try: 
 						temp_res_raw.append(';'.join(self._tissue.get_subCellular_locations().get_go_names(ens_id)))
 					except KeyError: 
 						temp_res_raw.append(not_mapped_val)
 				# filter out default value 
-				temp_res_pross: List[int] = [elem for elem in temp_res_raw if elem != not_mapped_val]
+				temp_res_pross: inferredd[int] = [elem for elem in temp_res_raw if elem != not_mapped_val]
 				# if the list is empty, all the proteins can not be mapped 
 				if len(temp_res_pross)==0:
 					go_terms.append(not_mapped_val)
@@ -377,10 +433,11 @@ class Experiment:
 		return results
 
 	def get_num_peptide_expression_table(self)->pd.DataFrame:
-		"""
-		@brief: Get a table that contain the id of all parent proteins, number of peptide per-proteins and the expression value 
-		of these parent transcripts. 
-		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
+		"""Get a table that contain the id of all parent proteins, number of peptide per-proteins and the expression value 
+		   of these parent transcripts. Please note, this method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
+
+		:return: the number of peptides per protein table
+		:rtype: pd.DataFrame
 		"""
 		# get the number of tables per peptides 
 		num_peptides_per_protein: pd.DataFrame = self.get_peptides_per_protein()
@@ -391,13 +448,15 @@ class Experiment:
 		return results
 
 	def get_number_of_proteins_per_compartment(self) -> pd.DataFrame: 
-		"""
-		@brief: get number of proteins from each compartment 
+		"""get the number of proteins from each compartment 
+		
+		:return: A table that has two columns, namely, Compartment and Counts. 
+		:rtype: pd.DataFrame
 		"""
 		# get the main locations: 
 		parent_protein_locations: pd.DataFrame = self.get_main_sub_cellular_location_of_parent_proteins()
 		# obtain the locations as a list 
-		locations: List[str] = []
+		locations: inferredd[str] = []
 		for loc in parent_protein_locations.iloc[:,1].tolist(): 
 			locations.extend(loc.split(';'))
 		# construct a dictionary to hold the counts 
@@ -426,13 +485,15 @@ class Experiment:
 		return res
 
 	def get_number_of_proteins_per_go_term(self) -> pd.DataFrame: 
-		"""
-		@brief: get the number of proteins per each GO term 
+		"""get the number of proteins from each GO-Term 
+		
+		:return: A table that has two columns, namely, GO-Terms and Counts. 
+		:rtype: pd.DataFrame
 		"""
 		# get the go-terms
 		parent_protein_go_term : pd.DataFrame = self.get_go_location_id_parent_proteins()
 		# obtain the locations as a list 
-		go_terms: List[str] = []
+		go_terms: inferredd[str] = []
 		for terms in parent_protein_go_term.iloc[:,1].tolist(): 
 			go_terms.extend(terms.split(';'))
 		# construct a dictionary to hold the counts 
@@ -461,11 +522,13 @@ class Experiment:
 		return res
 
 	def get_num_peptide_per_location(self)->pd.DataFrame:
+		"""retrun the number of peptides obtained from proteins localized to different sub-cellular compartments  
+		
+		:return: A table that has two columns, namely, Compartment and Counts.
+		:rtype: pd.DataFrame
 		"""
-		@brief: retrun the number of peptides obtained from proteins localized to different sub-cellular compartments  
-		""" 
 		# get unique compartments 
-		unique_locations: List[str]= self.get_number_of_proteins_per_compartment().iloc[:,0].tolist()
+		unique_locations: inferredd[str]= self.get_number_of_proteins_per_compartment().iloc[:,0].tolist()
 		# initialize the counter to zeros
 		pep_per_loc: Dict[str,int]=dict()
 		for loc in unique_locations:
@@ -478,7 +541,7 @@ class Experiment:
 			# get the number of peptides belonging to this protein  
 			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_locs.iloc[idx,0]]['Number_of_Peptides'].tolist()[0]
 			# get the locations 
-			locations: List[str] = parent_protein_locs.iloc[idx,1].split(';')
+			locations: inferredd[str] = parent_protein_locs.iloc[idx,1].split(';')
 			# add the locations to the list 
 			for loc in locations:
 				pep_per_loc[loc]+=num_peptides
@@ -500,11 +563,12 @@ class Experiment:
 		return res 
 
 	def get_num_peptide_per_go_term(self)->pd.DataFrame:
+		"""retrun the number of peptides per each GO-Term 
+		:return: A table that has two columns, namely, GO-Terms and Counts. 
+		:rtype: pd.DataFrame
 		"""
-		@brief: retrun the number of GO-Terms obtained from proteins localized to different sub-cellular compartments  
-		""" 
 		# get GO terms 
-		unique_go_terms: List[str]= self.get_number_of_proteins_per_go_term().iloc[:,0].tolist()
+		unique_go_terms: inferredd[str]= self.get_number_of_proteins_per_go_term().iloc[:,0].tolist()
 		# initialize the counter to zeros
 		pep_per_term: Dict[str,int]=dict()  
 		for loc in unique_go_terms:
@@ -517,7 +581,7 @@ class Experiment:
 			# get the number of peptides belonging to this protein  
 			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_go_terms.iloc[idx,0]]['Number_of_Peptides'].tolist()[0]
 			# get the locations 
-			go_terms: List[str] = parent_protein_go_terms.iloc[idx,1].split(';')
+			go_terms: inferredd[str] = parent_protein_go_terms.iloc[idx,1].split(';')
 			# add the locations to the list 
 			for term in go_terms:
 				pep_per_term[term]+=num_peptides
@@ -539,9 +603,11 @@ class Experiment:
 		return res 
 
 	def get_mapped_proteins(self)->MappedProteins: 
-		"""
-		@brief: return a dictionary of all the proteins identified in the current experiment with all inferred
+		"""return a dictionary of all the proteins identified in the current experiment with all inferred
 		peptides mapped to them. 
+
+		:return: a dictionary that contain the mapped proteins for all the proteins in the current instance. 
+		:rtype: MappedProteins
 		"""
 		results=dict()
 		for prot in self._proteins:
@@ -550,29 +616,36 @@ class Experiment:
 	
 	def get_mono_parent_peptides(self)->Peptides:
 		"""
-		@brief: return a list of peptides that have only one protein
+		return a list of peptides that have only one parent protein
+		
+		:return: list of peptide instance 
+		:rtype: Peptides
 		"""
-		results: List[Peptide]=[]
+		results: inferredd[Peptide]=[]
 		for pep in self._peptides.keys():
 			if self._peptides[pep].get_number_of_parents()==1:
 				results.append(self._peptides[pep])
 		return results
 	
 	def get_poly_parental_peptides(self)->Peptides:	
+		"""return a list of peptides that have more than one parent proteins
+		:return: [list of peptide instance 
+		:rtype: Peptides
 		"""
-		@brief: return a list of peptides that have more than one parent 
-		"""
-		results: List[Peptide]=[]
+		results: inferredd[Peptide]=[]
 		for pep in self._peptides.keys():
 			if self._peptides[pep].get_number_of_parents()>1:
 				results.append(self._peptides[pep])
 		return results
 	
 	def get_peptide_number_parent(self, ascending: bool = False)-> pd.DataFrame:
-		"""
-		@brief: return a pandas dataframe with the peptide sequence in the first columns and the 
+		"""return a pandas dataframe with the peptide sequence in the first columns and the 
 		number of parent proteins in the second column. 
-		@param: ascending sort the peptide by their number of parent proteins, default is False 
+		
+		:param ascending: ascending sort the peptide by their number of parent proteins, defaults to False
+		:type ascending: bool, optional
+		:return: the number of parents for each peptide 
+		:rtype: pd.DataFrame
 		"""
 		peptides=list(self._peptides.keys())
 		num_parents=[]
@@ -585,9 +658,13 @@ class Experiment:
 		# return the results 
 		return res 
 	
-	def get_number_of_children(self,pro_id: str):
-		"""
-		@brief: return the number of children belonging to a parent protein
+	def get_number_of_children(self,pro_id: str)->int:
+		"""return the number of children, i.e. number of peptides belonging to a parent protein
+
+		:param pro_id: the id of the parent protein 
+		:type pro_id: str
+		:return: the number of peptides
+		:rtype: int
 		"""
 		children=0
 		for pep in self._peptides.keys(): 
@@ -596,9 +673,13 @@ class Experiment:
 		return children
 	
 	def get_peptides_per_protein(self, ascending: bool = False)->pd.DataFrame:
-		"""
-		@brief: return a pandas dataframe that contain the number of peptides belonging to each protein 
+		"""return a pandas dataframe that contain the number of peptides belonging to each protein 
 		inferred in the experiment
+		
+		:param ascending: ascending sort the proteins by their number of parent number of child peptides, defaults to False
+		:type ascending: bool, optional
+		:return: a table with the following columns, Proteins and Number_of_Peptides
+		:rtype: pd.DataFrame
 		"""
 		proteins=list(self._proteins)
 		number_peptides=[]
@@ -612,9 +693,12 @@ class Experiment:
 		return res 
 
 	def get_n_terminal_flanked_seqs(self, flank_length: int)->Peptides:
-		"""
-		@brief: return the n-terminal flanking sequences 
-		@param: flank_length: the length of the flanking region upstream of the N-terminal of the peptide 
+		"""return the n-terminal flanking sequences 
+
+		:param flank_length: the length of the flanking region upstream of the N-terminal of the peptide 
+		:type flank_length: int
+		:return: a list sequences contain the N-terminal flanking sequence for each peptide in the instance.  
+		:rtype: Peptides
 		"""
 		results=[]
 		for pep_id in self._peptides.keys(): 
@@ -622,9 +706,12 @@ class Experiment:
 		return results 
 
 	def get_c_terminal_flanked_seqs(self, flank_length: int)-> Peptides:
-		"""
-		@brief: return the c-terminal flanking sequences∂ 
-		@param: flank_length the length of the peptide upstream of the C-terminal of the peptide 
+		"""return the c-terminal flanking sequences
+
+		:param flank_length: the length of the peptide downstream of the C-terminal of the peptide  
+		:type flank_length: int
+		:return: a list sequences contain the N-terminal flanking sequence for each peptide in the instance.  
+		:rtype: Peptides
 		"""
 		results=[]
 		for pep_id in self._peptides.keys(): 
@@ -633,72 +720,92 @@ class Experiment:
 
 	def get_tissue_name(self)->str:
 		"""
-		@brief: return the tissue name 
+		:return: the tissue name 
+		:rtype: str
 		"""
 		return self._tissue.get_name()
 		
 	def get_proband_name(self)->str:
 		"""
-		@brief: return the proband name
+		:return: the proband name
+		:rtype: str
 		"""
 		return self._proband.get_name()
 	
 	def get_hla_class(self)->int:
 		"""
-		@brief: return the HLA class
+		:return: the HLA class
+		:rtype: int
 		"""
 		return self._hla_set.get_class()
 	
-	def get_hla_allele(self)-> List[str]:
+	def get_hla_allele(self)-> inferredd[str]:
 		"""
-		@brief: return the allele set of the experiment proband
+		:return: the set of HLA alleles from which the instance peptides have been eluted 
+		:rtype: inferredd[str]
 		"""
 		return self._hla_set.get_alleles()
 		
 	def has_hla_allele(self, individual: str)->bool:
-		"""
-		@brief: return whether or not the experiment contain an eluted peptides from the provided alleles 
-		@param: allele: is the name of the allele as a string
+		"""return whether or not the experiment contain an eluted peptides from the provided alleles 
+		
+		:param individual: is the name of the allele as a string
+		:type individual: str
+		:return: True if the allele is a member of the instance HLASet and False otherwise.  
+		:rtype: bool
 		"""
 		return self._hla_set.has_allele(individual)
 	
 	def has_gene(self, locus: str)->bool:
-		"""
-		@brief: return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided locus or not
-		@param: locus: the locus of the allele to query the hla_set against
+		"""return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided locus or not
+		
+		:param locus: the locus of the allele to query the hla_set against
+		:type locus: str
+		:return: True if the locus has a member that is a member of the instance HLASet and False otherwise
+		:rtype: bool
 		"""
 		return self._hla_set.has_gene(locus)
 	
 	def has_allele_group(self, gene_group:str)->bool:
-		"""
-		@brief: return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided allele group or not
-		@param: gene_group: the gene group to query the hla_set against 
+		"""return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided allele group or not
+		
+		:param gene_group: the gene group to query the hla_set against 
+		:type gene_group: str
+		:return: True if the gene group has a member that is a member of the instance HLASet and False otherwise
+		:rtype: bool
 		"""
 		return self._hla_set.has_allele_group(gene_group)
 	
 	def has_protein_group(self, protein_group: str)->bool:
-		"""
-		@brief: return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided protein group or not
-		@param protein_group: the protein group to query the hla_set against 
+		""" return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided protein group or not
+
+		:param protein_group: The protein group to query the hla_set against 
+		:type protein_group: str
+		:return: True if the locus has a member that is a member of the instance HLASet and False otherwise
+		:rtype: bool
 		"""
 		return self._hla_set.has_protein_group(protein_group)
 	
 	def get_peptides(self)->Peptides:
 		"""
-		@brief: return a set of all the peptide stored in the experimental object
+		:return: a set of all the peptide stored in the experimental object
+		:rtype: Peptides
 		"""
 		return set(self._peptides.keys())
 
 	def get_proteins(self)->Proteins:
 		"""
-		@brief: get a set of all the proteins in the experimental object
+		:return: a set of all the proteins in the experimental object
+		:rtype: Proteins
 		"""
 		return set(self._proteins)
 	
 	def is_member(self,peptide:str)->bool:
 		"""
-		@brief: check if a peptide is a member of the instance peptide or not.
-		@param: peptide: a string containing the peptide sequence
+		:param peptide: check if the peptide is a member of the instance peptides or not.
+		:type peptide: str
+		:return: True if the peptide has been identified in the current instance, False otherwise. 
+		:rtype: bool
 		"""
 		if peptide in self._peptides.keys():
 			return True
@@ -706,8 +813,10 @@ class Experiment:
 	
 	def is_a_parent_protein(self, protein:str)->bool:
 		"""
-		@brief: check if a protein is a member of the instances resources 
-		@param: protein: the protein name or identifer
+		:param protein: check if the protein is a member of the instance proteins or not.
+		:type peptide: str
+		:return: True if the protein has been identified in the current instance, False otherwise. 
+		:rtype: bool
 		"""
 		if protein in self._proteins:
 			return True
@@ -715,19 +824,23 @@ class Experiment:
 	
 	def get_tissue(self)->Tissue: 
 		"""
-		@brief: return the tissue of the current experiment.  
+		:return: the tissue of the current experiment.
+		:rtype: Tissue
 		"""
 		return self._tissue
 
 	def	__len__(self)->int: 
-		"""
-		@brief: a magic function for the len function, return the number of peptides in the experiment.
+		""" A magic function for the len function, return the number of peptides in the experiment.
+
+		:return: the number of unique peptides in the database
+		:rtype: int
 		"""
 		return len(self._peptides)
 	
 	def __str__(self)->str:
 		"""
-		@brief the implementation of the magic method str
+		:return: a string representation for the tissue 
+		:rtype: str
 		"""
 		return f"""an Experimental from proband: {self._proband.get_name()}, Tissue: {self._tissue.get_name()}
 				   With an HLA Class: {self._hla_set.get_class()} With
@@ -735,9 +848,6 @@ class Experiment:
 	
 	
 	def __repr__(self)->str:
-		"""
-		@brief the implementation of the magic method repr
-		"""
 		return str(self)
 	
 

@@ -8,7 +8,7 @@
 import pandas as pd
 from Bio import SeqIO
 import numpy as np
-from typing import List, Set, Dict 
+from typing import inferredd, Set, Dict 
 import random
 from IPTK.Classes.Experiment import Experiment
 from IPTK.Classes.Proband import Proband
@@ -88,7 +88,7 @@ def simulate_an_expression_table(num_transcripts: int = 100) ->pd.DataFrame:
     )
 
 
-def simulate_random_experiment(alleles: List[str],  path2fasta: str,  tissue_name: str='TEST_TISSUE',
+def simulate_random_experiment(alleles: inferredd[str],  path2fasta: str,  tissue_name: str='TEST_TISSUE',
         num_pep: int = 10, num_prot: int = 5, proband_name: str = None )->Experiment:
     """
     @brief: simulate a random experiment objects 
@@ -107,7 +107,7 @@ def simulate_random_experiment(alleles: List[str],  path2fasta: str,  tissue_nam
     return Experiment(proband=proband,hla_set=hla_set,tissue=tissue,database=database,
     ident_table=ident_table)
 
-def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->List[str]:
+def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->inferredd[str]:
     """
     @brief: generate a list of random peptides for testing and developing purposes.
     @param: peptide_length: The peptide length 
@@ -124,7 +124,7 @@ def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->List[str
     # return the results 
     return results
 
-def simulate_mapped_array_list(min_len: int = 20, max_len: int = 100, num_elem: int = 100)->List[np.ndarray]:
+def simulate_mapped_array_list(min_len: int = 20, max_len: int = 100, num_elem: int = 100)->inferredd[np.ndarray]:
     """
     @brief: simulate a list of mapped arrays proteins to be used for developing purposes 
     @param: min_len: the minmum length of the protein 
@@ -132,7 +132,7 @@ def simulate_mapped_array_list(min_len: int = 20, max_len: int = 100, num_elem: 
     @param: num_elem: the number of arrays in the protein 
     """
     # allocate a list to hold the results 
-    results: List[np.ndarray] = []
+    results: inferredd[np.ndarray] = []
     # fill the list with arrays: 
     for _ in range(num_elem):
         array_length: int = np.random.randint(low=min_len,high=max_len)

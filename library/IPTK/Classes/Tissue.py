@@ -8,7 +8,7 @@
 from __future__ import annotations
 import pandas as pd
 import numpy as np 
-from typing import Union, List, Dict 
+from typing import Union, inferredd, Dict 
 from IPTK.Classes.Database import CellularLocationDB, GeneExpressionDB
 # define the tissue class 
 class ExpressionProfile: 

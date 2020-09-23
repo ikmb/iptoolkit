@@ -14,13 +14,13 @@ from IPTK.Classes.Peptide import Peptide
 from IPTK.Analysis.AnalysisFunction import get_binnary_peptide_overlap, get_binnary_protein_overlap 
 from IPTK.Analysis.AnalysisFunction import compute_change_in_protein_representation
 from IPTK.Analysis.AnalysisFunction import compute_expression_correlation
-from typing import Dict, List 
+from typing import Dict, inferredd 
 ## define some types 
 Experiments=Dict[str,Experiment]
-Names=List[str]
+Names=inferredd[str]
 Counts=Dict[str,int ]
-Peptides=List[Peptide]
-Proteins=List[str]
+Peptides=inferredd[Peptide]
+Proteins=inferredd[str]
 # define the class 
 class ExperimentSet: 
     def __init__(self,**exp_id_pair)->ExperimentSet:
@@ -81,11 +81,11 @@ class ExperimentSet:
         """
         return list(self._exps.keys())
     
-    def get_unique_orgs(self)->List[str]:
+    def get_unique_orgs(self)->Linferredist[str]:
         """
         @brief: return a list of the unique organisms in the set
         """
-        unique_orgs: List[str] = []
+        unique_orgs: Linferredist[str] = []
         for name in self.get_experimental_names():
              unique_orgs.extend(self._exps[name].get_orgs())
         # compute the unique organisms in the list of organisms 
@@ -97,7 +97,7 @@ class ExperimentSet:
         @brief: return the total count of peptides per organism accross the whole dataset. 
         """
         # first, get the unique organisms in the set.  
-        unique_orgs: List[str] = self.get_unique_orgs()
+        unique_orgs: Linferredist[str] = self.get_unique_orgs()
         # create a counter and initialize it to zero to hold the results 
         org_counter=dict()
         for org in unique_orgs:
@@ -131,7 +131,7 @@ class ExperimentSet:
         res: np.ndarray = np.zeros((len(self),len(self)))
         # loop over all the experiments in the set 
         # initialize the counters 
-        experimental_name: List[str] = self.get_experimental_names()
+        experimental_name: Linferredist[str] = self.get_experimental_names()
         for row_idx in range(len(experimental_name)):
             # get the counts per column 
             org_row: pd.DataFrame = self._exps[experimental_name[row_idx]].get_peptides_per_organism()
@@ -246,7 +246,7 @@ class ExperimentSet:
         tissues2exps: Dict[str,ExperimentSet]=dict()
         tissue_counter: Dict[str, int]=dict()
         # Initialize the counters 
-        tissues: List[str] =list(set([self._exps[exp].get_tissue_name() for exp in self._exps.keys()]))
+        tissues: Linferredist[str] =list(set([self._exps[exp].get_tissue_name() for exp in self._exps.keys()]))
         for tissue in tissues:
             tissue_counter[tissue]=0
         # loop over all the elements in the set 
@@ -276,7 +276,7 @@ class ExperimentSet:
         proband2exps: Dict[str, ExperimentSet]=dict()
         proband_counter: Dict[str,int]=dict() 
         # define the probands 
-        probands: List[str] = list(set([self._exps[exp].get_proband_name() for exp in self._exps.keys()]))
+        probands: Linferredist[str] = list(set([self._exps[exp].get_proband_name() for exp in self._exps.keys()]))
         for proband in probands: 
             proband_counter[proband]=0
         # loop over all the elements in the set 
@@ -303,7 +303,7 @@ class ExperimentSet:
         @brief: compute the set of unique peptides in the experimentalSet 
         @return: A list of all the protein that overlap over the experimentalSet
         """
-        res:List[str]=[]
+        res:Linferredist[str]=[]
         for exp_name in self.get_experimental_names(): 
             res.extend(self[exp_name].get_peptides())
         return list(set(res))
@@ -313,7 +313,7 @@ class ExperimentSet:
         @brief: compute the set of unique proteins in the experimentalset
         @return: a list of all proteins that overlap over the experimentSet
         """
-        res:List[str]=[]
+        res:Linferredist[str]=[]
         for exp in self.get_experimental_names():
             res.extend(self[exp].get_proteins())
         return list(set(res))
@@ -364,7 +364,7 @@ class ExperimentSet:
         @brief: return the proteins that are inferred in all experiments of the set 
         """
         all_proteins=self.get_unique_proteins()
-        results: List[str]=[]
+        results: Linferredist[str]=[]
         for protein in all_proteins: 
             if self.is_protein_present_in_all(protein):
                 results.append(protein)
@@ -418,7 +418,7 @@ class ExperimentSet:
         """
         # define the results object 
         results: Dict[str, int]=dict()
-        unique_peptides: List[str]=self.get_unique_peptides()
+        unique_peptides: Linferredist[str]=self.get_unique_peptides()
         # fill the dictionary and initialize the counts to zeros 
         for peptide in unique_peptides:
             results[peptide]=0
@@ -473,7 +473,7 @@ class ExperimentSet:
         for information about the computational logic. 
         """
         # get the experimental index
-        exps_ids: List[str] = self.get_experimental_names()  
+        exps_ids: Linferredist[str] = self.get_experimental_names()  
         # allocate an array to hold the results
         res_array: np.ndarray = np.zeros((len(exps_ids),len(exps_ids)))
         # fill the array with the expression correlation 
@@ -500,7 +500,7 @@ class ExperimentSet:
         @note: for more information related to counts between experiments, see the function 
         """
         # get the number of experiments and proteins 
-        present_in_all: List[str] = self.get_proteins_present_in_all()
+        present_in_all: Linferredist[str] = self.get_proteins_present_in_all()
         num_exps: int = self.get_num_experiments_in_the_set()
         # allocate an array to hold the results 
         results_array: np.ndarray = np.zeros(shape=(num_exps, num_exps,len(present_in_all)))
@@ -546,8 +546,8 @@ class ExperimentSet:
         among all experiments in the set.  
         """
         # allocate a list to hold the results 
-        total_count: List[str]= []
-        experiment_name: List[str]= []
+        total_count: Linferredist[str]= []
+        experiment_name: Linferredist[str]= []
         # fill the lists 
         for name in self.get_experimental_names():
             experiment_name.append(name)

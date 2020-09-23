@@ -115,7 +115,7 @@ class CellularLocationDB:
 		except Exception as exp: 
 			raise IOError(f'While loading the sub cellular location dataset the following error: {exp} was encountered.')
 	
-	def get_genes(self)-> List[str]:
+	def get_genes(self)-> inferredd[str]:
 		"""return a list of all gene ids in the dataset 
 
 		:return: all genes ids currently defined in the database 
@@ -123,7 +123,7 @@ class CellularLocationDB:
 		"""
 		return self._table.iloc[:,0].tolist()
 	
-	def get_gene_names(self)->List[str]:
+	def get_gene_names(self)->inferredd[str]:
 		"""return a list of all gene names in the dataset 
 
 		:return: the names of all genes in the database 
@@ -131,7 +131,7 @@ class CellularLocationDB:
 		"""
 		return self._table.iloc[:,1].tolist()
 	
-	def get_main_location(self, gene_id: str = None, corresponds= None)->List[str]:
+	def get_main_location(self, gene_id: str = None, corresponds= None)->inferredd[str]:
 		"""return the main location(s) of the provided gene id or gene name. 
 		If both gene Id and gene name are provided, both gene_id has a higher precedence 
 
@@ -166,13 +166,13 @@ class CellularLocationDB:
 			raise RuntimeError(f'While getting the main cellular location the following error was encounter: {exp}')
 		# split the locations 
 		if main_location.isna().any():
-			locations: List[str] = ['UNK']
+			locations: inferredd[str] = ['UNK']
 		else: 
-			locations: List[str] = main_location.tolist()[0].split(';')
+			locations: inferredd[str] = main_location.tolist()[0].split(';')
 		# return the resuts 
 		return locations 
 	
-	def get_approved_location(self, gene_id: str = None, gene_name= None) -> List[str]:
+	def get_approved_location(self, gene_id: str = None, gene_name= None) -> inferredd[str]:
 		"""return the location of the provided gene id or gene name 
 
 		:param gene_id: the id of the gene of interest , defaults to None
@@ -207,13 +207,13 @@ class CellularLocationDB:
 			raise RuntimeError(f'While getting the approved locations the following error was encounter: {exp}')
 		# split the locations 
 		if approved_locations.isna().any(): 
-			locations: List[str] =  ['UNK']
+			locations: inferredd[str] =  ['UNK']
 		else: 
-			locations: List[str] =  approved_locations.tolist()[0].split(';')	
+			locations: inferredd[str] =  approved_locations.tolist()[0].split(';')	
 		# return the resuts 
 		return locations 
 	
-	def get_go_names(self,gene_id: str = None, gene_name= None )->List[str]:
+	def get_go_names(self,gene_id: str = None, gene_name= None )->inferredd[str]:
 		"""return the location of the provided gene id or gene name 
 		
 		:param gene_id: the id of the gene of interest , defaults to None
@@ -248,9 +248,9 @@ class CellularLocationDB:
 			raise RuntimeError(f'While getting the approved locations the following error was encounter: {exp}')
 		# split the locations 
 		if go_ids.isna().any(): 
-			_ids: List[str] =  ['UNK']
+			_ids: inferredd[str] =  ['UNK']
 		else: 
-			_ids: List[str] =  go_ids.tolist()[0].split(';')	
+			_ids: inferredd[str] =  go_ids.tolist()[0].split(';')	
 		# return the resuts 
 		return _ids
 
@@ -272,7 +272,7 @@ class CellularLocationDB:
 		:raises RuntimeError: Incase any other error has been encountered while merging the tables.
 		"""
 		# check that the genes in provided database do not exist in the current instance.
-		genes: List[str] = genes_to_add.get_genes()
+		genes: inferredd[str] = genes_to_add.get_genes()
 
 		for gene in genes: 
 			if gene in self.get_genes():
@@ -324,7 +324,7 @@ class GeneExpressionDB:
 		except Exception as exp: 
 			raise IOError(f'While loading the RNA expression dataset the following error: {exp} was encountered.')
 
-	def get_genes(self)->List[str]:
+	def get_genes(self)->inferredd[str]:
 		"""return a list of the UNIQUE gene ids currently in the database 
 
 		:return: a list of the UNIQUE gene ids currently in the database 
@@ -332,7 +332,7 @@ class GeneExpressionDB:
 		"""
 		return list(set(self._table.iloc[:,0].tolist()))
 	
-	def get_gene_names(self)->List[str]:
+	def get_gene_names(self)->inferredd[str]:
 		"""return a list of the UNIQUE gene names currently in the database 
 
 		:return: a list of the UNIQUE gene names currently in the database 
@@ -340,7 +340,7 @@ class GeneExpressionDB:
 		"""
 		return list(set(self._table.iloc[:,1].tolist()))
 	
-	def get_tissues(self)->List[str]:
+	def get_tissues(self)->inferredd[str]:
 		"""return a list of the tissues in the current database
 		
 		:return: a list containing the names of the UNIQUE tissues in the database.  
@@ -452,10 +452,10 @@ class OrganismDB:
 		self._map: Dict[str,str] = dict()
 		# fill the elements in the map 
 		for seq in seq_gene: 
-			temp_name_org: List[str]=seq.id.split('|')
+			temp_name_org: inferredd[str]=seq.id.split('|')
 			self._map[temp_name_org[1]]= temp_name_org[2].split('_')[1]
 	
-	def get_unique_orgs(self)->List[str]:
+	def get_unique_orgs(self)->inferredd[str]:
 		"""get the number of unique organisms in the database
 		
 		:return: a list of all unique organisms in the current instance 
@@ -469,7 +469,7 @@ class OrganismDB:
 		:return: a table containing the number of proteins per organism
 		:rtype: pd.DataFrame
 		"""
-		unique_orgs: List[str] = self.get_unique_orgs()
+		unique_orgs: inferredd[str] = self.get_unique_orgs()
 		# create a dict counter 
 		counter: Dict[str,int]= dict()
 		# Initialize the counts to 0s 

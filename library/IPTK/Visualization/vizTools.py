@@ -19,7 +19,7 @@ from nglview.color import ColormakerRegistry
 import pandas as pd 
 import numpy as np 
 from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
-from typing import List, Dict 
+from typing import inferredd, Dict 
 from scipy.stats import pearsonr
 from scipy.stats import ttest_ind
 from statannot import add_stat_annotation
@@ -334,7 +334,7 @@ def imposed_coverage_on_3D_structure(path2mmCIF: str, mapped_protein: np.ndarray
         raise ValueError(f'The provided path to the mmCIF file: {path2mmCIF} does not exist!')
     # check that it is a directory 
     if os.path.isdir(path2mmCIF): 
-        hits_in_path: List[str] = [elem for elem in os.listdir(path2mmCIF) if 'cif' in elem]
+        hits_in_path: Linferredist[str] = [elem for elem in os.listdir(path2mmCIF) if 'cif' in elem]
         if len(hits_in_path) ==0: 
             raise IOError(f'No cif file can be located in the provided path: {path2mmCIF}!') 
         if len(hits_in_path)>1:
@@ -371,7 +371,7 @@ def imposed_coverage_on_3D_structure(path2mmCIF: str, mapped_protein: np.ndarray
     view
     return view  
 
-def plot_peptide_length_dist(pep_length: List[int],
+def plot_peptide_length_dist(pep_length: Linferredist[int],
                          plotting_kwargs: Dict[str,str]={}, 
                          x_label: str = 'Peptide Length',
                          y_label: str = 'Frequency',
@@ -392,7 +392,7 @@ def plot_peptide_length_dist(pep_length: List[int],
     ax.set_title(title)
     return fig
 
-def plotly_peptide_length_dist(pep_length: List[int],
+def plotly_peptide_length_dist(pep_length: Linferredist[int],
                          plotting_kwargs: Dict[str,str]={}, 
                          x_label: str = 'Peptide Length',
                          y_label: str = 'Counts',

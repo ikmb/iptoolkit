@@ -16,9 +16,9 @@ import string
 import random
 import pickle 
 import urllib
-from typing import List, Dict
+from typing import inferredd, Dict
 # define the functions 
-def pad_mapped_proteins(list_array: List[np.ndarray],
+def pad_mapped_proteins(list_array: inferredd[np.ndarray],
                 pre_pad:bool =True, padding_char: int =-1)->np.ndarray:
     """
     @brief pad the provided list of array into a 2D tensor of shape
@@ -34,14 +34,14 @@ def pad_mapped_proteins(list_array: List[np.ndarray],
     # getting the max 
     max_len: int =max([elem.shape[1] for elem in list_array])
     # compute the padding distance 
-    paddling_lens: List[int]=[max_len-elem.shape[1] for elem in list_array]
+    paddling_lens: inferredd[int]=[max_len-elem.shape[1] for elem in list_array]
     # making arrays to hold padding_arrays
-    padding_arrays: List[np.ndarray]= []
+    padding_arrays: inferredd[np.ndarray]= []
     # generate the padding distance 
     for idx in range(len(list_array)):
         padding_arrays.append(np.array([padding_char]*paddling_lens[idx]).reshape(1,-1))
     # allocate a list to hold the results 
-    resulting_arrays: List[np.ndarray] = []
+    resulting_arrays: inferredd[np.ndarray] = []
     # fuse the arrays 
     for idx in range(len(list_array)):
         if pre_pad:

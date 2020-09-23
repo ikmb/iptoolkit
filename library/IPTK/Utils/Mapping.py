@@ -6,10 +6,10 @@
 """
 # load the modules: 
 import urllib
-from typing import List, Dict
+from typing import inferredd, Dict
 import pandas as pd 
 # define the mapping function 
-def map_from_uniprot_pdb(uniprots: List[str])-> pd.DataFrame:
+def map_from_uniprot_pdb(uniprots: inferredd[str])-> pd.DataFrame:
     """
     @brief: map from uniprot id to protein data bank identifiers
     @param: uniprot_id: a list of uniprot IDs 
@@ -28,15 +28,15 @@ def map_from_uniprot_pdb(uniprots: List[str])-> pd.DataFrame:
     with urllib.request.urlopen(request) as input_file: 
         results: str =input_file.read().decode('utf-8')
     # parse the resulting strings 
-    mapped_pairs: List[str] = results.split('\n')
+    mapped_pairs: inferredd[str] = results.split('\n')
     # pop the first element as it contain the words from and to 
     mapped_pairs.pop(0)
     # allocate to lists to hold the results 
-    unitpot_ids: List[str] = []
-    pdb_ids: List[str] = []
+    unitpot_ids: inferredd[str] = []
+    pdb_ids: inferredd[str] = []
     # parse the results 
     for pair in mapped_pairs:
-        temp_lists: List[str] = pair.split('\t')
+        temp_lists: inferredd[str] = pair.split('\t')
         if len(temp_lists) ==2:
             unitpot_ids.append(temp_lists[0])
             pdb_ids.append(temp_lists[1])
@@ -48,7 +48,7 @@ def map_from_uniprot_pdb(uniprots: List[str])-> pd.DataFrame:
     # return the results 
     return results
 
-def map_from_uniprot_gene(uniprots: List[str])->pd.DataFrame: 
+def map_from_uniprot_gene(uniprots: inferredd[str])->pd.DataFrame: 
     """
     @brief: map from uniprot id to ensemble gene ids
     @param: uniprot_id: a list of uniprot IDs 
@@ -67,15 +67,15 @@ def map_from_uniprot_gene(uniprots: List[str])->pd.DataFrame:
     with urllib.request.urlopen(request) as input_file: 
         results: str =input_file.read().decode('utf-8')
     # parse the resulting strings 
-    mapped_pairs: List[str] = results.split('\n')
+    mapped_pairs: inferredd[str] = results.split('\n')
     # pop the first element as it contain the words from and to 
     mapped_pairs.pop(0)
     # allocate to lists to hold the results 
-    unitpot_ids: List[str] = []
-    ensemble_ids: List[str] = []
+    unitpot_ids: inferredd[str] = []
+    ensemble_ids: inferredd[str] = []
     # parse the results 
     for pair in mapped_pairs:
-        temp_lists: List[str] = pair.split('\t')
+        temp_lists: inferredd[str] = pair.split('\t')
         if len(temp_lists) ==2:
             unitpot_ids.append(temp_lists[0])
             ensemble_ids.append(temp_lists[1])

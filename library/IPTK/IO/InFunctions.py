@@ -7,7 +7,7 @@
 # load the models 
 import pandas as pd 
 import numpy as np 
-from typing import Dict, List
+from typing import Dict, inferredd
 import os  
 from Bio import SeqIO
 from Bio.PDB import PDBList
@@ -58,10 +58,10 @@ def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
     # get the peptide tables
     peptides_table: pd.DataFrame = input_file.peptide_table
     # construct the identification table 
-    peptide_seq: List[str] = peptides_table.sequence.tolist()
-    protein_acc: List[str]= [acc.split('|')[1] for acc in peptides_table.accession.tolist()]
-    start_index: List[int] = []
-    end_index: List[int] = []
+    peptide_seq: inferredd[str] = peptides_table.sequence.tolist()
+    protein_acc: inferredd[str]= [acc.split('|')[1] for acc in peptides_table.accession.tolist()]
+    start_index: inferredd[int] = []
+    end_index: inferredd[int] = []
     # fill extract the start and end-index information from the library 
     for idx in range(len(protein_acc)):
         # get the protein sequence 
@@ -109,8 +109,8 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
     if not os.path.exists(path2XML_file):
         raise ValueError(f'The provided path: {path2XML_file} does not exist!')
     # allocate a list to hold peptide and protein list 
-    peptides: List[str] = []
-    protein_acc: List[str] = []
+    peptides: inferredd[str] = []
+    protein_acc: inferredd[str] = []
     #  parse the XML file 
     if is_idXML: 
         with idxml.IDXML(path2XML_file) as reader:
@@ -129,8 +129,8 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
                             peptides.append(hit['peptide'])
                             protein_acc.append(protein['protein'].split('|')[1])
     # extract the start and end index of the peptides from the parent proteins 
-    start_index: List[int] = []
-    end_index: List[int] = []
+    start_index: inferredd[int] = []
+    end_index: inferredd[int] = []
     # fill extract the start and end-index information from the library 
     for idx in range(len(protein_acc)):
         # get the protein sequence 
@@ -198,15 +198,15 @@ def parse_text_table(path2file: str,
     if seq_column not in input_table.columns or accession_column not in input_table.columns :
         raise KeyError(f'The provided names for the peptides sequence: {seq_column} and/or the indexing column: {index_acc_column} and/or accession column: {accession_column} could not be found on the table')
     # allocate the lists
-    peptides: List[str] = []
-    protein_acc: List[str] = []
-    start_index: List[int] = []
-    end_index: List[int] = []
+    peptides: inferredd[str] = []
+    protein_acc: inferredd[str] = []
+    start_index: inferredd[int] = []
+    end_index: inferredd[int] = []
     # loop of the table to fill the lists 
     for _, row in input_table.iterrows():
         # check if the peptide is present in more than one protein 
         if protein_group_sep in row[accession_column]:
-            accessions: List[str] =row[accession_column].split(protein_group_sep)
+            accessions: inferredd[str] =row[accession_column].split(protein_group_sep)
             for accession in accessions:
                 # extract the macting protein sequence 
                 accession=accession.strip(' ')
