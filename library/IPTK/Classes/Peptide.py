@@ -213,7 +213,7 @@ class Peptide:
 		if self.get_number_of_parents()==0:
 			return ['']	
 		#  else, we declare a list to allocate the results to it ==>  
-		resultsList[str]=[]
+		results: List[str]=[]
 		# loop over all the parent to obtain the upstream sequences 
 		for parent in self._parent_proteins.keys(): 
 			# get the parent protein 

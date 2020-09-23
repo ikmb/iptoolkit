@@ -11,41 +11,48 @@ import pandas as pd
 from IPTK.Utils.Types import Index
 # define some types 
 class Protein: 
-	"""
-	@briefA representation of a protein that has been infered from an IP experiment. 
+	"""representation of a protein that has been infered from an IP experiment. 
 	"""
 	def __init__(self, prot_id : str, seq: str, org: str=None) -> Protein:
+		"""construct a portein instance. 
+
+		:param prot_id: the id of the protein 
+		:type prot_id: str
+		:param seq:  the sequence of the protein 
+		:type seq: str
+		:param org: the organism from which the protein originated, defaults to None
+		:type org: str, optional
+		:return: a Protein instance
+		:rtype: Protein
 		"""
-		@brief: construct a portein instance. 
-		@param: prot_id: the id of the protein 
-		@param: seq: the sequecne of the protein 
-		@param: org: the organism from which the protein originated, default is None
-		""" 
 		self._id=prot_id
 		self._seq=seq
 		self._org=org
 		
 	def get_id(self) -> str:
 		"""
-		@brief return the protein identifier.
-		""" 
+		:return: return the protein identifier.
+		:rtype: str
+		"""
 		return self._id 
 	
 	def get_seq(self) -> str:
 		"""
-		@brief return the protein sequence. 
-		""" 
+		:return: the protein sequence.
+		:rtype: str
+		"""
 		return self._seq
 	
-	def get_peptides_map(self, start_idxs: Index, end_idxs:Index)->np.ndarray: 
-		"""
-		@brief: compute a coverage over the protein sequence
-		@detail returns a numpy array with shape of 1 by the length of the protein.
-		Every element in the array donates the number of times, It has been observed in the experiment.
-		@param start_idxs a list of integers representing the start position
-		@param end_idxs a list of integers representing the end position 
-		@note start_indxs and end_idxs MUST be of equal length, where each pair of elements define
-		the boundary of an identified peptide.  
+	def get_peptides_map(self, start_idxs: Index, end_idxs:Index)->np.ndarray:
+		"""compute a coverage over the protein sequence
+		
+		:param start_idxs: a list of integers representing the start positions
+		:type start_idxs: Index 
+		:param end_idxs: a list of integers representing the end positions
+		:type start_idxs: Index
+		:raises ValueError: if start_indxs and end_idxs MUST be of equal length are not of equal length
+		:return: A numpy array with shape of 1 by the length of the protein where every element in the array donates the number of times, It has been observed in the experiment.
+		:rtype: np.ndarray
 		"""
 		if len(start_idxs) != len(end_idxs):
 			raise ValueError(f"""Annotation list MUST have an equal length where your lists have length : {len(start_idxs)}, {(end_idxs)} respectivily.""")
@@ -55,13 +62,19 @@ class Protein:
 		return prote_backbone 
 	
 	def get_non_presented_peptide(self, exc_reg_s_idx: int, exc_reg_e_idx: int, length: int) -> str: 
-		"""
-		@brief sample a peptide from the protein sequences where the sampled peptides is not part of the 
+		"""sample a peptide from the protein sequences where the sampled peptides is not part of the 
 		experimentally identified regions. 
-		@param exc_reg_s_idx the start point in the reference protein sequence of the experimentally identified peptide. 
-		@param exc_reg_e_idx the end point in the reference protein sequence of the experimentally identified peptide. 
-		@param length the length the non-presented peptides. 
-		@return a substring of the instance sequecnes. 
+		
+		:param exc_reg_s_idx: the start point in the reference protein sequence of the experimentally identified peptide. 
+		:type exc_reg_s_idx: int
+		:param exc_reg_e_idx: the end point in the reference protein sequence of the experimentally identified peptide. 
+		:type exc_reg_e_idx: int
+		:param length: length the non-presented peptides. 
+		:type length: int
+		:raises ValueError: if the length of the peptide is bigger than the protein length 
+		:raises ValueError: if the length of the peptide is smaller than or equal to zero 
+		:return:a substring of the instance sequence
+		:rtype: str
 		"""
 		if length >= len(self):
 			raise ValueError(f'''The generated peptide must be shorter than the parent protein length,
@@ -78,37 +91,41 @@ class Protein:
 	
 	def get_org(self)->str:
 		"""
-		@brief return the organims in which this instance protein belong.
+		:return: the organism in which this instance protein belong.
+		:rtype: str
 		"""
 		return self._org
 
 	def set_org(self,org: str)->None:
-		"""
-		@brief a post-instantitation mechanims to set the organism for which the protein belong. 
+		"""a post-instantitation mechanism to set the organism for which the protein belong.
+	
+		:param org: the name of the organism
+		:type org: str
 		"""
 		self._org=org
 
 	def __getitem__(self,aa_index: int ) -> str:
 		"""
-		@brief: return the amino acid with the corresponding index as the user provided index 
-		@param: aa_index: the amino acid index, for example, 3rd amino acid in the protein 5th amino acid in the protein
-		""" 
+		:param aa_index:  the amino acid index, for example, 3rd amino acid in the protein 5th amino acid in the protein
+		:type aa_index: int
+		:return: the amino acid with the corresponding index as the user provided index
+		:rtype: str
+		"""
 		return self._seq[aa_index] 
 	
 	def __len__(self)->int:
 		"""
-		@brief: get the length of the protein instance 
+		:return: the length of the instances sequence  
+		:rtype: int
 		"""
 		return len(self._seq)
 	
 	def __str__(self)->str:
 		"""
-		@brief: return the string of the protein length 
+		:return: the instance's sequence 
+		:rtype: str
 		"""
 		return self._seq
 
 	def __repr__(self)->str:
-		"""
-		@brief: a string representation of the protein  
-		"""
 		return f'A Protein instance with a length of {len(self)}'

@@ -8,23 +8,30 @@
 from __future__ import annotations
 import pandas as pd
 import numpy as np 
-from typing import Union, inferredd, Dict 
+from typing import Union, List, Dict 
 from IPTK.Classes.Database import CellularLocationDB, GeneExpressionDB
 # define the tissue class 
 class ExpressionProfile: 
-	"""
-	@brief: a representation of tissue reference expression value. 
+	"""a representation of tissue reference expression value. 
 	"""
 	def __init__(self, name: str,
 	 	expression_table: pd.DataFrame, 
 		aux_proteins: pd.DataFrame = None)->ExpressionProfile: 
-		"""
-		@brief: create an expression profile instance from an expression table. 
-		@param: name: the name of the tissue 
-		@param: expression_table: a pandas dataframe with the following three columns 
-				gene id, gene name, and the expression value.   
-		@param: aux_proteins: A table that contain the expression table of auxillary proteins that does not belong to the tissue per sa,
-		for example, pathogen-derived genes.
+		"""create an expression profile instance from an expression table. 
+
+		:param name: the name of the tissue 
+		:type name: str
+		:param expression_table: a  dataframe with the following three columns gene id, gene name, and the expression value.   
+		:type expression_table: pd.DataFrame
+		:param aux_proteins: A table that contain the expression table of auxillary proteins that does not belong to the tissue per sa,
+		for example, pathogen-derived genes, defaults to None
+		:type if the expression table does not have the correct shape: pd.DataFrame, optional
+		:raises ValueError: if the tissue name is None
+		:raises ValueError: if the expression table is not a pandas dataframe instance 
+		:raises ValueError: if the expression table does not have the correct shape 
+		:raises ValueError: if the aux_proteins does not have the correct shape
+		:return: an expression profile instance 
+		:rtype: ExpressionProfile
 		"""
 		if name is not None:
 			self._name=name
@@ -51,8 +58,11 @@ class ExpressionProfile:
 
 	def get_gene_id_expression(self,gene_id: str)-> float: 
 		"""
-		@brief: return the expression value of the provided gene id.
-		@param: gene_id: the gene id to retrive its expression value from the database
+		:param gene_id: the gene id to retrive its expression value from the database
+		:type gene_id: str
+		:raises KeyError: if the provided id is not defined in the instance table 
+		:return: the expression value of the provided gene id.
+		:rtype: float
 		"""
 		if gene_id not in self._exp_map.iloc[:,0].tolist(): 
 			raise KeyError(f"The provided gene id: {gene_id} is not defined in the database")
@@ -60,8 +70,11 @@ class ExpressionProfile:
 	
 	def get_gene_name_expression(self,gene_name: str)-> float: 
 		"""
-		@brief: return the expression value of the provided gene name. 
-		@param: gene_name: the gene name to retrive its expression value from the database.
+		:param gene_name: the gene name to retrive its expression value from the database
+		:type gene_name: str
+		:raises KeyError:if the provided id is not defined in the instance table 
+		:return: the expression value of the provided gene name. 
+		:rtype: float
 		"""
 		if gene_name not in self._exp_map.iloc[:,1].tolist(): 
 			raise KeyError(f"The provided gene name: {gene_name} is not defined in the database.")
@@ -69,49 +82,58 @@ class ExpressionProfile:
 
 	def get_name(self)->str:
 		"""
-		@brief: get the name of the tissue which the instance profile its gene expression 
+		:return: the name of the tissue which the instance profile its gene expression 
+		:rtype: str
 		"""
 		return self._name
 
 	def get_table(self)->pd.DataFrame:
 		"""
-		@brief: return a table that contain the expression of all the transcript in the current profile
-		this include core and auxiliary proteins
+		:return: return a table that contain the expression of all the transcript in the current profile
+		including core and auxiliary proteins
+		:rtype: pd.DataFrame
 		"""
 		return self._exp_map
 	
 	def __len__(self)->int: 
 		"""
-		@brief: return the number of unique genes in the profile 
+		:return: return the number of unique genes in the profile 
+		:rtype: int
 		"""
 		return len(set(self._exp_map.shape[0]))
 
 	def __str__(self)->str:
-		"""
-		@brief: compute a string representation for the class instance 
+		""" 
+		:return: a string representation for the class instance  
+		:rtype: str
 		"""
 		return f'{self._name} with an expression profile covering {self._exp_map.shape[0]} genes.'
 	
 	def __repr__(self)->str:
-		"""
-		@brief: a string representation for the class 
-		"""
 		return str(self)
 
 class Tissue:
 	def __init__(self, name: str, main_exp_value: GeneExpressionDB, 
 	main_location: CellularLocationDB, aux_exp_value: GeneExpressionDB = None,
 	aux_location: CellularLocationDB = None) -> Tissue:
+		"""the initializer of the AnnotatedTissue class 
+
+		:param name: the name of the tissue 
+		:type name: str
+		:param main_exp_value: A GeneExpressionDB instace contain the gene expression accross different tissues 
+		:type main_exp_value: GeneExpressionDB
+		:param main_location: main_location
+		:type main_location: A CellularLocationDB instance that contain the sub cellular locations for the proteins expressed in the tissue
+		:param aux_exp_value:  GeneExpressionDB instance that contain the expression table of auxillary proteins that does not belong to the tissue per sa,
+	  	for example, pathogen-derived genes or extra-cellular matrix, defaults to None
+		:type aux_exp_value: GeneExpressionDB, optional
+		:param aux_location: CellularLocationDB instance that contain the sub cellular locations for proteins that does not belong to the tissue of interest per sa
+	  	for example, pathogen-derived proteins or media-added proteins, defaults to None
+		:type aux_location: CellularLocationDB, optional
+		:raises KeyError: if the provided tissue name is not defined in the gene expression database 
+		:return: [description]
+		:rtype: Tissue
 		"""
-	  	@brief: the initializer of the AnnotatedTissue class 
-	  	@param: name: the name of the tissue 
-	  	@param: main_exp_value: a GeneExpressionDB instace contain the gene expression accross different tissues 
-	  	@param: main_location: a CellularLocationDB instance that contain the sub cellular locations for the proteins expressed in the tissue.  
-	  	@param: aux_exp_value: a GeneExpressionDB instance that contain the expression table of auxillary proteins that does not belong to the tissue per sa,
-	  	for example, pathogen-derived genes or extra-cellular matrix.
-	  	@param: aux_location:  CellularLocationDB instance that contain the sub cellular locations for proteins that does not belong to the tissue of interest per sa
-	  	for example, pathogen-derived proteins or media-added proteins. 
-	  	"""
 		if name not in main_exp_value.get_tissues():
 			raise KeyError(f'The provided tissue name: {name} is not in the provided main expression database')
 		# add the expression profile 
@@ -129,25 +151,29 @@ class Tissue:
 	
 	def get_expression_profile(self)->ExpressionProfile: 
 		"""
-		@brief: provide the expresion profile of the current tissue 
+		:return: the expresion profile of the current tissue 
+		:rtype: ExpressionProfile
 		"""
 		return self._exp_prof
 	
 	def get_name(self)->str:
 		"""
-		@brief: return the name of the tissue 
+		:return: the name of the tissue 
+		:rtype: str
 		"""
 		return self._exp_prof.get_name()
 
 	def get_subCellular_locations(self) ->CellularLocationDB:
-		"""
-		@brief: provide the sub-cellular localization of the proteins stored in current instance resources. 
+		""" 
+		:return: the sub-cellular localization of all the proteins stored in current instance resources. 
+		:rtype: CellularLocationDB
 		"""
 		return self._cell_loc
 	
 	def __str__(self)->str:
 		"""
-		@brief: return a string representation for the current instance
+		:return: a string representation for the current instance
+		:rtype: str
 		"""
 		return f'{self._exp_prof.get_name()} with an associated expression profile covering: {len(self._exp_prof)} genes and a sub-cellular location covering: {len(self._cell_loc)} genes '
 		
