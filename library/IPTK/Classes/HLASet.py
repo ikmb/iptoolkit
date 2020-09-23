@@ -146,9 +146,6 @@ class HLASet:
         return f"An HLASet containing {len(self)} alleles"
     
     def __repr__(self)->str:
-        """
-        @brief: a magic function to compute the class representation 
-        """
         return str(self)
             
             
