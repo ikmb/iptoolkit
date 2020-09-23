@@ -514,8 +514,8 @@ class OrganismDB:
 		"""
 		return str(f'An organism database with: {len(self)} entry.')
 
-	def __repr__(organism)->str: 
-		return str(organism)
+	def __repr__(self)->str: 
+		return str(self)
 
 		
 
