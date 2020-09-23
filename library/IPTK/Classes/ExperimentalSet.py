@@ -143,7 +143,7 @@ class ExperimentSet:
         res: np.ndarray = np.zeros((len(self),len(self)))
         # loop over all the experiments in the set 
         # initialize the counters 
-        experimental_name: Linferredist[str] = self.get_experimental_names()
+        experimental_name: List[str] = self.get_experimental_names()
         for row_idx in range(len(experimental_name)):
             # get the counts per column 
             org_row: pd.DataFrame = self._exps[experimental_name[row_idx]].get_peptides_per_organism()
@@ -303,7 +303,7 @@ class ExperimentSet:
         proband2exps: Dict[str, ExperimentSet]=dict()
         proband_counter: Dict[str,int]=dict() 
         # define the probands 
-        probands: Linferredist[str] = list(set([self._exps[exp].get_proband_name() for exp in self._exps.keys()]))
+        probands: List[str] = list(set([self._exps[exp].get_proband_name() for exp in self._exps.keys()]))
         for proband in probands: 
             proband_counter[proband]=0
         # loop over all the elements in the set 
@@ -538,7 +538,7 @@ class ExperimentSet:
         :rtype: np.ndarray
         """
         # get the number of experiments and proteins 
-        present_in_all: Linferredist[str] = self.get_proteins_present_in_all()
+        present_in_all: List[str] = self.get_proteins_present_in_all()
         num_exps: int = self.get_num_experiments_in_the_set()
         # allocate an array to hold the results 
         results_array: np.ndarray = np.zeros(shape=(num_exps, num_exps,len(present_in_all)))
@@ -588,7 +588,7 @@ class ExperimentSet:
         """
         # allocate a list to hold the results 
         total_count: List[str]= []
-        experiment_name: Linferredist[str]= []
+        experiment_name: List[str]= []
         # fill the lists 
         for name in self.get_experimental_names():
             experiment_name.append(name)

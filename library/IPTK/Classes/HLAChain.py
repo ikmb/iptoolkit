@@ -10,9 +10,13 @@ import mhcnames
 # define the class 
 class HLAChain: 
     def __init__(self, name:str)->HLAChain:
-        """
-        @breif: create an instance an HLA form a name string 
-        @param name: the name of the HLA instance 
+        """Create an instance an HLAChain instance a name string 
+        
+
+        :param name: the allele name 
+        :type name: str
+        :return: an HLAChain instance 
+        :rtype: HLAChain
         """
         self._name=name
         name=mhcnames.parse_allele_name(name)
@@ -24,33 +28,38 @@ class HLAChain:
 
     def get_class(self)->int:
         """
-        @brief: get the HLA class 
+        :return: The HLA class 
+        :rtype: int
         """
         return self._hla_class 
     
     def get_gene(self)->str:
         """
-        @brief get the gene name
+        :return: the gene name
+        :rtype: str
         """
         return self._gene
     
     def get_allele_group(self)->str:
         """
-        @brief get the allele group 
+        :return: The allele group 
+        :rtype: str
         """
         return self._allele_group
     
     def get_protein_group(self)->str:
         """
-        @brief get the protein name
+        :return: the protein name
+        :rtype: str
         """
         return self._protein_group
     
     def get_chain_class(self, gene_name:str)->int:
         """
-        @brief check the allele name and return 1 if the gene belongs to class one 
-        and 2 if it belong to class two 
-        @param gene_name the name of the gene 
+        :param gene_name: the name of the gene 
+        :type gene_name: str
+        :return: 1 if the gene belongs to class one and 2 if it belong to class two 
+        :rtype: int
         """
         if gene_name in ['A','B','C']: 
             return 1
@@ -58,14 +67,16 @@ class HLAChain:
          
     def get_name(self)->str:
         """
-        @brief: return the chain name
+        :return: The chain name
+        :rtype: str
         """
         return self._name
 
     # define some magic number for the class 
     def __str__(self)->str:
         """
-        @brief return a string representation of the class 
+        :return: a string representation of the class
+        :rtype: str
         """
         return f"""An HLA chain of class: {self.get_class()} from gene: {self.get_gene()},
                 With an allele group of: {self.get_allele_group()} and a protein group of: 
@@ -73,8 +84,5 @@ class HLAChain:
                 """
 
     def __repr__(self)->str:
-        """
-        @brief compute the class string representation
-        """
         return str(self)
         
