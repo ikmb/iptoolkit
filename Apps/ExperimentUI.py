@@ -1,4 +1,9 @@
 #!/usr/bin/env python 
+"""
+@author: Hesham ElAbd
+@contact: h.elabd@ikmb.uni-kiel.de
+@brief: A dashboard that utilize the IPTK Library to build to provide an easy-to-use interface to visualize and filter the results of an IP Experiment. 
+"""
 # load the module 
 import dash 
 import dash_core_components as dcc 
