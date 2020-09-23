@@ -24,33 +24,46 @@ Peptides=List[str]
 Proteins=List[str]
 ## Define the peptide overlap 
 def get_binnary_peptide_overlap(exp1:Experiment, exp2:Experiment)->Peptides:
+    """compare the peptide overlap between two experimental objects.
+
+    :param exp1: an instance of class Experiment.
+    :type exp1: Experiment
+    :param exp2: an instance of class Experiment.
+    :type exp2: Experiment
+    :return: a list of peptides that have been identified in both experiments.
+    :rtype: Peptides
     """
-    @brief: compare the peptide overlap between two experimental objects.
-    @param: exp1: an instance of class Experiment.
-    @param: exp2: an instance of class Experiment.
-    @return: a list of peptides that have been identified in both experiments.    
-    """ 
     peptide_one=exp1.get_peptides()
     peptide_two=exp2.get_peptides()
     return list(peptide_one.intersection(peptide_two))
      
 def get_binnary_protein_overlap(exp1:Experiment, exp2:Experiment)->Proteins:
+    """compare the protein overlap between two experimental objects.
+
+    :param exp1: an instance of class Experiment.
+    :type exp1: Experiment
+    :param exp2: an instance of class Experiment.
+    :type exp2: Experiment
+    :return: a list of proteins that have been identified in both experiments. 
+    :rtype: Proteins
     """
-    @brief: compare the protein overlap between two experimental objects.
-    @param: exp1: an instance of class Experiment.
-    @param: exp2: an instance of class Experiment.
-    @return: a list of proteins that have been identified in both experiments.   
-    """ 
     protein_one=exp1.get_proteins()
     protein_two=exp2.get_proteins()
     return list(protein_one.intersection(protein_two))
 
 def compute_binary_distance(peptides: List[str],dist_func:Callable)->np.ndarray:
-    """
-    @brief: compare the distance between every pair of peptides in a collection of peptides. 
+    """compare the distance between every pair of peptides in a collection of peptides. 
     @param: peptides: a collection of peptides sequences.
     @param: dist_func: function to compute the distance between each pair of peptides. 
-    @note: make sure that the dist_function is suitable with the peptides which might have different lengths.
+    @note: 
+    
+    :param peptides: a collection of peptides sequences.
+    :type peptides: List[str]
+    :param dist_func: a function to compute the distance between each pair of peptides. 
+    :type dist_func: Callable
+    :raises RuntimeError: make sure that the dist_function is suitable with the peptides which might have different lengths.
+    :return: the distance between each pair of peptides in the provided list of peptides
+    :rtype: np.ndarray
     """
     num_peptides=len(peptides)
     distance_matrix=np.zeros(shape=(num_peptides,num_peptides))
@@ -68,13 +81,18 @@ def get_sequence_motif(peptides:Peptides,
                        temp_dir: str ="./TEMP_DIR", verbose: bool = False, 
                        meme_params:Dict[str,str]={}
                        )->None:
-    """
-    @brief: compute the sequences motif from a collection of peptide sequences using meme software.
-    @param: peptides: a list of string containing the peptide sequences 
-    @param: temp_dir: the temp directory to write temp-files to it
-    @param: verbose: whether or not to print the output of the motif discovery tool to the stdout.  
-    @param: meme_params: a dict object that contain meme controlling parameters.
-    @see: IPTK.IO.MEMEInterface for more details 
+    """compute the sequences motif from a collection of peptide sequences using meme software.
+    
+    :param peptides: a list of string containing the peptide sequences 
+    :type peptides: Peptides
+    :param temp_dir: he temp directory to write temp-files to it, defaults to "./TEMP_DIR"
+    :type temp_dir: str, optional
+    :param verbose: whether or not to print the output of the motif discovery tool to the stdout, defaults to False
+    :type verbose: bool, optional
+    :param meme_params: a dict object that contain meme controlling parameters, defaults to {}
+    :type meme_params: Dict[str,str], optional
+    :raises FileNotFoundError: incase meme is not installed or could not be found in the path!
+    :raises ValueError: incase the peptides have different length! 
     """
     # check the meme is installed 
     if not memeIF.is_meme_callable():
@@ -101,21 +119,26 @@ def get_sequence_motif(peptides:Peptides,
     print(f"MEME has finished execution. Results can be found at: {meme_results_dir}")
     
 def download_structure_file(pdb_id:str)->None:
-    """
-    @brief: Download PDB/mmCIF file containing the pbd_id from PDB using BioPython library 
-    @param: pdb_id: the protein id in protein databank 
+    """Download PDB/mmCIF file containing the pbd_id from PDB using BioPython library 
+
+    :param pdb_id: the protein id in protein databank 
+    :type pdb_id: str
     """
     pdb_list=PDBList()
     pdb_list.retrieve_pdb_file(pdb_id)
     return 
 
 def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
-    """
-    @brief: compute the correlation in the gene expression between two experiments by constructing a union
+    """compute the correlation in the gene expression between two experiments by constructing a union
     of all the proteins expressed in the first and second experiments, extract the gene expression 
-    of these genes and then compute the correlation using scipy stat module. 
-    @param: exp1: The first experimental object 
-    @param: exp2: The second experimental object 
+    of these genes and then compute the correlation using SciPy stat module. 
+    
+    :param exp1: The first experimental object 
+    :type exp1: Experiment
+    :param exp2: he second experimental object 
+    :type exp2: Experiment
+    :return: the correlation in gene expression of the proteins inferred in the provided pair of experiment
+    :rtype: float
     """
     # get the expression tables 
     protein_exp1: Set[str] = set(exp1.get_proteins())
@@ -189,11 +212,16 @@ def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
 
 def compute_change_in_protein_representation(mapped_prot_cond1: np.ndarray, 
     mapped_prot_cond2: np.ndarray)->float:
-    """
-    @brief: compute the change in the protein representation between two conditions, by computing 
+    """Compute the change in the protein representation between two conditions, by computing 
     the difference in the area under the curve, AUC.
-    @param: mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
-    @param: mapped_prot_cond2: a mapped protein instance containing the protein coverage in the second condition  
+
+    :param mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
+    :type mapped_prot_cond1: np.ndarray
+    :param mapped_prot_cond2: a mapped protein instance containing the protein coverage in the second condition  
+    :type mapped_prot_cond2: np.ndarray
+    :raises ValueError: if the provided pair of proteins is of different length 
+    :return: the difference in the area under the coverage curve between the two experiments. 
+    :rtype: float
     """
     # un-roll the arrays to 1D arrays.
     if len(mapped_prot_cond1.shape)==2:
@@ -216,10 +244,20 @@ def compute_change_in_protein_representation(mapped_prot_cond1: np.ndarray,
 
 def compute_difference_in_representation(mapped_prot_cond1: np.ndarray, 
     mapped_prot_cond2: np.ndarray) -> np.ndarray:
-    """
-    @brief: return the difference in the representation of protein between two proteins.
+    """return the difference in the representation of a protein between two conditions
+    by substracting the coverage of the first protein from the second proteins.
+
+
     @param: mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
     @param: mapped_prot_cond2: a mapped protein instance containing the protein coverage in the second condition  
+    
+
+    :param mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
+    :type mapped_prot_cond1: np.ndarray
+    :param mapped_prot_cond2: a mapped protein instance containing the protein coverage in the second condition  
+    :type mapped_prot_cond2: np.ndarray
+    :return: an array that shows the difference in coverage between the two proteins at each amino acid position. 
+    :rtype: np.ndarray
     """
      # un-roll the arrays to 1D arrays.
     if len(mapped_prot_cond1.shape)==2:
