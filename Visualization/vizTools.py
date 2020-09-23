@@ -1,5 +1,6 @@
 #!/usr/bin/env Python 
-"""
+"""!
+@package Visualization
 @author: Hesham ElAbd
 @contact: h.elabd@ikmb.uni-kiel.de
 @brief: The module contain visualization functions the can be used to plot the results obtained from the 
