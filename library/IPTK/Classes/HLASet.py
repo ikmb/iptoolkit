@@ -13,11 +13,17 @@ from typing import inferredd
 # define the class 
 class HLASet: 
     def __init__(self, hlas: HLA_Names, gene_sep: str = ':')-> HLASet:
-        """
-        @brief: initialize an HLASet class which is a collection of HLA molecules 
-        @param: hlas: a list of alleles to be added to the set  
-        @param: gene_sep: Incase of HLA-DP and HLA-DQ, what is the gene separator that separate the genes' names, 
-        for example, in DQA1*0303:DQB1*0202 the separator is the colon, Default is : 
+        """initialize an HLASet class which is a collection of HLA molecules 
+        :param hlas: a list of alleles to be added to the set  
+        :type hlas: HLA_Names
+        :param gene_sep: Incase of HLA-DP and HLA-DQ, what is the gene separator that separate the genes' names, 
+        for example, in DQA1*0303:DQB1*0202 the separator is the colon, defaults to ':'
+        :type gene_sep: str, optional
+        :raises ValueError: incase the list of alleles is empty 
+        :raises ValueError: incase of HLA-DP and HLA-DQ with a mismatch allele names 
+        :raises RuntimeError: incase adding the alleles failed for any reason 
+        :return: an HLASet instance 
+        :rtype: HLASet
         """
         # check that the provided list is not empty 
         if len(hlas)==0:
@@ -44,13 +50,14 @@ class HLASet:
 
     def get_hla_count(self)->int:
         """
-        @brief: get the count of HLA molecules in the set 
+        :return: the count of HLA molecules in the set 
+        :rtype: int
         """
         return len(self)
     
     def _assert_same_class(self)->None:
         """
-        @brief: assert that all the alleles in the set are of the same class, i.e. HLA-I or HLA-II
+        :raises ValueError: if the alleles in the set are of different classes, for example,  HLA-I or HLA-II
         """
         # get the HLA-class 
         # get a radom class from the input HLA 
@@ -62,20 +69,24 @@ class HLASet:
         
     def get_class(self)->int:
         """
-        @brief: return the class of the HLA-alleles in the current instance 
+        :return: The class of the HLA-alleles in the current instance 
+        :rtype: int
         """
         return self._hlas[list(self._hlas.keys())[0]].get_class()
     
     def get_alleles(self)-> inferredd[str]:
         """
-        @brief: returns the alleles of the set 
+        :return: The class of the HLA-alleles in the current instance 
+        :rtype: int
         """
         return list(self._hlas.keys())
     
     def has_allele(self,allele: str)->bool:
         """
-        @brief: check whether or not the provided allele existed in the list of alleles
-        @param: allele: the name of the allele to check the database for 
+        :param allele: the name of the allele to check the instance for 
+        :type allele: str
+        :return: True, if the provided allele is in the current instance, False otherwise. 
+        :rtype: bool
         """
         allele_names=list(self._hlas.keys())
         for name in allele_names:
@@ -85,8 +96,10 @@ class HLASet:
     
     def has_gene(self,gene_name:str)->bool:
         """
-        @brief check if at least one of the alleles in the set belongs to the provided locus
-        @param gene_name:  the gene name to search the set against.
+        :param gene_name: the gene name to search the set against.
+        :type gene_name: str
+        :return: True, if at least one of the alleles in the set belongs to the provided gene. False otherwise
+        :rtype: bool
         """
         for allele_name in self._hlas.keys(): 
             if gene_name in self._hlas[allele_name].get_gene(): 
@@ -95,8 +108,10 @@ class HLASet:
     
     def has_allele_group(self, allele_group:str)->bool:
         """
-        @brief check if at least one allele in the set belongs to the provided allele group
-        @param allele_name: the allele group to search the set for 
+        :param allele_group: the allele group to search the set for 
+        :type allele_group: str
+        :return: True, if at least one allele in the set belongs to the provided allele group, False otherwise. 
+        :rtype: bool
         """
         for allele_name in self._hlas.keys(): 
             if allele_group in self._hlas[allele_name].get_allele_group():
@@ -105,8 +120,10 @@ class HLASet:
     
     def has_protein_group(self,protein_group:str)->bool:
         """
-        @brief check if at least one allele in the set belongs to the provided protein group
-        @param protein_group: the protein group to search the set for
+        :param protein_group: The protein group to search the set for
+        :type protein_group: 
+        :return: True, if at least one allele in the set belongs to the provided protein group
+        :rtype: bool
         """
         for allele_name in self._hlas.keys(): 
             if protein_group in self._hlas[allele_name].get_protein_group():
@@ -116,13 +133,15 @@ class HLASet:
     # define some magic functions
     def __len__(self)->int:
         """
-        @brief: a magic len function that return the number of alleles in the set 
+        :return: he number of alleles in the set 
+        :rtype: int
         """
         return len(self._hlas)
 
     def __str__(self) ->str:
         """
-        @brief: a magic function to compute a string form of the class  
+        :return: a string form of the class  
+        :rtype: str
         """
         return f"An HLASet containing {len(self)} alleles"
     

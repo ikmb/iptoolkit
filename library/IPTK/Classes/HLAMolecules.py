@@ -11,13 +11,13 @@ from IPTK.Utils.Types import HLA_Chains,Genes,AlleleGroup,ProteinGroup
 # define the class 
 class HLAMolecule:
     def __init__(self,**hla_chains)->HLAMolecule:
-        """
-        @brief: an HLA molecule which is represent as a molecules that is composite of at max two HLA chains
-        @param: at max two key value pairs where the key is just a place holder and the value is the chain name, see the example below
-        @example: 
-        >>> test_molecule=HLAMolecule(chain_one=DQA1*03:03,chain_two=DQB1:0202)
-        >>> test_molecule.get_names() # get the name 
-        DQA1*0303:DQB1*0202
+        """ Create an HLA molecule which is represent as a molecules that is composite of at max two HLA chains
+        :raises ValueError: if number of chains is bigger than 2
+        :raises ValueError: if the number of chains is 0
+        :raises RuntimeError: captsure any exception than might happen while creating the chains
+        :raises ValueError: if the provided chain belong to different classes, for example class one and class two
+        :return: an HLAMolecule instance 
+        :rtype: HLAMolecule
         """
         # check that the dict contain at max two chains 
         if len(hla_chains) > 2:
@@ -43,8 +43,11 @@ class HLAMolecule:
     
     def get_name(self,sep:str = ':')->str:
         """
-        @brief: return the name of the allele by concatenating the names of the individual chains using 
-        a separator 
+        :param sep: the name of the allele by concatenating the names of the individual chains using 
+        a separator, defaults to ':'
+        :type sep: str, optional
+        :return: [description]
+        :rtype: str
         """
         names=list(self._chains.keys())
         names.sort() # sort the list to ensure Alpha->Beta order 
@@ -54,13 +57,15 @@ class HLAMolecule:
     
     def get_class(self)->int: 
         """
-        @brief: return the class of the HLA molecules 
+        :return: The class of the HLA molecules 
+        :rtype: int
         """
         return self._chains[list(self._chains.keys())[0]].get_class()
     
     def get_gene(self)->Genes:
         """
-        @brief: return gene/pair of genes coding for the current HLA molecules 
+        :return: gene/pair of genes coding for the current HLA molecules 
+        :rtype: Genes
         """
         if len(self._chains)==2:
             names=list(self._chains.keys())
@@ -69,7 +74,8 @@ class HLAMolecule:
     
     def get_allele_group(self)->AlleleGroup:
         """
-        @brief: return the allele group for the instance chain/pair of chains 
+        :return:  the allele group for the instance chain/pair of chains 
+        :rtype: AlleleGroup
         """
         if len(self._chains)==2:
             names=list(self._chains.keys())
@@ -78,7 +84,8 @@ class HLAMolecule:
     
     def get_protein_group(self)->ProteinGroup:
         """
-        @brief: return the protein group for the instance chain/pair of chains 
+        :return: The protein group for the instance chain/pair of chains 
+        :rtype: ProteinGroup
         """
         if len(self._chains)==2:
             names=list(self._chains.keys())
