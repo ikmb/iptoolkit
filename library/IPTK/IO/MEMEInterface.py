@@ -12,7 +12,8 @@ from IPTK.Utils.UtilityFunction import append_to_calling_string
 ## define the interface functions 
 def is_meme_callable()->bool:
     """
-    @brief return wether or not meme is callable via a system call or not 
+    :return: True if meme is callable, False otherwise. 
+    :rtype: bool
     """
     try: 
         res=sp.run(['meme'],stdout=sp.DEVNULL, stderr=sp.DEVNULL)
@@ -21,8 +22,9 @@ def is_meme_callable()->bool:
         return False
 
 def get_meme_help()->None:
-    """
-    @brief: print the command line help interface for the meme tool
+    """print the command line help interface for the meme tool
+
+    :raises FileNotFoundError: if meme is not callable 
     """
     if is_meme_callable():
         sp.run(['meme','-h'])
