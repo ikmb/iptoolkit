@@ -7,7 +7,7 @@
 # load the models 
 import pandas as pd 
 import numpy as np 
-from typing import Dict, inferredd
+from typing import Dict, List
 import os  
 from Bio import SeqIO
 from Bio.PDB import PDBList
@@ -17,12 +17,18 @@ from pyteomics.openms import idxml
 # define the functions of the modules
 
 def load_identification_table(input_path: str, sep:str) -> pd.DataFrame:
-    """
-    @brief: load & process an identification table 
-    @param: ident_table: the path two the identification table. with the following columns: peptides which hold the identified
+    """load & process an identification table 
+    
+    :param input_path: the path two the identification table. with the following columns: peptides which hold the identified
 	peptide sequence, protein which hold the identified protein sequence, start_index, and end_index where
 	the last two columns define the position of the peptide in the parent protein. 
-	@param: sep: The separator to parse the provided table. 
+    :type input_path: str
+    :param sep: The separator to parse the provided table. 
+    :type sep: str
+    :raises IOError: [description]
+    :raises ValueError: [description]
+    :return: [description]
+    :rtype: pd.DataFrame
     """
 	# load the table 
     try:
@@ -39,11 +45,19 @@ def load_identification_table(input_path: str, sep:str) -> pd.DataFrame:
 
 def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
     fasta_reader_param: Dict[str,str]={'filter_decoy':True, 'decoy_string':'DECOY' })->pd.DataFrame:
-    """
-    @brief: parse a user provided mzTab to an identification table 
-    @param: path2mz_tab: the path to the input mzTab file
-    @param: path2fastaDB: the path to a fasta sequence database to obtain the protein sequences 
-    @param: fasta_reader_param: a dict of parameters for controlling the behavior of the fasta reader 
+    """parse a user provided mzTab to an identification table 
+
+    :param path2mzTab: the path to the input mzTab file
+    :type path2mzTab: str
+    :param path2fastaDB: the path to a fasta sequence database to obtain the protein sequences 
+    :type path2fastaDB: str
+    :param fasta_reader_param: a dict of parameters for controlling the behavior of the fasta reader , defaults to {'filter_decoy':True, 'decoy_string':'DECOY' }
+    :type fasta_reader_param: Dict[str,str], optional
+    :raises IOError: if the mztab file could not be open and loaded or if the fasta database could not be read
+    :raises KeyError: if a protein id defined in the mzTab file could not be extracted from a matched sequence database
+    :raises ValueError: if the peptide can not be mapped to the identified protein 
+    :return: the identification table 
+    :rtype: pd.DataFrame
     """
     # load the files 
     try: 
@@ -58,10 +72,10 @@ def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
     # get the peptide tables
     peptides_table: pd.DataFrame = input_file.peptide_table
     # construct the identification table 
-    peptide_seq: inferredd[str] = peptides_table.sequence.tolist()
-    protein_acc: inferredd[str]= [acc.split('|')[1] for acc in peptides_table.accession.tolist()]
-    start_index: inferredd[int] = []
-    end_index: inferredd[int] = []
+    peptide_seq: List[str] = peptides_table.sequence.tolist()
+    protein_acc: List[str]= [acc.split('|')[1] for acc in peptides_table.accession.tolist()]
+    start_index: List[int] = []
+    end_index: List[int] = []
     # fill extract the start and end-index information from the library 
     for idx in range(len(protein_acc)):
         # get the protein sequence 
@@ -90,15 +104,26 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
     decoy_prefix: str ='DECOY', is_idXML: bool = False, 
     fasta_reader_param: Dict[str,str]={'filter_decoy':True, 'decoy_string':'DECOY' }, 
     remove_if_not_matched: bool = True)->pd.DataFrame:
-    """
-    @brief: parse either a pepXML or an idXML file to generate an identification table , 
-    @param: path2XML_file: The path to the input pepXML files
-    @param: path2fastaDB: The path to a fasta sequence database to obtain the protein sequences
-    @param: decoy_prefix: the prefix of the decoy sequences, default is DECOY
-    @param: is_idXML: Whether or not the provided file is an idXML, default is false which assume the provided file is a pepXML file 
-    @param: fasta_reader_param: a dict of parameters for controlling the behavior of the fasta reader 
-    @param: remove_if_not_matched: remove the peptide if it could not be matched to the parent protein, default is True
-    @note: see the function fasta2dict for more information regard the fasta reader 
+    """parse either a pepXML or an idXML file to generate an identification table , 
+
+    :param path2XML_file: The path to the input pepXML files
+    :type path2XML_file: str
+    :param path2fastaDB: The path to a fasta sequence database to obtain the protein sequences
+    :type path2fastaDB: str
+    :param decoy_prefix: the prefix of the decoy sequences, default is DECOY, defaults to 'DECOY'
+    :type decoy_prefix: str, optional
+    :param is_idXML: Whether or not the provided file is an idXML, default is false which assume the provided file is a pepXML file, defaults to False
+    :type is_idXML: bool, optional
+    :param fasta_reader_param: a dict of parameters for controlling the behavior of the fasta reader , defaults to {'filter_decoy':True, 'decoy_string':'DECOY' }
+    :type fasta_reader_param: Dict[str,str], optional
+    :param remove_if_not_matched: remove the peptide if it could not be matched to the parent protein,, defaults to True
+    :type remove_if_not_matched: bool, optional
+    :raises IOError: if the fasta database could not be open 
+    :raises ValueError: if the XML file can not be open 
+    :raises KeyError: if a protein id defined in the mzTab file could not be extracted from a matched sequence database
+    :raises ValueError: if the peptide can not be mapped to the identified protein 
+    :return: the identification table 
+    :rtype: pd.DataFrame
     """
     # load the fasta files and extract the accession of the proteins 
     try:
@@ -109,8 +134,8 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
     if not os.path.exists(path2XML_file):
         raise ValueError(f'The provided path: {path2XML_file} does not exist!')
     # allocate a list to hold peptide and protein list 
-    peptides: inferredd[str] = []
-    protein_acc: inferredd[str] = []
+    peptides: List[str] = []
+    protein_acc: List[str] = []
     #  parse the XML file 
     if is_idXML: 
         with idxml.IDXML(path2XML_file) as reader:
@@ -129,8 +154,8 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
                             peptides.append(hit['peptide'])
                             protein_acc.append(protein['protein'].split('|')[1])
     # extract the start and end index of the peptides from the parent proteins 
-    start_index: inferredd[int] = []
-    end_index: inferredd[int] = []
+    start_index: List[int] = []
+    end_index: List[int] = []
     # fill extract the start and end-index information from the library 
     for idx in range(len(protein_acc)):
         # get the protein sequence 
@@ -170,19 +195,32 @@ def parse_text_table(path2file: str,
                     remove_protein_version: bool = True,
                     remove_if_not_matched: bool = True
             )->pd.DataFrame:
-    """
-    @brief: parse a user defined table to extract columns containing the identification table 
-    @param: path2file: The path to load the CSV file holding the results 
-    @param: path2fastaDB: The path to a fasta sequence database to obtain the protein sequences
-    @param: sep: the table separators. Default is comma.
-    @param: seq_column: the name of the columns containing the peptide sequence 
-    @param: index_acc_column: the name of the column containing the protein accession and index column.
-    @param: accession_column: the name of the column containing the protein accession 
-    @param: fasta_reader_param: a dict of parameters for controlling the behavior of the fasta reader 
-    @param: protein_group_sep: the separator for the protein group, default is semi colon
-    @param: remove_protein_version: a bool if true strip the version number from the protein 
-    @param: remove_if_not_matched: remove the peptide if it could not be matched to the parent protein, default is True
-    @note: see the function fasta2dict for more information regard the fasta reader 
+    """Parse a user defined table to extract the columns containing the identification table 
+    
+    :param path2file: The path to load the CSV file holding the results 
+    :type path2file: str
+    :param path2fastaDB: The path to a fasta sequence database to obtain the protein sequences
+    :type path2fastaDB: str
+    :param sep: The table separators, defaults to ','
+    :type sep: str, optional
+    :param fasta_reader_param: a dict of parameters for controlling the behavior of the fasta reader, defaults to {'filter_decoy':True, 'decoy_string':'DECOY' }
+    :type fasta_reader_param: Dict[str,str], optional
+    :param seq_column: The name of the columns containing the peptide sequence, defaults to 'Sequence'
+    :type seq_column: str, optional
+    :param accession_column: The name of the column containing the protein accession , defaults to 'Protein Accessions'
+    :type accession_column: str, optional
+    :param protein_group_sep: The separator for the protein group,, defaults to ';'
+    :type protein_group_sep: str, optional
+    :param remove_protein_version: A bool if true strip the version number from the protein , defaults to True
+    :type remove_protein_version: bool, optional
+    :param remove_if_not_matched: remove the peptide if it could not be matched to the parent protein, defaults to True
+    :type remove_if_not_matched: bool, optional
+    :raises IOError: Incase either the sequences database or the identification table can not be open and loaded
+    :raises KeyError: In case the provided column names not in the provided identification table. 
+    :raises KeyError: Incase the protein sequence can not be extract from the sequence database 
+    :raises ValueError: incase the peptide could not be located in the protein sequence 
+    :return: an identification table
+    :rtype: pd.DataFrame
     """
     # load the fasta files and extract the accession of the proteins 
     try:
@@ -198,15 +236,15 @@ def parse_text_table(path2file: str,
     if seq_column not in input_table.columns or accession_column not in input_table.columns :
         raise KeyError(f'The provided names for the peptides sequence: {seq_column} and/or the indexing column: {index_acc_column} and/or accession column: {accession_column} could not be found on the table')
     # allocate the lists
-    peptides: inferredd[str] = []
-    protein_acc: inferredd[str] = []
-    start_index: inferredd[int] = []
-    end_index: inferredd[int] = []
+    peptides: List[str] = []
+    protein_acc: List[str] = []
+    start_index: List[int] = []
+    end_index: List[int] = []
     # loop of the table to fill the lists 
     for _, row in input_table.iterrows():
         # check if the peptide is present in more than one protein 
         if protein_group_sep in row[accession_column]:
-            accessions: inferredd[str] =row[accession_column].split(protein_group_sep)
+            accessions: List[str] =row[accession_column].split(protein_group_sep)
             for accession in accessions:
                 # extract the macting protein sequence 
                 accession=accession.strip(' ')
@@ -231,7 +269,7 @@ def parse_text_table(path2file: str,
                         temp_start_idx=-1
                         pass
                     else: 
-                        raise ValueError(f'Peptide sequence: {row[seq_column]} could not be extracted from protein sequence: {prot_seq}')
+                        raise ValueError(f'Peptide sequence: {row[seq_column]} could not be extracted from protein sequence: {protein_seq}')
                 start_index.append(temp_start_idx)
                 end_index.append(temp_start_idx+len(row[seq_column]))
         else: 
@@ -273,11 +311,17 @@ def parse_text_table(path2file: str,
 
 def fasta2dict(path2fasta:str, filter_decoy: bool = True,
             decoy_string: str = 'DECOY')->Dict[str,str]: 
-    """
-    @brief: loads a fasta file and construct a dict object where ids are keys and sequences are the value
-    @param: path2fasta: the path to load the fasta file 
-    @param: filter_decoy: a boolean of whether or not to filter the decoy sequences from the database, default is True
-    @param: decoy_string: the decoy database prefix, only valid incase filter_decoy is set to true, default is DECOY
+    """loads a fasta file and construct a dict object where ids are keys and sequences are the value
+
+    :param path2fasta: The path to load the fasta file 
+    :type path2fasta: str
+    :param filter_decoy: A boolean of whether or not to filter the decoy sequences from the database, defaults to True
+    :type filter_decoy: bool, optional
+    :param decoy_string: The decoy database prefix, only valid incase filter_decoy is set to true, defaults to 'DECOY'
+    :type decoy_string: str, optional
+    :raises IOError: [description]
+    :return: a dict where the protein ids are the keys and the protein sequences are the value 
+    :rtype: Dict[str,str]
     """
     # check the path exists 
     if not os.path.exists(path2fasta):
@@ -297,8 +341,13 @@ def fasta2dict(path2fasta:str, filter_decoy: bool = True,
     return results
 
 def download_pdb_entry(prot_id: str) ->str: 
-    """
-    @brief: download the structure of a protein from protein databank form as mmCIF file 
+    """ Download the structure of a protein from protein databank form as mmCIF file. 
+
+    :param prot_id: the protein id 
+    :type prot_id: str
+    :raises IOError: incase downloading and accessing the data failed 
+    :return: the path to the downloaded file 
+    :rtype: str
     """
     pdb_res=PDBList()
     try: 
