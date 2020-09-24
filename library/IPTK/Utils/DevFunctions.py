@@ -8,7 +8,7 @@
 import pandas as pd
 from Bio import SeqIO
 import numpy as np
-from typing import inferredd, Set, Dict 
+from typing import List , Set, Dict 
 import random
 from IPTK.Classes.Experiment import Experiment
 from IPTK.Classes.Proband import Proband
@@ -18,13 +18,18 @@ from IPTK.Classes.Database import SeqDB
 from IPTK.Utils.UtilityFunction import generate_random_name
 # define the functions
 def simulate_an_experimental_ident_table_from_fasta(path2load: str, num_pep: int, num_prot: int )->pd.DataFrame:
-    """
-    @brief: simulate an IP identification table from a fasta file
-    @param:  path2load: The path to load the Fasta files 
-    @param: num_pep: The number of peptides in the tables 
-    @param: num_prot: The number of UNIQUE proteins in the table
-    @note: if the reminder of num_pep over num_prot does not equal to zero, the floor of this ratio will be used
-    to sample peptides from each proteins
+    """simulate an IP identification table from a fasta file. Please Note,  if the reminder of num_pep over num_prot does not equal to zero,
+    the floor of this ratio will be used to sample peptides from each proteins 
+
+    :param path2load:  The path to load the Fasta files 
+    :type path2load: str
+    :param num_pep: The number of peptides in the tables 
+    :type num_pep: int
+    :param num_prot: The number of UNIQUE proteins in the table
+    :type num_prot: int
+    :raises ValueError: if number of proteins or number of peptide is zero 
+    :return: an identification table 
+    :rtype: pd.DataFrame
     """
     # load the fasta files
     # check that number of proteins & number of peptides does not equal zero 
@@ -65,9 +70,13 @@ def simulate_an_experimental_ident_table_from_fasta(path2load: str, num_pep: int
     return res
 
 def simulate_an_expression_table(num_transcripts: int = 100) ->pd.DataFrame:
-    """
-    @brief: create a dummy expression table to be used for testing and developing Tissue based classes 
-    @param: num_transcripts: The number of transcripts that shall be contained in the transcript 
+    """ create a dummy expression table to be used for testing and developing Tissue based classes 
+
+    :param num_transcripts: The number of transcripts that shall be contained in the transcript , defaults to 100
+    :type num_transcripts: int, optional
+    :raises ValueError: incase number of transcripts is 0
+    :return: [description]
+    :rtype: pd.DataFrame
     """
     # check that the input is a positive integer 
     if num_transcripts<=0:
@@ -88,13 +97,24 @@ def simulate_an_expression_table(num_transcripts: int = 100) ->pd.DataFrame:
     )
 
 
-def simulate_random_experiment(alleles: inferredd[str],  path2fasta: str,  tissue_name: str='TEST_TISSUE',
+def simulate_random_experiment(alleles: List[str],  path2fasta: str,  tissue_name: str='TEST_TISSUE',
         num_pep: int = 10, num_prot: int = 5, proband_name: str = None )->Experiment:
-    """
-    @brief: simulate a random experiment objects 
-    @param: alleles: a list of alleles names. 
-    @param: database: a database instance to extract the sequences from the database 
-    @param: proband_name: the name of the proband, default is None
+    """ Simulate a random experiment objects 
+
+    :param alleles: a list of alleles names. 
+    :type alleles: List[str]
+    :param path2fasta: The path to load the database objects 
+    :type path2fasta: str
+    :param tissue_name: the name of the tissue, defaults to 'TEST_TISSUE'
+    :type tissue_name: str, optional
+    :param num_pep: the number of peptides in the table, defaults to 10
+    :type num_pep: int, optional
+    :param num_prot: number of proteins, defaults to 5
+    :type num_prot: int, optional
+    :param proband_name: The name of the Proband, defaults to None
+    :type proband_name: str, optional
+    :return: a simulated experimental object 
+    :rtype: Experiment
     """
     if proband_name is None:
         proband_name=generate_random_name(12)
@@ -107,11 +127,15 @@ def simulate_random_experiment(alleles: inferredd[str],  path2fasta: str,  tissu
     return Experiment(proband=proband,hla_set=hla_set,tissue=tissue,database=database,
     ident_table=ident_table)
 
-def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->inferredd[str]:
-    """
-    @brief: generate a list of random peptides for testing and developing purposes.
-    @param: peptide_length: The peptide length 
-    @param: num_peptides: the number of peptides in the generate list  
+def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->List[str]:
+    """generate a list of random peptides for testing and developing purposes.
+    
+    :param peptide_length: The peptide length 
+    :type peptide_length: int
+    :param num_peptides: The number of peptides in the generate list  
+    :type num_peptides: int
+    :return: a list of random peptides 
+    :rtype: List[str]
     """
     # define amino acids 
     amino_acids=['G','A','L','M','F','W','K','Q','E','S','P','V','I','C','Y','H','R','N','D','T']
@@ -124,12 +148,17 @@ def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->inferred
     # return the results 
     return results
 
-def simulate_mapped_array_list(min_len: int = 20, max_len: int = 100, num_elem: int = 100)->inferredd[np.ndarray]:
-    """
-    @brief: simulate a list of mapped arrays proteins to be used for developing purposes 
-    @param: min_len: the minmum length of the protein 
-    @param: max_len: the maximum length for the protein 
-    @param: num_elem: the number of arrays in the protein 
+def simulate_mapped_array_list(min_len: int = 20, max_len: int = 100, num_elem: int = 100)->List[np.ndarray]:
+    """Simulate a list of mapped arrays proteins to be used for developing purposes 
+    
+    :param min_len: the minmum length of the protein , defaults to 20
+    :type min_len: int, optional
+    :param max_len: the maximum length for the protein , defaults to 100
+    :type max_len: int, optional
+    :param num_elem: the number of arrays in the protein , defaults to 100
+    :type num_elem: int, optional
+    :return: a list of simulated NumPy array that represent protein peptide coverage
+    :rtype: List[np.ndarray]
     """
     # allocate a list to hold the results 
     results: inferredd[np.ndarray] = []
