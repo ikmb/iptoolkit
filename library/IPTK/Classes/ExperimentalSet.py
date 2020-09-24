@@ -1,8 +1,5 @@
 #!/usr/bin/env python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: an Experimental set which is a collection of experiments.
+"""An Experimental set which is a collection of experiments.
 The class provides an API for integrating and comparing different experimental instances.   
 """
 # load the modules 
@@ -295,7 +292,7 @@ class ExperimentSet:
     
     def group_by_proband(self)->Dict[str,ExperimentSet]:
         """
-        :return: a map between each proband and an Experimentalset object represent all the experiments objects 
+        :return: a map between each proband and an Experimentalset object represent all the experiments objects \
         belonging to this proband. 
         :rtype: Dict[str,ExperimentSet]
         """
@@ -530,11 +527,11 @@ class ExperimentSet:
         return res 
 
     def compute_change_in_protein_representation(self)->np.ndarray:
-        """Compute the change in protein representation among the proteins that are presented/ detect in all of the 
+        """Compute the change in protein representation among the proteins that are presented/ detect in all of the \
         instance's experiments.
         
-        :return: a 3D tensor, T, with shape of (num-experiments, num-experiments, num-proteins),
-        where T[i,j,k] is a the difference between experiment i & j with respect to the k th protein
+        :return: a 3D tensor, T, with shape of (num-experiments, num-experiments, num-proteins), \
+        where T[i,j,k] is a the difference between experiment i & j with respect to the k th protein \
         :rtype: np.ndarray
         """
         # get the number of experiments and proteins 
@@ -582,7 +579,7 @@ class ExperimentSet:
     
     def compare_peptide_counts(self)->pd.DataFrame:
         """
-        :return: A table that contain the total number of peptides and per-organism peptide counts
+        :return: A table that contain the total number of peptides and per-organism peptide counts \
         among all experiments in the set
         :rtype: pd.DataFrame
         """

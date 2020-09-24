@@ -1,8 +1,5 @@
 #!/usr/bin/env python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: the module contain functions that can be used for developing & testing other functions of the library 
+"""The module contain functions that can be used for developing & testing other functions of the library 
 """
 # import the modules 
 import pandas as pd
@@ -122,6 +119,7 @@ def simulate_random_experiment(alleles: List[str],  path2fasta: str,  tissue_nam
     proband: Proband = Proband(name=proband_name)
     hla_set: HLASet = HLASet(alleles)
     ident_table: pd.DataFrame =simulate_an_experimental_ident_table_from_fasta(path2fasta,num_pep,num_pep)
+    # to be upgraded to the new version of the Tissue class 
     tissue: Tissue = Tissue(tissue_name,simulate_an_expression_table(num_transcripts=1000))
     database: SeqDB = SeqDB(path2fasta)
     return Experiment(proband=proband,hla_set=hla_set,tissue=tissue,database=database,
@@ -161,7 +159,7 @@ def simulate_mapped_array_list(min_len: int = 20, max_len: int = 100, num_elem: 
     :rtype: List[np.ndarray]
     """
     # allocate a list to hold the results 
-    results: inferredd[np.ndarray] = []
+    results: List[np.ndarray] = []
     # fill the list with arrays: 
     for _ in range(num_elem):
         array_length: int = np.random.randint(low=min_len,high=max_len)

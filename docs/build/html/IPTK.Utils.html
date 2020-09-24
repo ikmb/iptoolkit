@@ -1,0 +1,513 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPTK.Utils package &#8212; IPTK 0.3.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="IPTK.Visualization package" href="IPTK.Visualization.html" />
+    <link rel="prev" title="IPTK.IO package" href="IPTK.IO.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="iptk-utils-package">
+<h1>IPTK.Utils package<a class="headerlink" href="#iptk-utils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-IPTK.Utils.DevFunctions">
+<span id="iptk-utils-devfunctions-module"></span><h2>IPTK.Utils.DevFunctions module<a class="headerlink" href="#module-IPTK.Utils.DevFunctions" title="Permalink to this headline">¶</a></h2>
+<p>The module contain functions that can be used for developing &amp; testing other functions of the library</p>
+<dl class="py function">
+<dt id="IPTK.Utils.DevFunctions.generate_random_peptide_seq">
+<code class="sig-prename descclassname">IPTK.Utils.DevFunctions.</code><code class="sig-name descname">generate_random_peptide_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptide_length</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">num_peptides</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Utils.DevFunctions.generate_random_peptide_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a list of random peptides for testing and developing purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peptide_length</strong> (<em>int</em>) – The peptide length</p></li>
+<li><p><strong>num_peptides</strong> (<em>int</em>) – The number of peptides in the generate list</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of random peptides</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.DevFunctions.simulate_an_experimental_ident_table_from_fasta">
+<code class="sig-prename descclassname">IPTK.Utils.DevFunctions.</code><code class="sig-name descname">simulate_an_experimental_ident_table_from_fasta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2load</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">num_pep</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">num_prot</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Utils.DevFunctions.simulate_an_experimental_ident_table_from_fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>simulate an IP identification table from a fasta file. Please Note,  if the reminder of num_pep over num_prot does not equal to zero,
+the floor of this ratio will be used to sample peptides from each proteins</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path2load</strong> (<em>str</em>) – The path to load the Fasta files</p></li>
+<li><p><strong>num_pep</strong> (<em>int</em>) – The number of peptides in the tables</p></li>
+<li><p><strong>num_prot</strong> (<em>int</em>) – The number of UNIQUE proteins in the table</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if number of proteins or number of peptide is zero</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an identification table</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.DevFunctions.simulate_an_expression_table">
+<code class="sig-prename descclassname">IPTK.Utils.DevFunctions.</code><code class="sig-name descname">simulate_an_expression_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_transcripts</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Utils.DevFunctions.simulate_an_expression_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a dummy expression table to be used for testing and developing Tissue based classes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>num_transcripts</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of transcripts that shall be contained in the transcript , defaults to 100</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – incase number of transcripts is 0</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>[description]</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.DevFunctions.simulate_mapped_array_list">
+<code class="sig-prename descclassname">IPTK.Utils.DevFunctions.</code><code class="sig-name descname">simulate_mapped_array_list</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">min_len</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">20</span></em>, <em class="sig-param"><span class="n">max_len</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100</span></em>, <em class="sig-param"><span class="n">num_elem</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">100</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>numpy.ndarray<span class="p">]</span><a class="headerlink" href="#IPTK.Utils.DevFunctions.simulate_mapped_array_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulate a list of mapped arrays proteins to be used for developing purposes</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>min_len</strong> (<em>int</em><em>, </em><em>optional</em>) – the minmum length of the protein , defaults to 20</p></li>
+<li><p><strong>max_len</strong> (<em>int</em><em>, </em><em>optional</em>) – the maximum length for the protein , defaults to 100</p></li>
+<li><p><strong>num_elem</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of arrays in the protein , defaults to 100</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of simulated NumPy array that represent protein peptide coverage</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.DevFunctions.simulate_random_experiment">
+<code class="sig-prename descclassname">IPTK.Utils.DevFunctions.</code><code class="sig-name descname">simulate_random_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">alleles</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">path2fasta</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">tissue_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'TEST_TISSUE'</span></em>, <em class="sig-param"><span class="n">num_pep</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">10</span></em>, <em class="sig-param"><span class="n">num_prot</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">5</span></em>, <em class="sig-param"><span class="n">proband_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a><a class="headerlink" href="#IPTK.Utils.DevFunctions.simulate_random_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulate a random experiment objects</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alleles</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – a list of alleles names.</p></li>
+<li><p><strong>path2fasta</strong> (<em>str</em>) – The path to load the database objects</p></li>
+<li><p><strong>tissue_name</strong> (<em>str</em><em>, </em><em>optional</em>) – the name of the tissue, defaults to ‘TEST_TISSUE’</p></li>
+<li><p><strong>num_pep</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of peptides in the table, defaults to 10</p></li>
+<li><p><strong>num_prot</strong> (<em>int</em><em>, </em><em>optional</em>) – number of proteins, defaults to 5</p></li>
+<li><p><strong>proband_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the Proband, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a simulated experimental object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">Experiment</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Utils.Mapping">
+<span id="iptk-utils-mapping-module"></span><h2>IPTK.Utils.Mapping module<a class="headerlink" href="#module-IPTK.Utils.Mapping" title="Permalink to this headline">¶</a></h2>
+<p>A submodule that contain function to map different database keys</p>
+<dl class="py function">
+<dt id="IPTK.Utils.Mapping.map_from_uniprot_gene">
+<code class="sig-prename descclassname">IPTK.Utils.Mapping.</code><code class="sig-name descname">map_from_uniprot_gene</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uniprots</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Utils.Mapping.map_from_uniprot_gene" title="Permalink to this definition">¶</a></dt>
+<dd><p>map from uniprot id to ensemble gene ids</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uniprots</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – a list of uniprot IDs</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A table that contain the mapping between each uniprot and its corresponding Gene ID/IDs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.Mapping.map_from_uniprot_pdb">
+<code class="sig-prename descclassname">IPTK.Utils.Mapping.</code><code class="sig-name descname">map_from_uniprot_pdb</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uniprots</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Utils.Mapping.map_from_uniprot_pdb" title="Permalink to this definition">¶</a></dt>
+<dd><p>map from uniprot id to protein data bank identifiers</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>uniprots</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – a list of uniprot IDs</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A table that contain the mapping between each uniprot and its corresponding PDB ID/IDs</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Utils.Types">
+<span id="iptk-utils-types-module"></span><h2>IPTK.Utils.Types module<a class="headerlink" href="#module-IPTK.Utils.Types" title="Permalink to this headline">¶</a></h2>
+<p>Contain a definition of commonly used types through the library</p>
+</div>
+<div class="section" id="module-IPTK.Utils.UtilityFunction">
+<span id="iptk-utils-utilityfunction-module"></span><h2>IPTK.Utils.UtilityFunction module<a class="headerlink" href="#module-IPTK.Utils.UtilityFunction" title="Permalink to this headline">¶</a></h2>
+<p>Utility functions that are used through the library</p>
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.append_to_calling_string">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">append_to_calling_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">def_value</span></em>, <em class="sig-param"><span class="n">cur_val</span></em>, <em class="sig-param"><span class="n">calling_string</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">is_flag</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Utils.UtilityFunction.append_to_calling_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>help function that take a calling string, a parameter, a default value and current value     if the parameter does not equal its default value the function append the parameter with its current 
+value to the calling string adding a space before the calling_string.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param</strong> (<em>str</em>) – The name of the parameter that will be append to the calling string</p></li>
+<li><p><strong>def_value</strong> (<em>[</em><em>type</em><em>]</em>) – The default value for the parameter</p></li>
+<li><p><strong>cur_val</strong> (<em>[</em><em>type</em><em>]</em>) – The current value for the parameter</p></li>
+<li><p><strong>calling_string</strong> (<em>str</em>) – The calling string in which the parameter and the current value might be appended to it</p></li>
+<li><p><strong>is_flag</strong> – If the parameter is a control flag, i.e. a boolean switch, it append the parameter to the calling </p></li>
+</ul>
+</dd>
+</dl>
+<p>string without associating a value to it , defaults to False
+:type is_flag: bool, optional
+:return: the updated version of the calling string 
+:rtype: str</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.build_sequence_table">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">build_sequence_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Utils.UtilityFunction.build_sequence_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>construct a sequences database from sequences dict object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sequence_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em>) – a dict that contain the protein ids as keys and sequences as values.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>pandas dataframe that contain the protein ID and the associated protein sequence</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.check_peptide_made_of_std_20_aa">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">check_peptide_made_of_std_20_aa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptide</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Utils.UtilityFunction.check_peptide_made_of_std_20_aa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if the peptide is made of the standard 20 amino acids, if this is the case, 
+it return the peptide sequence, otherwise it return an empty string</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peptide</strong> (<em>str</em>) – a peptide sequence to check its composition</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True, if the peptide is made of the standard 20 amino acids, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.generate_color_scale">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">generate_color_scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">color_ranges</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.colors.LinearSegmentedColormap<a class="headerlink" href="#IPTK.Utils.UtilityFunction.generate_color_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate a color gradient with number of steps equal to color_ranges -1</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>color_ranges</strong> (<em>int</em>) – the number of colors in the range</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a color gradient palette</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>matplotlib.colors.LinearSegmentedColormap</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.generate_random_name">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">generate_random_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name_length</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Utils.UtilityFunction.generate_random_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name_length</strong> (<em>int</em>) – Generate a random ASCII based string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.generate_random_protein_mapping">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">generate_random_protein_mapping</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_len</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">max_coverage</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Utils.UtilityFunction.generate_random_protein_mapping" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate a NumPy array with shape of 1 by protein_len where the elements in the array 
+is a random integer between zero &amp;  max_coverage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protein_len</strong> (<em>int</em>) – The length of the protein</p></li>
+<li><p><strong>max_coverage</strong> (<em>int</em>) – The maximum peptide coverage at each position</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a NumPy array contain a simulate protein coverage</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.get_idx_peptide_in_sequence_table">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">get_idx_peptide_in_sequence_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">peptide</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Utils.UtilityFunction.get_idx_peptide_in_sequence_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>check the sequences table if the provided peptide is locate in one of its sequences and returns 
+a list of protein identifiers containing the identifier of the hit proteins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sequence_table</strong> (<em>pd.DataFrame</em>) – pandas dataframe that contain the protein ID and the associated protein sequence</p></li>
+<li><p><strong>peptide</strong> (<em>str</em>) – the peptide sequence to query the protein with</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of protein identifiers containing the identifier of the hit proteins</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.load_3d_figure">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">load_3d_figure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">file_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Utils.UtilityFunction.load_3d_figure" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – Load a pickled 3D figure from thr provided path</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>IOError</strong> – The path of the pickled figure.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a matplotlib figure</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.pad_mapped_proteins">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">pad_mapped_proteins</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_array</span><span class="p">:</span> <span class="n">List<span class="p">[</span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">pre_pad</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">padding_char</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Utils.UtilityFunction.pad_mapped_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pad the provided list of array into a 2D tensor of shape number of arrays by maxlength.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>list_array</strong> (<em>List</em><em>[</em><em>np.ndarray</em><em>]</em>) – A list of NumPy arrays where each array is a mapped_protein array,     the expected shape of these arrays is 1 by protein length.</p></li>
+<li><p><strong>pre_pad</strong> (<em>bool</em><em>, </em><em>optional</em>) – pre or post padding of shorter array in the library.Default is pre-padding, defaults to True</p></li>
+<li><p><strong>padding_char</strong> (<em>int</em><em>, </em><em>optional</em>) – The padding char, defaults to -1</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A 2D tensor of shape number of arrays by maxlength.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.save_3d_figure">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">save_3d_figure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">outpath</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">fig2save</span><span class="p">:</span> <span class="n">matplotlib.figure.Figure</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Utils.UtilityFunction.save_3d_figure" title="Permalink to this definition">¶</a></dt>
+<dd><p>write a pickled version of the a 3D figure so it can be loaded later for more interactive analysis</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>outpath</strong> (<em>str</em>) – The output path of the writer function</p></li>
+<li><p><strong>fig2save</strong> (<em>plt.Figure</em>) – The figure to save to the output file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>IOError</strong> – In case writing the file failed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.simulate_protein_binary_represention">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">simulate_protein_binary_represention</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_conditions</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">protein_length</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Utils.UtilityFunction.simulate_protein_binary_represention" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_conditions</strong> (<em>int</em>) – The number of conditions to simulate</p></li>
+<li><p><strong>protein_length</strong> (<em>int</em>) – The Length of the protein</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A 2D matrix of shape protein_length by number of conditions, where each element can be either zero.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Utils.UtilityFunction.simulate_protein_representation">
+<code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">simulate_protein_representation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">num_conditions</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">protein_len</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">protein_coverage</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="headerlink" href="#IPTK.Utils.UtilityFunction.simulate_protein_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simulate protein peptide coverage under-different conditions</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_conditions</strong> (<em>[</em><em>type</em><em>]</em>) – The number of condition to simulate</p></li>
+<li><p><strong>protein_len</strong> (<em>[</em><em>type</em><em>]</em>) – The length of the protein</p></li>
+<li><p><strong>protein_coverage</strong> (<em>[</em><em>type</em><em>]</em>) – The maximum protein coverage</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a dict of length num_conditions contains that the condition index and a simulated protein array</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Dict[str, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Utils">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-IPTK.Utils" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">IPTK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started!</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">IPTK</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="IPTK.html">IPTK package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">IPTK</a><ul>
+  <li><a href="IPTK.html">IPTK package</a><ul>
+      <li>Previous: <a href="IPTK.IO.html" title="previous chapter">IPTK.IO package</a></li>
+      <li>Next: <a href="IPTK.Visualization.html" title="next chapter">IPTK.Visualization package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Hesham ElAbd.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/IPTK.Utils.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

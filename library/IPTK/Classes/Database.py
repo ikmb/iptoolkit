@@ -1,7 +1,5 @@
 #!/usr/bin/env python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
+"""This submodule define a collection of container classes that are used through the library
 """
 # load the modules: 
 from __future__ import annotations
@@ -12,8 +10,7 @@ from typing import List, Dict
 from Bio import SeqIO
 # define the class 
 class SeqDB: 
-	"""load a fasta file and constructs a lock up dictionary where sequence ids are 
-		keys and sequences are values. 
+	"""load a fasta file and constructs a lock up dictionary where sequence ids are  keys and sequences are values. 
 	"""
 	def __init__(self, path2fasta: str) -> SeqDB: 
 		"""the class constructor 
@@ -93,8 +90,8 @@ class SeqDB:
 		return sequence_id in self._seqs.keys()
 
 class CellularLocationDB:
-	"""The class provides an API to access the cellular location information from a database 
-	the follow the structure of the human Proteome Atlas sub-cellular location database. See https://www.proteinatlas.org/about/download
+	"""The class provides an API to access the cellular location information from a database \
+	the follow the structure of the human Proteome Atlas sub-cellular location database. See https://www.proteinatlas.org/about/download \
 	for more details. 
 	"""
 	def __init__(self, 
@@ -115,7 +112,7 @@ class CellularLocationDB:
 		except Exception as exp: 
 			raise IOError(f'While loading the sub cellular location dataset the following error: {exp} was encountered.')
 	
-	def get_genes(self)-> inferredd[str]:
+	def get_genes(self)-> List[str]:
 		"""return a list of all gene ids in the dataset 
 
 		:return: all genes ids currently defined in the database 
@@ -123,7 +120,7 @@ class CellularLocationDB:
 		"""
 		return self._table.iloc[:,0].tolist()
 	
-	def get_gene_names(self)->inferredd[str]:
+	def get_gene_names(self)->List[str]:
 		"""return a list of all gene names in the dataset 
 
 		:return: the names of all genes in the database 
@@ -131,8 +128,8 @@ class CellularLocationDB:
 		"""
 		return self._table.iloc[:,1].tolist()
 	
-	def get_main_location(self, gene_id: str = None, corresponds= None)->inferredd[str]:
-		"""return the main location(s) of the provided gene id or gene name. 
+	def get_main_location(self, gene_id: str = None, corresponds= None)->List[str]:
+		"""return the main location(s) of the provided gene id or gene name. \ 
 		If both gene Id and gene name are provided, both gene_id has a higher precedence 
 
 		:param gene_id: the id of the gene of interest , defaults to None
@@ -142,7 +139,7 @@ class CellularLocationDB:
 		:raises ValueError: if both gene_id and gene_name are None
 		:raises KeyError: if gene_id is None and gene_name is not in the database 
 		:raises KeyError: if gene_name is None and gene_id is not in the database 
-		:raises RuntimeError:incase some error was encountered while running retriving the elements from the database
+		:raises RuntimeError: incase some error was encountered while running retriving the elements from the database
 		:return: the main location where the protein the corresponds to the provided name or id is located. 
 		:rtype: List[str]
 		"""
@@ -166,13 +163,13 @@ class CellularLocationDB:
 			raise RuntimeError(f'While getting the main cellular location the following error was encounter: {exp}')
 		# split the locations 
 		if main_location.isna().any():
-			locations: inferredd[str] = ['UNK']
+			locations: List[str] = ['UNK']
 		else: 
-			locations: inferredd[str] = main_location.tolist()[0].split(';')
+			locations: List[str] = main_location.tolist()[0].split(';')
 		# return the resuts 
 		return locations 
 	
-	def get_approved_location(self, gene_id: str = None, gene_name= None) -> inferredd[str]:
+	def get_approved_location(self, gene_id: str = None, gene_name= None) -> List[str]:
 		"""return the location of the provided gene id or gene name 
 
 		:param gene_id: the id of the gene of interest , defaults to None
@@ -182,7 +179,7 @@ class CellularLocationDB:
 		:raises ValueError: if both gene_id and gene_name are None
 		:raises KeyError: if gene_id is None and gene_name is not in the database 
 		:raises KeyError: if gene_name is None and gene_id is not in the database 
-		:raises RuntimeError:incase some error was encountered while running retriving the elements from the database
+		:raises RuntimeError: incase some error was encountered while running retriving the elements from the database
 		:return: the approved location where the protein the corresponds to the provided name or id is located. 
 		:rtype: List[str]
 		"""
@@ -207,15 +204,15 @@ class CellularLocationDB:
 			raise RuntimeError(f'While getting the approved locations the following error was encounter: {exp}')
 		# split the locations 
 		if approved_locations.isna().any(): 
-			locations: inferredd[str] =  ['UNK']
+			locations: List[str] =  ['UNK']
 		else: 
-			locations: inferredd[str] =  approved_locations.tolist()[0].split(';')	
+			locations: List[str] =  approved_locations.tolist()[0].split(';')	
 		# return the resuts 
 		return locations 
 	
-	def get_go_names(self,gene_id: str = None, gene_name= None )->inferredd[str]:
+	def get_go_names(self,gene_id: str = None, gene_name= None )->List[str]:
 		"""return the location of the provided gene id or gene name 
-		
+
 		:param gene_id: the id of the gene of interest , defaults to None
 		:type gene_id: str, optional
 		:param gene_name: the name of the gene of interest , defaults to None
@@ -223,7 +220,7 @@ class CellularLocationDB:
 		:raises ValueError: if both gene_id and gene_name are None
 		:raises KeyError: if gene_id is None and gene_name is not in the database 
 		:raises KeyError: if gene_name is None and gene_id is not in the database 
-		:raises RuntimeError:incase some error was encountered while running retriving the elements from the database
+		:raises RuntimeError: incase some error was encountered while running retriving the elements from the database
 		:return: the gene ontology, GO,  location where the protein the corresponds to the provided name or id is located. 
 		:rtype: List[str]
 		"""
@@ -248,9 +245,9 @@ class CellularLocationDB:
 			raise RuntimeError(f'While getting the approved locations the following error was encounter: {exp}')
 		# split the locations 
 		if go_ids.isna().any(): 
-			_ids: inferredd[str] =  ['UNK']
+			_ids: List[str] =  ['UNK']
 		else: 
-			_ids: inferredd[str] =  go_ids.tolist()[0].split(';')	
+			_ids: List[str] =  go_ids.tolist()[0].split(';')	
 		# return the resuts 
 		return _ids
 
@@ -265,14 +262,13 @@ class CellularLocationDB:
 	def add_to_database(self,genes_to_add: CellularLocationDB )->None:
 		"""add the the location of more proteins to the database. 
 
-		:param genes_to_add: a CellularLocationDB instance containing the genes that shall be added to 
-		the database.   
+		:param genes_to_add: a CellularLocationDB instance containing the genes that shall be added to the database.   
 		:type genes_to_add: CellularLocationDB
 		:raises ValueError: if the genes to add to the database are already defined in the database
 		:raises RuntimeError: Incase any other error has been encountered while merging the tables.
 		"""
 		# check that the genes in provided database do not exist in the current instance.
-		genes: inferredd[str] = genes_to_add.get_genes()
+		genes: List[str] = genes_to_add.get_genes()
 
 		for gene in genes: 
 			if gene in self.get_genes():
@@ -304,7 +300,7 @@ class CellularLocationDB:
 
 
 class GeneExpressionDB: 
-	"""provides an API to access gene expression data stored in table that follows the same structure as 
+	"""provides an API to access gene expression data stored in table that follows the same structure as \ 
 	the Human proteome Atlas Normalized RNA Expression see  https://www.proteinatlas.org/about/download for more details 
 	"""
 	def __init__(self, path2data: str = 'https://www.proteinatlas.org/download/rna_tissue_consensus.tsv.zip', 
@@ -324,7 +320,7 @@ class GeneExpressionDB:
 		except Exception as exp: 
 			raise IOError(f'While loading the RNA expression dataset the following error: {exp} was encountered.')
 
-	def get_genes(self)->inferredd[str]:
+	def get_genes(self)->List[str]:
 		"""return a list of the UNIQUE gene ids currently in the database 
 
 		:return: a list of the UNIQUE gene ids currently in the database 
@@ -332,7 +328,7 @@ class GeneExpressionDB:
 		"""
 		return list(set(self._table.iloc[:,0].tolist()))
 	
-	def get_gene_names(self)->inferredd[str]:
+	def get_gene_names(self)->List[str]:
 		"""return a list of the UNIQUE gene names currently in the database 
 
 		:return: a list of the UNIQUE gene names currently in the database 
@@ -340,7 +336,7 @@ class GeneExpressionDB:
 		"""
 		return list(set(self._table.iloc[:,1].tolist()))
 	
-	def get_tissues(self)->inferredd[str]:
+	def get_tissues(self)->List[str]:
 		"""return a list of the tissues in the current database
 		
 		:return: a list containing the names of the UNIQUE tissues in the database.  
@@ -358,7 +354,7 @@ class GeneExpressionDB:
 		:raises ValueError: if both gene_id and gene_name are None
 		:raises KeyError: if gene_id is None and gene_name is not in the database 
 		:raises KeyError: if gene_name is None and gene_id is not in the database 
-		:raises RuntimeError:incase some error was encountered while running retriving the elements from the database
+		:raises RuntimeError: incase some error was encountered while running retriving the elements from the database
 		:return: A table summarizing the expression of the provided gene accross all tissues in the database
 		:rtype: pd.DataFrame
 		"""
@@ -431,8 +427,8 @@ class GeneExpressionDB:
 		return str(self)
 
 class OrganismDB:
-	"""Extract information about the source organsim of a collection of protein sequences  
-	from a fasta file and provides an API to query the results. 
+	"""Extract information about the source organsim of a collection of protein sequences \ 
+	from a fasta file and provides an API to query the results. \
 	The function expect the input fasta file to have header written in the UNIPROT format. 
 	"""
 	def __init__(self,path2Fasta:str)->OrganismDB:
@@ -452,10 +448,10 @@ class OrganismDB:
 		self._map: Dict[str,str] = dict()
 		# fill the elements in the map 
 		for seq in seq_gene: 
-			temp_name_org: inferredd[str]=seq.id.split('|')
+			temp_name_org: List[str]=seq.id.split('|')
 			self._map[temp_name_org[1]]= temp_name_org[2].split('_')[1]
 	
-	def get_unique_orgs(self)->inferredd[str]:
+	def get_unique_orgs(self)->List[str]:
 		"""get the number of unique organisms in the database
 		
 		:return: a list of all unique organisms in the current instance 
@@ -469,7 +465,7 @@ class OrganismDB:
 		:return: a table containing the number of proteins per organism
 		:rtype: pd.DataFrame
 		"""
-		unique_orgs: inferredd[str] = self.get_unique_orgs()
+		unique_orgs: List[str] = self.get_unique_orgs()
 		# create a dict counter 
 		counter: Dict[str,int]= dict()
 		# Initialize the counts to 0s 

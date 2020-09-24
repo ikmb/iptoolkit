@@ -1,8 +1,5 @@
 #!/usr/bin/env python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: A description for an IP proband 
+"""A description for an IP proband 
 """
 # Load the modules 
 from __future__ import annotations

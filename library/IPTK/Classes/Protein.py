@@ -1,8 +1,5 @@
 #!/usr/bin/env python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: A representation of a protein that has been inferred from an IP experiment. 
+"""A representation of a protein that has been inferred from an IP experiment. 
 """
 # load the modules:
 from __future__ import annotations 
@@ -55,14 +52,14 @@ class Protein:
 		:rtype: np.ndarray
 		"""
 		if len(start_idxs) != len(end_idxs):
-			raise ValueError(f"""Annotation list MUST have an equal length where your lists have length : {len(start_idxs)}, {(end_idxs)} respectivily.""")
+			raise ValueError(f"""Annotation list MUST have an equal length where your lists have length : {len(start_idxs)}, {(end_idxs)} respectively.""")
 		prote_backbone=np.zeros(shape=(1,len(self)))
 		for i,j in zip(start_idxs,end_idxs): 
 			prote_backbone[0,i:j]+=1 
 		return prote_backbone 
 	
 	def get_non_presented_peptide(self, exc_reg_s_idx: int, exc_reg_e_idx: int, length: int) -> str: 
-		"""sample a peptide from the protein sequences where the sampled peptides is not part of the 
+		"""sample a peptide from the protein sequences where the sampled peptides is not part of the \
 		experimentally identified regions. 
 		
 		:param exc_reg_s_idx: the start point in the reference protein sequence of the experimentally identified peptide. 
@@ -73,7 +70,7 @@ class Protein:
 		:type length: int
 		:raises ValueError: if the length of the peptide is bigger than the protein length 
 		:raises ValueError: if the length of the peptide is smaller than or equal to zero 
-		:return:a substring of the instance sequence
+		:return: a substring of the instance sequence
 		:rtype: str
 		"""
 		if length >= len(self):

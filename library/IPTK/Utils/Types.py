@@ -1,8 +1,5 @@
 #!/usr/bin/env python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: contain a definition of commonly used types through the library 
+"""Contain a definition of commonly used types through the library 
 """
 # load the modules 
 from typing import List, Set, Tuple, Dict

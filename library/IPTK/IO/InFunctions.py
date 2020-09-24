@@ -1,8 +1,5 @@
 #!/usr/bin/env Python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: parse different user inputs into a standard format/tables used by the library. 
+"""Parse different user inputs into a standard format/tables used by the library. 
 """
 # load the models 
 import pandas as pd 

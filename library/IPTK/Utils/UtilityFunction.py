@@ -1,8 +1,5 @@
 #!/usr/bin/env Python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: utility functions that are used through the library 
+"""Utility functions that are used through the library 
 """
 # load the models 
 from Bio import SeqIO
@@ -18,11 +15,11 @@ import pickle
 import urllib
 from typing import List, Dict
 # define the functions 
-def pad_mapped_proteins(list_array: inferredd[np.ndarray],
+def pad_mapped_proteins(list_array: List[np.ndarray],
                 pre_pad:bool =True, padding_char: int =-1)->np.ndarray:
     """ Pad the provided list of array into a 2D tensor of shape number of arrays by maxlength. 
 
-    :param list_array: A list of NumPy arrays where each array is a mapped_protein array, 
+    :param list_array: A list of NumPy arrays where each array is a mapped_protein array, \
     the expected shape of these arrays is 1 by protein length.
     :type list_array: List[np.ndarray]
     :param pre_pad: pre or post padding of shorter array in the library.Default is pre-padding, defaults to True
@@ -72,8 +69,8 @@ def generate_random_name(name_length: int)->str:
     return ''.join([random.choice(chars) for _ in range(name_length)]) # generate the name 
 
 def append_to_calling_string(param:str, def_value, cur_val, calling_string:str, is_flag: bool = False)->str:
-    """ help function that take a calling string, a parameter, a default value and current value 
-    if the parameter does not equal its default value the function append the parameter with its current 
+    """ help function that take a calling string, a parameter, a default value and current value \
+    if the parameter does not equal its default value the function append the parameter with its current \ 
     value to the calling string adding a space before the calling_string. 
 
     :param param: The name of the parameter that will be append to the calling string 
@@ -84,7 +81,7 @@ def append_to_calling_string(param:str, def_value, cur_val, calling_string:str, 
     :type cur_val: [type]
     :param calling_string: The calling string in which the parameter and the current value might be appended to it 
     :type calling_string: str
-    :param is_flag: If the parameter is a control flag, i.e. a boolean switch, it append the parameter to the calling 
+    :param is_flag: If the parameter is a control flag, i.e. a boolean switch, it append the parameter to the calling \ 
     string without associating a value to it , defaults to False
     :type is_flag: bool, optional
     :return: the updated version of the calling string 
@@ -149,8 +146,7 @@ def simulate_protein_binary_represention(num_conditions: int, protein_length: in
     :type num_conditions: int
     :param protein_length: The Length of the protein  
     :type protein_length: int
-    :return: A 2D matrix of shape protein_length by number of conditions, where each element can be either 
-    zero.
+    :return: A 2D matrix of shape protein_length by number of conditions, where each element can be either zero.
     :rtype: np.ndarray
     """
     return np.random.randint(low=0, high=2, size=(protein_length,num_conditions)).astype(np.float64)

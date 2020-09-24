@@ -1,8 +1,5 @@
 #!/usr/bin/env Python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: The module contain a collection of analysis function that can be used by the methods of
+"""The module contain a collection of analysis function that can be used by the methods of
 the classes defined in the classes module. 
 """
 # load the modules: 
@@ -20,8 +17,8 @@ from IPTK.Utils.UtilityFunction import check_peptide_made_of_std_20_aa
 from IPTK.Utils.Mapping import map_from_uniprot_gene
 from scipy.stats import pearsonr
 # define some types 
-Peptides=inferredd[str]
-Proteins=inferredd[str]
+Peptides=List[str]
+Proteins=List[str]
 ## Define the peptide overlap 
 def get_binnary_peptide_overlap(exp1:Experiment, exp2:Experiment)->Peptides:
     """compare the peptide overlap between two experimental objects.
@@ -51,7 +48,7 @@ def get_binnary_protein_overlap(exp1:Experiment, exp2:Experiment)->Proteins:
     protein_two=exp2.get_proteins()
     return list(protein_one.intersection(protein_two))
 
-def compute_binary_distance(peptides: inferredd[str],dist_func:Callable)->np.ndarray:
+def compute_binary_distance(peptides: List[str],dist_func:Callable)->np.ndarray:
     """compare the distance between every pair of peptides in a collection of peptides. 
     @param: peptides: a collection of peptides sequences.
     @param: dist_func: function to compute the distance between each pair of peptides. 
@@ -106,7 +103,7 @@ def get_sequence_motif(peptides:Peptides,
     if len(set([len(pep) for pep in peptides])) !=1:
         raise ValueError('The provided peptides MUST have the same length!')
     # check that only the 20 classical amino acids are in the motif object 
-    curated_sequences: inferredd[str] =  [check_peptide_made_of_std_20_aa(pep) for pep in peptides]
+    curated_sequences: List[str] =  [check_peptide_made_of_std_20_aa(pep) for pep in peptides]
     curated_sequences = [elem for elem in curated_sequences if elem !='']
     # write the sequences 
     outfile_seq_file=os.path.join(temp_dir,'TEMP_FASTA_SEQ.fasta')
@@ -147,8 +144,8 @@ def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
     # get the gene id 
     prot2Ense: pd.DataFrame = map_from_uniprot_gene(unique_proteins)
     # allocate lists to hold the results 
-    gene_expression_exp1: inferredd[float] = []
-    gene_expression_exp2: inferredd[float] = [] 
+    gene_expression_exp1: List[float] = []
+    gene_expression_exp2: List[float] = [] 
     # get the expression from experiment one 
     for prot in unique_proteins:
         temp_df: pd.DataFrame = prot2Ense.loc[prot2Ense.iloc[:,0]==prot]
@@ -159,7 +156,7 @@ def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
             except KeyError:
                 gene_expression_exp1.append(-1)
         else:
-            temp_gene_expression: inferredd[float] = []
+            temp_gene_expression: List[float] = []
             for gene in temp_df.iloc[:,1].tolist():
                 try: 
                     temp_gene_expression.append(
@@ -167,7 +164,7 @@ def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
                 except KeyError: 
                     temp_gene_expression.append(-1)
             # filter the temp_genes for default value 
-            temp_gene_process: inferredd[str] = [elem for elem in temp_gene_expression if elem != -1]
+            temp_gene_process: List[str] = [elem for elem in temp_gene_expression if elem != -1]
             # add the gene expression as the average if all values have been filtered 
             if len(temp_gene_process) ==0:
                 gene_expression_exp1.append(-1)
@@ -183,7 +180,7 @@ def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
             except KeyError:
                 gene_expression_exp2.append(-1)
         else:
-            temp_gene_expression: inferredd[float] = []
+            temp_gene_expression: List[float] = []
             for gene in temp_df.iloc[:,1].tolist():
                 try: 
                     temp_gene_expression.append(
@@ -191,7 +188,7 @@ def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
                 except KeyError: 
                     temp_gene_expression.append(-1)
             # filter the temp_genes for default value 
-            temp_gene_process: inferredd[str] = [elem for elem in temp_gene_expression if elem != -1]
+            temp_gene_process: List[str] = [elem for elem in temp_gene_expression if elem != -1]
             # add the gene expression as the average 
             if len(temp_gene_process) ==0:
                 gene_expression_exp2.append(-1)

@@ -1,8 +1,5 @@
 #!/usr/bin/env python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: A representation of the eluted peptides and its identified proteins.
+"""A representation of the eluted peptides and its identified proteins.
 """
 # Load the modules
 from __future__ import annotations
@@ -72,7 +69,7 @@ class Peptide:
 		"""
 		:param flank_len: the length of the flanking regions 
 		:type flank_len: int
-		:return: A list of string containing the length of the peptide + the flanking region from 
+		:return: A list of string containing the length of the peptide + the flanking region from \
 		both the N and C terminal of the instance peptide, from all proteins.
 		:rtype: Sequences
 		"""

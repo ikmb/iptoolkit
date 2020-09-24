@@ -1,8 +1,5 @@
 #!/usr/bin/env Python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: The implementation of an HLA molecules  
+"""The implementation of an HLA molecules  
 """
 # load the modules
 from __future__ import annotations 

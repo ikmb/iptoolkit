@@ -1,0 +1,2337 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPTK.Classes package &#8212; IPTK 0.3.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="IPTK.IO package" href="IPTK.IO.html" />
+    <link rel="prev" title="IPTK.Analysis package" href="IPTK.Analysis.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="iptk-classes-package">
+<h1>IPTK.Classes package<a class="headerlink" href="#iptk-classes-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-IPTK.Classes.Database">
+<span id="iptk-classes-database-module"></span><h2>IPTK.Classes.Database module<a class="headerlink" href="#module-IPTK.Classes.Database" title="Permalink to this headline">¶</a></h2>
+<p>This submodule define a collection of container classes that are used through the library</p>
+<dl class="py class">
+<dt id="IPTK.Classes.Database.CellularLocationDB">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Database.</code><code class="sig-name descname">CellularLocationDB</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2data</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The class provides an API to access the cellular location information from a database   the follow the structure of the human Proteome Atlas sub-cellular location database. See <a class="reference external" href="https://www.proteinatlas.org/about/download">https://www.proteinatlas.org/about/download</a>    for more details.</p>
+<dl class="py method">
+<dt id="IPTK.Classes.Database.CellularLocationDB.add_to_database">
+<code class="sig-name descname">add_to_database</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">genes_to_add</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#IPTK.Classes.Database.CellularLocationDB" title="IPTK.Classes.Database.CellularLocationDB">IPTK.Classes.Database.CellularLocationDB</a></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB.add_to_database" title="Permalink to this definition">¶</a></dt>
+<dd><p>add the the location of more proteins to the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>genes_to_add</strong> (<a class="reference internal" href="#IPTK.Classes.Database.CellularLocationDB" title="IPTK.Classes.Database.CellularLocationDB"><em>CellularLocationDB</em></a>) – a CellularLocationDB instance containing the genes that shall be added to the database.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if the genes to add to the database are already defined in the database</p></li>
+<li><p><strong>RuntimeError</strong> – Incase any other error has been encountered while merging the tables.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.CellularLocationDB.get_approved_location">
+<code class="sig-name descname">get_approved_location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_id</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">gene_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB.get_approved_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the location of the provided gene id or gene name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gene_id</strong> (<em>str</em><em>, </em><em>optional</em>) – the id of the gene of interest , defaults to None</p></li>
+<li><p><strong>gene_name</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – the name of the gene of interest , defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if both gene_id and gene_name are None</p></li>
+<li><p><strong>KeyError</strong> – if gene_id is None and gene_name is not in the database</p></li>
+<li><p><strong>KeyError</strong> – if gene_name is None and gene_id is not in the database</p></li>
+<li><p><strong>RuntimeError</strong> – incase some error was encountered while running retriving the elements from the database</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the approved location where the protein the corresponds to the provided name or id is located.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.CellularLocationDB.get_gene_names">
+<code class="sig-name descname">get_gene_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB.get_gene_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of all gene names in the dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the names of all genes in the database</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.CellularLocationDB.get_genes">
+<code class="sig-name descname">get_genes</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB.get_genes" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of all gene ids in the dataset</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>all genes ids currently defined in the database</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.CellularLocationDB.get_go_names">
+<code class="sig-name descname">get_go_names</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_id</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">gene_name</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB.get_go_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the location of the provided gene id or gene name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gene_id</strong> (<em>str</em><em>, </em><em>optional</em>) – the id of the gene of interest , defaults to None</p></li>
+<li><p><strong>gene_name</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – the name of the gene of interest , defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if both gene_id and gene_name are None</p></li>
+<li><p><strong>KeyError</strong> – if gene_id is None and gene_name is not in the database</p></li>
+<li><p><strong>KeyError</strong> – if gene_name is None and gene_id is not in the database</p></li>
+<li><p><strong>RuntimeError</strong> – incase some error was encountered while running retriving the elements from the database</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the gene ontology, GO,  location where the protein the corresponds to the provided name or id is located.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.CellularLocationDB.get_main_location">
+<code class="sig-name descname">get_main_location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_id</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">corresponds</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB.get_main_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the main location(s) of the provided gene id or gene name. 
+If both gene Id and gene name are provided, both gene_id has a higher precedence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gene_id</strong> (<em>str</em><em>, </em><em>optional</em>) – the id of the gene of interest , defaults to None</p></li>
+<li><p><strong>gene_name</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – the name of the gene of interest , defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if both gene_id and gene_name are None</p></li>
+<li><p><strong>KeyError</strong> – if gene_id is None and gene_name is not in the database</p></li>
+<li><p><strong>KeyError</strong> – if gene_name is None and gene_id is not in the database</p></li>
+<li><p><strong>RuntimeError</strong> – incase some error was encountered while running retriving the elements from the database</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the main location where the protein the corresponds to the provided name or id is located.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.CellularLocationDB.get_table">
+<code class="sig-name descname">get_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB.get_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the instance table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the location table of the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="IPTK.Classes.Database.GeneExpressionDB">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Database.</code><code class="sig-name descname">GeneExpressionDB</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2data</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'https://www.proteinatlas.org/download/rna_tissue_consensus.tsv.zip'</span></em>, <em class="sig-param"><span class="n">sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Database.GeneExpressionDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>provides an API to access gene expression data stored in table that follows the same structure as 
+the Human proteome Atlas Normalized RNA Expression see  <a class="reference external" href="https://www.proteinatlas.org/about/download">https://www.proteinatlas.org/about/download</a> for more details</p>
+<dl class="py method">
+<dt id="IPTK.Classes.Database.GeneExpressionDB.get_expression">
+<code class="sig-name descname">get_expression</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_name</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">gene_id</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Database.GeneExpressionDB.get_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a table summarizing the expression of the provided gene name or gene id accross different tissues.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gene_id</strong> (<em>str</em><em>, </em><em>optional</em>) – the id of the gene of interest , defaults to None</p></li>
+<li><p><strong>gene_name</strong> (<em>[</em><em>type</em><em>]</em><em>, </em><em>optional</em>) – the name of the gene of interest , defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if both gene_id and gene_name are None</p></li>
+<li><p><strong>KeyError</strong> – if gene_id is None and gene_name is not in the database</p></li>
+<li><p><strong>KeyError</strong> – if gene_name is None and gene_id is not in the database</p></li>
+<li><p><strong>RuntimeError</strong> – incase some error was encountered while running retriving the elements from the database</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A table summarizing the expression of the provided gene accross all tissues in the database</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.GeneExpressionDB.get_expression_in_tissue">
+<code class="sig-name descname">get_expression_in_tissue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tissue_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Database.GeneExpressionDB.get_expression_in_tissue" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the expression profile of the provided tissue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>tissue_name</strong> (<em>str</em>) – the name of the tissue</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>KeyError</strong> – incase the provided tissue is not provided in the database</p></li>
+<li><p><strong>RuntimeError</strong> – in case any error was encountered while generating the expression profile.</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a table summarizing the expression of all genes in the provided tissue.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.GeneExpressionDB.get_gene_names">
+<code class="sig-name descname">get_gene_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.GeneExpressionDB.get_gene_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of the UNIQUE gene names currently in the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of the UNIQUE gene names currently in the database</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.GeneExpressionDB.get_genes">
+<code class="sig-name descname">get_genes</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.GeneExpressionDB.get_genes" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of the UNIQUE gene ids currently in the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of the UNIQUE gene ids currently in the database</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.GeneExpressionDB.get_table">
+<code class="sig-name descname">get_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Database.GeneExpressionDB.get_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a table containing the expression value of all the genes accross all tissues in the current instance</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The expression of all genes accross all tissues in the database.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.GeneExpressionDB.get_tissues">
+<code class="sig-name descname">get_tissues</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.GeneExpressionDB.get_tissues" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of the tissues in the current database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list containing the names of the UNIQUE tissues in the database.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="IPTK.Classes.Database.OrganismDB">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Database.</code><code class="sig-name descname">OrganismDB</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2Fasta</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Database.OrganismDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Extract information about the source organsim of a collection of protein sequences 
+from a fasta file and provides an API to query the results.     The function expect the input fasta file to have header written in the UNIPROT format.</p>
+<dl class="py method">
+<dt id="IPTK.Classes.Database.OrganismDB.get_number_protein_per_organism">
+<code class="sig-name descname">get_number_protein_per_organism</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Database.OrganismDB.get_number_protein_per_organism" title="Permalink to this definition">¶</a></dt>
+<dd><p>provides a table containing the number of proteins per organism.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a table containing the number of proteins per organism</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.OrganismDB.get_org">
+<code class="sig-name descname">get_org</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prot_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Database.OrganismDB.get_org" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the parent organism of the provided proteins</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>prot_id</strong> (<em>str</em>) – the id of the protein of interest</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – incase the provided identifier is not in the database</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name of the parent organism, i.e. the source organism.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.OrganismDB.get_unique_orgs">
+<code class="sig-name descname">get_unique_orgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.OrganismDB.get_unique_orgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the number of unique organisms in the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of all unique organisms in the current instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="IPTK.Classes.Database.SeqDB">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Database.</code><code class="sig-name descname">SeqDB</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2fasta</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Database.SeqDB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>load a fasta file and constructs a lock up dictionary where sequence ids are  keys and sequences are values.</p>
+<dl class="py method">
+<dt id="IPTK.Classes.Database.SeqDB.get_seq">
+<code class="sig-name descname">get_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Database.SeqDB.get_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the corresponding sequence if the provided protein-id is defined in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_id</strong> (<em>str</em>) – The protein id to retrive its sequence.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – If the provided protein does not exist in the database</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the protein sequence</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Database.SeqDB.has_sequence">
+<code class="sig-name descname">has_sequence</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Database.SeqDB.has_sequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>check if the provided sequence id is an element of the database or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sequence_name</strong> (<em>str</em>) – The id of the sequence</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the database has this id, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes.Experiment">
+<span id="iptk-classes-experiment-module"></span><h2>IPTK.Classes.Experiment module<a class="headerlink" href="#module-IPTK.Classes.Experiment" title="Permalink to this headline">¶</a></h2>
+<p>This module provides an abstraction for an IP experiment.</p>
+<dl class="py class">
+<dt id="IPTK.Classes.Experiment.Experiment">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Experiment.</code><code class="sig-name descname">Experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proband</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#IPTK.Classes.Proband.Proband" title="IPTK.Classes.Proband.Proband">IPTK.Classes.Proband.Proband</a></span></em>, <em class="sig-param"><span class="n">hla_set</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#IPTK.Classes.HLASet.HLASet" title="IPTK.Classes.HLASet.HLASet">IPTK.Classes.HLASet.HLASet</a></span></em>, <em class="sig-param"><span class="n">tissue</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#IPTK.Classes.Tissue.Tissue" title="IPTK.Classes.Tissue.Tissue">IPTK.Classes.Tissue.Tissue</a></span></em>, <em class="sig-param"><span class="n">database</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#IPTK.Classes.Database.SeqDB" title="IPTK.Classes.Database.SeqDB">IPTK.Classes.Database.SeqDB</a></span></em>, <em class="sig-param"><span class="n">ident_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A representation of an immunopeptidomic experiment.</p>
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.add_org_info">
+<code class="sig-name descname">add_org_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prot2org</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.add_org_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>annotated the inferred proteins with their source organism</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>prot2org</strong> (<em>ProteinSource</em>) – a dict that contain the protein id as keys and its source organism as values           and add this info to each protein inferred in the current experiment.</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>RuntimeWarning</strong> – If the provided dictionary does cover all proteins in the experimental object.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.annotate_proteins">
+<code class="sig-name descname">annotate_proteins</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">organisms_db</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#IPTK.Classes.Database.OrganismDB" title="IPTK.Classes.Database.OrganismDB">IPTK.Classes.Database.OrganismDB</a></span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.annotate_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the parent organisms of each protein in the experiment from an organism database instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>organisms_db</strong> (<a class="reference internal" href="#IPTK.Classes.Database.OrganismDB" title="IPTK.Classes.Database.OrganismDB"><em>OrganismDB</em></a>) – an OrgansimDB instance that will be used to annotate the proteins          identified in the experiment.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.drop_peptide_belong_to_org">
+<code class="sig-name descname">drop_peptide_belong_to_org</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">org</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.drop_peptide_belong_to_org" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drop the all the peptides that belong to a user provided organism.              Note that, this function will IRREVERSIBLY remove the peptide from the experimental object.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>org</strong> (<em>str</em>) – the organims name</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_binarized_results">
+<code class="sig-name descname">get_binarized_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>numpy.ndarray<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_binarized_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of NumPy arrays where each array represents a child peptide, parent protein mapped pair.
+Please note that, The function treat each peptide-protein pair individually, that is if two peptides originating from the same protein, 
+it treat them independently and the same protein will be represented twice with the two different peptides. Incase an integrative mapping is needed,
+the function &#64;get_integrated_binarized_results&#64; shall be used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of NumPy arrays containing the mapping between each peptide protein pair.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>MappedProtein</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_c_terminal_flanked_seqs">
+<code class="sig-name descname">get_c_terminal_flanked_seqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flank_length</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_c_terminal_flanked_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the c-terminal flanking sequences</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>flank_length</strong> (<em>int</em>) – the length of the peptide downstream of the C-terminal of the peptide</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list sequences contain the N-terminal flanking sequence for each peptide in the instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Peptides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_experiment_reference_tissue_expression">
+<code class="sig-name descname">get_experiment_reference_tissue_expression</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_experiment_reference_tissue_expression" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the reference gene expression for the current tissue</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A table that contain the expression value for ALL the genes in the instance Tissue</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_expression_of_parent_proteins">
+<code class="sig-name descname">get_expression_of_parent_proteins</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">non_mapped_dval</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_expression_of_parent_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a table containing the expression of the proteins inferred in the current experiment from the current tissue.
+This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>non_mapped_dval</strong> (<em>float</em><em>, </em><em>optional</em>) – A default value to be added incase the parent protein is not define in the expression database, defaults to -1</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a table that contain the expression of the protein inferred in the database</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_flanked_peptides">
+<code class="sig-name descname">get_flanked_peptides</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flank_length</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_flanked_peptides" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns a list of sequences containing the peptides identified in the experiment padded with
+the flanking regions from all the parents of each peptide.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>flank_length</strong> (<em>int</em>) – the length of the flanking region</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of the peptides + the flanking region.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sequences</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_go_location_id_parent_proteins">
+<code class="sig-name descname">get_go_location_id_parent_proteins</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">not_mapped_val</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'UNK'</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_go_location_id_parent_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><p>retrun the gene ontology,GO, location terms for all the identified proteins.</p>
+<p>&#64;brief: 
+&#64;param: not_mapped_val: the default value to return incase the GO term of the protein can not be extracted. 
+&#64;note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>not_mapped_val</strong> (<em>str</em><em>, </em><em>optional</em>) – The default value to return incase the GO term of the protein can not be extracted, defaults to ‘UNK’</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A table that contain the GO-location term for each protein in the current instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_hla_allele">
+<code class="sig-name descname">get_hla_allele</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_hla_allele" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the set of HLA alleles from which the instance peptides have been eluted</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_hla_class">
+<code class="sig-name descname">get_hla_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_hla_class" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the HLA class</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_main_sub_cellular_location_of_parent_proteins">
+<code class="sig-name descname">get_main_sub_cellular_location_of_parent_proteins</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">not_mapped_val</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'UNK'</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_main_sub_cellular_location_of_parent_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><p>retrun the main cellular location for the identified proteins.
+This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>not_mapped_val</strong> (<em>str</em><em>, </em><em>optional</em>) – The default value to return incase the location of a protein can not be extracted, defaults to ‘UNK’</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A table that contain the main cellular compartment for each protein in the current instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_mapped_protein">
+<code class="sig-name descname">get_mapped_protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pro_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_mapped_protein" title="Permalink to this definition">¶</a></dt>
+<dd><p>return an NumPy array of shape 1 x protein length where each number in the array represents 
+the total number of peptides identified in the experiment that have originated from the said position 
+in the protein.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pro_id</strong> (<em>str</em>) – the protein id</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – if the provided protein id was inferred from the current experiment</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a NumPy array that contain the coverage of the protein.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_mapped_proteins">
+<code class="sig-name descname">get_mapped_proteins</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>List<span class="p">[</span>numpy.ndarray<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_mapped_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a dictionary of all the proteins identified in the current experiment with all inferred
+peptides mapped to them.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dictionary that contain the mapped proteins for all the proteins in the current instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>MappedProteins</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_mono_parent_peptides">
+<code class="sig-name descname">get_mono_parent_peptides</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_mono_parent_peptides" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of peptides that have only one parent protein</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of peptide instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Peptides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_n_terminal_flanked_seqs">
+<code class="sig-name descname">get_n_terminal_flanked_seqs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flank_length</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_n_terminal_flanked_seqs" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the n-terminal flanking sequences</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>flank_length</strong> (<em>int</em>) – the length of the flanking region upstream of the N-terminal of the peptide</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list sequences contain the N-terminal flanking sequence for each peptide in the instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Peptides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_negative_example">
+<code class="sig-name descname">get_negative_example</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">fold</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">2</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_negative_example" title="Permalink to this definition">¶</a></dt>
+<dd><p>generate negative examples, i.e., non-bounding peptides from the proteins identified in the current experiment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>fold</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of negative example to generate relative to the number of unique identified peptides, defaults to 2</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>list of non-presented peptides from all inferred proteins.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sequences</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_num_peptide_expression_table">
+<code class="sig-name descname">get_num_peptide_expression_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_num_peptide_expression_table" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Get a table that contain the id of all parent proteins, number of peptide per-proteins and the expression value </dt><dd><p>of these parent transcripts. Please note, this method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the number of peptides per protein table</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_num_peptide_per_go_term">
+<code class="sig-name descname">get_num_peptide_per_go_term</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_num_peptide_per_go_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>retrun the number of peptides per each GO-Term 
+:return: A table that has two columns, namely, GO-Terms and Counts. 
+:rtype: pd.DataFrame</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_num_peptide_per_location">
+<code class="sig-name descname">get_num_peptide_per_location</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_num_peptide_per_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>retrun the number of peptides obtained from proteins localized to different sub-cellular compartments</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A table that has two columns, namely, Compartment and Counts.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_number_of_children">
+<code class="sig-name descname">get_number_of_children</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pro_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_number_of_children" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the number of children, i.e. number of peptides belonging to a parent protein</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pro_id</strong> (<em>str</em>) – the id of the parent protein</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the number of peptides</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_number_of_proteins_per_compartment">
+<code class="sig-name descname">get_number_of_proteins_per_compartment</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_number_of_proteins_per_compartment" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the number of proteins from each compartment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A table that has two columns, namely, Compartment and Counts.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_number_of_proteins_per_go_term">
+<code class="sig-name descname">get_number_of_proteins_per_go_term</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_number_of_proteins_per_go_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>get the number of proteins from each GO-Term</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A table that has two columns, namely, GO-Terms and Counts.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_orgs">
+<code class="sig-name descname">get_orgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_orgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list containing the UNIQUE organisms identified in the current experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of all UNIQUE organisms inferred from the inferred proteins.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_peptide">
+<code class="sig-name descname">get_peptide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep_seq</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_peptide" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a peptide instance corresponding to the user provided peptide sequence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pep_seq</strong> (<em>str</em>) – the peptide sequence</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – if the peptide sequence has not been inferred from the current database.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the peptide instance with the coresponding sequence</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">Peptide</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_peptide_number_parent">
+<code class="sig-name descname">get_peptide_number_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ascending</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_peptide_number_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a pandas dataframe with the peptide sequence in the first columns and the 
+number of parent proteins in the second column.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ascending</strong> (<em>bool</em><em>, </em><em>optional</em>) – ascending sort the peptide by their number of parent proteins, defaults to False</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the number of parents for each peptide</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_peptides">
+<code class="sig-name descname">get_peptides</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_peptides" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a set of all the peptide stored in the experimental object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Peptides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_peptides_length">
+<code class="sig-name descname">get_peptides_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_peptides_length" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list containing the length of each unique peptide in the database.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>peptides’ lengths</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_peptides_per_organism">
+<code class="sig-name descname">get_peptides_per_organism</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_peptides_per_organism" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a pandas dataframe that contain the count of peptides belonging to each organism in
+the database</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a table with two columns, namely, Organisms and Counts</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_peptides_per_protein">
+<code class="sig-name descname">get_peptides_per_protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ascending</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_peptides_per_protein" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a pandas dataframe that contain the number of peptides belonging to each protein 
+inferred in the experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ascending</strong> (<em>bool</em><em>, </em><em>optional</em>) – ascending sort the proteins by their number of parent number of child peptides, defaults to False</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a table with the following columns, Proteins and Number_of_Peptides</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_poly_parental_peptides">
+<code class="sig-name descname">get_poly_parental_peptides</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_poly_parental_peptides" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of peptides that have more than one parent proteins
+:return: [list of peptide instance 
+:rtype: Peptides</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_proband_name">
+<code class="sig-name descname">get_proband_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_proband_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the proband name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_proteins">
+<code class="sig-name descname">get_proteins</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Protein.Protein" title="IPTK.Classes.Protein.Protein">IPTK.Classes.Protein.Protein</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a set of all the proteins in the experimental object</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Proteins</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_tissue">
+<code class="sig-name descname">get_tissue</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#IPTK.Classes.Tissue.Tissue" title="IPTK.Classes.Tissue.Tissue">IPTK.Classes.Tissue.Tissue</a><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_tissue" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the tissue of the current experiment.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#IPTK.Classes.Tissue.Tissue" title="IPTK.Classes.Tissue.Tissue">Tissue</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.get_tissue_name">
+<code class="sig-name descname">get_tissue_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_tissue_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the tissue name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.has_allele_group">
+<code class="sig-name descname">has_allele_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_group</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.has_allele_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided allele group or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gene_group</strong> (<em>str</em>) – the gene group to query the hla_set against</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the gene group has a member that is a member of the instance HLASet and False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.has_gene">
+<code class="sig-name descname">has_gene</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">locus</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.has_gene" title="Permalink to this definition">¶</a></dt>
+<dd><p>return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided locus or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>locus</strong> (<em>str</em>) – the locus of the allele to query the hla_set against</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the locus has a member that is a member of the instance HLASet and False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.has_hla_allele">
+<code class="sig-name descname">has_hla_allele</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">individual</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.has_hla_allele" title="Permalink to this definition">¶</a></dt>
+<dd><p>return whether or not the experiment contain an eluted peptides from the provided alleles</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>individual</strong> (<em>str</em>) – is the name of the allele as a string</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the allele is a member of the instance HLASet and False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.has_protein_group">
+<code class="sig-name descname">has_protein_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_group</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.has_protein_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided protein group or not</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_group</strong> (<em>str</em>) – The protein group to query the hla_set against</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the locus has a member that is a member of the instance HLASet and False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.is_a_parent_protein">
+<code class="sig-name descname">is_a_parent_protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.is_a_parent_protein" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein</strong> – check if the protein is a member of the instance proteins or not.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the protein has been identified in the current instance, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Experiment.Experiment.is_member">
+<code class="sig-name descname">is_member</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptide</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.is_member" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peptide</strong> (<em>str</em>) – check if the peptide is a member of the instance peptides or not.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if the peptide has been identified in the current instance, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes.ExperimentalSet">
+<span id="iptk-classes-experimentalset-module"></span><h2>IPTK.Classes.ExperimentalSet module<a class="headerlink" href="#module-IPTK.Classes.ExperimentalSet" title="Permalink to this headline">¶</a></h2>
+<p>An Experimental set which is a collection of experiments.
+The class provides an API for integrating and comparing different experimental instances.</p>
+<dl class="py class">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.ExperimentalSet.</code><code class="sig-name descname">ExperimentSet</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">exp_id_pair</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>an API for integrating and comparing different experimental instances</p>
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.add_experiment">
+<code class="sig-name descname">add_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">exp_id_pair</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.add_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>add an arbitrary number of experiments to the set</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compare_org_count_among_exps">
+<code class="sig-name descname">compare_org_count_among_exps</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">org</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">abs_count</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compare_org_count_among_exps" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>org</strong> (<em>str</em>) – The name of the organism to query the database for it.</p></li>
+<li><p><strong>abs_count</strong> (<em>bool</em><em>, </em><em>optional</em>) – The absolute count, defaults to False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the count of the peptides that belong to a specific organism in the database.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compare_peptide_counts">
+<code class="sig-name descname">compare_peptide_counts</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compare_peptide_counts" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A table that contain the total number of peptides and per-organism peptide counts         among all experiments in the set</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_average_distance_between_exps">
+<code class="sig-name descname">compute_average_distance_between_exps</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_average_distance_between_exps" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the average distance between experiments by taking the average over the z-axis
+of the 3D tensor computed by the function compute_change_in_protein_representation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A 2D tensor with shape of (num-experiments, num-experiments)</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_change_in_protein_representation">
+<code class="sig-name descname">compute_change_in_protein_representation</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_change_in_protein_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the change in protein representation among the proteins that are presented/ detect in all of the         instance’s experiments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a 3D tensor, T, with shape of (num-experiments, num-experiments, num-proteins),         where T[i,j,k] is a the difference between experiment i &amp; j with respect to the k th protein         :rtype: np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_correlation_in_experssion">
+<code class="sig-name descname">compute_correlation_in_experssion</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_correlation_in_experssion" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the correlation in parent protein gene-expression across all the experiments
+in the set. See the function <strong>compute_binary_correlation</strong> in the analysis module 
+for information about the computational logic.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>return a 2D matrix containing the coorelation in gene expression between each pair of experiments inside the current instance collection of experiments.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_peptide_length_table">
+<code class="sig-name descname">compute_peptide_length_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_peptide_length_table" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A table that contain the length of each peptide in the experiment</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_peptide_overlap_matrix">
+<code class="sig-name descname">compute_peptide_overlap_matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_peptide_overlap_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a 2D matrix containing the number of peptide overlapping between each pair of experiments inside the current instance collection of experiment.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_peptide_representation_count">
+<code class="sig-name descname">compute_peptide_representation_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_peptide_representation_count" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of times a peptide was observed accross  experiments in the set</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Counts</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_protein_coverage_over_the_set">
+<code class="sig-name descname">compute_protein_coverage_over_the_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_protein_coverage_over_the_set" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mapped representation for each protein in accross the entire  set</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str, np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_protein_overlap_matrix">
+<code class="sig-name descname">compute_protein_overlap_matrix</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_protein_overlap_matrix" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>return a 2D matrix containing the number of proteins overlapping between each pair of experiments inside the current instance collection of experiment.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_protein_representation_count">
+<code class="sig-name descname">compute_protein_representation_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_protein_representation_count" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of times a protein was observed accross the experiment in the set</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Counts</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.drop_peptides_belong_to_org">
+<code class="sig-name descname">drop_peptides_belong_to_org</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">org_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.drop_peptides_belong_to_org" title="Permalink to this definition">¶</a></dt>
+<dd><p>drop all the peptides that belong to the provided organisms from all experiments in the set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>org_name</strong> (<em>str</em>) – the name of the organism to drop</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_allele_count">
+<code class="sig-name descname">get_allele_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_allele_count" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the number of experiments obtained from each allele in the instance.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Counts</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_experiment">
+<code class="sig-name descname">get_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the experiment pointed to by the provided experimental name</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>exp_name</strong> (<em>str</em>) – the name of the experiment</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – if the provided experimental name is not in the dataset.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the experiment corresponds to the provided name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">Experiment</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_experimental_names">
+<code class="sig-name descname">get_experimental_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_experimental_names" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list with all the identifiers of the experiments in the set</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Names</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_experiments">
+<code class="sig-name descname">get_experiments</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>Experiment<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_experiments" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>return a dict with all the experiments stored in the instance as value of ids as keys.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[<a class="reference internal" href="#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">Experiment</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_num_experiments_in_the_set">
+<code class="sig-name descname">get_num_experiments_in_the_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_num_experiments_in_the_set" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of experiments currently in the set</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_peptides_present_in_all">
+<code class="sig-name descname">get_peptides_present_in_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_peptides_present_in_all" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the peptides that are observed in every experiments in the set.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Peptides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_proband_count">
+<code class="sig-name descname">get_proband_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_proband_count" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of experiments obtained from each proband in the ExperimentalSet.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Counts</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_proteins_present_in_all">
+<code class="sig-name descname">get_proteins_present_in_all</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_proteins_present_in_all" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the proteins that are inferred in all experiments of the set</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Proteins</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_tissue_counts">
+<code class="sig-name descname">get_tissue_counts</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_tissue_counts" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of experiments obtained from each tissue in the current instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Counts</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_total_peptide_per_org_count">
+<code class="sig-name descname">get_total_peptide_per_org_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_total_peptide_per_org_count" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The total count of peptides per organism accross the all experiments in the set.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_unique_orgs">
+<code class="sig-name descname">get_unique_orgs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_unique_orgs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list of the unique organisms in the set</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_unique_peptides">
+<code class="sig-name descname">get_unique_peptides</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_unique_peptides" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The set of unique peptides in the experimentalSet</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Peptides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.get_unique_proteins">
+<code class="sig-name descname">get_unique_proteins</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.get_unique_proteins" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the set of unique proteins in the experimentalset</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Proteins</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.group_by_proband">
+<code class="sig-name descname">group_by_proband</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span><a class="reference internal" href="#IPTK.Classes.ExperimentalSet.ExperimentSet" title="IPTK.Classes.ExperimentalSet.ExperimentSet">IPTK.Classes.ExperimentalSet.ExperimentSet</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.group_by_proband" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a map between each proband and an Experimentalset object represent all the experiments objects         belonging to this proband.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str,<a class="reference internal" href="#IPTK.Classes.ExperimentalSet.ExperimentSet" title="IPTK.Classes.ExperimentalSet.ExperimentSet">ExperimentSet</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.group_by_tissue">
+<code class="sig-name descname">group_by_tissue</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span><a class="reference internal" href="#IPTK.Classes.ExperimentalSet.ExperimentSet" title="IPTK.Classes.ExperimentalSet.ExperimentSet">IPTK.Classes.ExperimentalSet.ExperimentSet</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.group_by_tissue" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A map between each tissue and an ExperimentalSet object representing all experiments belonging to that tissue.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str,<a class="reference internal" href="#IPTK.Classes.ExperimentalSet.ExperimentSet" title="IPTK.Classes.ExperimentalSet.ExperimentSet">ExperimentSet</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.is_peptide_present_in_all">
+<code class="sig-name descname">is_peptide_present_in_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptide</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.is_peptide_present_in_all" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>peptide</strong> (<em>str</em>) – The peptide sequence to search its occurrences in every experiment contained in the set</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if peptide is present in all experiments inside the instance, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.is_protein_present_in_all">
+<code class="sig-name descname">is_protein_present_in_all</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.is_protein_present_in_all" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein</strong> (<em>str</em>) – the protein id to search its occurrences in every experimental in the set</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if peptide is present in all experiments inside the instance, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes.HLAChain">
+<span id="iptk-classes-hlachain-module"></span><h2>IPTK.Classes.HLAChain module<a class="headerlink" href="#module-IPTK.Classes.HLAChain" title="Permalink to this headline">¶</a></h2>
+<p>The implementation of an HLA molecules</p>
+<dl class="py class">
+<dt id="IPTK.Classes.HLAChain.HLAChain">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.HLAChain.</code><code class="sig-name descname">HLAChain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.HLAChain.HLAChain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="IPTK.Classes.HLAChain.HLAChain.get_allele_group">
+<code class="sig-name descname">get_allele_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.HLAChain.HLAChain.get_allele_group" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The allele group</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLAChain.HLAChain.get_chain_class">
+<code class="sig-name descname">get_chain_class</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.HLAChain.HLAChain.get_chain_class" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gene_name</strong> (<em>str</em>) – the name of the gene</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>1 if the gene belongs to class one and 2 if it belong to class two</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLAChain.HLAChain.get_class">
+<code class="sig-name descname">get_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.HLAChain.HLAChain.get_class" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The HLA class</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLAChain.HLAChain.get_gene">
+<code class="sig-name descname">get_gene</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.HLAChain.HLAChain.get_gene" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the gene name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLAChain.HLAChain.get_name">
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.HLAChain.HLAChain.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The chain name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLAChain.HLAChain.get_protein_group">
+<code class="sig-name descname">get_protein_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.HLAChain.HLAChain.get_protein_group" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the protein name</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes.HLAMolecules">
+<span id="iptk-classes-hlamolecules-module"></span><h2>IPTK.Classes.HLAMolecules module<a class="headerlink" href="#module-IPTK.Classes.HLAMolecules" title="Permalink to this headline">¶</a></h2>
+<p>a representation of an HLA molecules</p>
+<dl class="py class">
+<dt id="IPTK.Classes.HLAMolecules.HLAMolecule">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.HLAMolecules.</code><code class="sig-name descname">HLAMolecule</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">hla_chains</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.HLAMolecules.HLAMolecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="IPTK.Classes.HLAMolecules.HLAMolecule.get_allele_group">
+<code class="sig-name descname">get_allele_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.HLAMolecules.HLAMolecule.get_allele_group" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the allele group for the instance chain/pair of chains</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>AlleleGroup</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLAMolecules.HLAMolecule.get_class">
+<code class="sig-name descname">get_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.HLAMolecules.HLAMolecule.get_class" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The class of the HLA molecules</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLAMolecules.HLAMolecule.get_gene">
+<code class="sig-name descname">get_gene</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.HLAMolecules.HLAMolecule.get_gene" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>gene/pair of genes coding for the current HLA molecules</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Genes</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLAMolecules.HLAMolecule.get_name">
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">':'</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.HLAMolecules.HLAMolecule.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sep</strong> (<em>str</em><em>, </em><em>optional</em>) – the name of the allele by concatenating the names of the individual chains using         a separator, defaults to ‘:’</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLAMolecules.HLAMolecule.get_protein_group">
+<code class="sig-name descname">get_protein_group</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.HLAMolecules.HLAMolecule.get_protein_group" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The protein group for the instance chain/pair of chains</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>ProteinGroup</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes.HLASet">
+<span id="iptk-classes-hlaset-module"></span><h2>IPTK.Classes.HLASet module<a class="headerlink" href="#module-IPTK.Classes.HLASet" title="Permalink to this headline">¶</a></h2>
+<p>&#64;author: Hesham ElAbd
+&#64;contact: <a class="reference external" href="mailto:h&#46;elabd&#37;&#52;&#48;ikmb&#46;uni-kiel&#46;de">h<span>&#46;</span>elabd<span>&#64;</span>ikmb<span>&#46;</span>uni-kiel<span>&#46;</span>de</a></p>
+<dl class="py class">
+<dt id="IPTK.Classes.HLASet.HLASet">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.HLASet.</code><code class="sig-name descname">HLASet</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">hlas</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">gene_sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">':'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.HLASet.HLASet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="IPTK.Classes.HLASet.HLASet.get_alleles">
+<code class="sig-name descname">get_alleles</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.HLASet.HLASet.get_alleles" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The class of the HLA-alleles in the current instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLASet.HLASet.get_class">
+<code class="sig-name descname">get_class</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.HLASet.HLASet.get_class" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The class of the HLA-alleles in the current instance</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLASet.HLASet.get_hla_count">
+<code class="sig-name descname">get_hla_count</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.HLASet.HLASet.get_hla_count" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the count of HLA molecules in the set</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLASet.HLASet.has_allele">
+<code class="sig-name descname">has_allele</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">allele</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.HLASet.HLASet.has_allele" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>allele</strong> (<em>str</em>) – the name of the allele to check the instance for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True, if the provided allele is in the current instance, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLASet.HLASet.has_allele_group">
+<code class="sig-name descname">has_allele_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">allele_group</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.HLASet.HLASet.has_allele_group" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>allele_group</strong> (<em>str</em>) – the allele group to search the set for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True, if at least one allele in the set belongs to the provided allele group, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLASet.HLASet.has_gene">
+<code class="sig-name descname">has_gene</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.HLASet.HLASet.has_gene" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gene_name</strong> (<em>str</em>) – the gene name to search the set against.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True, if at least one of the alleles in the set belongs to the provided gene. False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.HLASet.HLASet.has_protein_group">
+<code class="sig-name descname">has_protein_group</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_group</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.HLASet.HLASet.has_protein_group" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_group</strong> – The protein group to search the set for</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True, if at least one allele in the set belongs to the provided protein group</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes.Peptide">
+<span id="iptk-classes-peptide-module"></span><h2>IPTK.Classes.Peptide module<a class="headerlink" href="#module-IPTK.Classes.Peptide" title="Permalink to this headline">¶</a></h2>
+<p>A representation of the eluted peptides and its identified proteins.</p>
+<dl class="py class">
+<dt id="IPTK.Classes.Peptide.Peptide">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Peptide.</code><code class="sig-name descname">Peptide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep_seq</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An representation of an eluted peptide.</p>
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.add_org_2_parent">
+<code class="sig-name descname">add_org_2_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prot_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">org</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.add_org_2_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>add the source organism of one of the instance parent protein</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>prot_name</strong> (<em>str</em>) – The name of the protein, i.e. the identifier of the protein</p></li>
+<li><p><strong>org</strong> (<em>str</em>) – the name of the organism</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – incase the provided protein is not a parent of the provided peptide</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.add_parent_protein">
+<code class="sig-name descname">add_parent_protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_protein</span></em>, <em class="sig-param"><span class="n">start_index</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">end_index</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.add_parent_protein" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a protein instance as a parent to the current peptide. 
+The library use Python-based indexing where its 0-indexed and ranges are treated as [start, end). 
+:param parent_protein: a Protein instance that act as a parent to the peptide.
+:type parent_protein: Protein 
+:param start_index: the position in the parent protein where the peptide starts
+:type start_index: int 
+:param end_index: the index of the amino acid that occurs after the last amino acid in the peptide, 
+:type start_index: int</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_c_terminal_flank_seq">
+<code class="sig-name descname">get_c_terminal_flank_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flank_len</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_c_terminal_flank_seq" title="Permalink to this definition">¶</a></dt>
+<dd><p>:param flank_len:the length of the flanking regions 
+:type flank_len: int
+:return: a list of string containing the sequences located downstream of the peptide in the parent protein. 
+:rtype: [type]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_flanked_peptide">
+<code class="sig-name descname">get_flanked_peptide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flank_len</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_flanked_peptide" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>flank_len</strong> (<em>int</em>) – the length of the flanking regions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of string containing the length of the peptide + the flanking region from               both the N and C terminal of the instance peptide, from all proteins.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sequences</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_length">
+<code class="sig-name descname">get_length</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_length" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the length of the peptides</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_n_terminal_flank_seq">
+<code class="sig-name descname">get_n_terminal_flank_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flank_len</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_n_terminal_flank_seq" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>flank_len</strong> (<em>int</em>) – the length of the flanking regions</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of string containing the sequences located upstream of the peptide in the parent protein.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_non_presented_peptides">
+<code class="sig-name descname">get_non_presented_peptides</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">length</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_non_presented_peptides" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>length</strong> (<em>int</em>) – The length, i.e. number of amino acids, for the non-presented peptide</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>non-presented peptide from all the parent protein of the current peptide instance.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Sequences</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_number_of_parents">
+<code class="sig-name descname">get_number_of_parents</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_number_of_parents" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the number of instance parent proteins</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_number_parent_protein">
+<code class="sig-name descname">get_number_parent_protein</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_number_parent_protein" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the number of parent proteins this instance has</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_parent">
+<code class="sig-name descname">get_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pro_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_parent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pro_id</strong> (<em>str</em>) – The protein identifer</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the parent protein that has an id matching the user defined pro_id</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#IPTK.Classes.Protein.Protein" title="IPTK.Classes.Protein.Protein">Protein</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_parent_proteins">
+<code class="sig-name descname">get_parent_proteins</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_parent_proteins" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_parents_org">
+<code class="sig-name descname">get_parents_org</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_parents_org" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a list containing the name of each parent protein source organisms</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Organisms</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_peptide_seq">
+<code class="sig-name descname">get_peptide_seq</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_peptide_seq" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the sequence of the peptide.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.get_pos_in_parent">
+<code class="sig-name descname">get_pos_in_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pro_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_pos_in_parent" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pro_id</strong> (<em>str</em>) – the id of the parent protein</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the identifier is not a parent of the instance</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the start and end position of the instance peptide in the parent pointed out by the provided identifier</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Range</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.is_child_of">
+<code class="sig-name descname">is_child_of</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pro_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.is_child_of" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pro_id</strong> (<em>str</em>) – is the protein id</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>True if a user provided protein-id is a parent for the instance peptide, False otherwise</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Peptide.Peptide.map_to_parent_protein">
+<code class="sig-name descname">map_to_parent_protein</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>numpy.ndarray<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.map_to_parent_protein" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mapped the instance peptide to the parent protein and returned a 
+list of numpy arrays where each array has a size of 1 by protein length. 
+within the protein the range representing the peptide is encoded as one while
+the rest is zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A list of binary encoded arrays represent this mapping.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>MappedProtein</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes.Proband">
+<span id="iptk-classes-proband-module"></span><h2>IPTK.Classes.Proband module<a class="headerlink" href="#module-IPTK.Classes.Proband" title="Permalink to this headline">¶</a></h2>
+<p>A description for an IP proband</p>
+<dl class="py class">
+<dt id="IPTK.Classes.Proband.Proband">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Proband.</code><code class="sig-name descname">Proband</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">info</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Proband.Proband" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="IPTK.Classes.Proband.Proband.get_meta_data">
+<code class="sig-name descname">get_meta_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; dict<a class="headerlink" href="#IPTK.Classes.Proband.Proband.get_meta_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict that contain all the meta-data about the patient</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Proband.Proband.get_name">
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Proband.Proband.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name of the patient</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Proband.Proband.update_info">
+<code class="sig-name descname">update_info</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">info</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Proband.Proband.update_info" title="Permalink to this definition">¶</a></dt>
+<dd><p>add new or update existing info about the patient  using an arbitrary number of key-value pair to be added to added to the instance meta-info dict</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes.Protein">
+<span id="iptk-classes-protein-module"></span><h2>IPTK.Classes.Protein module<a class="headerlink" href="#module-IPTK.Classes.Protein" title="Permalink to this headline">¶</a></h2>
+<p>A representation of a protein that has been inferred from an IP experiment.</p>
+<dl class="py class">
+<dt id="IPTK.Classes.Protein.Protein">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Protein.</code><code class="sig-name descname">Protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prot_id</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">seq</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">org</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Protein.Protein" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>representation of a protein that has been infered from an IP experiment.</p>
+<dl class="py method">
+<dt id="IPTK.Classes.Protein.Protein.get_id">
+<code class="sig-name descname">get_id</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Protein.Protein.get_id" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>return the protein identifier.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Protein.Protein.get_non_presented_peptide">
+<code class="sig-name descname">get_non_presented_peptide</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exc_reg_s_idx</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">exc_reg_e_idx</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">length</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Protein.Protein.get_non_presented_peptide" title="Permalink to this definition">¶</a></dt>
+<dd><p>sample a peptide from the protein sequences where the sampled peptides is not part of the               experimentally identified regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exc_reg_s_idx</strong> (<em>int</em>) – the start point in the reference protein sequence of the experimentally identified peptide.</p></li>
+<li><p><strong>exc_reg_e_idx</strong> (<em>int</em>) – the end point in the reference protein sequence of the experimentally identified peptide.</p></li>
+<li><p><strong>length</strong> (<em>int</em>) – length the non-presented peptides.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if the length of the peptide is bigger than the protein length</p></li>
+<li><p><strong>ValueError</strong> – if the length of the peptide is smaller than or equal to zero</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a substring of the instance sequence</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Protein.Protein.get_org">
+<code class="sig-name descname">get_org</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Protein.Protein.get_org" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the organism in which this instance protein belong.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Protein.Protein.get_peptides_map">
+<code class="sig-name descname">get_peptides_map</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">start_idxs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">end_idxs</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Classes.Protein.Protein.get_peptides_map" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute a coverage over the protein sequence</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>start_idxs</strong> (<em>Index</em>) – a list of integers representing the start positions</p></li>
+<li><p><strong>end_idxs</strong> – a list of integers representing the end positions</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if start_indxs and end_idxs MUST be of equal length are not of equal length</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A numpy array with shape of 1 by the length of the protein where every element in the array donates the number of times, It has been observed in the experiment.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Protein.Protein.get_seq">
+<code class="sig-name descname">get_seq</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Protein.Protein.get_seq" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the protein sequence.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Protein.Protein.set_org">
+<code class="sig-name descname">set_org</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">org</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Protein.Protein.set_org" title="Permalink to this definition">¶</a></dt>
+<dd><p>a post-instantitation mechanism to set the organism for which the protein belong.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>org</strong> (<em>str</em>) – the name of the organism</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes.Tissue">
+<span id="iptk-classes-tissue-module"></span><h2>IPTK.Classes.Tissue module<a class="headerlink" href="#module-IPTK.Classes.Tissue" title="Permalink to this headline">¶</a></h2>
+<p>A representation of the Tissue used in an IP Experiment.</p>
+<dl class="py class">
+<dt id="IPTK.Classes.Tissue.ExpressionProfile">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Tissue.</code><code class="sig-name descname">ExpressionProfile</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">expression_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">aux_proteins</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>pandas.core.frame.DataFrame<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Tissue.ExpressionProfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>a representation of tissue reference expression value.</p>
+<dl class="py method">
+<dt id="IPTK.Classes.Tissue.ExpressionProfile.get_gene_id_expression">
+<code class="sig-name descname">get_gene_id_expression</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#IPTK.Classes.Tissue.ExpressionProfile.get_gene_id_expression" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gene_id</strong> (<em>str</em>) – the gene id to retrive its expression value from the database</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – if the provided id is not defined in the instance table</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the expression value of the provided gene id.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Tissue.ExpressionProfile.get_gene_name_expression">
+<code class="sig-name descname">get_gene_name_expression</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_name</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#IPTK.Classes.Tissue.ExpressionProfile.get_gene_name_expression" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>gene_name</strong> (<em>str</em>) – the gene name to retrive its expression value from the database</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>KeyError</strong> – if the provided id is not defined in the instance table</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the expression value of the provided gene name.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Tissue.ExpressionProfile.get_name">
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Tissue.ExpressionProfile.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name of the tissue which the instance profile its gene expression</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Tissue.ExpressionProfile.get_table">
+<code class="sig-name descname">get_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Tissue.ExpressionProfile.get_table" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>return a table that contain the expression of all the transcript in the current profile                including core and auxiliary proteins</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="IPTK.Classes.Tissue.Tissue">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Tissue.</code><code class="sig-name descname">Tissue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">main_exp_value</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#IPTK.Classes.Database.GeneExpressionDB" title="IPTK.Classes.Database.GeneExpressionDB">IPTK.Classes.Database.GeneExpressionDB</a></span></em>, <em class="sig-param"><span class="n">main_location</span><span class="p">:</span> <span class="n"><a class="reference internal" href="#IPTK.Classes.Database.CellularLocationDB" title="IPTK.Classes.Database.CellularLocationDB">IPTK.Classes.Database.CellularLocationDB</a></span></em>, <em class="sig-param"><span class="n">aux_exp_value</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Database.GeneExpressionDB" title="IPTK.Classes.Database.GeneExpressionDB">IPTK.Classes.Database.GeneExpressionDB</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">aux_location</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span><a class="reference internal" href="#IPTK.Classes.Database.CellularLocationDB" title="IPTK.Classes.Database.CellularLocationDB">IPTK.Classes.Database.CellularLocationDB</a><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Tissue.Tissue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt id="IPTK.Classes.Tissue.Tissue.get_expression_profile">
+<code class="sig-name descname">get_expression_profile</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#IPTK.Classes.Tissue.ExpressionProfile" title="IPTK.Classes.Tissue.ExpressionProfile">IPTK.Classes.Tissue.ExpressionProfile</a><a class="headerlink" href="#IPTK.Classes.Tissue.Tissue.get_expression_profile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the expresion profile of the current tissue</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#IPTK.Classes.Tissue.ExpressionProfile" title="IPTK.Classes.Tissue.ExpressionProfile">ExpressionProfile</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Tissue.Tissue.get_name">
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Classes.Tissue.Tissue.get_name" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the name of the tissue</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Tissue.Tissue.get_subCellular_locations">
+<code class="sig-name descname">get_subCellular_locations</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <a class="reference internal" href="#IPTK.Classes.Database.CellularLocationDB" title="IPTK.Classes.Database.CellularLocationDB">IPTK.Classes.Database.CellularLocationDB</a><a class="headerlink" href="#IPTK.Classes.Tissue.Tissue.get_subCellular_locations" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the sub-cellular localization of all the proteins stored in current instance resources.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#IPTK.Classes.Database.CellularLocationDB" title="IPTK.Classes.Database.CellularLocationDB">CellularLocationDB</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Classes">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-IPTK.Classes" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">IPTK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started!</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">IPTK</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="IPTK.html">IPTK package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">IPTK</a><ul>
+  <li><a href="IPTK.html">IPTK package</a><ul>
+      <li>Previous: <a href="IPTK.Analysis.html" title="previous chapter">IPTK.Analysis package</a></li>
+      <li>Next: <a href="IPTK.IO.html" title="next chapter">IPTK.IO package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Hesham ElAbd.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/IPTK.Classes.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

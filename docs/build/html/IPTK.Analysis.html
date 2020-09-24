@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPTK.Analysis package &#8212; IPTK 0.3.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="IPTK.Classes package" href="IPTK.Classes.html" />
+    <link rel="prev" title="IPTK package" href="IPTK.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="iptk-analysis-package">
+<h1>IPTK.Analysis package<a class="headerlink" href="#iptk-analysis-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-IPTK.Analysis.AnalysisFunction">
+<span id="iptk-analysis-analysisfunction-module"></span><h2>IPTK.Analysis.AnalysisFunction module<a class="headerlink" href="#module-IPTK.Analysis.AnalysisFunction" title="Permalink to this headline">¶</a></h2>
+<p>The module contain a collection of analysis function that can be used by the methods of
+the classes defined in the classes module.</p>
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.compute_binary_distance">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_binary_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptides</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">dist_func</span><span class="p">:</span> <span class="n">Callable</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_binary_distance" title="Permalink to this definition">¶</a></dt>
+<dd><p>compare the distance between every pair of peptides in a collection of peptides. 
+&#64;param: peptides: a collection of peptides sequences.
+&#64;param: dist_func: function to compute the distance between each pair of peptides. 
+&#64;note:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peptides</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – a collection of peptides sequences.</p></li>
+<li><p><strong>dist_func</strong> (<em>Callable</em>) – a function to compute the distance between each pair of peptides.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>RuntimeError</strong> – make sure that the dist_function is suitable with the peptides which might have different lengths.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the distance between each pair of peptides in the provided list of peptides</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.compute_change_in_protein_representation">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_change_in_protein_representation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapped_prot_cond1</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">mapped_prot_cond2</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_change_in_protein_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the change in the protein representation between two conditions, by computing 
+the difference in the area under the curve, AUC.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapped_prot_cond1</strong> (<em>np.ndarray</em>) – a mapped protein instance containing the protein coverage in the first condition</p></li>
+<li><p><strong>mapped_prot_cond2</strong> (<em>np.ndarray</em>) – a mapped protein instance containing the protein coverage in the second condition</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if the provided pair of proteins is of different length</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the difference in the area under the coverage curve between the two experiments.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.compute_difference_in_representation">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_difference_in_representation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapped_prot_cond1</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">mapped_prot_cond2</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_difference_in_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the difference in the representation of a protein between two conditions
+by substracting the coverage of the first protein from the second proteins.</p>
+<p>&#64;param: mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
+&#64;param: mapped_prot_cond2: a mapped protein instance containing the protein coverage in the second condition</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapped_prot_cond1</strong> (<em>np.ndarray</em>) – a mapped protein instance containing the protein coverage in the first condition</p></li>
+<li><p><strong>mapped_prot_cond2</strong> (<em>np.ndarray</em>) – a mapped protein instance containing the protein coverage in the second condition</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an array that shows the difference in coverage between the two proteins at each amino acid position.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>np.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.compute_expression_correlation">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_expression_correlation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp1</span><span class="p">:</span> <span class="n"><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em>, <em class="sig-param"><span class="n">exp2</span><span class="p">:</span> <span class="n"><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_expression_correlation" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the correlation in the gene expression between two experiments by constructing a union
+of all the proteins expressed in the first and second experiments, extract the gene expression 
+of these genes and then compute the correlation using SciPy stat module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp1</strong> (<a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment"><em>Experiment</em></a>) – The first experimental object</p></li>
+<li><p><strong>exp2</strong> (<a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment"><em>Experiment</em></a>) – he second experimental object</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the correlation in gene expression of the proteins inferred in the provided pair of experiment</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.download_structure_file">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">download_structure_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pdb_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.download_structure_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download PDB/mmCIF file containing the pbd_id from PDB using BioPython library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>pdb_id</strong> (<em>str</em>) – the protein id in protein databank</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_binnary_peptide_overlap">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_binnary_peptide_overlap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp1</span><span class="p">:</span> <span class="n"><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em>, <em class="sig-param"><span class="n">exp2</span><span class="p">:</span> <span class="n"><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_binnary_peptide_overlap" title="Permalink to this definition">¶</a></dt>
+<dd><p>compare the peptide overlap between two experimental objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp1</strong> (<a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment"><em>Experiment</em></a>) – an instance of class Experiment.</p></li>
+<li><p><strong>exp2</strong> (<a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment"><em>Experiment</em></a>) – an instance of class Experiment.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of peptides that have been identified in both experiments.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Peptides</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_binnary_protein_overlap">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_binnary_protein_overlap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp1</span><span class="p">:</span> <span class="n"><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em>, <em class="sig-param"><span class="n">exp2</span><span class="p">:</span> <span class="n"><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_binnary_protein_overlap" title="Permalink to this definition">¶</a></dt>
+<dd><p>compare the protein overlap between two experimental objects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp1</strong> (<a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment"><em>Experiment</em></a>) – an instance of class Experiment.</p></li>
+<li><p><strong>exp2</strong> (<a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment"><em>Experiment</em></a>) – an instance of class Experiment.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of proteins that have been identified in both experiments.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Proteins</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_sequence_motif">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_sequence_motif</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptides</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">temp_dir</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'./TEMP_DIR'</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">meme_params</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_sequence_motif" title="Permalink to this definition">¶</a></dt>
+<dd><p>compute the sequences motif from a collection of peptide sequences using meme software.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peptides</strong> (<em>Peptides</em>) – a list of string containing the peptide sequences</p></li>
+<li><p><strong>temp_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – he temp directory to write temp-files to it, defaults to “./TEMP_DIR”</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to print the output of the motif discovery tool to the stdout, defaults to False</p></li>
+<li><p><strong>meme_params</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object that contain meme controlling parameters, defaults to {}</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>FileNotFoundError</strong> – incase meme is not installed or could not be found in the path!</p></li>
+<li><p><strong>ValueError</strong> – incase the peptides have different length!</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Analysis">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-IPTK.Analysis" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">IPTK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started!</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">IPTK</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="IPTK.html">IPTK package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">IPTK</a><ul>
+  <li><a href="IPTK.html">IPTK package</a><ul>
+      <li>Previous: <a href="IPTK.html" title="previous chapter">IPTK package</a></li>
+      <li>Next: <a href="IPTK.Classes.html" title="next chapter">IPTK.Classes package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Hesham ElAbd.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/IPTK.Analysis.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

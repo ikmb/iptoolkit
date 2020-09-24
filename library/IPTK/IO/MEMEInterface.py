@@ -1,8 +1,5 @@
 #!/usr/bin/env Python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: The module contains functions to to call meme software via a system call.   
+"""The module contains functions to to call meme software via a system call.   
 """
 # load the module 
 from Bio import motifs 
@@ -38,13 +35,16 @@ def call_meme(input_fasta_file:str, output_dir:str, verbose: bool=True, objfunc:
               minsites: int = -1, maxsite: int = -1, nsites: int = -1, w: int = -1, minw: int = -1, 
               maxw: int = -1, nomatrim: bool = False, wg: int = -1, ws: int = -1, noendgaps: bool = False,
               maxiter: int = -1, prior: str = 'dirichlet', b: int = -1, p: int = -1 )->None:
-    """
-    @brief: a warper for making a system call to meme software for sequence motif finding
-    @param: input_fasta_file: The path to input FASTA files. 
-    @param: output_dir: the output dir to write the results, **IT WILL OVERWRITE EXISTING DIRECTORY** 
-    @param: verbose: whether or not to print the output of calling meme to the screen, default is True. 
-    @note: for the reset of the function parameters use the function **get_meme_help** defined in the module 
-    IO, submodule MEMEInterface. 
+    """warper for making a system call to meme software for sequence motif finding \
+        for the reset of the function parameters use the function \
+            **get_meme_help** defined in the module IO, submodule MEMEInterface. \ 
+            
+    :param input_fasta_file: The path to input FASTA files. 
+    :type input_fasta_file: str
+    :param output_dir: the output dir to write the results, **IT WILL OVERWRITE EXISTING DIRECTORY** 
+    :type output_dir: str
+    :param verbose:  whether or not to print the output of calling meme to the screen, default is True. 
+    :type verbose: bool 
     """
     # define the calling string backbone
     calling_string=""

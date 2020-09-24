@@ -1,0 +1,755 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPTK.Visualization package &#8212; IPTK 0.3.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="IPTK.Utils package" href="IPTK.Utils.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="iptk-visualization-package">
+<h1>IPTK.Visualization package<a class="headerlink" href="#iptk-visualization-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-IPTK.Visualization.vizTools">
+<span id="iptk-visualization-viztools-module"></span><h2>IPTK.Visualization.vizTools module<a class="headerlink" href="#module-IPTK.Visualization.vizTools" title="Permalink to this headline">¶</a></h2>
+<p>The module contain visualization functions the can be used to plot the results obtained from the 
+methods of the classes defined in the Class module or from the analysis functions defined in the Analysis Module.</p>
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.imposed_coverage_on_3D_structure">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">imposed_coverage_on_3D_structure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2mmCIF</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">mapped_protein</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">background_color</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'black'</span></em>, <em class="sig-param"><span class="n">low</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'red'</span></em>, <em class="sig-param"><span class="n">high</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'blue'</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Visualization.vizTools.imposed_coverage_on_3D_structure" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to impose the peptide coverage on top of a protein 3D structure     where the color of each position is marked by a color gradient that reflect the number of peptides 
+aligned to this position. Note: Use the function with Jupyter-note book as it return an NGLWidget object that your can explore     and navigate from the browser.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path2mmCIF</strong> (<em>str</em>) – The path to load the mmCIF file containing the protein structure</p></li>
+<li><p><strong>mapped_protein</strong> (<em>np.ndarray</em>) – a Numpy array of containg the number of peptides originated from each position in the array</p></li>
+<li><p><strong>background_color</strong> (<em>str</em><em>, </em><em>optional</em>) – the color of the background, default is black , defaults to ‘black’</p></li>
+<li><p><strong>low</strong> (<em>str</em><em>, </em><em>optional</em>) – the color of low covered position, default is red. , defaults to ‘red’</p></li>
+<li><p><strong>high</strong> (<em>str</em><em>, </em><em>optional</em>) – the color of high covered position, default is violet., defaults to ‘blue’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – incase the provided path to the structure file does not exists</p></li>
+<li><p><strong>IOError</strong> – if the structure file can not be loaded or if more than one file are located in the provided path</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_change_in_presentation_between_experiment">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_change_in_presentation_between_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">change_in_presentation_array</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">index_first</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">index_second</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">'Change in protein presentation'</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="o">=</span><span class="default_value">'Proteins'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="o">=</span><span class="default_value">'magnitude of change in protein count'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_change_in_presentation_between_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the change in protein presentation between two experiment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>change_in_presentation_array</strong> (<em>np.ndarray</em>) – a 3D tensor of shape number of experiments by number of experiment by number of identified proteins.</p></li>
+<li><p><strong>index_first</strong> (<em>int</em>) – [description]</p></li>
+<li><p><strong>index_second</strong> (<em>int</em>) – the index of the first experiment in the tensor</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.scatterplot function, defaults to {}</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the figure, defaults to ‘Change in protein presentation’</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The axis on the x-axis , defaults to “Proteins”</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The axis on the y-axis, defaults to “magnitude of change in protein count”</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – if the provided tensor is not of rank 3</p></li>
+<li><p><strong>IndexError</strong> – if the provided indices are out of bound</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_experiment_set_counts">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_experiment_set_counts</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">counts_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">log_scale</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.pyplot.figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_experiment_set_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>visualize the number of peptides and number of peptides-per-organism per experiment.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>counts_table</strong> (<em>pd.DataFrame</em>) – a pandas dataframe that contain the count, organism name and the count</p></li>
+<li><p><strong>log_scale</strong> (<em>bool</em><em>, </em><em>optional</em>) – Normalize the peptide counts one log 10, defaults to False</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.catplot function, defaults to {}</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_gene_expression_vs_num_peptides">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_gene_expression_vs_num_peptides</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_count_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">tissue_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">def_value</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Expression value'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Peptides per protein Vs. Expression Level'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_gene_expression_vs_num_peptides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the correlation between the gene expression and the num of peptids per protein using seaborn library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp_count_table</strong> (<em>pd.DataFrame</em>) – A table that contain the number of peptides and the expresion value for each protein in the database</p></li>
+<li><p><strong>tissue_name</strong> (<em>str</em>) – The name of the tissue</p></li>
+<li><p><strong>def_value</strong> (<em>float</em><em>, </em><em>optional</em>) – The default value for proteins that could not be mapped to the expression database, defaults to -1</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.scatter function, defaults to {}</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the x-axis, defaults to ‘Number of peptides’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the y-axis, defaults to ‘Expression value’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the figure, defaults to ‘Peptides per protein Vs. Expression Level’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_motif">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_motif</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pwm_df</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'fade_probabilities': True}</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_motif" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generic motif plotter that forward its argument to logomaker for making plots</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pwm_df</strong> (<em>pd.DataFrame</em>) – A pandas dataframe containing the position weighted matrix</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>PlottingKeywards</em><em>, </em><em>optional</em>) – A dictionary of parameter to control the behavior of the logo plotter, defaults to {‘fade_probabilities’:True}</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a matplotlib figure instance containing the ploted motif</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_num_peptide_per_go_term">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_num_peptide_per_go_term</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep2goTerm</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">drop_unknown</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'GO-Term'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides per GO Term'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_num_peptide_per_go_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of peptides obtained per Go-Term  using matplotlib library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pep2goTerm</strong> (<em>pd.DataFrame</em>) – A table that contain the count of peptides from each GO-Term</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.barplot function, defaults to {}</p></li>
+<li><p><strong>drop_unknown</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to drop peptide with unknown GO-term, defaults to False</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the x-axis, defaults to ‘Number of peptides’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the y-axis, defaults to ‘GO-Term’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the figure, defaults to ‘Number of peptides per GO Term’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_num_peptides_per_location">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_num_peptides_per_location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep2loc</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">drop_unknown</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Compartment'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides per sub-cellular compartment'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_num_peptides_per_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of peptides obtained from each compartment using seaborn library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pep2loc</strong> (<em>pd.DataFrame</em>) – A table that contain the count of peptides from each  location</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.barplot function, defaults to {}</p></li>
+<li><p><strong>drop_unknown</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to drop protein with unknown location, defaults to False</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label on the x-axis, defaults to ‘Number of peptides’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label on the y-axis, defaults to ‘Compartment’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the figure, defaults to ‘Number of peptides per sub-cellular compartment’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_num_peptides_per_organism">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_num_peptides_per_organism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep_per_org</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">log_scale</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Organism'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides per organism'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_num_peptides_per_organism" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of peptides per each organism inferred from the experiment using seaborn and matlotlib.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pep_per_org</strong> (<em>pd.DataFrame</em>) – A table that contain the number of peptides belonging to each organism</p></li>
+<li><p><strong>log_scale</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to scale the number of peptides using a log scale, default is False, defaults to False</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.barplot function, defaults to {}</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the x-axis, defaults to ‘Number of peptides’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label on the y-axis, defaults to ‘Organism’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the figure, defaults to ‘Number of peptides per organism’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_num_peptides_per_parent">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_num_peptides_per_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nums_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">num_prot</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">x_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides'</span></em>, <em class="sig-param"><span class="n">y_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Protein ID'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides per protein'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Visualization.vizTools.plot_num_peptides_per_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize a histogram of the eluted peptide length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nums_table</strong> (<em>pd.DataFrame</em>) – a pandas dataframe containing number of peptides identified from each protein.</p></li>
+<li><p><strong>num_prot</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of protein to show relative to the first element, for example, the first 10, 20 etc.     If the default value of -1 is used then all protein will be plotted, however, this might lead to a crowded figure,     defaults to -1.</p></li>
+<li><p><strong>plotting_kwargs</strong> – a dict object containing parameters for the function     seaborn::distplot, defaults to {}</p></li>
+<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – the label of the x-axis, defaults to ‘Number of peptides’</p></li>
+<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – the label of the y-axis, defaults to ‘Protein ID’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the figure, defaults to ‘Number of peptides per protein’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if the num_prot is bigger than the number of elements in the provided table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_num_protein_per_go_term">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_num_protein_per_go_term</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein2goTerm</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">tissue_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">drop_unknown</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of Proteins'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Compartment'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of proteins per sub-cellular compartment'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_num_protein_per_go_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of proteins per each GO Term</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protein2goTerm</strong> (<em>pd.DataFrame</em>) – A table that contain the count of proteins from each GO-Term</p></li>
+<li><p><strong>tissue_name</strong> (<em>str</em>) – a dict object containing parameters for the sns.barplot function.</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.barplot function, defaults to {}</p></li>
+<li><p><strong>drop_unknown</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to drop protein with unknown location, defaults to False</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the x-axis, defaults to ‘Number of Proteins’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the y-axis, defaults to ‘Compartment’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – the title of the figure, defaults to ‘Number of proteins per sub-cellular compartment’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_num_protein_per_location">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_num_protein_per_location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_loc</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">drop_unknown</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of Proteins'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Compartment'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of proteins per sub-cellular compartment'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_num_protein_per_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of proteins per each sub-cellular compartment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protein_loc</strong> (<em>pd.DataFrame</em>) – A table that contain the count of protein from each location.</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.barplot function, defaults to {}</p></li>
+<li><p><strong>drop_unknown</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to drop protein with unknown location, defaults to False</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the x-axis, defaults to ‘Number of Proteins’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the y-axis, defaults to ‘Compartment’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – the title of the figure, defaults to ‘Number of proteins per sub-cellular compartment’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_overlap_heatmap">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_overlap_heatmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results_df</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em><span class="sig-paren">)</span> &#x2192; seaborn.matrix.ClusterGrid<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_overlap_heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot a user provided dataframe as a cluster heatmap using seaborn library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>results_df</strong> (<em>pd.DataFrame</em>) – A pandas dataframe table that hold the overlapping number</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>PlottingKeywards</em><em>, </em><em>optional</em>) – forward parameter to the clustermap function, defaults to {}</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the generated clustermap</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>sns.matrix.ClusterGrid</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_overlay_representation">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_overlay_representation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proteins</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">alpha</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">legend_pos</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">2</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_overlay_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot an overlayed representation for the SAME protein or proteins OF EQUAL LENGTH in different conditions        in which the mapped represention of each protein are stacked on top of each other to generate        a representation for the protein representability under different conditions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>proteins</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>np.ndarray</em><em>]</em><em>]</em>) – a nested dict object containing for each protein a child dict that contain the mapping array and the color in the figure.</p></li>
+<li><p><strong>alpha</strong> (<em>float</em><em>, </em><em>optional</em>) – the transparency between proteins , defaults to 0.5</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the figure, defaults to None</p></li>
+<li><p><strong>legend_pos</strong> (<em>int</em><em>, </em><em>optional</em>) – the position of the legend , defaults to 2</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if the provided protein have different lengths</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a matplotlib figure containing the mapped representation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_paired_represention">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_paired_represention</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_one_repr</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">protein_two_repr</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">color_first</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'red'</span></em>, <em class="sig-param"><span class="n">color_second</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'blue'</span></em>, <em class="sig-param"><span class="n">alpha</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.9</span></em>, <em class="sig-param"><span class="n">title</span><span class="o">=</span><span class="default_value">' Parired protein representation'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_paired_represention" title="Permalink to this definition">¶</a></dt>
+<dd><p>visualize the difference in representation for the same protein between two experiments using matplotlib library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protein_one_repr</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>]</em>) – a dict object containing the legand of the first condition along with its mapped array</p></li>
+<li><p><strong>protein_two_repr</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>]</em>) – a dict object containing the legand of the second condition along with its mapped array</p></li>
+<li><p><strong>alpha</strong> (<em>the transparency of the figure.</em>) – the transparency of the figure.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Param</dt>
+<dd class="field-even"><p>color_first: the color of representation for the first condition</p>
+</dd>
+<dt class="field-odd">Param</dt>
+<dd class="field-odd"><p>color_second: the color of the second condition</p>
+</dd>
+<dt class="field-even">Param</dt>
+<dd class="field-even"><p>title: the title of the figure.</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A matplotlib Figure containing the representation</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_parent_protein_expression_in_tissue">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_parent_protein_expression_in_tissue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expression_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">ref_expression</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">tissue_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sampling_num</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">10</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'orient': 'v'}</span></em>, <em class="sig-param"><span class="n">def_value</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Normalized Expression'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_parent_protein_expression_in_tissue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the parent protein expression in tissue relative a sampled collection of non-presented data using seaborn library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expression_table</strong> (<em>pd.DataFrame</em>) – The protein expression table which contains the expresion value for each parent protein</p></li>
+<li><p><strong>ref_expression</strong> (<em>pd.DataFrame</em>) – The reference expression of the tissue under investigation.</p></li>
+<li><p><strong>tissue_name</strong> (<em>str</em>) – The name of the tissue .</p></li>
+<li><p><strong>sampling_num</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of times to sample from the non-prsenter. , defaults to 10</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.violinplot function., defaults to {‘orient’:’v’}</p></li>
+<li><p><strong>def_value</strong> (<em>float</em><em>, </em><em>optional</em>) – The default value for proteins that could not be mapped to the expression database , defaults to -1</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the y-axis. , defaults to ‘Normalized Expression’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if the reference gene expression table is smaller than the number of parents</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_peptide_length_dist">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_peptide_length_dist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep_length</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em>, <em class="sig-param"><span class="n">x_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Peptide Length'</span></em>, <em class="sig-param"><span class="n">y_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Frequency'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Peptide Length distribution'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Visualization.vizTools.plot_peptide_length_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize a histogram of the eluted peptide length using seaborn library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pep_length</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – [description]</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the function seaborn::distplot, defaults to {}</p></li>
+<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – the label of the x-axis , defaults to ‘Peptide Length’</p></li>
+<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – the label of the y-axis , defaults to ‘Frequency’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – the title of the figure, defaults to ‘Peptide Length distribution’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_peptide_length_per_experiment">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_peptide_length_per_experiment</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">counts_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">plotting_kwargs</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.pyplot.figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_peptide_length_per_experiment" title="Permalink to this definition">¶</a></dt>
+<dd><p>visualize the peptide length distribution among the experiments defined in the set</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>counts_table</strong> (<em>pd.DataFrame</em>) – a pandas dataframe that contain the length of each peptide defined in the experiment along with     the experiment name</p></li>
+<li><p><strong>plotting_kwargs</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict object containing parameters for the sns.catplot function, defaults to {}</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_protein_coverage">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_protein_coverage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapped_protein</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">col</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'r'</span></em>, <em class="sig-param"><span class="n">prot_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_protein_coverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the peptide coverage for a given protein.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapped_protein</strong> (<em>np.ndarray</em>) – a NumPy array with shape of 1 by protein length or shape protein-length</p></li>
+<li><p><strong>col</strong> (<em>str</em><em>, </em><em>optional</em>) – the color of the coverage respresentation, defaults to ‘r’</p></li>
+<li><p><strong>prot_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The default protein name, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_protein_presentation_3D">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_protein_presentation_3D</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proteins</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">plotting_args</span><span class="o">=</span><span class="default_value">{'color': 'red'}</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_protein_presentation_3D" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot a 3D surface representation for the SAME protein or proteins OF EQAUL LENGTH     in different conditions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>proteins</strong> (<em>[</em><em>type</em><em>]</em>) – a nested dict object containing for each protein a child dict that contain     the mapping array and the color in the figure.</p></li>
+<li><p><strong>plotting_args</strong> (<em>dict</em><em>, </em><em>optional</em>) – a dict that contain further parameter to the plot_surface functions, defaults to {‘color’:’red’}</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – the title of the figure, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if the provided proteins are of different length</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>plt.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_gene_expression_vs_num_peptides">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_gene_expression_vs_num_peptides</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp_count_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">tissue_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">def_value</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Expression value'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Peptides per protein Vs. Protein Expression Level'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_gene_expression_vs_num_peptides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the correlation between the gene expression and the number of peptids per protein using plotly library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>exp_count_table</strong> (<em>pd.DataFrame</em>) – A table that contain the number of peptides and the expresion value for each protein in the database</p></li>
+<li><p><strong>tissue_name</strong> (<em>str</em>) – The name of the tissue</p></li>
+<li><p><strong>def_value</strong> (<em>float</em><em>, </em><em>optional</em>) – The default value for proteins that could not be mapped to the expression database , defaults to -1</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label on the x-axis, defaults to ‘Number of peptides’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label on the y-axis., defaults to ‘Expression value’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the figure, defaults to ‘Peptides per protein Vs. Protein Expression Level’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_multi_traced_coverage_representation">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_multi_traced_coverage_representation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">proteins</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Protein Coverage Across  '</span></em><span class="sig-paren">)</span> &#x2192; plotly.graph_objs._figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_multi_traced_coverage_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot a multi-traced representation for the same protein accross  using plotly library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>proteins</strong> (<em>[</em><em>type</em><em>]</em>) – A dict object containing for each protein the corresponding mapped array.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – the title of the figure, defaults to “Protein Coverage Across  “</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a multitraced traced figure showing the coverage of proteins accross different conditions</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_num_peptide_per_go_term">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_num_peptide_per_go_term</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep2goTerm</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">drop_unknown</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'GO-Term'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides per GO Term'</span></em><span class="sig-paren">)</span> &#x2192; plotly.graph_objs._figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_num_peptide_per_go_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of peptides obtained per Go-Term  using plotly library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pep2goTerm</strong> (<em>pd.DataFrame</em>) – A table that contain the count of peptides from each GO-Term</p></li>
+<li><p><strong>drop_unknown</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to drop peptide with unknown GO-term, defaults to False</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the x-axis, defaults to ‘Number of peptides’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the y-axis, defaults to ‘GO-Term’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – the title of the figure, defaults to ‘Number of peptides per GO Term’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_num_peptides_per_location">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_num_peptides_per_location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep2loc</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">drop_unknown</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Compartment'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides per sub-cellular compartment'</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_num_peptides_per_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of peptides obtained from each compartment using plotly library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pep2loc</strong> (<em>pd.DataFrame</em>) – A table that contain the count of peptides from each  location</p></li>
+<li><p><strong>drop_unknown</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to drop protein with unknown location, defaults to False</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label on the x-axis, defaults to ‘Number of peptides’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label on the y-axis, defaults to ‘Compartment’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – The title of the figure, defaults to ‘Number of peptides per sub-cellular compartment’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_num_peptides_per_organism">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_num_peptides_per_organism</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep_per_org</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">log_scale</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of Peptides'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Organism'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides per organism'</span></em><span class="sig-paren">)</span> &#x2192; plotly.graph_objs._figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_num_peptides_per_organism" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of peptides per each organism inferred from the experiment using plotly library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pep_per_org</strong> (<em>pd.DataFrame</em>) – A table that contain the count of peptides from each organism</p></li>
+<li><p><strong>log_scale</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to scale the number of peptide using a log scale, defaults to False</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label on the x-axis, defaults to ‘Number of Peptides’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label on the y-axis, defaults to ‘Organism’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – the title of the figure , defaults to ‘Number of peptides per organism’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_num_peptides_per_parent">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_num_peptides_per_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">nums_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">num_prot</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">x_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides'</span></em>, <em class="sig-param"><span class="n">y_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Protein ID'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of peptides per protein'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_num_peptides_per_parent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Visualize a histogram of the the number of peptides per each inferred protein.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nums_table</strong> (<em>pd.DataFrame</em>) – a pandas dataframe containing number of peptides identified from each protein.</p></li>
+<li><p><strong>num_prot</strong> – the number of protein to show relative to the first element, for example, the first 10, 20 etc.     If the default value of -1 is used then all protein will be plotted, however, this might lead to a crowded figure., defaults to -1    :type num_prot: int, optional</p></li>
+<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – the label of the x-axis , defaults to ‘Number of peptides’</p></li>
+<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – the label of the y-axis , defaults to ‘Protein ID’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – title, defaults to ‘Number of peptides per protein’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if the num_prot is bigger than the number of elements in the provided table</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_num_protein_per_go_term">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_num_protein_per_go_term</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein2goTerm</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">drop_unknown</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of Proteins'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'GO-Term'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of proteins per GO-Term'</span></em><span class="sig-paren">)</span> &#x2192; plotly.graph_objs._figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_num_protein_per_go_term" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of proteins per each GO Term using plotly library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protein2goTerm</strong> (<em>pd.DataFrame</em>) – A table that contain the count of proteins from each GO-Term</p></li>
+<li><p><strong>drop_unknown</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to drop protein with unknown location, defaults to False</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the x-axis, defaults to ‘Number of Proteins’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the y-axis, defaults to ‘GO-Term’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – the title of the figure, defaults to ‘Number of proteins per GO-Term’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>[description]</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_num_protein_per_location">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_num_protein_per_location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_loc</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">drop_unknown</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of Proteins'</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Compartment'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Number of proteins per sub-cellular compartment'</span></em><span class="sig-paren">)</span> &#x2192; plotly.graph_objs._figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_num_protein_per_location" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the number of proteins per each sub-cellular compartment</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protein_loc</strong> (<em>pd.DataFrame</em>) – A table that contain the count of protein from each location</p></li>
+<li><p><strong>drop_unknown</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to drop protein with unknown location, defaults to False</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the x-axis, defaults to ‘Number of Proteins’</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – the label on the y-axis, defaults to ‘Compartment’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – [description], defaults to ‘Number of proteins per sub-cellular compartment’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_overlap_heatmap">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_overlap_heatmap</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">results_df</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em><span class="sig-paren">)</span> &#x2192; plotly.graph_objs._figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_overlap_heatmap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot a user provided dataframe as a heatmap using plotly library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>results_df</strong> (<em>pd.DataFrame</em>) – A pandas dataframe table that hold the overlapping number.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a plotly Figure containing the heatmap</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_paired_representation">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_paired_representation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_one_repr</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">protein_two_repr</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">' Parired protein representation'</span></em><span class="sig-paren">)</span> &#x2192; plotly.graph_objs._figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_paired_representation" title="Permalink to this definition">¶</a></dt>
+<dd><p>compare the peptide coverage for the same protein under different conditions using the same protein using plotly library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>protein_one_repr</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>]</em>) – a dict object containing the legand of the first condition along with its mapped array</p></li>
+<li><p><strong>protein_two_repr</strong> (<em>Dict</em><em>[</em><em>str</em><em>, </em><em>np.ndarray</em><em>]</em>) – a dict object containing the legand of the second condition along with its mapped array</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A plotly Figure containing the representation</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_parent_protein_expression_in_tissue">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_parent_protein_expression_in_tissue</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">expression_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">ref_expression</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">tissue_name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sampling_num</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">10</span></em>, <em class="sig-param"><span class="n">def_value</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Normalized Expression'</span></em><span class="sig-paren">)</span> &#x2192; plotly.graph_objs._figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_parent_protein_expression_in_tissue" title="Permalink to this definition">¶</a></dt>
+<dd><p>plot the parent protein expression in tissue relative a sampled collection of non-presented genes using plotly library.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>expression_table</strong> (<em>pd.DataFrame</em>) – The protein expression table which contains the expresion value for each parent proteins.</p></li>
+<li><p><strong>ref_expression</strong> (<em>pd.DataFrame</em>) – The reference expression of the tissue under investigation.</p></li>
+<li><p><strong>tissue_name</strong> (<em>str</em>) – The name of the tissue.</p></li>
+<li><p><strong>sampling_num</strong> (<em>int</em><em>, </em><em>optional</em>) – the number of times to sample from the non-prsenter, defaults to 10</p></li>
+<li><p><strong>def_value</strong> (<em>float</em><em>, </em><em>optional</em>) – The default value for proteins that could not be mapped to the expression database, defaults to -1</p></li>
+<li><p><strong>ylabel</strong> (<em>The label on the y-axis</em><em>, </em><em>optional</em>) – [description], defaults to ‘Normalized Expression’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the reference gene expression table is smaller than the number of parents</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_peptide_length_dist">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_peptide_length_dist</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pep_length</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">x_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Peptide Length'</span></em>, <em class="sig-param"><span class="n">y_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Counts'</span></em>, <em class="sig-param"><span class="n">title</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Peptide Length distribution'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_peptide_length_dist" title="Permalink to this definition">¶</a></dt>
+<dd><p>visualize a histogram of the eluted peptide length using plotly library</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pep_length</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – a list of integer containing the peptides’ lengths</p></li>
+<li><p><strong>x_label</strong> (<em>str</em><em>, </em><em>optional</em>) – the label of the x-axis , defaults to ‘Peptide Length’</p></li>
+<li><p><strong>y_label</strong> (<em>str</em><em>, </em><em>optional</em>) – the label of the y-axis, defaults to ‘Counts’</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – the figure title, defaults to ‘Peptide Length distribution’</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plotly_protein_coverage">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plotly_protein_coverage</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapped_protein</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">prot_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; plotly.graph_objs._figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plotly_protein_coverage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot the peptide coverage for a given protein</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mapped_protein</strong> (<em>np.ndarray</em>) – A NumPy array with shape of 1 by protein length or shape protein-length</p></li>
+<li><p><strong>prot_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The default protein name, defaults to None</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.Visualization">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-IPTK.Visualization" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">IPTK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started!</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">IPTK</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="IPTK.html">IPTK package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">IPTK</a><ul>
+  <li><a href="IPTK.html">IPTK package</a><ul>
+      <li>Previous: <a href="IPTK.Utils.html" title="previous chapter">IPTK.Utils package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Hesham ElAbd.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/IPTK.Visualization.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

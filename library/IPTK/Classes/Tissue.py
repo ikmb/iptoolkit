@@ -1,8 +1,5 @@
 #!/usr/bin/env python
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: A representation of the Tissue used in an IP Experiment. 
+"""A representation of the Tissue used in an IP Experiment. 
 """
 # load the modules 
 from __future__ import annotations
@@ -72,7 +69,7 @@ class ExpressionProfile:
 		"""
 		:param gene_name: the gene name to retrive its expression value from the database
 		:type gene_name: str
-		:raises KeyError:if the provided id is not defined in the instance table 
+		:raises KeyError: if the provided id is not defined in the instance table 
 		:return: the expression value of the provided gene name. 
 		:rtype: float
 		"""
@@ -89,7 +86,7 @@ class ExpressionProfile:
 
 	def get_table(self)->pd.DataFrame:
 		"""
-		:return: return a table that contain the expression of all the transcript in the current profile
+		:return: return a table that contain the expression of all the transcript in the current profile \
 		including core and auxiliary proteins
 		:rtype: pd.DataFrame
 		"""

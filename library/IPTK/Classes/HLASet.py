@@ -9,7 +9,7 @@ import numpy as np
 from IPTK.Classes.HLAMolecules import HLAMolecule
 from IPTK.Utils.Types import HLA_Names
 from mhcnames import allele_name
-from typing import inferredd 
+from typing import List 
 # define the class 
 class HLASet: 
     def __init__(self, hlas: HLA_Names, gene_sep: str = ':')-> HLASet:
@@ -74,7 +74,7 @@ class HLASet:
         """
         return self._hlas[list(self._hlas.keys())[0]].get_class()
     
-    def get_alleles(self)-> inferredd[str]:
+    def get_alleles(self)-> List[str]:
         """
         :return: The class of the HLA-alleles in the current instance 
         :rtype: int

@@ -1,8 +1,5 @@
 #!/usr/bin/env python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
-@brief: a representation of an HLA molecules 
+"""a representation of an HLA molecules 
 """
 # load the modules 
 from __future__ import annotations
@@ -43,7 +40,7 @@ class HLAMolecule:
     
     def get_name(self,sep:str = ':')->str:
         """
-        :param sep: the name of the allele by concatenating the names of the individual chains using 
+        :param sep: the name of the allele by concatenating the names of the individual chains using \
         a separator, defaults to ':'
         :type sep: str, optional
         :return: [description]

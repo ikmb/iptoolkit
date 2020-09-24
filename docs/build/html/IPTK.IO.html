@@ -1,0 +1,435 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPTK.IO package &#8212; IPTK 0.3.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="IPTK.Utils package" href="IPTK.Utils.html" />
+    <link rel="prev" title="IPTK.Classes package" href="IPTK.Classes.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="iptk-io-package">
+<h1>IPTK.IO package<a class="headerlink" href="#iptk-io-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-IPTK.IO.InFunctions">
+<span id="iptk-io-infunctions-module"></span><h2>IPTK.IO.InFunctions module<a class="headerlink" href="#module-IPTK.IO.InFunctions" title="Permalink to this headline">¶</a></h2>
+<p>Parse different user inputs into a standard format/tables used by the library.</p>
+<dl class="py function">
+<dt id="IPTK.IO.InFunctions.download_pdb_entry">
+<code class="sig-prename descclassname">IPTK.IO.InFunctions.</code><code class="sig-name descname">download_pdb_entry</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">prot_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.IO.InFunctions.download_pdb_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download the structure of a protein from protein databank form as mmCIF file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>prot_id</strong> (<em>str</em>) – the protein id</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>IOError</strong> – incase downloading and accessing the data failed</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the path to the downloaded file</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.InFunctions.fasta2dict">
+<code class="sig-prename descclassname">IPTK.IO.InFunctions.</code><code class="sig-name descname">fasta2dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2fasta</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">filter_decoy</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">decoy_string</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'DECOY'</span></em><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span><a class="headerlink" href="#IPTK.IO.InFunctions.fasta2dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>loads a fasta file and construct a dict object where ids are keys and sequences are the value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path2fasta</strong> (<em>str</em>) – The path to load the fasta file</p></li>
+<li><p><strong>filter_decoy</strong> (<em>bool</em><em>, </em><em>optional</em>) – A boolean of whether or not to filter the decoy sequences from the database, defaults to True</p></li>
+<li><p><strong>decoy_string</strong> (<em>str</em><em>, </em><em>optional</em>) – The decoy database prefix, only valid incase filter_decoy is set to true, defaults to ‘DECOY’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>IOError</strong> – [description]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict where the protein ids are the keys and the protein sequences are the value</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str,str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.InFunctions.load_identification_table">
+<code class="sig-prename descclassname">IPTK.IO.InFunctions.</code><code class="sig-name descname">load_identification_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_path</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sep</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.IO.InFunctions.load_identification_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>load &amp; process an identification table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_path</strong> (<em>str</em>) – the path two the identification table. with the following columns: peptides which hold the identified
+peptide sequence, protein which hold the identified protein sequence, start_index, and end_index where
+the last two columns define the position of the peptide in the parent protein.</p></li>
+<li><p><strong>sep</strong> (<em>str</em>) – The separator to parse the provided table.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>IOError</strong> – [description]</p></li>
+<li><p><strong>ValueError</strong> – [description]</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>[description]</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.InFunctions.parse_mzTab_to_identification_table">
+<code class="sig-prename descclassname">IPTK.IO.InFunctions.</code><code class="sig-name descname">parse_mzTab_to_identification_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2mzTab</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">path2fastaDB</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">fasta_reader_param</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'decoy_string': 'DECOY', 'filter_decoy': True}</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.IO.InFunctions.parse_mzTab_to_identification_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse a user provided mzTab to an identification table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path2mzTab</strong> (<em>str</em>) – the path to the input mzTab file</p></li>
+<li><p><strong>path2fastaDB</strong> (<em>str</em>) – the path to a fasta sequence database to obtain the protein sequences</p></li>
+<li><p><strong>fasta_reader_param</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict of parameters for controlling the behavior of the fasta reader , defaults to {‘filter_decoy’:True, ‘decoy_string’:’DECOY’ }</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>IOError</strong> – if the mztab file could not be open and loaded or if the fasta database could not be read</p></li>
+<li><p><strong>KeyError</strong> – if a protein id defined in the mzTab file could not be extracted from a matched sequence database</p></li>
+<li><p><strong>ValueError</strong> – if the peptide can not be mapped to the identified protein</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the identification table</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.InFunctions.parse_text_table">
+<code class="sig-prename descclassname">IPTK.IO.InFunctions.</code><code class="sig-name descname">parse_text_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2file</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">path2fastaDB</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sep</span><span class="o">=</span><span class="default_value">','</span></em>, <em class="sig-param"><span class="n">fasta_reader_param</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'decoy_string': 'DECOY', 'filter_decoy': True}</span></em>, <em class="sig-param"><span class="n">seq_column</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Sequence'</span></em>, <em class="sig-param"><span class="n">accession_column</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'Protein Accessions'</span></em>, <em class="sig-param"><span class="n">protein_group_sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">';'</span></em>, <em class="sig-param"><span class="n">remove_protein_version</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">remove_if_not_matched</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.IO.InFunctions.parse_text_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse a user defined table to extract the columns containing the identification table</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path2file</strong> (<em>str</em>) – The path to load the CSV file holding the results</p></li>
+<li><p><strong>path2fastaDB</strong> (<em>str</em>) – The path to a fasta sequence database to obtain the protein sequences</p></li>
+<li><p><strong>sep</strong> (<em>str</em><em>, </em><em>optional</em>) – The table separators, defaults to ‘,’</p></li>
+<li><p><strong>fasta_reader_param</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict of parameters for controlling the behavior of the fasta reader, defaults to {‘filter_decoy’:True, ‘decoy_string’:’DECOY’ }</p></li>
+<li><p><strong>seq_column</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the columns containing the peptide sequence, defaults to ‘Sequence’</p></li>
+<li><p><strong>accession_column</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the column containing the protein accession , defaults to ‘Protein Accessions’</p></li>
+<li><p><strong>protein_group_sep</strong> (<em>str</em><em>, </em><em>optional</em>) – The separator for the protein group,, defaults to ‘;’</p></li>
+<li><p><strong>remove_protein_version</strong> (<em>bool</em><em>, </em><em>optional</em>) – A bool if true strip the version number from the protein , defaults to True</p></li>
+<li><p><strong>remove_if_not_matched</strong> (<em>bool</em><em>, </em><em>optional</em>) – remove the peptide if it could not be matched to the parent protein, defaults to True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>IOError</strong> – Incase either the sequences database or the identification table can not be open and loaded</p></li>
+<li><p><strong>KeyError</strong> – In case the provided column names not in the provided identification table.</p></li>
+<li><p><strong>KeyError</strong> – Incase the protein sequence can not be extract from the sequence database</p></li>
+<li><p><strong>ValueError</strong> – incase the peptide could not be located in the protein sequence</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>an identification table</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.InFunctions.parse_xml_based_format_to_identification_table">
+<code class="sig-prename descclassname">IPTK.IO.InFunctions.</code><code class="sig-name descname">parse_xml_based_format_to_identification_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2XML_file</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">path2fastaDB</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">decoy_prefix</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'DECOY'</span></em>, <em class="sig-param"><span class="n">is_idXML</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">fasta_reader_param</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'decoy_string': 'DECOY', 'filter_decoy': True}</span></em>, <em class="sig-param"><span class="n">remove_if_not_matched</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.IO.InFunctions.parse_xml_based_format_to_identification_table" title="Permalink to this definition">¶</a></dt>
+<dd><p>parse either a pepXML or an idXML file to generate an identification table ,</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path2XML_file</strong> (<em>str</em>) – The path to the input pepXML files</p></li>
+<li><p><strong>path2fastaDB</strong> (<em>str</em>) – The path to a fasta sequence database to obtain the protein sequences</p></li>
+<li><p><strong>decoy_prefix</strong> (<em>str</em><em>, </em><em>optional</em>) – the prefix of the decoy sequences, default is DECOY, defaults to ‘DECOY’</p></li>
+<li><p><strong>is_idXML</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not the provided file is an idXML, default is false which assume the provided file is a pepXML file, defaults to False</p></li>
+<li><p><strong>fasta_reader_param</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – a dict of parameters for controlling the behavior of the fasta reader , defaults to {‘filter_decoy’:True, ‘decoy_string’:’DECOY’ }</p></li>
+<li><p><strong>remove_if_not_matched</strong> (<em>bool</em><em>, </em><em>optional</em>) – remove the peptide if it could not be matched to the parent protein,, defaults to True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>IOError</strong> – if the fasta database could not be open</p></li>
+<li><p><strong>ValueError</strong> – if the XML file can not be open</p></li>
+<li><p><strong>KeyError</strong> – if a protein id defined in the mzTab file could not be extracted from a matched sequence database</p></li>
+<li><p><strong>ValueError</strong> – if the peptide can not be mapped to the identified protein</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the identification table</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>pd.DataFrame</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.IO.MEMEInterface">
+<span id="iptk-io-memeinterface-module"></span><h2>IPTK.IO.MEMEInterface module<a class="headerlink" href="#module-IPTK.IO.MEMEInterface" title="Permalink to this headline">¶</a></h2>
+<p>The module contains functions to to call meme software via a system call.</p>
+<dl class="py function">
+<dt id="IPTK.IO.MEMEInterface.call_meme">
+<code class="sig-prename descclassname">IPTK.IO.MEMEInterface.</code><code class="sig-name descname">call_meme</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">input_fasta_file</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output_dir</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">objfunc</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'classic'</span></em>, <em class="sig-param"><span class="n">test</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'mhg'</span></em>, <em class="sig-param"><span class="n">use_llr</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">shuf</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">2</span></em>, <em class="sig-param"><span class="n">hsfrac</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">cefrac</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.25</span></em>, <em class="sig-param"><span class="n">searchsize</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">maxsize</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">norand</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">csites</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">seed</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">mod</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'oops'</span></em>, <em class="sig-param"><span class="n">nmotifs</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">evt</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">- 1.0</span></em>, <em class="sig-param"><span class="n">time</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">nsite</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">minsites</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">maxsite</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">nsites</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">w</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">minw</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">maxw</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">nomatrim</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">wg</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">ws</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">noendgaps</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">maxiter</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">prior</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'dirichlet'</span></em>, <em class="sig-param"><span class="n">b</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em>, <em class="sig-param"><span class="n">p</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">- 1</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.IO.MEMEInterface.call_meme" title="Permalink to this definition">¶</a></dt>
+<dd><p>warper for making a system call to meme software for sequence motif finding         for the reset of the function parameters use the function             <strong>get_meme_help</strong> defined in the module IO, submodule MEMEInterface. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_fasta_file</strong> (<em>str</em>) – The path to input FASTA files.</p></li>
+<li><p><strong>output_dir</strong> (<em>str</em>) – the output dir to write the results, <strong>IT WILL OVERWRITE EXISTING DIRECTORY</strong></p></li>
+<li><p><strong>verbose</strong> (<em>bool</em>) – whether or not to print the output of calling meme to the screen, default is True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.MEMEInterface.get_meme_help">
+<code class="sig-prename descclassname">IPTK.IO.MEMEInterface.</code><code class="sig-name descname">get_meme_help</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.IO.MEMEInterface.get_meme_help" title="Permalink to this definition">¶</a></dt>
+<dd><p>print the command line help interface for the meme tool</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p><strong>FileNotFoundError</strong> – if meme is not callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.MEMEInterface.is_meme_callable">
+<code class="sig-prename descclassname">IPTK.IO.MEMEInterface.</code><code class="sig-name descname">is_meme_callable</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.IO.MEMEInterface.is_meme_callable" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if meme is callable, False otherwise.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.IO.OutFunctions">
+<span id="iptk-io-outfunctions-module"></span><h2>IPTK.IO.OutFunctions module<a class="headerlink" href="#module-IPTK.IO.OutFunctions" title="Permalink to this headline">¶</a></h2>
+<p>Write the results generated by the library into a wide variety of formats.</p>
+<dl class="py function">
+<dt id="IPTK.IO.OutFunctions.write_annotated_sequences">
+<code class="sig-prename descclassname">IPTK.IO.OutFunctions.</code><code class="sig-name descname">write_annotated_sequences</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptides</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">labels</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">path2write</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">shuffle</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.IO.OutFunctions.write_annotated_sequences" title="Permalink to this definition">¶</a></dt>
+<dd><p>take a list of peptides along with it sequences and write the results to a CSV file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peptides</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – a list of peptide sequences</p></li>
+<li><p><strong>labels</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – a list of numerical labels associated with the peptides</p></li>
+<li><p><strong>path2write</strong> (<em>str</em>) – the path to write the generated file</p></li>
+<li><p><strong>sep</strong> (<em>str</em><em>, </em><em>optional</em>) – The separator in the resulting table,  defaults to ‘,’</p></li>
+<li><p><strong>shuffle</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether or not to shuffle the table , defaults to True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – incase the length of the tables and labels is not matching</p></li>
+<li><p><strong>IOError</strong> – In case writing the output table failed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.OutFunctions.write_auto_named_peptide_to_fasta">
+<code class="sig-prename descclassname">IPTK.IO.OutFunctions.</code><code class="sig-name descname">write_auto_named_peptide_to_fasta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptides</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">output_file</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.IO.OutFunctions.write_auto_named_peptide_to_fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a list of peptides, generate automatic names for the peptides and write the results to the disk as FASTA files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peptides</strong> (<em>Peptides</em>) – a list of peptide sequences</p></li>
+<li><p><strong>output_file</strong> (<em>str</em>) – the name of the output file to write the results to, it will OVERWRITE existing files</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.OutFunctions.write_mapped_tensor_to_h5py">
+<code class="sig-prename descclassname">IPTK.IO.OutFunctions.</code><code class="sig-name descname">write_mapped_tensor_to_h5py</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">tensor</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">path2write</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">dataSet_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'MAPPED_TENSOR'</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.IO.OutFunctions.write_mapped_tensor_to_h5py" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write a mapped tensor to an hdf5 file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor</strong> (<em>np.ndarray</em>) – The provided tensor to  write it to the hdf5 file.</p></li>
+<li><p><strong>path2write</strong> (<em>str</em>) – The path of the output file</p></li>
+<li><p><strong>dataSet_name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the dataset inside the mapped tensor, defaults to ‘MAPPED_TENSOR’</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>IOError</strong> – In case opening the file for writing failed</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.OutFunctions.write_named_peptides_to_fasta">
+<code class="sig-prename descclassname">IPTK.IO.OutFunctions.</code><code class="sig-name descname">write_named_peptides_to_fasta</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">names</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">peptides</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">output_file</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.IO.OutFunctions.write_named_peptides_to_fasta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a list of names and peptide sequences and writes them as an output file to the disk as fasta files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>names</strong> (<em>Names</em>) – A list of sequences names</p></li>
+<li><p><strong>peptides</strong> (<em>Peptides</em>) – A list of peptide sequences</p></li>
+<li><p><strong>output_file</strong> (<em>str</em>) – The name of the output file to write the results to, it will OVERWRITE existing files</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> – Incase the length of the tables and labels is not matching</p></li>
+<li><p><strong>IOError</strong> – In case writing the output file failed</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.IO.OutFunctions.write_pep_file">
+<code class="sig-prename descclassname">IPTK.IO.OutFunctions.</code><code class="sig-name descname">write_pep_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptides</span><span class="p">:</span> <span class="n">List<span class="p">[</span><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">output_file</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.IO.OutFunctions.write_pep_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a file and write the peptides to .pep file which is a text file that contain one peptide per line</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>peptides</strong> (<em>Peptides</em>) – a list of peptide sequences</p></li>
+<li><p><strong>output_file</strong> (<em>str</em>) – the name of the output file to write the results to, it will OVERWRITE existing files</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>IOError</strong> – In case writing the output file failed</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-IPTK.IO">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-IPTK.IO" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">IPTK</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html#contact">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="get_started.html">Get Started!</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">IPTK</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="IPTK.html">IPTK package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">IPTK</a><ul>
+  <li><a href="IPTK.html">IPTK package</a><ul>
+      <li>Previous: <a href="IPTK.Classes.html" title="previous chapter">IPTK.Classes package</a></li>
+      <li>Next: <a href="IPTK.Utils.html" title="next chapter">IPTK.Utils package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2020, Hesham ElAbd.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/IPTK.IO.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
