@@ -1,7 +1,5 @@
 #!/usr/bin/env Python 
-"""
-@author: Hesham ElAbd
-@contact: h.elabd@ikmb.uni-kiel.de
+""" An abstraction for a collection of HLA alleles
 """
 # load the modules 
 from __future__ import annotations

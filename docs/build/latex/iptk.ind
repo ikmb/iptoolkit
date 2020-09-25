@@ -1,0 +1,536 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+\let\spxpagem \sphinxstyleindexpagemain
+\let\spxentry \sphinxstyleindexentry
+\let\spxextra \sphinxstyleindexextra
+
+  \bigletter A
+  \item \spxentry{add\_experiment()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{20}
+  \item \spxentry{add\_org\_2\_parent()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{25}
+  \item \spxentry{add\_org\_info()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{14}
+  \item \spxentry{add\_parent\_protein()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{25}
+  \item \spxentry{add\_to\_database()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}, 
+		\hyperpage{10}
+  \item \spxentry{annotate\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{15}
+  \item \spxentry{append\_to\_calling\_string()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{37}
+
+  \indexspace
+  \bigletter B
+  \item \spxentry{build\_sequence\_table()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{37}
+
+  \indexspace
+  \bigletter C
+  \item \spxentry{call\_meme()}\spxextra{in module IPTK.IO.MEMEInterface}, \hyperpage{33}
+  \item \spxentry{CellularLocationDB}\spxextra{class in IPTK.Classes.Database}, \hyperpage{10}
+  \item \spxentry{check\_peptide\_made\_of\_std\_20\_aa()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{38}
+  \item \spxentry{compare\_org\_count\_among\_exps()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{20}
+  \item \spxentry{compare\_peptide\_counts()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{20}
+  \item \spxentry{compute\_average\_distance\_between\_exps()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{20}
+  \item \spxentry{compute\_binary\_distance()}\spxextra{in module IPTK.Analysis.AnalysisFunction}, 
+		\hyperpage{8}
+  \item \spxentry{compute\_change\_in\_protein\_representation()}\spxextra{in module IPTK.Analysis.AnalysisFunction}, 
+		\hyperpage{8}
+  \item \spxentry{compute\_change\_in\_protein\_representation()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{20}
+  \item \spxentry{compute\_correlation\_in\_experssion()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{20}
+  \item \spxentry{compute\_difference\_in\_representation()}\spxextra{in module IPTK.Analysis.AnalysisFunction}, 
+		\hyperpage{8}
+  \item \spxentry{compute\_expression\_correlation()}\spxextra{in module IPTK.Analysis.AnalysisFunction}, 
+		\hyperpage{9}
+  \item \spxentry{compute\_peptide\_length\_table()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+  \item \spxentry{compute\_peptide\_overlap\_matrix()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+  \item \spxentry{compute\_peptide\_representation\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+  \item \spxentry{compute\_protein\_coverage\_over\_the\_set()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+  \item \spxentry{compute\_protein\_overlap\_matrix()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+  \item \spxentry{compute\_protein\_representation\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+
+  \indexspace
+  \bigletter D
+  \item \spxentry{download\_pdb\_entry()}\spxextra{in module IPTK.IO.InFunctions}, \hyperpage{30}
+  \item \spxentry{download\_structure\_file()}\spxextra{in module IPTK.Analysis.AnalysisFunction}, 
+		\hyperpage{9}
+  \item \spxentry{drop\_peptide\_belong\_to\_org()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{15}
+  \item \spxentry{drop\_peptides\_belong\_to\_org()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+
+  \indexspace
+  \bigletter E
+  \item \spxentry{Experiment}\spxextra{class in IPTK.Classes.Experiment}, \hyperpage{14}
+  \item \spxentry{ExperimentSet}\spxextra{class in IPTK.Classes.ExperimentalSet}, \hyperpage{20}
+  \item \spxentry{ExpressionProfile}\spxextra{class in IPTK.Classes.Tissue}, \hyperpage{28}
+
+  \indexspace
+  \bigletter F
+  \item \spxentry{fasta2dict()}\spxextra{in module IPTK.IO.InFunctions}, \hyperpage{30}
+
+  \indexspace
+  \bigletter G
+  \item \spxentry{GeneExpressionDB}\spxextra{class in IPTK.Classes.Database}, \hyperpage{12}
+  \item \spxentry{generate\_color\_scale()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{38}
+  \item \spxentry{generate\_random\_name()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{38}
+  \item \spxentry{generate\_random\_peptide\_seq()}\spxextra{in module IPTK.Utils.DevFunctions}, 
+		\hyperpage{35}
+  \item \spxentry{generate\_random\_protein\_mapping()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{38}
+  \item \spxentry{get\_allele\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+  \item \spxentry{get\_allele\_group()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}, 
+		\hyperpage{23}
+  \item \spxentry{get\_allele\_group()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}, 
+		\hyperpage{24}
+  \item \spxentry{get\_alleles()}\spxextra{IPTK.Classes.HLASet.HLASet method}, \hyperpage{24}
+  \item \spxentry{get\_approved\_location()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}, 
+		\hyperpage{11}
+  \item \spxentry{get\_binarized\_results()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{15}
+  \item \spxentry{get\_binnary\_peptide\_overlap()}\spxextra{in module IPTK.Analysis.AnalysisFunction}, 
+		\hyperpage{9}
+  \item \spxentry{get\_binnary\_protein\_overlap()}\spxextra{in module IPTK.Analysis.AnalysisFunction}, 
+		\hyperpage{10}
+  \item \spxentry{get\_c\_terminal\_flank\_seq()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{25}
+  \item \spxentry{get\_c\_terminal\_flanked\_seqs()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{15}
+  \item \spxentry{get\_chain\_class()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}, 
+		\hyperpage{23}
+  \item \spxentry{get\_class()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}, \hyperpage{23}
+  \item \spxentry{get\_class()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}, 
+		\hyperpage{24}
+  \item \spxentry{get\_class()}\spxextra{IPTK.Classes.HLASet.HLASet method}, \hyperpage{24}
+  \item \spxentry{get\_experiment()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+  \item \spxentry{get\_experiment\_reference\_tissue\_expression()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{15}
+  \item \spxentry{get\_experimental\_names()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+  \item \spxentry{get\_experiments()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{21}
+  \item \spxentry{get\_expression()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}, 
+		\hyperpage{12}
+  \item \spxentry{get\_expression\_in\_tissue()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}, 
+		\hyperpage{13}
+  \item \spxentry{get\_expression\_of\_parent\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{15}
+  \item \spxentry{get\_expression\_profile()}\spxextra{IPTK.Classes.Tissue.Tissue method}, 
+		\hyperpage{29}
+  \item \spxentry{get\_flanked\_peptide()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{25}
+  \item \spxentry{get\_flanked\_peptides()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{15}
+  \item \spxentry{get\_gene()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}, \hyperpage{23}
+  \item \spxentry{get\_gene()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}, 
+		\hyperpage{24}
+  \item \spxentry{get\_gene\_id\_expression()}\spxextra{IPTK.Classes.Tissue.ExpressionProfile method}, 
+		\hyperpage{28}
+  \item \spxentry{get\_gene\_name\_expression()}\spxextra{IPTK.Classes.Tissue.ExpressionProfile method}, 
+		\hyperpage{29}
+  \item \spxentry{get\_gene\_names()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}, 
+		\hyperpage{11}
+  \item \spxentry{get\_gene\_names()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}, 
+		\hyperpage{13}
+  \item \spxentry{get\_genes()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}, 
+		\hyperpage{11}
+  \item \spxentry{get\_genes()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}, 
+		\hyperpage{13}
+  \item \spxentry{get\_go\_location\_id\_parent\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{16}
+  \item \spxentry{get\_go\_names()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}, 
+		\hyperpage{11}
+  \item \spxentry{get\_hla\_allele()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{16}
+  \item \spxentry{get\_hla\_class()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{16}
+  \item \spxentry{get\_hla\_count()}\spxextra{IPTK.Classes.HLASet.HLASet method}, \hyperpage{24}
+  \item \spxentry{get\_id()}\spxextra{IPTK.Classes.Protein.Protein method}, \hyperpage{27}
+  \item \spxentry{get\_idx\_peptide\_in\_sequence\_table()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{38}
+  \item \spxentry{get\_length()}\spxextra{IPTK.Classes.Peptide.Peptide method}, \hyperpage{26}
+  \item \spxentry{get\_main\_location()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}, 
+		\hyperpage{12}
+  \item \spxentry{get\_main\_sub\_cellular\_location\_of\_parent\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{16}
+  \item \spxentry{get\_mapped\_protein()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{16}
+  \item \spxentry{get\_mapped\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{16}
+  \item \spxentry{get\_meme\_help()}\spxextra{in module IPTK.IO.MEMEInterface}, \hyperpage{33}
+  \item \spxentry{get\_meta\_data()}\spxextra{IPTK.Classes.Proband.Proband method}, \hyperpage{27}
+  \item \spxentry{get\_mono\_parent\_peptides()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{16}
+  \item \spxentry{get\_n\_terminal\_flank\_seq()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{26}
+  \item \spxentry{get\_n\_terminal\_flanked\_seqs()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{17}
+  \item \spxentry{get\_name()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}, \hyperpage{23}
+  \item \spxentry{get\_name()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}, 
+		\hyperpage{24}
+  \item \spxentry{get\_name()}\spxextra{IPTK.Classes.Proband.Proband method}, \hyperpage{27}
+  \item \spxentry{get\_name()}\spxextra{IPTK.Classes.Tissue.ExpressionProfile method}, 
+		\hyperpage{29}
+  \item \spxentry{get\_name()}\spxextra{IPTK.Classes.Tissue.Tissue method}, \hyperpage{29}
+  \item \spxentry{get\_negative\_example()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{17}
+  \item \spxentry{get\_non\_presented\_peptide()}\spxextra{IPTK.Classes.Protein.Protein method}, 
+		\hyperpage{27}
+  \item \spxentry{get\_non\_presented\_peptides()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{26}
+  \item \spxentry{get\_num\_experiments\_in\_the\_set()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{get\_num\_peptide\_expression\_table()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{17}
+  \item \spxentry{get\_num\_peptide\_per\_go\_term()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{17}
+  \item \spxentry{get\_num\_peptide\_per\_location()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{17}
+  \item \spxentry{get\_number\_of\_children()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{17}
+  \item \spxentry{get\_number\_of\_parents()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{26}
+  \item \spxentry{get\_number\_of\_proteins\_per\_compartment()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{17}
+  \item \spxentry{get\_number\_of\_proteins\_per\_go\_term()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{17}
+  \item \spxentry{get\_number\_parent\_protein()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{26}
+  \item \spxentry{get\_number\_protein\_per\_organism()}\spxextra{IPTK.Classes.Database.OrganismDB method}, 
+		\hyperpage{13}
+  \item \spxentry{get\_org()}\spxextra{IPTK.Classes.Database.OrganismDB method}, \hyperpage{14}
+  \item \spxentry{get\_org()}\spxextra{IPTK.Classes.Protein.Protein method}, \hyperpage{28}
+  \item \spxentry{get\_orgs()}\spxextra{IPTK.Classes.Experiment.Experiment method}, \hyperpage{18}
+  \item \spxentry{get\_parent()}\spxextra{IPTK.Classes.Peptide.Peptide method}, \hyperpage{26}
+  \item \spxentry{get\_parent\_proteins()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{26}
+  \item \spxentry{get\_parents\_org()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{26}
+  \item \spxentry{get\_peptide()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{18}
+  \item \spxentry{get\_peptide\_number\_parent()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{18}
+  \item \spxentry{get\_peptide\_seq()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{26}
+  \item \spxentry{get\_peptides()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{18}
+  \item \spxentry{get\_peptides\_length()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{18}
+  \item \spxentry{get\_peptides\_map()}\spxextra{IPTK.Classes.Protein.Protein method}, 
+		\hyperpage{28}
+  \item \spxentry{get\_peptides\_per\_organism()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{18}
+  \item \spxentry{get\_peptides\_per\_protein()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{18}
+  \item \spxentry{get\_peptides\_present\_in\_all()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{get\_poly\_parental\_peptides()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{18}
+  \item \spxentry{get\_pos\_in\_parent()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{26}
+  \item \spxentry{get\_proband\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{get\_proband\_name()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{18}
+  \item \spxentry{get\_protein\_group()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}, 
+		\hyperpage{23}
+  \item \spxentry{get\_protein\_group()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}, 
+		\hyperpage{24}
+  \item \spxentry{get\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{19}
+  \item \spxentry{get\_proteins\_present\_in\_all()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{get\_seq()}\spxextra{IPTK.Classes.Database.SeqDB method}, \hyperpage{14}
+  \item \spxentry{get\_seq()}\spxextra{IPTK.Classes.Protein.Protein method}, \hyperpage{28}
+  \item \spxentry{get\_sequence\_motif()}\spxextra{in module IPTK.Analysis.AnalysisFunction}, 
+		\hyperpage{10}
+  \item \spxentry{get\_subCellular\_locations()}\spxextra{IPTK.Classes.Tissue.Tissue method}, 
+		\hyperpage{29}
+  \item \spxentry{get\_table()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}, 
+		\hyperpage{12}
+  \item \spxentry{get\_table()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}, 
+		\hyperpage{13}
+  \item \spxentry{get\_table()}\spxextra{IPTK.Classes.Tissue.ExpressionProfile method}, 
+		\hyperpage{29}
+  \item \spxentry{get\_tissue()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{19}
+  \item \spxentry{get\_tissue\_counts()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{get\_tissue\_name()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{19}
+  \item \spxentry{get\_tissues()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}, 
+		\hyperpage{13}
+  \item \spxentry{get\_total\_peptide\_per\_org\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{get\_unique\_orgs()}\spxextra{IPTK.Classes.Database.OrganismDB method}, 
+		\hyperpage{14}
+  \item \spxentry{get\_unique\_orgs()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{get\_unique\_peptides()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{get\_unique\_proteins()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{group\_by\_proband()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+  \item \spxentry{group\_by\_tissue()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{22}
+
+  \indexspace
+  \bigletter H
+  \item \spxentry{has\_allele()}\spxextra{IPTK.Classes.HLASet.HLASet method}, \hyperpage{24}
+  \item \spxentry{has\_allele\_group()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{19}
+  \item \spxentry{has\_allele\_group()}\spxextra{IPTK.Classes.HLASet.HLASet method}, \hyperpage{25}
+  \item \spxentry{has\_gene()}\spxextra{IPTK.Classes.Experiment.Experiment method}, \hyperpage{19}
+  \item \spxentry{has\_gene()}\spxextra{IPTK.Classes.HLASet.HLASet method}, \hyperpage{25}
+  \item \spxentry{has\_hla\_allele()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{19}
+  \item \spxentry{has\_protein\_group()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{19}
+  \item \spxentry{has\_protein\_group()}\spxextra{IPTK.Classes.HLASet.HLASet method}, 
+		\hyperpage{25}
+  \item \spxentry{has\_sequence()}\spxextra{IPTK.Classes.Database.SeqDB method}, \hyperpage{14}
+  \item \spxentry{HLAChain}\spxextra{class in IPTK.Classes.HLAChain}, \hyperpage{23}
+  \item \spxentry{HLAMolecule}\spxextra{class in IPTK.Classes.HLAMolecules}, \hyperpage{24}
+  \item \spxentry{HLASet}\spxextra{class in IPTK.Classes.HLASet}, \hyperpage{24}
+
+  \indexspace
+  \bigletter I
+  \item \spxentry{imposed\_coverage\_on\_3D\_structure()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{40}
+  \item \spxentry{IPTK}
+    \subitem \spxentry{module}, \hyperpage{56}
+  \item \spxentry{IPTK.Analysis}
+    \subitem \spxentry{module}, \hyperpage{10}
+  \item \spxentry{IPTK.Analysis.AnalysisFunction}
+    \subitem \spxentry{module}, \hyperpage{8}
+  \item \spxentry{IPTK.Classes}
+    \subitem \spxentry{module}, \hyperpage{30}
+  \item \spxentry{IPTK.Classes.Database}
+    \subitem \spxentry{module}, \hyperpage{10}
+  \item \spxentry{IPTK.Classes.Experiment}
+    \subitem \spxentry{module}, \hyperpage{14}
+  \item \spxentry{IPTK.Classes.ExperimentalSet}
+    \subitem \spxentry{module}, \hyperpage{20}
+  \item \spxentry{IPTK.Classes.HLAChain}
+    \subitem \spxentry{module}, \hyperpage{23}
+  \item \spxentry{IPTK.Classes.HLAMolecules}
+    \subitem \spxentry{module}, \hyperpage{24}
+  \item \spxentry{IPTK.Classes.HLASet}
+    \subitem \spxentry{module}, \hyperpage{24}
+  \item \spxentry{IPTK.Classes.Peptide}
+    \subitem \spxentry{module}, \hyperpage{25}
+  \item \spxentry{IPTK.Classes.Proband}
+    \subitem \spxentry{module}, \hyperpage{27}
+  \item \spxentry{IPTK.Classes.Protein}
+    \subitem \spxentry{module}, \hyperpage{27}
+  \item \spxentry{IPTK.Classes.Tissue}
+    \subitem \spxentry{module}, \hyperpage{28}
+  \item \spxentry{IPTK.IO}
+    \subitem \spxentry{module}, \hyperpage{35}
+  \item \spxentry{IPTK.IO.InFunctions}
+    \subitem \spxentry{module}, \hyperpage{30}
+  \item \spxentry{IPTK.IO.MEMEInterface}
+    \subitem \spxentry{module}, \hyperpage{33}
+  \item \spxentry{IPTK.IO.OutFunctions}
+    \subitem \spxentry{module}, \hyperpage{34}
+  \item \spxentry{IPTK.Utils}
+    \subitem \spxentry{module}, \hyperpage{40}
+  \item \spxentry{IPTK.Utils.DevFunctions}
+    \subitem \spxentry{module}, \hyperpage{35}
+  \item \spxentry{IPTK.Utils.Mapping}
+    \subitem \spxentry{module}, \hyperpage{37}
+  \item \spxentry{IPTK.Utils.Types}
+    \subitem \spxentry{module}, \hyperpage{37}
+  \item \spxentry{IPTK.Utils.UtilityFunction}
+    \subitem \spxentry{module}, \hyperpage{37}
+  \item \spxentry{IPTK.Visualization}
+    \subitem \spxentry{module}, \hyperpage{56}
+  \item \spxentry{IPTK.Visualization.vizTools}
+    \subitem \spxentry{module}, \hyperpage{40}
+  \item \spxentry{is\_a\_parent\_protein()}\spxextra{IPTK.Classes.Experiment.Experiment method}, 
+		\hyperpage{19}
+  \item \spxentry{is\_child\_of()}\spxextra{IPTK.Classes.Peptide.Peptide method}, \hyperpage{27}
+  \item \spxentry{is\_member()}\spxextra{IPTK.Classes.Experiment.Experiment method}, \hyperpage{20}
+  \item \spxentry{is\_meme\_callable()}\spxextra{in module IPTK.IO.MEMEInterface}, \hyperpage{33}
+  \item \spxentry{is\_peptide\_present\_in\_all()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{23}
+  \item \spxentry{is\_protein\_present\_in\_all()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}, 
+		\hyperpage{23}
+
+  \indexspace
+  \bigletter L
+  \item \spxentry{load\_3d\_figure()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{39}
+  \item \spxentry{load\_identification\_table()}\spxextra{in module IPTK.IO.InFunctions}, 
+		\hyperpage{30}
+
+  \indexspace
+  \bigletter M
+  \item \spxentry{map\_from\_uniprot\_gene()}\spxextra{in module IPTK.Utils.Mapping}, 
+		\hyperpage{37}
+  \item \spxentry{map\_from\_uniprot\_pdb()}\spxextra{in module IPTK.Utils.Mapping}, \hyperpage{37}
+  \item \spxentry{map\_to\_parent\_protein()}\spxextra{IPTK.Classes.Peptide.Peptide method}, 
+		\hyperpage{27}
+  \item \spxentry{module}
+    \subitem \spxentry{IPTK}, \hyperpage{56}
+    \subitem \spxentry{IPTK.Analysis}, \hyperpage{10}
+    \subitem \spxentry{IPTK.Analysis.AnalysisFunction}, \hyperpage{8}
+    \subitem \spxentry{IPTK.Classes}, \hyperpage{30}
+    \subitem \spxentry{IPTK.Classes.Database}, \hyperpage{10}
+    \subitem \spxentry{IPTK.Classes.Experiment}, \hyperpage{14}
+    \subitem \spxentry{IPTK.Classes.ExperimentalSet}, \hyperpage{20}
+    \subitem \spxentry{IPTK.Classes.HLAChain}, \hyperpage{23}
+    \subitem \spxentry{IPTK.Classes.HLAMolecules}, \hyperpage{24}
+    \subitem \spxentry{IPTK.Classes.HLASet}, \hyperpage{24}
+    \subitem \spxentry{IPTK.Classes.Peptide}, \hyperpage{25}
+    \subitem \spxentry{IPTK.Classes.Proband}, \hyperpage{27}
+    \subitem \spxentry{IPTK.Classes.Protein}, \hyperpage{27}
+    \subitem \spxentry{IPTK.Classes.Tissue}, \hyperpage{28}
+    \subitem \spxentry{IPTK.IO}, \hyperpage{35}
+    \subitem \spxentry{IPTK.IO.InFunctions}, \hyperpage{30}
+    \subitem \spxentry{IPTK.IO.MEMEInterface}, \hyperpage{33}
+    \subitem \spxentry{IPTK.IO.OutFunctions}, \hyperpage{34}
+    \subitem \spxentry{IPTK.Utils}, \hyperpage{40}
+    \subitem \spxentry{IPTK.Utils.DevFunctions}, \hyperpage{35}
+    \subitem \spxentry{IPTK.Utils.Mapping}, \hyperpage{37}
+    \subitem \spxentry{IPTK.Utils.Types}, \hyperpage{37}
+    \subitem \spxentry{IPTK.Utils.UtilityFunction}, \hyperpage{37}
+    \subitem \spxentry{IPTK.Visualization}, \hyperpage{56}
+    \subitem \spxentry{IPTK.Visualization.vizTools}, \hyperpage{40}
+
+  \indexspace
+  \bigletter O
+  \item \spxentry{OrganismDB}\spxextra{class in IPTK.Classes.Database}, \hyperpage{13}
+
+  \indexspace
+  \bigletter P
+  \item \spxentry{pad\_mapped\_proteins()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{39}
+  \item \spxentry{parse\_mzTab\_to\_identification\_table()}\spxextra{in module IPTK.IO.InFunctions}, 
+		\hyperpage{30}
+  \item \spxentry{parse\_text\_table()}\spxextra{in module IPTK.IO.InFunctions}, \hyperpage{31}
+  \item \spxentry{parse\_xml\_based\_format\_to\_identification\_table()}\spxextra{in module IPTK.IO.InFunctions}, 
+		\hyperpage{32}
+  \item \spxentry{Peptide}\spxextra{class in IPTK.Classes.Peptide}, \hyperpage{25}
+  \item \spxentry{plot\_change\_in\_presentation\_between\_experiment()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{40}
+  \item \spxentry{plot\_experiment\_set\_counts()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{42}
+  \item \spxentry{plot\_gene\_expression\_vs\_num\_peptides()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{42}
+  \item \spxentry{plot\_motif()}\spxextra{in module IPTK.Visualization.vizTools}, \hyperpage{43}
+  \item \spxentry{plot\_num\_peptide\_per\_go\_term()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{43}
+  \item \spxentry{plot\_num\_peptides\_per\_location()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{43}
+  \item \spxentry{plot\_num\_peptides\_per\_organism()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{44}
+  \item \spxentry{plot\_num\_peptides\_per\_parent()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{45}
+  \item \spxentry{plot\_num\_protein\_per\_go\_term()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{45}
+  \item \spxentry{plot\_num\_protein\_per\_location()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{46}
+  \item \spxentry{plot\_overlap\_heatmap()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{46}
+  \item \spxentry{plot\_overlay\_representation()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{46}
+  \item \spxentry{plot\_paired\_represention()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{47}
+  \item \spxentry{plot\_parent\_protein\_expression\_in\_tissue()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{47}
+  \item \spxentry{plot\_peptide\_length\_dist()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{48}
+  \item \spxentry{plot\_peptide\_length\_per\_experiment()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{49}
+  \item \spxentry{plot\_protein\_coverage()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{49}
+  \item \spxentry{plot\_protein\_presentation\_3D()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{49}
+  \item \spxentry{plotly\_gene\_expression\_vs\_num\_peptides()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{50}
+  \item \spxentry{plotly\_multi\_traced\_coverage\_representation()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{50}
+  \item \spxentry{plotly\_num\_peptide\_per\_go\_term()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{51}
+  \item \spxentry{plotly\_num\_peptides\_per\_location()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{51}
+  \item \spxentry{plotly\_num\_peptides\_per\_organism()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{52}
+  \item \spxentry{plotly\_num\_peptides\_per\_parent()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{52}
+  \item \spxentry{plotly\_num\_protein\_per\_go\_term()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{53}
+  \item \spxentry{plotly\_num\_protein\_per\_location()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{53}
+  \item \spxentry{plotly\_overlap\_heatmap()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{54}
+  \item \spxentry{plotly\_paired\_representation()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{54}
+  \item \spxentry{plotly\_parent\_protein\_expression\_in\_tissue()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{54}
+  \item \spxentry{plotly\_peptide\_length\_dist()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{55}
+  \item \spxentry{plotly\_protein\_coverage()}\spxextra{in module IPTK.Visualization.vizTools}, 
+		\hyperpage{56}
+  \item \spxentry{Proband}\spxextra{class in IPTK.Classes.Proband}, \hyperpage{27}
+  \item \spxentry{Protein}\spxextra{class in IPTK.Classes.Protein}, \hyperpage{27}
+
+  \indexspace
+  \bigletter S
+  \item \spxentry{save\_3d\_figure()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{39}
+  \item \spxentry{SeqDB}\spxextra{class in IPTK.Classes.Database}, \hyperpage{14}
+  \item \spxentry{set\_org()}\spxextra{IPTK.Classes.Protein.Protein method}, \hyperpage{28}
+  \item \spxentry{simulate\_an\_experimental\_ident\_table\_from\_fasta()}\spxextra{in module IPTK.Utils.DevFunctions}, 
+		\hyperpage{35}
+  \item \spxentry{simulate\_an\_expression\_table()}\spxextra{in module IPTK.Utils.DevFunctions}, 
+		\hyperpage{36}
+  \item \spxentry{simulate\_mapped\_array\_list()}\spxextra{in module IPTK.Utils.DevFunctions}, 
+		\hyperpage{36}
+  \item \spxentry{simulate\_protein\_binary\_represention()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{39}
+  \item \spxentry{simulate\_protein\_representation()}\spxextra{in module IPTK.Utils.UtilityFunction}, 
+		\hyperpage{39}
+  \item \spxentry{simulate\_random\_experiment()}\spxextra{in module IPTK.Utils.DevFunctions}, 
+		\hyperpage{36}
+
+  \indexspace
+  \bigletter T
+  \item \spxentry{Tissue}\spxextra{class in IPTK.Classes.Tissue}, \hyperpage{29}
+
+  \indexspace
+  \bigletter U
+  \item \spxentry{update\_info()}\spxextra{IPTK.Classes.Proband.Proband method}, \hyperpage{27}
+
+  \indexspace
+  \bigletter W
+  \item \spxentry{write\_annotated\_sequences()}\spxextra{in module IPTK.IO.OutFunctions}, 
+		\hyperpage{34}
+  \item \spxentry{write\_auto\_named\_peptide\_to\_fasta()}\spxextra{in module IPTK.IO.OutFunctions}, 
+		\hyperpage{34}
+  \item \spxentry{write\_mapped\_tensor\_to\_h5py()}\spxextra{in module IPTK.IO.OutFunctions}, 
+		\hyperpage{34}
+  \item \spxentry{write\_named\_peptides\_to\_fasta()}\spxextra{in module IPTK.IO.OutFunctions}, 
+		\hyperpage{34}
+  \item \spxentry{write\_pep\_file()}\spxextra{in module IPTK.IO.OutFunctions}, \hyperpage{35}
+
+\end{sphinxtheindex}

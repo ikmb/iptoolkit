@@ -73,7 +73,7 @@
 
 
 \title{IPTK}
-\date{Sep 24, 2020}
+\date{Sep 25, 2020}
 \release{0.3.1}
 \author{Hesham ElAbd}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -89,19 +89,28 @@
 \phantomsection\label{\detokenize{index::doc}}
 
 
-Analysis, visualize, compare and integrate Immunopeptidomics data !
-\begin{quote}
-\begin{description}
-\item[{\textgreater{}\textgreater{}\textgreater{}print(‘Hello World!’)}] \leavevmode
-Hello World
+\noindent\sphinxincludegraphics{{IKMB_LOGO}.png}
 
-\end{description}
-\end{quote}
+Analysis, Visualize, Compare and Integrate experimentally generated or in\sphinxhyphen{}silico predicted  Immunopeptidomics data,  !
 
 
 \chapter{Introduction:}
 \label{\detokenize{index:introduction}}
-will write it later
+IPTK is a Pythonic library specialized in the analysis of HLA\sphinxhyphen{}peptidomes identified through an Immunopeptiomics pipeline.
+The library provides a high level API for analyzing and visualizing the identified peptides,
+Integrating transcritomics and protein structure information for a rich analysis and for comparing different experiments and different runs.
+
+
+\chapter{Installation:}
+\label{\detokenize{index:installation}}
+The library can installed using pip as follow
+
+
+\chapter{Funding:}
+\label{\detokenize{index:funding}}
+The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’)
+
+\noindent\sphinxincludegraphics{{RTG1743}.png}
 
 
 \section{Guide}
@@ -2190,8 +2199,7 @@ ProteinGroup
 
 \subparagraph{IPTK.Classes.HLASet module}
 \label{\detokenize{IPTK.Classes:module-IPTK.Classes.HLASet}}\label{\detokenize{IPTK.Classes:iptk-classes-hlaset-module}}\index{module@\spxentry{module}!IPTK.Classes.HLASet@\spxentry{IPTK.Classes.HLASet}}\index{IPTK.Classes.HLASet@\spxentry{IPTK.Classes.HLASet}!module@\spxentry{module}}
-@author: Hesham ElAbd
-@contact: \sphinxhref{mailto:h.elabd@ikmb.uni-kiel.de}{h.elabd@ikmb.uni\sphinxhyphen{}kiel.de}
+An abstraction for a collection of HLA alleles
 \index{HLASet (class in IPTK.Classes.HLASet)@\spxentry{HLASet}\spxextra{class in IPTK.Classes.HLASet}}
 
 \begin{fulllineitems}
@@ -3571,16 +3579,17 @@ value to the calling string adding a space before the calling\_string.
 \sphinxstyleliteralstrong{\sphinxupquote{calling\_string}} (\sphinxstyleliteralemphasis{\sphinxupquote{str}}) \textendash{} The calling string in which the parameter and the current value might be appended to it
 
 \item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{is\_flag}} \textendash{} If the parameter is a control flag, i.e. a boolean switch, it append the parameter to the calling 
+\sphinxstyleliteralstrong{\sphinxupquote{is\_flag}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}\sphinxstyleliteralemphasis{\sphinxupquote{, }}\sphinxstyleliteralemphasis{\sphinxupquote{optional}}) \textendash{} If the parameter is a control flag, i.e. a boolean switch, it append the parameter to the calling string without associating a value to it , defaults to False
 
 \end{itemize}
 
-\end{description}\end{quote}
+\item[{Returns}] \leavevmode
+the updated version of the calling string
 
-string without associating a value to it , defaults to False
-:type is\_flag: bool, optional
-:return: the updated version of the calling string 
-:rtype: str
+\item[{Return type}] \leavevmode
+str
+
+\end{description}\end{quote}
 
 \end{fulllineitems}
 

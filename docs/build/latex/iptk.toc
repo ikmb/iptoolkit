@@ -1,0 +1,49 @@
+\babel@toc {english}{}
+\contentsline {chapter}{\numberline {1}Introduction:}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Installation:}{5}{chapter.2}%
+\contentsline {chapter}{\numberline {3}Funding:}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Guide}{7}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}License}{7}{subsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.1.2}Contact}{7}{subsection.3.1.2}%
+\contentsline {subsection}{\numberline {3.1.3}Get Started!}{7}{subsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.1.4}IPTK}{8}{subsection.3.1.4}%
+\contentsline {subsubsection}{IPTK package}{8}{subsubsection*.3}%
+\contentsline {paragraph}{Subpackages}{8}{paragraph*.4}%
+\contentsline {subparagraph}{IPTK.Analysis package}{8}{subparagraph*.5}%
+\contentsline {subparagraph}{Submodules}{8}{subparagraph*.6}%
+\contentsline {subparagraph}{IPTK.Analysis.AnalysisFunction module}{8}{subparagraph*.7}%
+\contentsline {subparagraph}{Module contents}{10}{subparagraph*.16}%
+\contentsline {subparagraph}{IPTK.Classes package}{10}{subparagraph*.17}%
+\contentsline {subparagraph}{Submodules}{10}{subparagraph*.18}%
+\contentsline {subparagraph}{IPTK.Classes.Database module}{10}{subparagraph*.19}%
+\contentsline {subparagraph}{IPTK.Classes.Experiment module}{14}{subparagraph*.42}%
+\contentsline {subparagraph}{IPTK.Classes.ExperimentalSet module}{20}{subparagraph*.85}%
+\contentsline {subparagraph}{IPTK.Classes.HLAChain module}{23}{subparagraph*.117}%
+\contentsline {subparagraph}{IPTK.Classes.HLAMolecules module}{24}{subparagraph*.125}%
+\contentsline {subparagraph}{IPTK.Classes.HLASet module}{24}{subparagraph*.132}%
+\contentsline {subparagraph}{IPTK.Classes.Peptide module}{25}{subparagraph*.141}%
+\contentsline {subparagraph}{IPTK.Classes.Proband module}{27}{subparagraph*.159}%
+\contentsline {subparagraph}{IPTK.Classes.Protein module}{27}{subparagraph*.164}%
+\contentsline {subparagraph}{IPTK.Classes.Tissue module}{28}{subparagraph*.172}%
+\contentsline {subparagraph}{Module contents}{30}{subparagraph*.182}%
+\contentsline {subparagraph}{IPTK.IO package}{30}{subparagraph*.183}%
+\contentsline {subparagraph}{Submodules}{30}{subparagraph*.184}%
+\contentsline {subparagraph}{IPTK.IO.InFunctions module}{30}{subparagraph*.185}%
+\contentsline {subparagraph}{IPTK.IO.MEMEInterface module}{33}{subparagraph*.192}%
+\contentsline {subparagraph}{IPTK.IO.OutFunctions module}{34}{subparagraph*.196}%
+\contentsline {subparagraph}{Module contents}{35}{subparagraph*.202}%
+\contentsline {subparagraph}{IPTK.Utils package}{35}{subparagraph*.203}%
+\contentsline {subparagraph}{Submodules}{35}{subparagraph*.204}%
+\contentsline {subparagraph}{IPTK.Utils.DevFunctions module}{35}{subparagraph*.205}%
+\contentsline {subparagraph}{IPTK.Utils.Mapping module}{37}{subparagraph*.211}%
+\contentsline {subparagraph}{IPTK.Utils.Types module}{37}{subparagraph*.214}%
+\contentsline {subparagraph}{IPTK.Utils.UtilityFunction module}{37}{subparagraph*.215}%
+\contentsline {subparagraph}{Module contents}{40}{subparagraph*.228}%
+\contentsline {subparagraph}{IPTK.Visualization package}{40}{subparagraph*.229}%
+\contentsline {subparagraph}{Submodules}{40}{subparagraph*.230}%
+\contentsline {subparagraph}{IPTK.Visualization.vizTools module}{40}{subparagraph*.231}%
+\contentsline {subparagraph}{Module contents}{56}{subparagraph*.264}%
+\contentsline {paragraph}{Module contents}{56}{paragraph*.265}%
+\contentsline {chapter}{\numberline {4}Indices and tables}{57}{chapter.4}%
+\contentsline {chapter}{Python Module Index}{59}{section*.266}%
+\contentsline {chapter}{Index}{61}{section*.267}%

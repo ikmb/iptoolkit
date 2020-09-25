@@ -81,8 +81,7 @@ def append_to_calling_string(param:str, def_value, cur_val, calling_string:str, 
     :type cur_val: [type]
     :param calling_string: The calling string in which the parameter and the current value might be appended to it 
     :type calling_string: str
-    :param is_flag: If the parameter is a control flag, i.e. a boolean switch, it append the parameter to the calling \ 
-    string without associating a value to it , defaults to False
+    :param is_flag: If the parameter is a control flag, i.e. a boolean switch, it append the parameter to the calling string without associating a value to it , defaults to False
     :type is_flag: bool, optional
     :return: the updated version of the calling string 
     :rtype: str

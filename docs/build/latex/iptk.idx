@@ -1,0 +1,276 @@
+\indexentry{module@\spxentry{module}!IPTK.Analysis.AnalysisFunction@\spxentry{IPTK.Analysis.AnalysisFunction}|hyperpage}{8}
+\indexentry{IPTK.Analysis.AnalysisFunction@\spxentry{IPTK.Analysis.AnalysisFunction}!module@\spxentry{module}|hyperpage}{8}
+\indexentry{compute\_binary\_distance() (in module IPTK.Analysis.AnalysisFunction)@\spxentry{compute\_binary\_distance()}\spxextra{in module IPTK.Analysis.AnalysisFunction}|hyperpage}{8}
+\indexentry{compute\_change\_in\_protein\_representation() (in module IPTK.Analysis.AnalysisFunction)@\spxentry{compute\_change\_in\_protein\_representation()}\spxextra{in module IPTK.Analysis.AnalysisFunction}|hyperpage}{8}
+\indexentry{compute\_difference\_in\_representation() (in module IPTK.Analysis.AnalysisFunction)@\spxentry{compute\_difference\_in\_representation()}\spxextra{in module IPTK.Analysis.AnalysisFunction}|hyperpage}{8}
+\indexentry{compute\_expression\_correlation() (in module IPTK.Analysis.AnalysisFunction)@\spxentry{compute\_expression\_correlation()}\spxextra{in module IPTK.Analysis.AnalysisFunction}|hyperpage}{9}
+\indexentry{download\_structure\_file() (in module IPTK.Analysis.AnalysisFunction)@\spxentry{download\_structure\_file()}\spxextra{in module IPTK.Analysis.AnalysisFunction}|hyperpage}{9}
+\indexentry{get\_binnary\_peptide\_overlap() (in module IPTK.Analysis.AnalysisFunction)@\spxentry{get\_binnary\_peptide\_overlap()}\spxextra{in module IPTK.Analysis.AnalysisFunction}|hyperpage}{9}
+\indexentry{get\_binnary\_protein\_overlap() (in module IPTK.Analysis.AnalysisFunction)@\spxentry{get\_binnary\_protein\_overlap()}\spxextra{in module IPTK.Analysis.AnalysisFunction}|hyperpage}{10}
+\indexentry{get\_sequence\_motif() (in module IPTK.Analysis.AnalysisFunction)@\spxentry{get\_sequence\_motif()}\spxextra{in module IPTK.Analysis.AnalysisFunction}|hyperpage}{10}
+\indexentry{module@\spxentry{module}!IPTK.Analysis@\spxentry{IPTK.Analysis}|hyperpage}{10}
+\indexentry{IPTK.Analysis@\spxentry{IPTK.Analysis}!module@\spxentry{module}|hyperpage}{10}
+\indexentry{module@\spxentry{module}!IPTK.Classes.Database@\spxentry{IPTK.Classes.Database}|hyperpage}{10}
+\indexentry{IPTK.Classes.Database@\spxentry{IPTK.Classes.Database}!module@\spxentry{module}|hyperpage}{10}
+\indexentry{CellularLocationDB (class in IPTK.Classes.Database)@\spxentry{CellularLocationDB}\spxextra{class in IPTK.Classes.Database}|hyperpage}{10}
+\indexentry{add\_to\_database() (IPTK.Classes.Database.CellularLocationDB method)@\spxentry{add\_to\_database()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}|hyperpage}{10}
+\indexentry{get\_approved\_location() (IPTK.Classes.Database.CellularLocationDB method)@\spxentry{get\_approved\_location()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}|hyperpage}{11}
+\indexentry{get\_gene\_names() (IPTK.Classes.Database.CellularLocationDB method)@\spxentry{get\_gene\_names()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}|hyperpage}{11}
+\indexentry{get\_genes() (IPTK.Classes.Database.CellularLocationDB method)@\spxentry{get\_genes()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}|hyperpage}{11}
+\indexentry{get\_go\_names() (IPTK.Classes.Database.CellularLocationDB method)@\spxentry{get\_go\_names()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}|hyperpage}{11}
+\indexentry{get\_main\_location() (IPTK.Classes.Database.CellularLocationDB method)@\spxentry{get\_main\_location()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}|hyperpage}{12}
+\indexentry{get\_table() (IPTK.Classes.Database.CellularLocationDB method)@\spxentry{get\_table()}\spxextra{IPTK.Classes.Database.CellularLocationDB method}|hyperpage}{12}
+\indexentry{GeneExpressionDB (class in IPTK.Classes.Database)@\spxentry{GeneExpressionDB}\spxextra{class in IPTK.Classes.Database}|hyperpage}{12}
+\indexentry{get\_expression() (IPTK.Classes.Database.GeneExpressionDB method)@\spxentry{get\_expression()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}|hyperpage}{12}
+\indexentry{get\_expression\_in\_tissue() (IPTK.Classes.Database.GeneExpressionDB method)@\spxentry{get\_expression\_in\_tissue()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}|hyperpage}{13}
+\indexentry{get\_gene\_names() (IPTK.Classes.Database.GeneExpressionDB method)@\spxentry{get\_gene\_names()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}|hyperpage}{13}
+\indexentry{get\_genes() (IPTK.Classes.Database.GeneExpressionDB method)@\spxentry{get\_genes()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}|hyperpage}{13}
+\indexentry{get\_table() (IPTK.Classes.Database.GeneExpressionDB method)@\spxentry{get\_table()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}|hyperpage}{13}
+\indexentry{get\_tissues() (IPTK.Classes.Database.GeneExpressionDB method)@\spxentry{get\_tissues()}\spxextra{IPTK.Classes.Database.GeneExpressionDB method}|hyperpage}{13}
+\indexentry{OrganismDB (class in IPTK.Classes.Database)@\spxentry{OrganismDB}\spxextra{class in IPTK.Classes.Database}|hyperpage}{13}
+\indexentry{get\_number\_protein\_per\_organism() (IPTK.Classes.Database.OrganismDB method)@\spxentry{get\_number\_protein\_per\_organism()}\spxextra{IPTK.Classes.Database.OrganismDB method}|hyperpage}{13}
+\indexentry{get\_org() (IPTK.Classes.Database.OrganismDB method)@\spxentry{get\_org()}\spxextra{IPTK.Classes.Database.OrganismDB method}|hyperpage}{14}
+\indexentry{get\_unique\_orgs() (IPTK.Classes.Database.OrganismDB method)@\spxentry{get\_unique\_orgs()}\spxextra{IPTK.Classes.Database.OrganismDB method}|hyperpage}{14}
+\indexentry{SeqDB (class in IPTK.Classes.Database)@\spxentry{SeqDB}\spxextra{class in IPTK.Classes.Database}|hyperpage}{14}
+\indexentry{get\_seq() (IPTK.Classes.Database.SeqDB method)@\spxentry{get\_seq()}\spxextra{IPTK.Classes.Database.SeqDB method}|hyperpage}{14}
+\indexentry{has\_sequence() (IPTK.Classes.Database.SeqDB method)@\spxentry{has\_sequence()}\spxextra{IPTK.Classes.Database.SeqDB method}|hyperpage}{14}
+\indexentry{module@\spxentry{module}!IPTK.Classes.Experiment@\spxentry{IPTK.Classes.Experiment}|hyperpage}{14}
+\indexentry{IPTK.Classes.Experiment@\spxentry{IPTK.Classes.Experiment}!module@\spxentry{module}|hyperpage}{14}
+\indexentry{Experiment (class in IPTK.Classes.Experiment)@\spxentry{Experiment}\spxextra{class in IPTK.Classes.Experiment}|hyperpage}{14}
+\indexentry{add\_org\_info() (IPTK.Classes.Experiment.Experiment method)@\spxentry{add\_org\_info()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{14}
+\indexentry{annotate\_proteins() (IPTK.Classes.Experiment.Experiment method)@\spxentry{annotate\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{15}
+\indexentry{drop\_peptide\_belong\_to\_org() (IPTK.Classes.Experiment.Experiment method)@\spxentry{drop\_peptide\_belong\_to\_org()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{15}
+\indexentry{get\_binarized\_results() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_binarized\_results()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{15}
+\indexentry{get\_c\_terminal\_flanked\_seqs() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_c\_terminal\_flanked\_seqs()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{15}
+\indexentry{get\_experiment\_reference\_tissue\_expression() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_experiment\_reference\_tissue\_expression()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{15}
+\indexentry{get\_expression\_of\_parent\_proteins() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_expression\_of\_parent\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{15}
+\indexentry{get\_flanked\_peptides() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_flanked\_peptides()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{15}
+\indexentry{get\_go\_location\_id\_parent\_proteins() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_go\_location\_id\_parent\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{16}
+\indexentry{get\_hla\_allele() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_hla\_allele()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{16}
+\indexentry{get\_hla\_class() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_hla\_class()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{16}
+\indexentry{get\_main\_sub\_cellular\_location\_of\_parent\_proteins() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_main\_sub\_cellular\_location\_of\_parent\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{16}
+\indexentry{get\_mapped\_protein() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_mapped\_protein()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{16}
+\indexentry{get\_mapped\_proteins() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_mapped\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{16}
+\indexentry{get\_mono\_parent\_peptides() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_mono\_parent\_peptides()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{16}
+\indexentry{get\_n\_terminal\_flanked\_seqs() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_n\_terminal\_flanked\_seqs()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{17}
+\indexentry{get\_negative\_example() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_negative\_example()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{17}
+\indexentry{get\_num\_peptide\_expression\_table() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_num\_peptide\_expression\_table()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{17}
+\indexentry{get\_num\_peptide\_per\_go\_term() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_num\_peptide\_per\_go\_term()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{17}
+\indexentry{get\_num\_peptide\_per\_location() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_num\_peptide\_per\_location()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{17}
+\indexentry{get\_number\_of\_children() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_number\_of\_children()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{17}
+\indexentry{get\_number\_of\_proteins\_per\_compartment() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_number\_of\_proteins\_per\_compartment()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{17}
+\indexentry{get\_number\_of\_proteins\_per\_go\_term() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_number\_of\_proteins\_per\_go\_term()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{17}
+\indexentry{get\_orgs() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_orgs()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{18}
+\indexentry{get\_peptide() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_peptide()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{18}
+\indexentry{get\_peptide\_number\_parent() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_peptide\_number\_parent()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{18}
+\indexentry{get\_peptides() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_peptides()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{18}
+\indexentry{get\_peptides\_length() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_peptides\_length()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{18}
+\indexentry{get\_peptides\_per\_organism() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_peptides\_per\_organism()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{18}
+\indexentry{get\_peptides\_per\_protein() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_peptides\_per\_protein()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{18}
+\indexentry{get\_poly\_parental\_peptides() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_poly\_parental\_peptides()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{18}
+\indexentry{get\_proband\_name() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_proband\_name()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{18}
+\indexentry{get\_proteins() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_proteins()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{19}
+\indexentry{get\_tissue() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_tissue()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{19}
+\indexentry{get\_tissue\_name() (IPTK.Classes.Experiment.Experiment method)@\spxentry{get\_tissue\_name()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{19}
+\indexentry{has\_allele\_group() (IPTK.Classes.Experiment.Experiment method)@\spxentry{has\_allele\_group()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{19}
+\indexentry{has\_gene() (IPTK.Classes.Experiment.Experiment method)@\spxentry{has\_gene()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{19}
+\indexentry{has\_hla\_allele() (IPTK.Classes.Experiment.Experiment method)@\spxentry{has\_hla\_allele()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{19}
+\indexentry{has\_protein\_group() (IPTK.Classes.Experiment.Experiment method)@\spxentry{has\_protein\_group()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{19}
+\indexentry{is\_a\_parent\_protein() (IPTK.Classes.Experiment.Experiment method)@\spxentry{is\_a\_parent\_protein()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{19}
+\indexentry{is\_member() (IPTK.Classes.Experiment.Experiment method)@\spxentry{is\_member()}\spxextra{IPTK.Classes.Experiment.Experiment method}|hyperpage}{20}
+\indexentry{module@\spxentry{module}!IPTK.Classes.ExperimentalSet@\spxentry{IPTK.Classes.ExperimentalSet}|hyperpage}{20}
+\indexentry{IPTK.Classes.ExperimentalSet@\spxentry{IPTK.Classes.ExperimentalSet}!module@\spxentry{module}|hyperpage}{20}
+\indexentry{ExperimentSet (class in IPTK.Classes.ExperimentalSet)@\spxentry{ExperimentSet}\spxextra{class in IPTK.Classes.ExperimentalSet}|hyperpage}{20}
+\indexentry{add\_experiment() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{add\_experiment()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{20}
+\indexentry{compare\_org\_count\_among\_exps() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compare\_org\_count\_among\_exps()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{20}
+\indexentry{compare\_peptide\_counts() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compare\_peptide\_counts()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{20}
+\indexentry{compute\_average\_distance\_between\_exps() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compute\_average\_distance\_between\_exps()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{20}
+\indexentry{compute\_change\_in\_protein\_representation() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compute\_change\_in\_protein\_representation()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{20}
+\indexentry{compute\_correlation\_in\_experssion() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compute\_correlation\_in\_experssion()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{20}
+\indexentry{compute\_peptide\_length\_table() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compute\_peptide\_length\_table()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{compute\_peptide\_overlap\_matrix() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compute\_peptide\_overlap\_matrix()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{compute\_peptide\_representation\_count() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compute\_peptide\_representation\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{compute\_protein\_coverage\_over\_the\_set() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compute\_protein\_coverage\_over\_the\_set()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{compute\_protein\_overlap\_matrix() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compute\_protein\_overlap\_matrix()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{compute\_protein\_representation\_count() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{compute\_protein\_representation\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{drop\_peptides\_belong\_to\_org() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{drop\_peptides\_belong\_to\_org()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{get\_allele\_count() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_allele\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{get\_experiment() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_experiment()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{get\_experimental\_names() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_experimental\_names()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{get\_experiments() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_experiments()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{21}
+\indexentry{get\_num\_experiments\_in\_the\_set() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_num\_experiments\_in\_the\_set()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{get\_peptides\_present\_in\_all() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_peptides\_present\_in\_all()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{get\_proband\_count() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_proband\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{get\_proteins\_present\_in\_all() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_proteins\_present\_in\_all()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{get\_tissue\_counts() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_tissue\_counts()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{get\_total\_peptide\_per\_org\_count() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_total\_peptide\_per\_org\_count()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{get\_unique\_orgs() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_unique\_orgs()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{get\_unique\_peptides() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_unique\_peptides()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{get\_unique\_proteins() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{get\_unique\_proteins()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{group\_by\_proband() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{group\_by\_proband()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{group\_by\_tissue() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{group\_by\_tissue()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{22}
+\indexentry{is\_peptide\_present\_in\_all() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{is\_peptide\_present\_in\_all()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{23}
+\indexentry{is\_protein\_present\_in\_all() (IPTK.Classes.ExperimentalSet.ExperimentSet method)@\spxentry{is\_protein\_present\_in\_all()}\spxextra{IPTK.Classes.ExperimentalSet.ExperimentSet method}|hyperpage}{23}
+\indexentry{module@\spxentry{module}!IPTK.Classes.HLAChain@\spxentry{IPTK.Classes.HLAChain}|hyperpage}{23}
+\indexentry{IPTK.Classes.HLAChain@\spxentry{IPTK.Classes.HLAChain}!module@\spxentry{module}|hyperpage}{23}
+\indexentry{HLAChain (class in IPTK.Classes.HLAChain)@\spxentry{HLAChain}\spxextra{class in IPTK.Classes.HLAChain}|hyperpage}{23}
+\indexentry{get\_allele\_group() (IPTK.Classes.HLAChain.HLAChain method)@\spxentry{get\_allele\_group()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}|hyperpage}{23}
+\indexentry{get\_chain\_class() (IPTK.Classes.HLAChain.HLAChain method)@\spxentry{get\_chain\_class()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}|hyperpage}{23}
+\indexentry{get\_class() (IPTK.Classes.HLAChain.HLAChain method)@\spxentry{get\_class()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}|hyperpage}{23}
+\indexentry{get\_gene() (IPTK.Classes.HLAChain.HLAChain method)@\spxentry{get\_gene()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}|hyperpage}{23}
+\indexentry{get\_name() (IPTK.Classes.HLAChain.HLAChain method)@\spxentry{get\_name()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}|hyperpage}{23}
+\indexentry{get\_protein\_group() (IPTK.Classes.HLAChain.HLAChain method)@\spxentry{get\_protein\_group()}\spxextra{IPTK.Classes.HLAChain.HLAChain method}|hyperpage}{23}
+\indexentry{module@\spxentry{module}!IPTK.Classes.HLAMolecules@\spxentry{IPTK.Classes.HLAMolecules}|hyperpage}{24}
+\indexentry{IPTK.Classes.HLAMolecules@\spxentry{IPTK.Classes.HLAMolecules}!module@\spxentry{module}|hyperpage}{24}
+\indexentry{HLAMolecule (class in IPTK.Classes.HLAMolecules)@\spxentry{HLAMolecule}\spxextra{class in IPTK.Classes.HLAMolecules}|hyperpage}{24}
+\indexentry{get\_allele\_group() (IPTK.Classes.HLAMolecules.HLAMolecule method)@\spxentry{get\_allele\_group()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}|hyperpage}{24}
+\indexentry{get\_class() (IPTK.Classes.HLAMolecules.HLAMolecule method)@\spxentry{get\_class()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}|hyperpage}{24}
+\indexentry{get\_gene() (IPTK.Classes.HLAMolecules.HLAMolecule method)@\spxentry{get\_gene()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}|hyperpage}{24}
+\indexentry{get\_name() (IPTK.Classes.HLAMolecules.HLAMolecule method)@\spxentry{get\_name()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}|hyperpage}{24}
+\indexentry{get\_protein\_group() (IPTK.Classes.HLAMolecules.HLAMolecule method)@\spxentry{get\_protein\_group()}\spxextra{IPTK.Classes.HLAMolecules.HLAMolecule method}|hyperpage}{24}
+\indexentry{module@\spxentry{module}!IPTK.Classes.HLASet@\spxentry{IPTK.Classes.HLASet}|hyperpage}{24}
+\indexentry{IPTK.Classes.HLASet@\spxentry{IPTK.Classes.HLASet}!module@\spxentry{module}|hyperpage}{24}
+\indexentry{HLASet (class in IPTK.Classes.HLASet)@\spxentry{HLASet}\spxextra{class in IPTK.Classes.HLASet}|hyperpage}{24}
+\indexentry{get\_alleles() (IPTK.Classes.HLASet.HLASet method)@\spxentry{get\_alleles()}\spxextra{IPTK.Classes.HLASet.HLASet method}|hyperpage}{24}
+\indexentry{get\_class() (IPTK.Classes.HLASet.HLASet method)@\spxentry{get\_class()}\spxextra{IPTK.Classes.HLASet.HLASet method}|hyperpage}{24}
+\indexentry{get\_hla\_count() (IPTK.Classes.HLASet.HLASet method)@\spxentry{get\_hla\_count()}\spxextra{IPTK.Classes.HLASet.HLASet method}|hyperpage}{24}
+\indexentry{has\_allele() (IPTK.Classes.HLASet.HLASet method)@\spxentry{has\_allele()}\spxextra{IPTK.Classes.HLASet.HLASet method}|hyperpage}{24}
+\indexentry{has\_allele\_group() (IPTK.Classes.HLASet.HLASet method)@\spxentry{has\_allele\_group()}\spxextra{IPTK.Classes.HLASet.HLASet method}|hyperpage}{25}
+\indexentry{has\_gene() (IPTK.Classes.HLASet.HLASet method)@\spxentry{has\_gene()}\spxextra{IPTK.Classes.HLASet.HLASet method}|hyperpage}{25}
+\indexentry{has\_protein\_group() (IPTK.Classes.HLASet.HLASet method)@\spxentry{has\_protein\_group()}\spxextra{IPTK.Classes.HLASet.HLASet method}|hyperpage}{25}
+\indexentry{module@\spxentry{module}!IPTK.Classes.Peptide@\spxentry{IPTK.Classes.Peptide}|hyperpage}{25}
+\indexentry{IPTK.Classes.Peptide@\spxentry{IPTK.Classes.Peptide}!module@\spxentry{module}|hyperpage}{25}
+\indexentry{Peptide (class in IPTK.Classes.Peptide)@\spxentry{Peptide}\spxextra{class in IPTK.Classes.Peptide}|hyperpage}{25}
+\indexentry{add\_org\_2\_parent() (IPTK.Classes.Peptide.Peptide method)@\spxentry{add\_org\_2\_parent()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{25}
+\indexentry{add\_parent\_protein() (IPTK.Classes.Peptide.Peptide method)@\spxentry{add\_parent\_protein()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{25}
+\indexentry{get\_c\_terminal\_flank\_seq() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_c\_terminal\_flank\_seq()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{25}
+\indexentry{get\_flanked\_peptide() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_flanked\_peptide()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{25}
+\indexentry{get\_length() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_length()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{get\_n\_terminal\_flank\_seq() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_n\_terminal\_flank\_seq()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{get\_non\_presented\_peptides() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_non\_presented\_peptides()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{get\_number\_of\_parents() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_number\_of\_parents()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{get\_number\_parent\_protein() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_number\_parent\_protein()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{get\_parent() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_parent()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{get\_parent\_proteins() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_parent\_proteins()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{get\_parents\_org() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_parents\_org()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{get\_peptide\_seq() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_peptide\_seq()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{get\_pos\_in\_parent() (IPTK.Classes.Peptide.Peptide method)@\spxentry{get\_pos\_in\_parent()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{26}
+\indexentry{is\_child\_of() (IPTK.Classes.Peptide.Peptide method)@\spxentry{is\_child\_of()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{27}
+\indexentry{map\_to\_parent\_protein() (IPTK.Classes.Peptide.Peptide method)@\spxentry{map\_to\_parent\_protein()}\spxextra{IPTK.Classes.Peptide.Peptide method}|hyperpage}{27}
+\indexentry{module@\spxentry{module}!IPTK.Classes.Proband@\spxentry{IPTK.Classes.Proband}|hyperpage}{27}
+\indexentry{IPTK.Classes.Proband@\spxentry{IPTK.Classes.Proband}!module@\spxentry{module}|hyperpage}{27}
+\indexentry{Proband (class in IPTK.Classes.Proband)@\spxentry{Proband}\spxextra{class in IPTK.Classes.Proband}|hyperpage}{27}
+\indexentry{get\_meta\_data() (IPTK.Classes.Proband.Proband method)@\spxentry{get\_meta\_data()}\spxextra{IPTK.Classes.Proband.Proband method}|hyperpage}{27}
+\indexentry{get\_name() (IPTK.Classes.Proband.Proband method)@\spxentry{get\_name()}\spxextra{IPTK.Classes.Proband.Proband method}|hyperpage}{27}
+\indexentry{update\_info() (IPTK.Classes.Proband.Proband method)@\spxentry{update\_info()}\spxextra{IPTK.Classes.Proband.Proband method}|hyperpage}{27}
+\indexentry{module@\spxentry{module}!IPTK.Classes.Protein@\spxentry{IPTK.Classes.Protein}|hyperpage}{27}
+\indexentry{IPTK.Classes.Protein@\spxentry{IPTK.Classes.Protein}!module@\spxentry{module}|hyperpage}{27}
+\indexentry{Protein (class in IPTK.Classes.Protein)@\spxentry{Protein}\spxextra{class in IPTK.Classes.Protein}|hyperpage}{27}
+\indexentry{get\_id() (IPTK.Classes.Protein.Protein method)@\spxentry{get\_id()}\spxextra{IPTK.Classes.Protein.Protein method}|hyperpage}{27}
+\indexentry{get\_non\_presented\_peptide() (IPTK.Classes.Protein.Protein method)@\spxentry{get\_non\_presented\_peptide()}\spxextra{IPTK.Classes.Protein.Protein method}|hyperpage}{27}
+\indexentry{get\_org() (IPTK.Classes.Protein.Protein method)@\spxentry{get\_org()}\spxextra{IPTK.Classes.Protein.Protein method}|hyperpage}{28}
+\indexentry{get\_peptides\_map() (IPTK.Classes.Protein.Protein method)@\spxentry{get\_peptides\_map()}\spxextra{IPTK.Classes.Protein.Protein method}|hyperpage}{28}
+\indexentry{get\_seq() (IPTK.Classes.Protein.Protein method)@\spxentry{get\_seq()}\spxextra{IPTK.Classes.Protein.Protein method}|hyperpage}{28}
+\indexentry{set\_org() (IPTK.Classes.Protein.Protein method)@\spxentry{set\_org()}\spxextra{IPTK.Classes.Protein.Protein method}|hyperpage}{28}
+\indexentry{module@\spxentry{module}!IPTK.Classes.Tissue@\spxentry{IPTK.Classes.Tissue}|hyperpage}{28}
+\indexentry{IPTK.Classes.Tissue@\spxentry{IPTK.Classes.Tissue}!module@\spxentry{module}|hyperpage}{28}
+\indexentry{ExpressionProfile (class in IPTK.Classes.Tissue)@\spxentry{ExpressionProfile}\spxextra{class in IPTK.Classes.Tissue}|hyperpage}{28}
+\indexentry{get\_gene\_id\_expression() (IPTK.Classes.Tissue.ExpressionProfile method)@\spxentry{get\_gene\_id\_expression()}\spxextra{IPTK.Classes.Tissue.ExpressionProfile method}|hyperpage}{28}
+\indexentry{get\_gene\_name\_expression() (IPTK.Classes.Tissue.ExpressionProfile method)@\spxentry{get\_gene\_name\_expression()}\spxextra{IPTK.Classes.Tissue.ExpressionProfile method}|hyperpage}{29}
+\indexentry{get\_name() (IPTK.Classes.Tissue.ExpressionProfile method)@\spxentry{get\_name()}\spxextra{IPTK.Classes.Tissue.ExpressionProfile method}|hyperpage}{29}
+\indexentry{get\_table() (IPTK.Classes.Tissue.ExpressionProfile method)@\spxentry{get\_table()}\spxextra{IPTK.Classes.Tissue.ExpressionProfile method}|hyperpage}{29}
+\indexentry{Tissue (class in IPTK.Classes.Tissue)@\spxentry{Tissue}\spxextra{class in IPTK.Classes.Tissue}|hyperpage}{29}
+\indexentry{get\_expression\_profile() (IPTK.Classes.Tissue.Tissue method)@\spxentry{get\_expression\_profile()}\spxextra{IPTK.Classes.Tissue.Tissue method}|hyperpage}{29}
+\indexentry{get\_name() (IPTK.Classes.Tissue.Tissue method)@\spxentry{get\_name()}\spxextra{IPTK.Classes.Tissue.Tissue method}|hyperpage}{29}
+\indexentry{get\_subCellular\_locations() (IPTK.Classes.Tissue.Tissue method)@\spxentry{get\_subCellular\_locations()}\spxextra{IPTK.Classes.Tissue.Tissue method}|hyperpage}{29}
+\indexentry{module@\spxentry{module}!IPTK.Classes@\spxentry{IPTK.Classes}|hyperpage}{30}
+\indexentry{IPTK.Classes@\spxentry{IPTK.Classes}!module@\spxentry{module}|hyperpage}{30}
+\indexentry{module@\spxentry{module}!IPTK.IO.InFunctions@\spxentry{IPTK.IO.InFunctions}|hyperpage}{30}
+\indexentry{IPTK.IO.InFunctions@\spxentry{IPTK.IO.InFunctions}!module@\spxentry{module}|hyperpage}{30}
+\indexentry{download\_pdb\_entry() (in module IPTK.IO.InFunctions)@\spxentry{download\_pdb\_entry()}\spxextra{in module IPTK.IO.InFunctions}|hyperpage}{30}
+\indexentry{fasta2dict() (in module IPTK.IO.InFunctions)@\spxentry{fasta2dict()}\spxextra{in module IPTK.IO.InFunctions}|hyperpage}{30}
+\indexentry{load\_identification\_table() (in module IPTK.IO.InFunctions)@\spxentry{load\_identification\_table()}\spxextra{in module IPTK.IO.InFunctions}|hyperpage}{30}
+\indexentry{parse\_mzTab\_to\_identification\_table() (in module IPTK.IO.InFunctions)@\spxentry{parse\_mzTab\_to\_identification\_table()}\spxextra{in module IPTK.IO.InFunctions}|hyperpage}{30}
+\indexentry{parse\_text\_table() (in module IPTK.IO.InFunctions)@\spxentry{parse\_text\_table()}\spxextra{in module IPTK.IO.InFunctions}|hyperpage}{31}
+\indexentry{parse\_xml\_based\_format\_to\_identification\_table() (in module IPTK.IO.InFunctions)@\spxentry{parse\_xml\_based\_format\_to\_identification\_table()}\spxextra{in module IPTK.IO.InFunctions}|hyperpage}{32}
+\indexentry{module@\spxentry{module}!IPTK.IO.MEMEInterface@\spxentry{IPTK.IO.MEMEInterface}|hyperpage}{33}
+\indexentry{IPTK.IO.MEMEInterface@\spxentry{IPTK.IO.MEMEInterface}!module@\spxentry{module}|hyperpage}{33}
+\indexentry{call\_meme() (in module IPTK.IO.MEMEInterface)@\spxentry{call\_meme()}\spxextra{in module IPTK.IO.MEMEInterface}|hyperpage}{33}
+\indexentry{get\_meme\_help() (in module IPTK.IO.MEMEInterface)@\spxentry{get\_meme\_help()}\spxextra{in module IPTK.IO.MEMEInterface}|hyperpage}{33}
+\indexentry{is\_meme\_callable() (in module IPTK.IO.MEMEInterface)@\spxentry{is\_meme\_callable()}\spxextra{in module IPTK.IO.MEMEInterface}|hyperpage}{33}
+\indexentry{module@\spxentry{module}!IPTK.IO.OutFunctions@\spxentry{IPTK.IO.OutFunctions}|hyperpage}{34}
+\indexentry{IPTK.IO.OutFunctions@\spxentry{IPTK.IO.OutFunctions}!module@\spxentry{module}|hyperpage}{34}
+\indexentry{write\_annotated\_sequences() (in module IPTK.IO.OutFunctions)@\spxentry{write\_annotated\_sequences()}\spxextra{in module IPTK.IO.OutFunctions}|hyperpage}{34}
+\indexentry{write\_auto\_named\_peptide\_to\_fasta() (in module IPTK.IO.OutFunctions)@\spxentry{write\_auto\_named\_peptide\_to\_fasta()}\spxextra{in module IPTK.IO.OutFunctions}|hyperpage}{34}
+\indexentry{write\_mapped\_tensor\_to\_h5py() (in module IPTK.IO.OutFunctions)@\spxentry{write\_mapped\_tensor\_to\_h5py()}\spxextra{in module IPTK.IO.OutFunctions}|hyperpage}{34}
+\indexentry{write\_named\_peptides\_to\_fasta() (in module IPTK.IO.OutFunctions)@\spxentry{write\_named\_peptides\_to\_fasta()}\spxextra{in module IPTK.IO.OutFunctions}|hyperpage}{34}
+\indexentry{write\_pep\_file() (in module IPTK.IO.OutFunctions)@\spxentry{write\_pep\_file()}\spxextra{in module IPTK.IO.OutFunctions}|hyperpage}{35}
+\indexentry{module@\spxentry{module}!IPTK.IO@\spxentry{IPTK.IO}|hyperpage}{35}
+\indexentry{IPTK.IO@\spxentry{IPTK.IO}!module@\spxentry{module}|hyperpage}{35}
+\indexentry{module@\spxentry{module}!IPTK.Utils.DevFunctions@\spxentry{IPTK.Utils.DevFunctions}|hyperpage}{35}
+\indexentry{IPTK.Utils.DevFunctions@\spxentry{IPTK.Utils.DevFunctions}!module@\spxentry{module}|hyperpage}{35}
+\indexentry{generate\_random\_peptide\_seq() (in module IPTK.Utils.DevFunctions)@\spxentry{generate\_random\_peptide\_seq()}\spxextra{in module IPTK.Utils.DevFunctions}|hyperpage}{35}
+\indexentry{simulate\_an\_experimental\_ident\_table\_from\_fasta() (in module IPTK.Utils.DevFunctions)@\spxentry{simulate\_an\_experimental\_ident\_table\_from\_fasta()}\spxextra{in module IPTK.Utils.DevFunctions}|hyperpage}{35}
+\indexentry{simulate\_an\_expression\_table() (in module IPTK.Utils.DevFunctions)@\spxentry{simulate\_an\_expression\_table()}\spxextra{in module IPTK.Utils.DevFunctions}|hyperpage}{36}
+\indexentry{simulate\_mapped\_array\_list() (in module IPTK.Utils.DevFunctions)@\spxentry{simulate\_mapped\_array\_list()}\spxextra{in module IPTK.Utils.DevFunctions}|hyperpage}{36}
+\indexentry{simulate\_random\_experiment() (in module IPTK.Utils.DevFunctions)@\spxentry{simulate\_random\_experiment()}\spxextra{in module IPTK.Utils.DevFunctions}|hyperpage}{36}
+\indexentry{module@\spxentry{module}!IPTK.Utils.Mapping@\spxentry{IPTK.Utils.Mapping}|hyperpage}{37}
+\indexentry{IPTK.Utils.Mapping@\spxentry{IPTK.Utils.Mapping}!module@\spxentry{module}|hyperpage}{37}
+\indexentry{map\_from\_uniprot\_gene() (in module IPTK.Utils.Mapping)@\spxentry{map\_from\_uniprot\_gene()}\spxextra{in module IPTK.Utils.Mapping}|hyperpage}{37}
+\indexentry{map\_from\_uniprot\_pdb() (in module IPTK.Utils.Mapping)@\spxentry{map\_from\_uniprot\_pdb()}\spxextra{in module IPTK.Utils.Mapping}|hyperpage}{37}
+\indexentry{module@\spxentry{module}!IPTK.Utils.Types@\spxentry{IPTK.Utils.Types}|hyperpage}{37}
+\indexentry{IPTK.Utils.Types@\spxentry{IPTK.Utils.Types}!module@\spxentry{module}|hyperpage}{37}
+\indexentry{module@\spxentry{module}!IPTK.Utils.UtilityFunction@\spxentry{IPTK.Utils.UtilityFunction}|hyperpage}{37}
+\indexentry{IPTK.Utils.UtilityFunction@\spxentry{IPTK.Utils.UtilityFunction}!module@\spxentry{module}|hyperpage}{37}
+\indexentry{append\_to\_calling\_string() (in module IPTK.Utils.UtilityFunction)@\spxentry{append\_to\_calling\_string()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{37}
+\indexentry{build\_sequence\_table() (in module IPTK.Utils.UtilityFunction)@\spxentry{build\_sequence\_table()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{37}
+\indexentry{check\_peptide\_made\_of\_std\_20\_aa() (in module IPTK.Utils.UtilityFunction)@\spxentry{check\_peptide\_made\_of\_std\_20\_aa()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{38}
+\indexentry{generate\_color\_scale() (in module IPTK.Utils.UtilityFunction)@\spxentry{generate\_color\_scale()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{38}
+\indexentry{generate\_random\_name() (in module IPTK.Utils.UtilityFunction)@\spxentry{generate\_random\_name()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{38}
+\indexentry{generate\_random\_protein\_mapping() (in module IPTK.Utils.UtilityFunction)@\spxentry{generate\_random\_protein\_mapping()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{38}
+\indexentry{get\_idx\_peptide\_in\_sequence\_table() (in module IPTK.Utils.UtilityFunction)@\spxentry{get\_idx\_peptide\_in\_sequence\_table()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{38}
+\indexentry{load\_3d\_figure() (in module IPTK.Utils.UtilityFunction)@\spxentry{load\_3d\_figure()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{39}
+\indexentry{pad\_mapped\_proteins() (in module IPTK.Utils.UtilityFunction)@\spxentry{pad\_mapped\_proteins()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{39}
+\indexentry{save\_3d\_figure() (in module IPTK.Utils.UtilityFunction)@\spxentry{save\_3d\_figure()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{39}
+\indexentry{simulate\_protein\_binary\_represention() (in module IPTK.Utils.UtilityFunction)@\spxentry{simulate\_protein\_binary\_represention()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{39}
+\indexentry{simulate\_protein\_representation() (in module IPTK.Utils.UtilityFunction)@\spxentry{simulate\_protein\_representation()}\spxextra{in module IPTK.Utils.UtilityFunction}|hyperpage}{39}
+\indexentry{module@\spxentry{module}!IPTK.Utils@\spxentry{IPTK.Utils}|hyperpage}{40}
+\indexentry{IPTK.Utils@\spxentry{IPTK.Utils}!module@\spxentry{module}|hyperpage}{40}
+\indexentry{module@\spxentry{module}!IPTK.Visualization.vizTools@\spxentry{IPTK.Visualization.vizTools}|hyperpage}{40}
+\indexentry{IPTK.Visualization.vizTools@\spxentry{IPTK.Visualization.vizTools}!module@\spxentry{module}|hyperpage}{40}
+\indexentry{imposed\_coverage\_on\_3D\_structure() (in module IPTK.Visualization.vizTools)@\spxentry{imposed\_coverage\_on\_3D\_structure()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{40}
+\indexentry{plot\_change\_in\_presentation\_between\_experiment() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_change\_in\_presentation\_between\_experiment()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{40}
+\indexentry{plot\_experiment\_set\_counts() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_experiment\_set\_counts()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{42}
+\indexentry{plot\_gene\_expression\_vs\_num\_peptides() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_gene\_expression\_vs\_num\_peptides()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{42}
+\indexentry{plot\_motif() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_motif()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{43}
+\indexentry{plot\_num\_peptide\_per\_go\_term() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_num\_peptide\_per\_go\_term()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{43}
+\indexentry{plot\_num\_peptides\_per\_location() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_num\_peptides\_per\_location()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{43}
+\indexentry{plot\_num\_peptides\_per\_organism() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_num\_peptides\_per\_organism()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{44}
+\indexentry{plot\_num\_peptides\_per\_parent() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_num\_peptides\_per\_parent()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{45}
+\indexentry{plot\_num\_protein\_per\_go\_term() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_num\_protein\_per\_go\_term()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{45}
+\indexentry{plot\_num\_protein\_per\_location() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_num\_protein\_per\_location()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{46}
+\indexentry{plot\_overlap\_heatmap() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_overlap\_heatmap()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{46}
+\indexentry{plot\_overlay\_representation() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_overlay\_representation()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{46}
+\indexentry{plot\_paired\_represention() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_paired\_represention()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{47}
+\indexentry{plot\_parent\_protein\_expression\_in\_tissue() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_parent\_protein\_expression\_in\_tissue()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{47}
+\indexentry{plot\_peptide\_length\_dist() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_peptide\_length\_dist()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{48}
+\indexentry{plot\_peptide\_length\_per\_experiment() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_peptide\_length\_per\_experiment()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{49}
+\indexentry{plot\_protein\_coverage() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_protein\_coverage()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{49}
+\indexentry{plot\_protein\_presentation\_3D() (in module IPTK.Visualization.vizTools)@\spxentry{plot\_protein\_presentation\_3D()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{49}
+\indexentry{plotly\_gene\_expression\_vs\_num\_peptides() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_gene\_expression\_vs\_num\_peptides()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{50}
+\indexentry{plotly\_multi\_traced\_coverage\_representation() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_multi\_traced\_coverage\_representation()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{50}
+\indexentry{plotly\_num\_peptide\_per\_go\_term() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_num\_peptide\_per\_go\_term()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{51}
+\indexentry{plotly\_num\_peptides\_per\_location() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_num\_peptides\_per\_location()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{51}
+\indexentry{plotly\_num\_peptides\_per\_organism() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_num\_peptides\_per\_organism()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{52}
+\indexentry{plotly\_num\_peptides\_per\_parent() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_num\_peptides\_per\_parent()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{52}
+\indexentry{plotly\_num\_protein\_per\_go\_term() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_num\_protein\_per\_go\_term()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{53}
+\indexentry{plotly\_num\_protein\_per\_location() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_num\_protein\_per\_location()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{53}
+\indexentry{plotly\_overlap\_heatmap() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_overlap\_heatmap()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{54}
+\indexentry{plotly\_paired\_representation() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_paired\_representation()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{54}
+\indexentry{plotly\_parent\_protein\_expression\_in\_tissue() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_parent\_protein\_expression\_in\_tissue()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{54}
+\indexentry{plotly\_peptide\_length\_dist() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_peptide\_length\_dist()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{55}
+\indexentry{plotly\_protein\_coverage() (in module IPTK.Visualization.vizTools)@\spxentry{plotly\_protein\_coverage()}\spxextra{in module IPTK.Visualization.vizTools}|hyperpage}{56}
+\indexentry{module@\spxentry{module}!IPTK.Visualization@\spxentry{IPTK.Visualization}|hyperpage}{56}
+\indexentry{IPTK.Visualization@\spxentry{IPTK.Visualization}!module@\spxentry{module}|hyperpage}{56}
+\indexentry{module@\spxentry{module}!IPTK@\spxentry{IPTK}|hyperpage}{56}
+\indexentry{IPTK@\spxentry{IPTK}!module@\spxentry{module}|hyperpage}{56}
