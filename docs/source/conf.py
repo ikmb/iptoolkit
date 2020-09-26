@@ -31,7 +31,10 @@ release = '0.3.1'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [ 'sphinx.ext.autodoc','rst2pdf.pdfbuilder']
-pdf_documents = [('index', u'rst2pdf', u'IPTK_Reference', u'Hesham ElAbd'),]
+
+pdf_documents = [('index', u'rst2pdf', u'IPTK Reference', u'Hesham ElAbd'),]
+
+pdf_style_path = ['.', '_styles']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
