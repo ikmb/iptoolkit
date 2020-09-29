@@ -15,6 +15,8 @@ from nglview.color import ColormakerRegistry
 import pandas as pd 
 import numpy as np 
 from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
+from IPTK.Classes.Annotator import Annotator
+from IPTK.Classes.Features import Features
 from typing import List, Dict 
 from scipy.stats import pearsonr
 from scipy.stats import ttest_ind
@@ -24,6 +26,10 @@ from plotly.graph_objects import Figure
 import plotly.graph_objects as go 
 from plotly import tools 
 import math
+from IPTK.Analysis.AnalysisFunction import get_PTMs_modifications_positions
+from IPTK.Analysis.AnalysisFunction import get_PTMs_glycosylation_positions
+from IPTK.Analysis.AnalysisFunction import get_PTMs_disuldfide_bonds
+from IPTK.Analysis.AnalysisFunction import get_sequence_varients_positions
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -1187,3 +1193,214 @@ def plot_peptide_length_per_experiment(counts_table:pd.DataFrame,
     ax.set_ylabels("Peptide length")
     # return the figure 
     return fig 
+
+def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
+                                figure_size: Tuple[int]=(7,8),
+                                figure_dpi:int =600,
+                                coverage_track_dict: Dict[str,Dict[str,Union[str,dict]]]={
+                                  "coverage_dict":{"color":"grey",
+                                                    "width":1.2}},
+                                chains_track:bool =True,
+                                chains_track_dict: Dict[str,Dict[str,Union[str,dict]]]={
+                                  "track_label_dict":{"fontsize":6,"color":"black"},
+                                "track_elements_dict":{"color":"magenta","capstyle":"butt"}},
+                              domains_track:bool=True, 
+                              domain_track_dict:Dict[str,Dict[str,Union[str,dict]]]={
+                                  "track_label_dict":{"fontsize":6,"color":"black"},
+                                   "track_element_names_dict":{"fontsize":4,"color":"black"},
+                                   "track_elements_dict":{"color":"blue","capstyle":"butt"}
+                                  },
+                              modifications_track:bool=True,
+                              modifications_track_dict:Dict[str,Dict[str,Union[str,dict]]]={
+                                  "height_frac":0.5,
+                                 "track_label_dict":{"fontsize":6,"color":"black"}},
+                              glyco_track:bool=True,
+                              glyco_track_dict: Dict[str,Dict[str,Union[str,dict]]]={
+                                  "height_frac":0.5,
+                              "track_label_dict":{"fontsize":6,"color":"black"}},
+                              disulfide_track:bool =True,
+                              disulfide_track_dict={
+                                  "height_frac":0.5,
+                              "track_label_dict":{"fontsize":6,"color":"black"}},
+                              sequence_varients_track:bool =True,
+                              sequence_varients_track_dict: Dict[str,Dict[str,Union[str,dict]]]={
+                                  "height_frac":0.5,
+                              "track_label_dict":{"fontsize":6,"color":"black"}},
+                              splice_varient_track:bool=True,
+                              splice_varients_track_dict:bool={
+                                  "track_label_dict":{"fontsize":6,"color":"black"},
+                              "track_elements_dict":{"color":"green","capstyle":"butt"}},
+                              )->plt.Figure:
+    """The function plot the annotation track which summarizes all the known information about the protein and its associated peptides.
+        
+        Parameters
+        ----------
+        protein_coverage: Dict[str,np.ndarray]
+            a dict that contain the uniprot accession of the protein as key and the protein coverage as value 
+
+        figure_size: list/tuple, optional
+            The figure size in inches. The default is 7 by 8 in which is 
+            (17.8*20.32) cm. 
+        
+        figure_dpi: int, optional
+            The resolution of the figure in dots-per-inch. The default is 600.
+            
+        coverage_track : bool, optional
+            whether or not to plot the coverage track. The default is True.
+        
+        coverage_track_dict: dict, optional 
+            The parameters of the function ``VisTools.add_coverage_track``.
+            it is only used if coverage_track is set to True.
+            The default is {"coverage_dict":{"color":"grey","width":1.2}}.
+        
+        chains_track : bool, optional
+            whether or not to plot the chain track. The default is True.
+        
+        chains_track_dict: dict, optional 
+            The parameters of the function ``VisTools.add_stacked_track``.
+            it is only used if chains_track is set to True.
+            The default is {"track_label_dict":{"fontsize":6,"color":"black"},
+            "track_elements_dict":{"color":"magenta","capstyle":"butt"}}.
+        
+        domains_track : bool, optional
+            whether or not to plot the domains track. The default is True.
+            
+        domains_track_dict: dict, optional 
+            The parameters of the function ``VisTools.add_segmented_track``.
+            it is only used if domains_track is set to True. 
+            The default is {"track_label_dict":{"fontsize":6,"color":"black"},
+            "track_element_names_dict":{"fontsize":4,"color":"black"},
+            "track_elements_dict":{"color":"blue","capstyle":"butt"}}
+        
+        modifications_track : bool, optional
+            whether or not to plot the generic modification track. 
+            The default is True.
+            
+        modifications_track_dict: dict, optional
+            The parameters of the function ``VisTools.add_marked_positions_track``.
+            it is only used if modifications_track is set to True. 
+            The default is {"height_frac":0.5,
+            "track_label_dict":{"fontsize":6,"color":"black"}}
+            
+        glyco_track : bool, optional
+            whether or not to plot the generic glycosylation track.
+            The default is True.
+        
+        glyco_track_dict: dict, optional 
+            The parameters of the function ``VisTools.add_marked_positions_track``.
+            it is only used if glyco_track is set to True. 
+            The default is {"height_frac":0.5,
+            "track_label_dict":{"fontsize":6,"color":"black"}}
+            
+        disulfide_track : bool, optional
+            whether or not to plot the generic disulfide bond track. 
+            The default is True.
+        
+        disulfide_track_dict: dict, optional
+            The parameters of the function ``VisTools.add_marked_positions_track``.
+            it is only used if disulfide_track is set to True. 
+            The default is {"height_frac":0.5,
+            "track_label_dict":{"fontsize":6,"color":"black"}}
+            
+        sequence_varients_track : bool, optional
+            whether or not to plot the sequence varients track. 
+            The default is True.
+        
+        sequence_varients_track_dict: dict, optional
+            The parameters of the function ``VisTools.add_marked_positions_track``.
+            it is only used if sequence_varients_track is set to True. 
+            The default is {"height_frac":0.5,
+            "track_label_dict":{"fontsize":6,"color":"black"}}.
+        
+        splice_varient_track : bool, optional
+            whether or not to plot the solice varients track. The default is True.
+        
+        splice_varients_track_dict:
+            The parameters of the function ``VisTools.add_stacked_track``.
+            it is only used if chains_track is set to True.
+            The default is {"track_label_dict":{"fontsize":6,"color":"black"},
+            "track_elements_dict":{"color":"magenta","capstyle":"butt"}}.
+
+        Returns
+        -------
+        vispanel: matplotlib.figure.Figure
+            The resulting panel.
+    """
+    # get the protein id 
+    protin_id: str = protein_coverage.keys()
+    # adjust the protein shape 
+    if len(protein_coverage[protin_id]) == 1: 
+        protein_coverage[protin_id].reshape(-1,1)
+    # get all the information about the protein 
+    protein_features=Features(protin_id,temp_dir)
+    #create the panel
+    panel=Annotator(protein_length=protein_coverage[protin_id].shape[0],
+                       figure_size=fig_size, figure_dpi=fig_dpi)
+    # add the base track   
+    panel.add_coverage_track(protein_coverage[protin_id],
+                  coverage_as_base=True,**coverage_track_dict)
+    # add the chains
+    if chains_track:
+        chains=protein_features.get_chains()
+        if len(chains)!=0:
+            panel.add_stacked_track(track_dict=chains,
+                                    track_label="protein chains",
+                                    **chains_track_dict)  
+        else:
+            print("No chains are associated with this protein")
+    # add the domain track
+    if domains_track:
+        domains=protein_features.get_domains()
+        if len(domains)!=0:
+            panel.add_segmented_track(track_dict=domains,
+                                      track_label="domains",
+                                      **domain_track_dict)
+        else:
+            print("No domains are known in this protein")
+    # add the modification track
+    if modifications_track:
+        modifications=get_PTMs_modifications_positions(protein_features)
+        if len(modifications) !=0:
+                panel.add_marked_positions_track(positions=modifications,
+                                                 track_label="modifications",
+                                                **modifications_track_dict)
+        else:
+            print("No modifications are known in this protein")
+    # add the glycozilation  track
+    if glyco_track:
+        glyco_positions=get_PTMs_glycosylation_positions(protein_features)
+        if len(glyco_positions) !=0:
+                panel.add_marked_positions_track(positions=glyco_positions,
+                                                 track_label="glycosylation",
+                                                            **glyco_track_dict)
+        else: 
+            print("No glycosylation sites are known in this protein")
+    # add disulfide_track
+    if disulfide_track:
+        sulfide_positions=get_PTMs_disuldfide_bonds(protein_features)
+        if len(sulfide_positions) !=0:
+            panel.add_marked_positions_track(positions=sulfide_positions,
+                                                 track_label="disulfide bound",
+                                                            **disulfide_track_dict)
+        else:
+            print("No disulfide sites are known in this protein")
+        
+    # add sequence varient track:
+    if sequence_varients_track: 
+        sequence_varients_positions=get_sequence_varients_positions(protein_features)
+        if len(sulfide_positions)!=0:
+            panel.add_marked_positions_track(
+                     positions=sequence_varients_positions,
+                     track_label="sequence varients",
+                     **sequence_varients_track)     
+        else:
+            print("No sequence varients sites are known in this protein")
+        
+    # add sequence varients track: 
+    if splice_varient_track: 
+        splice_varinets=get_splice_varients(protein_features)
+        if len(splice_varinets)!=0:
+            panel.add_stacked_track(track_dict=splice_varinets,
+                                        track_label="protein splice varients",
+                                        **splice_varients_track_dict)
+    return panel.get_figure()

@@ -95,7 +95,7 @@ class CellularLocationDB:
 	for more details. 
 	"""
 	def __init__(self, 
-				path2data: str ,
+				path2data: str = "https://www.proteinatlas.org/download/subcellular_location.tsv.zip",
 				sep: str = '\t')->CellularLocationDB:
 		"""	path2data: the path to the subcellular locations. 
 

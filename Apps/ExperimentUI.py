@@ -17,11 +17,11 @@ import dash_uploader as du
 import IPTK.IO.InFunctions as inFunc 
 from typing import Dict
 import numpy as np
-from IPTK.DataStructure.Database import SeqDB, GeneExpressionDB, CellularLocationDB, OrganismDB
-from IPTK.DataStructure.Experiment import Experiment 
-from IPTK.DataStructure.Proband import Proband 
-from IPTK.DataStructure.Tissue import Tissue 
-from IPTK.DataStructure.HLASet import HLASet
+from IPTK.Classes.Database import SeqDB, GeneExpressionDB, CellularLocationDB, OrganismDB
+from IPTK.Classes.Experiment import Experiment 
+from IPTK.Classes.Proband import Proband 
+from IPTK.Classes.Tissue import Tissue 
+from IPTK.Classes.HLASet import HLASet
 from IPTK.Visualization.vizTools import plotly_num_peptides_per_organism
 from IPTK.Visualization.vizTools import plotly_paired_representation 
 from IPTK.Visualization.vizTools import plotly_num_peptides_per_parent

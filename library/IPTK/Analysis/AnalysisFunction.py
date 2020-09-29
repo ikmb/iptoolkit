@@ -16,6 +16,7 @@ from IPTK.Classes.Experiment import Experiment
 from IPTK.Utils.UtilityFunction import check_peptide_made_of_std_20_aa
 from IPTK.Utils.Mapping import map_from_uniprot_gene
 from scipy.stats import pearsonr
+from IPTK.Classes.Features import Features
 # define some types 
 Peptides=List[str]
 Proteins=List[str]
@@ -266,21 +267,136 @@ def compute_difference_in_representation(mapped_prot_cond1: np.ndarray,
     # assert that the protein have same length 
     if len(mapped_prot_cond1)!=len(mapped_prot_cond2):
         raise ValueError(f'The provided proteins are of different length, found: {len(mapped_prot_cond1)} and {len(mapped_prot_cond1)}') 
-
     return mapped_prot_cond1-mapped_prot_cond2
 
+def get_PTMs_modifications_positions(protein_feature: Features) ->List[int] : 
+    r"""
+    :param protein_feature: a protein feature instance containing all protein features 
+    :type protein_feature: Features
+    :return: A list that contains the position of the generic modifications in \
+            the protein. If no modifications is known the function returns an empty list
+    :rtype: List[int]
+    """
+    containing=[]
+    modification_dict=protein_feature.get_PTM_modifications()
+    if modification_dict==None: 
+        return containing
+    for key in modification_dict.keys():
+            containing.append(modification_dict[key]["startIdx"])
+    return containing
+
+ 
+def get_PTMs_glycosylation_positions(protein_feature: Features) ->List[int]:
+    r"""
+    :param protein_feature: a protein feature instance containing all protein features 
+    :type protein_feature: Features
+    :return: a list that contains the position of the generic glycosylation in \
+            the protein. If no glycosylation site(s) are/is known in the protein \
+            the function returns an empty list.
+    :rtype: List[int]
+    """
+    glyco_positions=[]
+    glyco_dict=protein_feature.get_PTM_glycosylation()
+    if glyco_dict==None: 
+        return glyco_positions
+    for key in glyco_dict.keys():
+        glyco_positions.append(glyco_dict[key]["startIdx"])
+    return glyco_positions 
 
 
+def get_PTMs_disuldfide_bonds(protein_feature)->List[int]:
+    """
+    :param protein_feature: a protein feature instance containing all protein features 
+    :type protein_feature: Features
+    :return: A list that contains the position of the known disulfide bonds in \
+            the protein. If no disulfide bond(s) is/are known in the protein \
+            the function returns an empty list.
+    :rtype: List[int]
+    """
+    disulfide_positions=[]
+    disulfide_dict=protein_feature.get_PTM_disulfide()
+    if disulfide_dict==None:
+         return disulfide_positions
+    for key in disulfide_dict.keys():
+        disulfide_positions.append(disulfide_dict[key]["startIdx"])
+    return disulfide_positions
+
+def get_sequence_varients_positions(protein_feature)->List[int]:
+    """
+    :param protein_feature: a protein feature instance containing all protein features 
+    :type protein_feature: Features
+    :return: A list that contains the position of the known sequence variants in 
+            the protein. If no sequence variant/variants that is/are known in the protein, the function returns an empty list.
+    :rtype: List[int]
+    """
+    seqVar_positions=[]
+    seqVar_dict=protein_feature.get_sequence_variants()
+    if seqVar_dict==None:
+        return seqVar_positions
+    for key in seqVar_dict.keys():
+        seqVar_positions.append(seqVar_dict[key]["startIdx"])
+    return seqVar_positions
+
+def get_chain_positions(protein_feature)->List[List[int]]:
+    """
+    :param protein_feature: a protein feature instance containing all protein features 
+    :type protein_feature: Features
+    :return:  a list of list that contains the position of the known chain/chains \
+            in the protein. each list has two elements which are the start and \
+            the end position of the position lists. \
+            If no sequence variant/variants that is/are known in  the protein, \
+            the function returns an empty list. \
+    :rtype: List[List[int]]
+    """
+    chain_positions=[]
+    chains_dict=protein_feature.get_chains()
+    if chains_dict==None: 
+        return chain_positions
+    for key in chains_dict.keys():
+            chain_positions.append([chains_dict[key]["startIdx"],
+                                    chains_dict[key]["endIdx"]])
+    return chain_positions
 
 
+def get_domains_positions(protein_feature)->List[List[int]]:
+    """
+    :param protein_feature: a protein feature instance containing all protein features 
+    :type protein_feature: Features
+    :return: a list of list that contains the position of the known domain/domains \
+            in the protein. each list has two elements which are the start and \
+            the end position of the domain. \
+            If no sequence domain/domains that is/are known in  the protein, \
+            the function returns an empty list. \
+    :rtype: List[List[int]]
+    """
+    domains_positions=[]
+    domains_dict=protein_feature.get_domains()
+    if domains_dict==None: 
+        return domains_positions
+    for key in domains_dict.keys():
+        domains_positions.append([domains_dict[key]["startIdx"],
+                                    domains_dict[key]["endIdx"]])
+    return domains_positions
 
-
-
-
-
-
-
-
+def get_splice_varients_positions(protein_feature)->List[List[int]]:
+    """
+    :param protein_feature: a protein feature instance containing all protein features 
+    :type protein_feature: Features
+    :return:  a list of list that contains the position of the known splice variant/variants \ 
+            in the protein. each list has two elements which are the start and \
+            the end position of the splice variants. \
+            If no splice variant/variants that is/are known in the protein, \
+            the function returns an empty list. \
+    :rtype: List[List[int]]
+    """
+    splice_variant_positions=[]
+    variants=protein_feature.get_splice_variants()
+    if variants==None: 
+        return splice_variant_positions
+    for key in variants.keys():
+        splice_variant_positions.append([variants[key]["startIdx"],
+                                    variants[key]["endIdx"]])
+    return splice_variant_positions
 
 
 
