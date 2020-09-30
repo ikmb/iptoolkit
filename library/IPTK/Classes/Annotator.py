@@ -1,27 +1,28 @@
 #!/usr/bin/env python 
-r"""Description:
-    -----------
-    The class provided methods for visualizing different aspects of the protein \
-    biology. This is achieved through three main methods: \
+r"""The class provided methods for visualizing different aspects of the protein \
+    biology. This is achieved through three main methods: 
         1- add_segmented_track: which visualize information about \
-        non-overlapping protein substructures, for example, protein domains. \
+        non-overlapping protein substructures, for example, protein domains.
+
         2- add_stacked_track: which visualize information about \
-        overlapping protein substructures, for example, splice variants. \
+        overlapping protein substructures, for example, splice variants. 
+        
         3- add_marked_positions_track: which visualize information about \
-        positions in the protein, for example, sequence variance, or PTM. \
+        positions in the protein, for example, sequence variance, or PTM. 
     
-    The class also provided functions for visualizing the relationship between \
-    a protein and its eluted peptide/peptides in an analogous manner to the way \
-    NGS reads are aligned to genomic regions. This can be useful to identify  \
-    regions in the protein with high/low number of eluted peptides, also, to \
-    visualize this aspect of the protein along with other facests of the protein \
-    like domain organization, PTM, sequence/splice variants. \
+    The class also provided functions for visualizing the relationship between 
+    a protein and its eluted peptide/peptides in an analogous manner to the way 
+    NGS reads are aligned to genomic regions. This can be useful to identify  
+    regions in the protein with high/low number of eluted peptides, also, to 
+    visualize this aspect of the protein along with other facests of the protein 
+    like domain organization, PTM, sequence/splice variants. 
     
     Notes
     -----
     each figure should have a base track this can be done explicitly by calling
     the function add_base_track or by implicitly by calling the function 
     add_coverage_plot with the parameter coverage_as_base=True.
+
 """
 # load the modules 
 from __future__ import annotations
@@ -50,6 +51,7 @@ class Annotator:
         Returns
         -------
         Annotator.
+
         """
         #check the user input
         if protein_length<0:
@@ -154,6 +156,7 @@ class Annotator:
             the previously added base track, for example, in the examples 
             section calling add_base_track for the second time will overrides 
             the graph build by the previous call. 
+
         """
         # add a subplot to the figure
         ax=self.fig.add_subplot(111)
@@ -191,11 +194,7 @@ class Annotator:
                             center_line_dict:Dict[str,Union[int,str,float]]={"alpha":0.5,"linewidth":0.5},
                             track_elements_dict: Dict[str,Union[int,str]]={"color":"brown","capstyle":"butt"},
                             show_names: bool=True)->None:
-        """
-        Description
-        ----------
-        Add a segmentation track which show non-overlapping features of the 
-        protein. 
+        """Add a segmentation track which show non-overlapping features of the protein. 
         
         Parameters
         ----------
@@ -204,8 +203,11 @@ class Annotator:
             The dict is assumed to have the following structure: a dict with the
             feature_index as a key and associated features as values. The associated
             features is a dict with the following three keys:
+                
                 1- Name: which contain the feature name
+
                 2- startIdx: which contain the start position of the protein
+                
                 3- endIdx: which contain the end position of the protein
                 
         track_label : str, optional
@@ -243,22 +245,28 @@ class Annotator:
         
         Examples
         --------
-        # first define a dict object that define some protein features.
         >>> test_dict={"domain1":{"Name":"domain_one","startIdx":55,"endIdx":150},
                        "domain2":{"Name":"domain_Two","startIdx":190,"endIdx":225}}
+        # first define a dict object that define some protein features.
+
         
-        # creating a Annotator instance
         >>> example_1=Annotator(protein_length=250, figure_size=(5,3), figure_dpi=200)
-        # add a base_track
-        >>> example_1.add_base_track()
-        # add the segmented track
-        >>> example_1.add_segmented_track(test_dict) # build a segmented track using the default parameters
-        # add a second segmented track with track name set to Domains and elements 
-        # of the track shown as brown rectangles.
+        # creating a Annotator instance
         
+        >>> example_1.add_base_track()
+        # add a base_track
+
+        
+        >>> example_1.add_segmented_track(test_dict) # build a segmented track using the default parameters
+        # add the segmented track
+
+       
         >>> example_1.add_segmented_track(track_dict=test_dict,
                                           track_label="Domains",
                                           track_elements_dict={"color":"brown"})
+        # add a second segmented track with track name set to Domains and elements 
+        # of the track shown as brown rectangles.
+        
         Notes
         -----
         Any panel can have one or more segmented-tracks. Thus, in the above examples
@@ -320,8 +328,11 @@ class Annotator:
             The dict is assumed to have the following structure, a dict with the
             feature_index as a key and associated features as values. The associated
             features is a dict with the following three keys:
+
                 1- Name: which contain the feature name
+                
                 2- startIdx: which contain the start position of the feature.
+                
                 3- endIdx: which contain the end position of the feature.
                 
        
@@ -362,22 +373,28 @@ class Annotator:
         
         Examples
         --------
-        # first define a dict object that define some protein features.
         >>> test_dict={"feature_1":{"Name":"X","startIdx":55,"endIdx":150},
                        "feature_2":{"Name":"Y","startIdx":85,"endIdx":225},
                        "feature_3":{"Name":"Z","startIdx":160,"endIdx":240}}
+         # first define a dict object that define some protein features.
         
-        # creating a Annotator instance
+        
         >>> example_1=Annotator(protein_length=250, figure_size=(5,3), figure_dpi=200)
-        # add a base_track
+        # creating a Annotator instance
+
+        
         >>> example_1.add_base_track()
-        # add the stacked track
+        # add a base_track
+
+        
         >>> example_1.add_segmented_track(test_dict) # build a stacked track using the default parameters.
-        # add a second segmented track with track name set to OverLappingFeat and elements 
-        # of the track shown as red rectangles.
+        # add the stacked track
+       
         >>> example_1.add_segmented_track(track_dict=test_dict,
                                           track_label="OverLappingFeat",
                                           track_elements_dict={"color":"red"})
+        # add a second segmented track with track name set to OverLappingFeat and elements 
+        # of the track shown as red rectangles.
         
         Notes
         -----
@@ -385,6 +402,7 @@ class Annotator:
         Thus, in the above examples calling the method ``add_stacked_track`` 
         for the second time does NOT override the previous stacked track 
         it create a new one and added to the figure.
+
         """
         # change the geometry to accommodate a new figure
         number_axes=len(self.fig.axes)
@@ -440,6 +458,7 @@ class Annotator:
         The function adds a marked position to the track which is shown to highlight
         certain amino acid position within the protein, for example, a sequence
         variant position, or PTM position.
+
         Parameters
         ----------
         positions : List[int]
@@ -481,28 +500,37 @@ class Annotator:
         
         Examples
         --------
-        # first define a dict object that define some protein features.
-        >>> test_list=[24,26,75,124,220]
-        # creating a VisTool instance
-        >>> example_1=Annotator(protein_length=250, figure_size=(5,3), figure_dpi=200)
-        # add a base_track
-        >>> example_1.add_base_track()
-        # marked positions track
-        >>> example_1.add_marked_positions_track(test_list) # build a marked position track using the default parameters
         
+        >>> test_list=[24,26,75,124,220]
+        # first define a dict object that define some protein features.
+
+       
+        >>> example_1=Annotator(protein_length=250, figure_size=(5,3), figure_dpi=200)
+        # creating a VisTool instance
+
+       
+        >>> example_1.add_base_track()
+        # add a base_track
+        
+        >>> example_1.add_marked_positions_track(test_list) # build a marked position track using the default parameters
+        # marked positions track
+
+        
+        >>> example_1.add_marked_positions_track(positions=test_list,height_frac=0.75,
+                                          track_label="Post_translational_modifications",
+                                          marker_bar_dict={"color":"blue"})
         # add a second marked position track with the following parameters:
         #track name:  Post_translational_modifications
         #hight of the maker bar = 75%
         #color of the markerbar= blue
-        >>> example_1.add_marked_positions_track(positions=test_list,height_frac=0.75,
-                                          track_label="Post_translational_modifications",
-                                          marker_bar_dict={"color":"blue"})
+
         Notes
         ------
         Any panel can have zero, one or more than one marked-position track.
         Thus, in the above examples calling the method ``add_marked_positions_track`` 
         for the second time does NOT override the previous marked-position track 
         it create a new one and added to the figure.
+
         """
         # adjust the current Geometry of the track.
         number_axes=len(self.fig.axes)
@@ -592,10 +620,6 @@ class Annotator:
             
         yticks_font_size : float, optional
             The font size of the y-axis ticks. The default is 4.
-
-        Returns
-        -------
-        None.
 
         """
         # adjust the figure axes:

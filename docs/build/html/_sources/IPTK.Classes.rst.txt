@@ -4,6 +4,14 @@ IPTK.Classes package
 Submodules
 ----------
 
+IPTK.Classes.Annotator module
+-----------------------------
+
+.. automodule:: IPTK.Classes.Annotator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 IPTK.Classes.Database module
 ----------------------------
 
@@ -24,6 +32,14 @@ IPTK.Classes.ExperimentalSet module
 -----------------------------------
 
 .. automodule:: IPTK.Classes.ExperimentalSet
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+IPTK.Classes.Features module
+----------------------------
+
+.. automodule:: IPTK.Classes.Features
    :members:
    :undoc-members:
    :show-inheritance:

@@ -22,7 +22,7 @@ copyright = '2020, Hesham ElAbd'
 author = 'Hesham ElAbd'
 
 # The full version, including alpha/beta/rc tags
-release = '0.3.1'
+release = '0.4.0'
 
 
 # -- General configuration ---------------------------------------------------
@@ -30,7 +30,7 @@ release = '0.3.1'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [ 'sphinx.ext.autodoc','rst2pdf.pdfbuilder']
+extensions = [ 'sphinx.ext.autodoc','rst2pdf.pdfbuilder','sphinxcontrib.napoleon']
 
 pdf_documents = [('index', u'rst2pdf', u'IPTK Reference', u'Hesham ElAbd'),]
 

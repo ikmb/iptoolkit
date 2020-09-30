@@ -200,8 +200,7 @@ the floor of this ratio will be used to sample peptides from each proteins</p>
 <dl class="py function">
 <dt id="IPTK.Utils.UtilityFunction.append_to_calling_string">
 <code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">append_to_calling_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">def_value</span></em>, <em class="sig-param"><span class="n">cur_val</span></em>, <em class="sig-param"><span class="n">calling_string</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">is_flag</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Utils.UtilityFunction.append_to_calling_string" title="Permalink to this definition">¶</a></dt>
-<dd><p>help function that take a calling string, a parameter, a default value and current value     if the parameter does not equal its default value the function append the parameter with its current 
-value to the calling string adding a space before the calling_string.</p>
+<dd><p>help function that take a calling string, a parameter, a default value and current value     if the parameter does not equal its default value the function append the parameter with its current value to the calling string adding a space before the calling_string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -241,7 +240,7 @@ value to the calling string adding a space before the calling_string.</p>
 <dl class="py function">
 <dt id="IPTK.Utils.UtilityFunction.check_peptide_made_of_std_20_aa">
 <code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">check_peptide_made_of_std_20_aa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptide</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Utils.UtilityFunction.check_peptide_made_of_std_20_aa" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if the peptide is made of the standard 20 amino acids, if this is the case, 
+<dd><p>Check if the peptide is made of the standard 20 amino acids, if this is the case,
 it return the peptide sequence, otherwise it return an empty string</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -292,7 +291,7 @@ it return the peptide sequence, otherwise it return an empty string</p>
 <dl class="py function">
 <dt id="IPTK.Utils.UtilityFunction.generate_random_protein_mapping">
 <code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">generate_random_protein_mapping</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_len</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">max_coverage</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Utils.UtilityFunction.generate_random_protein_mapping" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a NumPy array with shape of 1 by protein_len where the elements in the array 
+<dd><p>Generate a NumPy array with shape of 1 by protein_len where the elements in the array
 is a random integer between zero &amp;  max_coverage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -313,7 +312,7 @@ is a random integer between zero &amp;  max_coverage.</p>
 <dl class="py function">
 <dt id="IPTK.Utils.UtilityFunction.get_idx_peptide_in_sequence_table">
 <code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">get_idx_peptide_in_sequence_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">peptide</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Utils.UtilityFunction.get_idx_peptide_in_sequence_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>check the sequences table if the provided peptide is locate in one of its sequences and returns 
+<dd><p>check the sequences table if the provided peptide is locate in one of its sequences and returns
 a list of protein identifiers containing the identifier of the hit proteins.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

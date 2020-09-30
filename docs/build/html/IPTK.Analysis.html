@@ -45,9 +45,9 @@ the classes defined in the classes module.</p>
 <dl class="py function">
 <dt id="IPTK.Analysis.AnalysisFunction.compute_binary_distance">
 <code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_binary_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptides</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">dist_func</span><span class="p">:</span> <span class="n">Callable</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_binary_distance" title="Permalink to this definition">¶</a></dt>
-<dd><p>compare the distance between every pair of peptides in a collection of peptides. 
+<dd><p>compare the distance between every pair of peptides in a collection of peptides.
 &#64;param: peptides: a collection of peptides sequences.
-&#64;param: dist_func: function to compute the distance between each pair of peptides. 
+&#64;param: dist_func: function to compute the distance between each pair of peptides.
 &#64;note:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -71,7 +71,7 @@ the classes defined in the classes module.</p>
 <dl class="py function">
 <dt id="IPTK.Analysis.AnalysisFunction.compute_change_in_protein_representation">
 <code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_change_in_protein_representation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapped_prot_cond1</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">mapped_prot_cond2</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_change_in_protein_representation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the change in the protein representation between two conditions, by computing 
+<dd><p>Compute the change in the protein representation between two conditions, by computing
 the difference in the area under the curve, AUC.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -119,7 +119,7 @@ by substracting the coverage of the first protein from the second proteins.</p>
 <dt id="IPTK.Analysis.AnalysisFunction.compute_expression_correlation">
 <code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_expression_correlation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp1</span><span class="p">:</span> <span class="n"><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em>, <em class="sig-param"><span class="n">exp2</span><span class="p">:</span> <span class="n"><a class="reference internal" href="IPTK.Classes.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_expression_correlation" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute the correlation in the gene expression between two experiments by constructing a union
-of all the proteins expressed in the first and second experiments, extract the gene expression 
+of all the proteins expressed in the first and second experiments, extract the gene expression
 of these genes and then compute the correlation using SciPy stat module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>IPTK 0.3.1 documentation</title>
+    <title>IPTK 0.4.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -55,7 +55,23 @@ Integrating transcritomics and protein structure information for a rich analysis
 <div class="toctree-wrapper compound">
 <span id="document-license"></span><div class="section" id="license">
 <h3>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h3>
-<p>Will be written here</p>
+<p>MIT License</p>
+<p>Copyright (c) 2020 Institute of Clinical Molecular Biology</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
 </div>
 <div class="section" id="contact">
 <h3>Contact<a class="headerlink" href="#contact" title="Permalink to this headline">¶</a></h3>
@@ -85,9 +101,9 @@ the classes defined in the classes module.</p>
 <dl class="py function">
 <dt id="IPTK.Analysis.AnalysisFunction.compute_binary_distance">
 <code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_binary_distance</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptides</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">dist_func</span><span class="p">:</span> <span class="n">Callable</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_binary_distance" title="Permalink to this definition">¶</a></dt>
-<dd><p>compare the distance between every pair of peptides in a collection of peptides. 
+<dd><p>compare the distance between every pair of peptides in a collection of peptides.
 &#64;param: peptides: a collection of peptides sequences.
-&#64;param: dist_func: function to compute the distance between each pair of peptides. 
+&#64;param: dist_func: function to compute the distance between each pair of peptides.
 &#64;note:</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -111,7 +127,7 @@ the classes defined in the classes module.</p>
 <dl class="py function">
 <dt id="IPTK.Analysis.AnalysisFunction.compute_change_in_protein_representation">
 <code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_change_in_protein_representation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">mapped_prot_cond1</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">mapped_prot_cond2</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_change_in_protein_representation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute the change in the protein representation between two conditions, by computing 
+<dd><p>Compute the change in the protein representation between two conditions, by computing
 the difference in the area under the curve, AUC.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -159,7 +175,7 @@ by substracting the coverage of the first protein from the second proteins.</p>
 <dt id="IPTK.Analysis.AnalysisFunction.compute_expression_correlation">
 <code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">compute_expression_correlation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">exp1</span><span class="p">:</span> <span class="n"><a class="reference internal" href="index.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em>, <em class="sig-param"><span class="n">exp2</span><span class="p">:</span> <span class="n"><a class="reference internal" href="index.html#IPTK.Classes.Experiment.Experiment" title="IPTK.Classes.Experiment.Experiment">IPTK.Classes.Experiment.Experiment</a></span></em><span class="sig-paren">)</span> &#x2192; float<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.compute_expression_correlation" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute the correlation in the gene expression between two experiments by constructing a union
-of all the proteins expressed in the first and second experiments, extract the gene expression 
+of all the proteins expressed in the first and second experiments, extract the gene expression
 of these genes and then compute the correlation using SciPy stat module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -184,6 +200,54 @@ of these genes and then compute the correlation using SciPy stat module.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>pdb_id</strong> (<em>str</em>) – the protein id in protein databank</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_PTMs_disuldfide_bonds">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_PTMs_disuldfide_bonds</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_feature</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_PTMs_disuldfide_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_feature</strong> (<a class="reference internal" href="index.html#IPTK.Classes.Features.Features" title="IPTK.Classes.Features.Features"><em>Features</em></a>) – a protein feature instance containing all protein features</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list that contains the position of the known disulfide bonds in             the protein. If no disulfide bond(s) is/are known in the protein             the function returns an empty list.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_PTMs_glycosylation_positions">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_PTMs_glycosylation_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_feature</span><span class="p">:</span> <span class="n"><a class="reference internal" href="index.html#IPTK.Classes.Features.Features" title="IPTK.Classes.Features.Features">IPTK.Classes.Features.Features</a></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_PTMs_glycosylation_positions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_feature</strong> (<a class="reference internal" href="index.html#IPTK.Classes.Features.Features" title="IPTK.Classes.Features.Features"><em>Features</em></a>) – a protein feature instance containing all protein features</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list that contains the position of the generic glycosylation in the protein. If no glycosylation site(s) are/is known in the protein the function returns an empty list.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_PTMs_modifications_positions">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_PTMs_modifications_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_feature</span><span class="p">:</span> <span class="n"><a class="reference internal" href="index.html#IPTK.Classes.Features.Features" title="IPTK.Classes.Features.Features">IPTK.Classes.Features.Features</a></span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_PTMs_modifications_positions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_feature</strong> (<a class="reference internal" href="index.html#IPTK.Classes.Features.Features" title="IPTK.Classes.Features.Features"><em>Features</em></a>) – a protein feature instance containing all protein features</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list that contains the position of the generic modifications in the protein. If no modifications is known the function returns an empty list</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[int]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -229,6 +293,32 @@ of these genes and then compute the correlation using SciPy stat module.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_chain_positions">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_chain_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_feature</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_chain_positions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_feature</strong> (<a class="reference internal" href="index.html#IPTK.Classes.Features.Features" title="IPTK.Classes.Features.Features"><em>Features</em></a>) – a protein feature instance containing all protein features</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of list that contains the position of the known chain/chains             in the protein. each list has two elements which are the start and             the end position of the position lists.             If no sequence variant/variants that is/are known in  the protein,             the function returns an empty list.     :rtype: List[List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_domains_positions">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_domains_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_feature</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_domains_positions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_feature</strong> (<a class="reference internal" href="index.html#IPTK.Classes.Features.Features" title="IPTK.Classes.Features.Features"><em>Features</em></a>) – a protein feature instance containing all protein features</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of list that contains the position of the known domain/domains             in the protein. each list has two elements which are the start and             the end position of the domain.             If no sequence domain/domains that is/are known in  the protein,             the function returns an empty list.     :rtype: List[List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt id="IPTK.Analysis.AnalysisFunction.get_sequence_motif">
 <code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_sequence_motif</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptides</span><span class="p">:</span> <span class="n">List<span class="p">[</span>str<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">temp_dir</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'./TEMP_DIR'</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">meme_params</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{}</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_sequence_motif" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute the sequences motif from a collection of peptide sequences using meme software.</p>
@@ -250,6 +340,36 @@ of these genes and then compute the correlation using SciPy stat module.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_sequence_variants_positions">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_sequence_variants_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_feature</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_sequence_variants_positions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_feature</strong> (<a class="reference internal" href="index.html#IPTK.Classes.Features.Features" title="IPTK.Classes.Features.Features"><em>Features</em></a>) – a protein feature instance containing all protein features</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list that contains the position of the known sequence variants in
+the protein. If no sequence variant/variants that is/are known in the protein, the function returns an empty list.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>List[int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Analysis.AnalysisFunction.get_splice_variants_positions">
+<code class="sig-prename descclassname">IPTK.Analysis.AnalysisFunction.</code><code class="sig-name descname">get_splice_variants_positions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_feature</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>List<span class="p">[</span>int<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Analysis.AnalysisFunction.get_splice_variants_positions" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>protein_feature</strong> (<a class="reference internal" href="index.html#IPTK.Classes.Features.Features" title="IPTK.Classes.Features.Features"><em>Features</em></a>) – a protein feature instance containing all protein features</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>a list of list that contains the position of the known splice variant/variants in the protein. each list has two elements which are the start and             the end position of the splice variants.             If no splice variant/variants that is/are known in the protein,             the function returns an empty list.     :rtype: List[List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-IPTK.Analysis">
 <span id="module-contents"></span><h7>Module contents<a class="headerlink" href="#module-IPTK.Analysis" title="Permalink to this headline">¶</a></h7>
@@ -260,12 +380,418 @@ of these genes and then compute the correlation using SciPy stat module.</p>
 <div class="section" id="submodules">
 <h7>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h7>
 </div>
+<div class="section" id="module-IPTK.Classes.Annotator">
+<span id="iptk-classes-annotator-module"></span><h7>IPTK.Classes.Annotator module<a class="headerlink" href="#module-IPTK.Classes.Annotator" title="Permalink to this headline">¶</a></h7>
+<p>The class provided methods for visualizing different aspects of the protein biology. This is achieved through three main methods:</p>
+<blockquote>
+<div><p>1- add_segmented_track: which visualize information about non-overlapping protein substructures, for example, protein domains.</p>
+<p>2- add_stacked_track: which visualize information about overlapping protein substructures, for example, splice variants.</p>
+<p>3- add_marked_positions_track: which visualize information about positions in the protein, for example, sequence variance, or PTM.</p>
+</div></blockquote>
+<p>The class also provided functions for visualizing the relationship between
+a protein and its eluted peptide/peptides in an analogous manner to the way
+NGS reads are aligned to genomic regions. This can be useful to identify
+regions in the protein with high/low number of eluted peptides, also, to
+visualize this aspect of the protein along with other facests of the protein
+like domain organization, PTM, sequence/splice variants.</p>
+<p class="rubric">Notes</p>
+<p>each figure should have a base track this can be done explicitly by calling
+the function add_base_track or by implicitly by calling the function
+add_coverage_plot with the parameter coverage_as_base=True.</p>
+<dl class="py class">
+<dt id="IPTK.Classes.Annotator.Annotator">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Annotator.</code><code class="sig-name descname">Annotator</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_length</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">figure_size</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">figure_dpi</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">face_color</span><span class="o">=</span><span class="default_value">'white'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Annotator.Annotator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>higher level API to plot information about the protein, for example, PTM, Splice variant etc, using matplotlib library</p>
+<dl class="py method">
+<dt id="IPTK.Classes.Annotator.Annotator.add_base_track">
+<code class="sig-name descname">add_base_track</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">space_fraction</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.3</span></em>, <em class="sig-param"><span class="n">protein_name_position</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">track_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'base_track'</span></em>, <em class="sig-param"><span class="n">track_label_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'fontsize': 8}</span></em>, <em class="sig-param"><span class="n">protein_name</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'A protein'</span></em>, <em class="sig-param"><span class="n">protein_name_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'fontsize': 10}</span></em>, <em class="sig-param"><span class="n">rect_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'capstyle': 'butt', 'color': 'olive'}</span></em>, <em class="sig-param"><span class="n">number_ticks</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">10</span></em>, <em class="sig-param"><span class="n">xticks_font_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">4</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Annotator.Annotator.add_base_track" title="Permalink to this definition">¶</a></dt>
+<dd><p>add a base track to the figure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>space_fraction</strong> (<em>float</em><em>, </em><em>optional</em>) – a float between 0 and 1 that represent the fraction of space left
+below and above the track. The default is 0.3 which means that the
+track will be drown on a 40% while 60% are left as an empty space
+below and above the track.</p></li>
+<li><p><strong>protein_name_position</strong> (<em>float</em><em>, </em><em>optional</em>) – a float between 0 and 1 which control the relative position of the
+protein name on the y-axis. The default is 0.5.</p></li>
+<li><p><strong>track_label</strong> (<em>string</em><em>, </em><em>optional</em>) – The name on the track, which will be shown on the y-axis.
+The default is “base_track”.</p></li>
+<li><p><strong>track_label_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – the parameters that control the printing of the track_label,
+for example, the font size and the color. These parameters should
+be provided as dict that will be fed to the function
+<code class="docutils literal notranslate"><span class="pre">axes.set_ylabel</span></code>.The default is {“fontsize”:8,”color”:”black”}.</p></li>
+<li><p><strong>protein_name</strong> (<em>string</em><em>, </em><em>optional</em>) – the name of the protein to be printed to the track.
+The default is “A protein”.</p></li>
+<li><p><strong>protein_name_dict</strong> (<em>dDict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>ict</em><em>, </em><em>optional</em>) – the parameters that control the printing of the protein name,
+for example, the font size and the color. These parameters should
+be provided as dict that will be fed to the function
+<code class="docutils literal notranslate"><span class="pre">axes.text()</span></code>. The default is {“fontsize”:10,”color”:”black”}.</p></li>
+<li><p><strong>rect_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – a dictionary that control the character of the track itself, for example,
+the color and the transparency. this dict will be fed to the function
+<code class="docutils literal notranslate"><span class="pre">plt.Rectangle()</span></code>.
+The default is {“color”:”olive”,”capstyle”:”butt”}.</p></li>
+<li><p><strong>number_ticks</strong> (<em>int</em>) – The number of ticks on the x-axis. The default is 10.</p></li>
+<li><p><strong>xticks_font_size</strong> (<em>int</em>) – The font size of the x-axis ticks. The default is 4.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">=</span><span class="n">VisTool</span><span class="p">(</span><span class="mi">250</span><span class="p">,(</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span><span class="mi">300</span><span class="p">)</span>
+<span class="go">    # create a graph of size 3 inches by 5 inches with a 300 dots per</span>
+<span class="go">    # inch (DPI) as a resolution metric for a protein of length 250 amino acids</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_base_track</span><span class="p">()</span>
+<span class="go">    # adds a basic track using the default parameters.</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_base_track</span><span class="p">(</span><span class="n">space_fraction</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+<span class="go">                            track_label=&quot;example_1&quot;,</span>
+<span class="go">                            track_label_dict={&quot;fontsize&quot;:5,&quot;color&quot;:&quot;blue&quot;}</span>
+<span class="go">                            number_ticks=5,</span>
+<span class="go">                            xticks_font_size=6)</span>
+<span class="go">    # generate a base track with 10% empty space above and below</span>
+<span class="go">    #  the track. Track will have the name example_1 and it will be</span>
+<span class="go">    # shown in font 5 instead of 8 and in blue color instead of black.</span>
+<span class="go">    # five ticks will be shown on the x-axis using a font of size 6.</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>calling the function more than once will result in an overriding of
+the previously added base track, for example, in the examples
+section calling add_base_track for the second time will overrides
+the graph build by the previous call.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Annotator.Annotator.add_coverage_track">
+<code class="sig-name descname">add_coverage_track</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">coverage_matrix</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">coverage_as_base</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">coverage_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'blue', 'width': 1.2}</span></em>, <em class="sig-param"><span class="n">xlabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'positions'</span></em>, <em class="sig-param"><span class="n">xlabel_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'fontsize': 6}</span></em>, <em class="sig-param"><span class="n">ylabel</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'coverage'</span></em>, <em class="sig-param"><span class="n">ylabel_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'fontsize': 6}</span></em>, <em class="sig-param"><span class="n">number_ticks</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">10</span></em>, <em class="sig-param"><span class="n">xticks_font_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">4</span></em>, <em class="sig-param"><span class="n">yticks_font_size</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">4</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Annotator.Annotator.add_coverage_track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a coverage plot to the panel. The coverage plot shows the
+relationship between a peptide and its experimentally detected eluted
+peptide/peptides.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>coverage_matrix</strong> (<em>np.ndarray</em>) – a protein length by one array which summarize information the protein and
+the eluted peptides. The coverage matrix can be computed using the function
+<code class="docutils literal notranslate"><span class="pre">AntigenicProtein.compute_protein_coverage_by_peptide</span></code>.</p></li>
+<li><p><strong>coverage_as_base</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to plot the coverage as a base track for the figure.
+The default is False which means that the track appended to a figure
+that have a default base track which can be constructed using the
+function <code class="docutils literal notranslate"><span class="pre">add_base_track</span></code>. However, if coverage_as_base  is set to
+True, the function will draw the base track using the coverage matrix and
+calling the function add_base_track should be avoided.</p></li>
+<li><p><strong>coverage_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The parameters that control the printing of the coverage matrix,
+for example, the color. these parameters are fed to the function
+<code class="docutils literal notranslate"><span class="pre">axes.bar</span></code>. The default is {“color”:”blue”,”width”:1.2}.</p></li>
+<li><p><strong>xlabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label of the x-axis of the coverage track. The default is “positions”.</p></li>
+<li><p><strong>xlabel_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The parameters that control the x-label printing, for example,
+the color and/ the font size. these parameters are fed to the function
+<code class="docutils literal notranslate"><span class="pre">axes.set_xlabel</span></code>. The default is {“fontsize”:6,”color”:”black”}.</p></li>
+<li><p><strong>ylabel</strong> (<em>str</em><em>, </em><em>optional</em>) – The label of the y-axis of the coverage track. The default is “coverage”.</p></li>
+<li><p><strong>ylabel_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – he parameters that control the x-label printing, for example,
+the color and/ the font size. these parameters are fed to the function
+<code class="docutils literal notranslate"><span class="pre">axes.set_ylabel</span></code>. The default is {“fontsize”:6,”color”:”black”}.</p></li>
+<li><p><strong>number_ticks</strong> (<em>int</em><em>, </em><em>optional</em>) – The number of ticks on the x-axis. The default is 10.</p></li>
+<li><p><strong>xticks_font_size</strong> (<em>float</em><em>, </em><em>optional</em>) – The font size of the x-axis ticks. The default is 4.</p></li>
+<li><p><strong>yticks_font_size</strong> (<em>float</em><em>, </em><em>optional</em>) – The font size of the y-axis ticks. The default is 4.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Annotator.Annotator.add_marked_positions_track">
+<code class="sig-name descname">add_marked_positions_track</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">positions</span><span class="p">:</span> <span class="n">List<span class="p">[</span>int<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">height_frac</span><span class="p">:</span> <span class="n">float</span> <span class="o">=</span> <span class="default_value">0.5</span></em>, <em class="sig-param"><span class="n">marker_bar_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'linestyles': 'solid'}</span></em>, <em class="sig-param"><span class="n">marker_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'red', 's': 3}</span></em>, <em class="sig-param"><span class="n">track_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'A marked positions Track'</span></em>, <em class="sig-param"><span class="n">track_label_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'fontsize': 8}</span></em>, <em class="sig-param"><span class="n">base_line_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'linewidth': 1}</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Annotator.Annotator.add_marked_positions_track" title="Permalink to this definition">¶</a></dt>
+<dd><blockquote>
+<div><p>The function adds a marked position to the track which is shown to highlight
+certain amino acid position within the protein, for example, a sequence
+variant position, or PTM position.</p>
+<dl class="simple">
+<dt>positions<span class="classifier">List[int]</span></dt><dd><p>a list that contain the position/positions that should be heighlighted
+in the protein sequence.</p>
+</dd>
+<dt>height_frac<span class="classifier">float</span></dt><dd><p>the relative hight of the marked positions. The default is 0.5 which
+means that the hight of the marker will be 50% of the y-axis height.</p>
+</dd>
+<dt>marker_bar_dict<span class="classifier">Dict[str,Union[int,str]], optional</span></dt><dd><p>The parameters of the marker position bar, for example, line width
+or color. These parameters are going to be fed to the function
+<code class="docutils literal notranslate"><span class="pre">plt.hlines</span></code>. The default is {“color”:”black”,”linestyles”:”solid”}.</p>
+</dd>
+<dt>marker_dict<span class="classifier">Dict[str,Union[int,str]], optional</span></dt><dd><p>These parameters of marker point which sits on top of the marker bar,
+for example, the color, the shape or the size.
+The default is {“color”:”red”,”s”:3}.</p>
+</dd>
+<dt>track_label<span class="classifier">string, optional</span></dt><dd><p>The name of the track, which will be shown on the y-axis.
+The default is “A marked positions Track”.</p>
+</dd>
+<dt>track_label_dict<span class="classifier">Dict[str,Union[int,str]], optional</span></dt><dd><p>the parameters that control the printing of the track_label,
+for example, the font size and the color. These parameters should
+be provided as dict that will be fed to the function
+<code class="docutils literal notranslate"><span class="pre">axes.set_ylabel</span></code>.The default is {“fontsize”:8,”color”:”black”}.</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>base_line_dict<span class="classifier">Dict[str,Union[int,str]], optional</span></dt><dd><blockquote>
+<div><p>the parameters that control the shape of the base line, for example, color and/or line width. These parameters are going to be fed
+to the function <code class="docutils literal notranslate"><span class="pre">axes.hlines</span></code>.
+The default is {“color”:”black”,”linewidth”:1}.</p>
+</div></blockquote>
+<p>None.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_list</span><span class="o">=</span><span class="p">[</span><span class="mi">24</span><span class="p">,</span><span class="mi">26</span><span class="p">,</span><span class="mi">75</span><span class="p">,</span><span class="mi">124</span><span class="p">,</span><span class="mi">220</span><span class="p">]</span>
+<span class="go"># first define a dict object that define some protein features.</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">=</span><span class="n">Annotator</span><span class="p">(</span><span class="n">protein_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">figure_size</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">figure_dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="go"># creating a VisTool instance</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_base_track</span><span class="p">()</span>
+<span class="go"># add a base_track</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_marked_positions_track</span><span class="p">(</span><span class="n">test_list</span><span class="p">)</span> <span class="c1"># build a marked position track using the default parameters</span>
+<span class="go"># marked positions track</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_marked_positions_track</span><span class="p">(</span><span class="n">positions</span><span class="o">=</span><span class="n">test_list</span><span class="p">,</span><span class="n">height_frac</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span>
+<span class="go">                                  track_label=&quot;Post_translational_modifications&quot;,</span>
+<span class="go">                                  marker_bar_dict={&quot;color&quot;:&quot;blue&quot;})</span>
+<span class="go"># add a second marked position track with the following parameters:</span>
+<span class="go">#track name:  Post_translational_modifications</span>
+<span class="go">#hight of the maker bar = 75%</span>
+<span class="go">#color of the markerbar= blue</span>
+</pre></div>
+</div>
+<p>Any panel can have zero, one or more than one marked-position track.
+Thus, in the above examples calling the method <code class="docutils literal notranslate"><span class="pre">add_marked_positions_track</span></code>
+for the second time does NOT override the previous marked-position track
+it create a new one and added to the figure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Annotator.Annotator.add_segmented_track">
+<code class="sig-name descname">add_segmented_track</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">track_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">track_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'A segmented Track'</span></em>, <em class="sig-param"><span class="n">track_label_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'fontsize': 8}</span></em>, <em class="sig-param"><span class="n">track_element_names_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'fontsize': 8}</span></em>, <em class="sig-param"><span class="n">center_line_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">, </span>float<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'alpha': 0.5, 'linewidth': 0.5}</span></em>, <em class="sig-param"><span class="n">track_elements_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'capstyle': 'butt', 'color': 'brown'}</span></em>, <em class="sig-param"><span class="n">show_names</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Annotator.Annotator.add_segmented_track" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add a segmentation track which show non-overlapping features of the protein.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>track_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>]</em>) – <p>a dict that contain the non-overlapping features of the protein.
+The dict is assumed to have the following structure: a dict with the
+feature_index as a key and associated features as values. The associated
+features is a dict with the following three keys:</p>
+<blockquote>
+<div><p>1- Name: which contain the feature name</p>
+<p>2- startIdx: which contain the start position of the protein</p>
+<p>3- endIdx: which contain the end position of the protein</p>
+</div></blockquote>
+</p></li>
+<li><p><strong>track_label</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the track, which will be shown on the y-axis.
+The default is “A segmented Track”.</p></li>
+<li><p><strong>track_label_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – the parameters that control the printing of the track_label,
+for example, the font size and the color. These parameters should
+be provided as dict that will be fed to the function
+<code class="docutils literal notranslate"><span class="pre">axes.set_ylabel</span></code>. The default is {“fontsize”:8,”color”:”black”}.</p></li>
+<li><p><strong>track_element_names_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – the parameters that control the printing of the feature names on the track,
+for example, the font size and the color. These parameters should
+be provided as a dict that will be fed to the function <code class="docutils literal notranslate"><span class="pre">axes.text</span></code>.
+The default is {“fontsize”:8,”color”:”black”}.</p></li>
+<li><p><strong>center_line_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>, </em><em>float</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – The parameters that control the printing of the center line of a segmented track object.
+The default is {“fontsize”:8,”color”:”black”}.</p></li>
+<li><p><strong>track_elements_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>, </em><em>optional</em>) – the parameters that control the printing of the feature
+rectangluar representation for example the color, the dict will be fed
+to the function <code class="docutils literal notranslate"><span class="pre">plt.Rectangle</span></code>.
+The default is {“color”:”brown”,”capstyle”:”butt”}.</p></li>
+<li><p><strong>show_names</strong> (<em>bool</em><em>, </em><em>optional</em>) – whether or not to show the name of the features.The default is True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_dict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;domain1&quot;</span><span class="p">:{</span><span class="s2">&quot;Name&quot;</span><span class="p">:</span><span class="s2">&quot;domain_one&quot;</span><span class="p">,</span><span class="s2">&quot;startIdx&quot;</span><span class="p">:</span><span class="mi">55</span><span class="p">,</span><span class="s2">&quot;endIdx&quot;</span><span class="p">:</span><span class="mi">150</span><span class="p">},</span>
+<span class="go">               &quot;domain2&quot;:{&quot;Name&quot;:&quot;domain_Two&quot;,&quot;startIdx&quot;:190,&quot;endIdx&quot;:225}}</span>
+<span class="go"># first define a dict object that define some protein features.</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">=</span><span class="n">Annotator</span><span class="p">(</span><span class="n">protein_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">figure_size</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">figure_dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="go"># creating a Annotator instance</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_base_track</span><span class="p">()</span>
+<span class="go"># add a base_track</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_segmented_track</span><span class="p">(</span><span class="n">test_dict</span><span class="p">)</span> <span class="c1"># build a segmented track using the default parameters</span>
+<span class="go"># add the segmented track</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_segmented_track</span><span class="p">(</span><span class="n">track_dict</span><span class="o">=</span><span class="n">test_dict</span><span class="p">,</span>
+<span class="go">                                  track_label=&quot;Domains&quot;,</span>
+<span class="go">                                  track_elements_dict={&quot;color&quot;:&quot;brown&quot;})</span>
+<span class="go"># add a second segmented track with track name set to Domains and elements</span>
+<span class="go"># of the track shown as brown rectangles.</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>Any panel can have one or more segmented-tracks. Thus, in the above examples
+calling the method <code class="docutils literal notranslate"><span class="pre">add_segmented_track</span></code> for the second time does NOT
+override the previous segmented track it create a new one and added to the
+figure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Annotator.Annotator.add_stacked_track">
+<code class="sig-name descname">add_stacked_track</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">track_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">]</span></span></em>, <em class="sig-param"><span class="n">track_label</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'A stacked Track'</span></em>, <em class="sig-param"><span class="n">track_label_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'fontsize': 8}</span></em>, <em class="sig-param"><span class="n">track_element_names_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'fontsize': 8}</span></em>, <em class="sig-param"><span class="n">track_elements_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'capstyle': 'butt', 'color': 'magenta'}</span></em>, <em class="sig-param"><span class="n">base_line_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'color': 'black', 'linewidth': 1}</span></em>, <em class="sig-param"><span class="n">show_names</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Annotator.Annotator.add_stacked_track" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function add a stacked_track to a visualization panel.
+The stacked track is used to show overlapping protein features, for example,
+different splice variants.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>track_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>]</em>) – <p>a dict that contain the overlapping features of the protein.
+The dict is assumed to have the following structure, a dict with the
+feature_index as a key and associated features as values. The associated
+features is a dict with the following three keys:</p>
+<blockquote>
+<div><p>1- Name: which contain the feature name</p>
+<p>2- startIdx: which contain the start position of the feature.</p>
+<p>3- endIdx: which contain the end position of the feature.</p>
+</div></blockquote>
+</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>track_label<span class="classifier">str, optional</span></dt><dd><p>The name of the track, which will be shown on the y-axis.
+The default is “A stacked Track”.</p>
+</dd>
+<dt>track_label_dict<span class="classifier">Dict[str,Union[int,str]], optional</span></dt><dd><p>the parameters that control the printing of the track_label,
+for example, the font size and the color. These parameters should
+be provided as dict that will be fed to the function
+<code class="docutils literal notranslate"><span class="pre">axes.set_ylabel</span></code>.The default is {“fontsize”:8,”color”:”black”}.</p>
+</dd>
+<dt>track_element_names_dict<span class="classifier">Dict[str,Union[int,str]], optional</span></dt><dd><p>the parameters that control the printing of the feature names on the track,
+for example, the font size and the color. These parameters should
+be provided as a dict that will be fed to the function <code class="docutils literal notranslate"><span class="pre">axes.text</span></code>.
+The default is {“fontsize”:8,”color”:”black”}.</p>
+</dd>
+<dt>track_elements_dict<span class="classifier">Dict[str,Union[int,str]], optional</span></dt><dd><p>the parameters that control the printing of the feature
+rectangluar representation for example the color, the dict will be fed
+to the function <code class="docutils literal notranslate"><span class="pre">plt.Rectangle</span></code>.
+The default is {“color”:”magenta”,”capstyle”:”butt”}.</p>
+</dd>
+<dt>base_line_dict<span class="classifier">Dict[str,Union[int,str]], optional</span></dt><dd><p>the parameters that control the shape of the shape of the base line,
+for example, color and/or line width. These parameters are going to be fed
+to the function <code class="docutils literal notranslate"><span class="pre">axes.hlines</span></code>.
+The default is {“color”:”black”,”linewidth”:1}.</p>
+</dd>
+<dt>show_names<span class="classifier">bool, optional</span></dt><dd><p>whether or not to show the name of the features. The default is True.</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p></p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>None.</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">test_dict</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;feature_1&quot;</span><span class="p">:{</span><span class="s2">&quot;Name&quot;</span><span class="p">:</span><span class="s2">&quot;X&quot;</span><span class="p">,</span><span class="s2">&quot;startIdx&quot;</span><span class="p">:</span><span class="mi">55</span><span class="p">,</span><span class="s2">&quot;endIdx&quot;</span><span class="p">:</span><span class="mi">150</span><span class="p">},</span>
+<span class="go">               &quot;feature_2&quot;:{&quot;Name&quot;:&quot;Y&quot;,&quot;startIdx&quot;:85,&quot;endIdx&quot;:225},</span>
+<span class="go">               &quot;feature_3&quot;:{&quot;Name&quot;:&quot;Z&quot;,&quot;startIdx&quot;:160,&quot;endIdx&quot;:240}}</span>
+<span class="go"> # first define a dict object that define some protein features.</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">=</span><span class="n">Annotator</span><span class="p">(</span><span class="n">protein_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">figure_size</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="n">figure_dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="go"># creating a Annotator instance</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_base_track</span><span class="p">()</span>
+<span class="go"># add a base_track</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_segmented_track</span><span class="p">(</span><span class="n">test_dict</span><span class="p">)</span> <span class="c1"># build a stacked track using the default parameters.</span>
+<span class="go"># add the stacked track</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">example_1</span><span class="o">.</span><span class="n">add_segmented_track</span><span class="p">(</span><span class="n">track_dict</span><span class="o">=</span><span class="n">test_dict</span><span class="p">,</span>
+<span class="go">                                  track_label=&quot;OverLappingFeat&quot;,</span>
+<span class="go">                                  track_elements_dict={&quot;color&quot;:&quot;red&quot;})</span>
+<span class="go"># add a second segmented track with track name set to OverLappingFeat and elements</span>
+<span class="go"># of the track shown as red rectangles.</span>
+</pre></div>
+</div>
+<p class="rubric">Notes</p>
+<p>Any panel can have zero, one or more than one stacked-track.
+Thus, in the above examples calling the method <code class="docutils literal notranslate"><span class="pre">add_stacked_track</span></code>
+for the second time does NOT override the previous stacked track
+it create a new one and added to the figure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Annotator.Annotator.get_figure">
+<code class="sig-name descname">get_figure</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Classes.Annotator.Annotator.get_figure" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The figure with all the tracks that have been added to it.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>matplotlib.figure.Figure</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Annotator.Annotator.save_fig">
+<code class="sig-name descname">save_fig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">output_path</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'.'</span></em>, <em class="sig-param"><span class="n">format_</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'png'</span></em>, <em class="sig-param"><span class="n">figure_dpi</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'same'</span></em>, <em class="sig-param"><span class="n">figure_saving_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'facecolor': 'white'}</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Annotator.Annotator.save_fig" title="Permalink to this definition">¶</a></dt>
+<dd><p>write the construct fig to the hard-disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the figure to save the file.</p></li>
+<li><p><strong>output_path</strong> (<em>str</em><em> , </em><em>optional</em>) – The path to write the output, by default the function write to the
+current working directory.</p></li>
+<li><p><strong>format</strong> (<em>str</em><em>, </em><em>optional</em>) – The output format, this parameter will be fed to the method
+<code class="docutils literal notranslate"><span class="pre">plt.savefig</span></code>. The default is “png”.</p></li>
+<li><p><strong>figure_dpi</strong> (<em>int</em><em>, </em><em>optional</em>) – The dpi of the saved figure. The deafult is same which mean the figure
+will be saved using the same dpi used for creating the figure.</p></li>
+<li><p><strong>figure_saving_dict</strong> (<em>Dict</em><em>[</em><em>str</em><em>,</em><em>Union</em><em>[</em><em>int</em><em>,</em><em>str</em><em>]</em><em>]</em><em>,</em><em>optional</em>) – The parameters that should be fed to the function <code class="docutils literal notranslate"><span class="pre">plt.savefig</span></code>.
+The default is figure_saving_dict={“facecolor”:”white”}</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-IPTK.Classes.Database">
 <span id="iptk-classes-database-module"></span><h7>IPTK.Classes.Database module<a class="headerlink" href="#module-IPTK.Classes.Database" title="Permalink to this headline">¶</a></h7>
 <p>This submodule define a collection of container classes that are used through the library</p>
 <dl class="py class">
 <dt id="IPTK.Classes.Database.CellularLocationDB">
-<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Database.</code><code class="sig-name descname">CellularLocationDB</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2data</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Database.</code><code class="sig-name descname">CellularLocationDB</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2data</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'https://www.proteinatlas.org/download/subcellular_location.tsv.zip'</span></em>, <em class="sig-param"><span class="n">sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The class provides an API to access the cellular location information from a database   the follow the structure of the human Proteome Atlas sub-cellular location database. See <a class="reference external" href="https://www.proteinatlas.org/about/download">https://www.proteinatlas.org/about/download</a>    for more details.</p>
 <dl class="py method">
@@ -372,8 +898,7 @@ of these genes and then compute the correlation using SciPy stat module.</p>
 <dl class="py method">
 <dt id="IPTK.Classes.Database.CellularLocationDB.get_main_location">
 <code class="sig-name descname">get_main_location</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_id</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">corresponds</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Database.CellularLocationDB.get_main_location" title="Permalink to this definition">¶</a></dt>
-<dd><p>return the main location(s) of the provided gene id or gene name. 
-If both gene Id and gene name are provided, both gene_id has a higher precedence</p>
+<dd><p>return the main location(s) of the provided gene id or gene name. If both gene Id and gene name are provided, both gene_id has a higher precedence</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -418,8 +943,7 @@ If both gene Id and gene name are provided, both gene_id has a higher precedence
 <dt id="IPTK.Classes.Database.GeneExpressionDB">
 <em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Database.</code><code class="sig-name descname">GeneExpressionDB</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2data</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'https://www.proteinatlas.org/download/rna_tissue_consensus.tsv.zip'</span></em>, <em class="sig-param"><span class="n">sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'\t'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Database.GeneExpressionDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>provides an API to access gene expression data stored in table that follows the same structure as 
-the Human proteome Atlas Normalized RNA Expression see  <a class="reference external" href="https://www.proteinatlas.org/about/download">https://www.proteinatlas.org/about/download</a> for more details</p>
+<p>provides an API to access gene expression data stored in table that follows the same structure as the Human proteome Atlas Normalized RNA Expression see  <a class="reference external" href="https://www.proteinatlas.org/about/download">https://www.proteinatlas.org/about/download</a> for more details</p>
 <dl class="py method">
 <dt id="IPTK.Classes.Database.GeneExpressionDB.get_expression">
 <code class="sig-name descname">get_expression</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">gene_name</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">gene_id</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Database.GeneExpressionDB.get_expression" title="Permalink to this definition">¶</a></dt>
@@ -533,8 +1057,7 @@ the Human proteome Atlas Normalized RNA Expression see  <a class="reference exte
 <dt id="IPTK.Classes.Database.OrganismDB">
 <em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Database.</code><code class="sig-name descname">OrganismDB</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2Fasta</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Database.OrganismDB" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Extract information about the source organsim of a collection of protein sequences 
-from a fasta file and provides an API to query the results.     The function expect the input fasta file to have header written in the UNIPROT format.</p>
+<p>Extract information about the source organsim of a collection of protein sequences from a fasta file and provides an API to query the results.     The function expect the input fasta file to have header written in the UNIPROT format.</p>
 <dl class="py method">
 <dt id="IPTK.Classes.Database.OrganismDB.get_number_protein_per_organism">
 <code class="sig-name descname">get_number_protein_per_organism</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Database.OrganismDB.get_number_protein_per_organism" title="Permalink to this definition">¶</a></dt>
@@ -678,7 +1201,7 @@ from a fasta file and provides an API to query the results.     The function exp
 <dt id="IPTK.Classes.Experiment.Experiment.get_binarized_results">
 <code class="sig-name descname">get_binarized_results</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>numpy.ndarray<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_binarized_results" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return a list of NumPy arrays where each array represents a child peptide, parent protein mapped pair.
-Please note that, The function treat each peptide-protein pair individually, that is if two peptides originating from the same protein, 
+Please note that, The function treat each peptide-protein pair individually, that is if two peptides originating from the same protein,
 it treat them independently and the same protein will be represented twice with the two different peptides. Incase an integrative mapping is needed,
 the function &#64;get_integrated_binarized_results&#64; shall be used.</p>
 <dl class="field-list simple">
@@ -762,8 +1285,8 @@ the flanking regions from all the parents of each peptide.</p>
 <dt id="IPTK.Classes.Experiment.Experiment.get_go_location_id_parent_proteins">
 <code class="sig-name descname">get_go_location_id_parent_proteins</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">not_mapped_val</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'UNK'</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_go_location_id_parent_proteins" title="Permalink to this definition">¶</a></dt>
 <dd><p>retrun the gene ontology,GO, location terms for all the identified proteins.</p>
-<p>&#64;brief: 
-&#64;param: not_mapped_val: the default value to return incase the GO term of the protein can not be extracted. 
+<p>&#64;brief:
+&#64;param: not_mapped_val: the default value to return incase the GO term of the protein can not be extracted.
 &#64;note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -825,8 +1348,8 @@ This method need internet connection as it need to access uniprot mapping API to
 <dl class="py method">
 <dt id="IPTK.Classes.Experiment.Experiment.get_mapped_protein">
 <code class="sig-name descname">get_mapped_protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">pro_id</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_mapped_protein" title="Permalink to this definition">¶</a></dt>
-<dd><p>return an NumPy array of shape 1 x protein length where each number in the array represents 
-the total number of peptides identified in the experiment that have originated from the said position 
+<dd><p>return an NumPy array of shape 1 x protein length where each number in the array represents
+the total number of peptides identified in the experiment that have originated from the said position
 in the protein.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -911,7 +1434,7 @@ peptides mapped to them.</p>
 <dt id="IPTK.Classes.Experiment.Experiment.get_num_peptide_expression_table">
 <code class="sig-name descname">get_num_peptide_expression_table</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_num_peptide_expression_table" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="simple">
-<dt>Get a table that contain the id of all parent proteins, number of peptide per-proteins and the expression value </dt><dd><p>of these parent transcripts. Please note, this method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.</p>
+<dt>Get a table that contain the id of all parent proteins, number of peptide per-proteins and the expression value</dt><dd><p>of these parent transcripts. Please note, this method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.</p>
 </dd>
 </dl>
 <dl class="field-list simple">
@@ -927,8 +1450,8 @@ peptides mapped to them.</p>
 <dl class="py method">
 <dt id="IPTK.Classes.Experiment.Experiment.get_num_peptide_per_go_term">
 <code class="sig-name descname">get_num_peptide_per_go_term</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_num_peptide_per_go_term" title="Permalink to this definition">¶</a></dt>
-<dd><p>retrun the number of peptides per each GO-Term 
-:return: A table that has two columns, namely, GO-Terms and Counts. 
+<dd><p>retrun the number of peptides per each GO-Term
+:return: A table that has two columns, namely, GO-Terms and Counts.
 :rtype: pd.DataFrame</p>
 </dd></dl>
 
@@ -1028,7 +1551,7 @@ peptides mapped to them.</p>
 <dl class="py method">
 <dt id="IPTK.Classes.Experiment.Experiment.get_peptide_number_parent">
 <code class="sig-name descname">get_peptide_number_parent</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ascending</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_peptide_number_parent" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a pandas dataframe with the peptide sequence in the first columns and the 
+<dd><p>return a pandas dataframe with the peptide sequence in the first columns and the
 number of parent proteins in the second column.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1088,7 +1611,7 @@ the database</p>
 <dl class="py method">
 <dt id="IPTK.Classes.Experiment.Experiment.get_peptides_per_protein">
 <code class="sig-name descname">get_peptides_per_protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ascending</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_peptides_per_protein" title="Permalink to this definition">¶</a></dt>
-<dd><p>return a pandas dataframe that contain the number of peptides belonging to each protein 
+<dd><p>return a pandas dataframe that contain the number of peptides belonging to each protein
 inferred in the experiment</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1107,7 +1630,7 @@ inferred in the experiment</p>
 <dt id="IPTK.Classes.Experiment.Experiment.get_poly_parental_peptides">
 <code class="sig-name descname">get_poly_parental_peptides</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span><a class="reference internal" href="index.html#IPTK.Classes.Peptide.Peptide" title="IPTK.Classes.Peptide.Peptide">IPTK.Classes.Peptide.Peptide</a><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Experiment.Experiment.get_poly_parental_peptides" title="Permalink to this definition">¶</a></dt>
 <dd><p>return a list of peptides that have more than one parent proteins
-:return: [list of peptide instance 
+:return: [list of peptide instance
 :rtype: Peptides</p>
 </dd></dl>
 
@@ -1343,7 +1866,7 @@ of the 3D tensor computed by the function compute_change_in_protein_representati
 <dt id="IPTK.Classes.ExperimentalSet.ExperimentSet.compute_correlation_in_experssion">
 <code class="sig-name descname">compute_correlation_in_experssion</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; pandas.core.frame.DataFrame<a class="headerlink" href="#IPTK.Classes.ExperimentalSet.ExperimentSet.compute_correlation_in_experssion" title="Permalink to this definition">¶</a></dt>
 <dd><p>compute the correlation in parent protein gene-expression across all the experiments
-in the set. See the function <strong>compute_binary_correlation</strong> in the analysis module 
+in the set. See the function <strong>compute_binary_correlation</strong> in the analysis module
 for information about the computational logic.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -1681,6 +2204,377 @@ for information about the computational logic.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-IPTK.Classes.Features">
+<span id="iptk-classes-features-module"></span><h7>IPTK.Classes.Features module<a class="headerlink" href="#module-IPTK.Classes.Features" title="Permalink to this headline">¶</a></h7>
+<p>Parse the XML scheme of a uniprot protein and represent and provide a python API
+for quering and accessing the results</p>
+<dl class="py class">
+<dt id="IPTK.Classes.Features.Features">
+<em class="property">class </em><code class="sig-prename descclassname">IPTK.Classes.Features.</code><code class="sig-name descname">Features</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">uniprot_id</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">temp_dir</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#IPTK.Classes.Features.Features" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The class provide a template for the features associated with a protein. The following features are associated with the protein #signal peptide: dict </p>
+<blockquote>
+<div><p>the range of the signal peptide,if the protein has no signal, for example, a globular cytologic protein. None is used as a default, placeholder value. </p>
+</div></blockquote>
+<dl class="simple">
+<dt>#chains:dict </dt><dd><p>the chains making up the mature protein, the protein should at least have one chain. </p>
+</dd>
+<dt>#domain: dict</dt><dd><p>the known domains in the protein, if no domain is defined, None is used. </p>
+</dd>
+<dt>#modification sites: nested dict </dt><dd><p>that contains information about the PTM site, glycosylation site and disulfide bonds. </p>
+</dd>
+<dt>#sequence variances: dict </dt><dd><p>which contains information about the sequence variant of a protein structure. </p>
+</dd>
+<dt>#split variance: dict </dt><dd><p>which contain known split variance </p>
+</dd>
+</dl>
+<p>** Notes: Although disulfide bond is not a PTMs, it is being treated as a one here to simplify the workflow. </p>
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_PTMs">
+<code class="sig-name descname">get_PTMs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.get_PTMs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><p>a dictionary the contains the PTMs found within the protein         the PTMs are classified into the main categories:</p>
+<p>1- Modifications: which is the generic case and contain information             about any sequence modification beside disulfide bonds and glycosylation.</p>
+<p>2- glycosylation: contain information about glycosylation sites</p>
+<p>3- DisulfideBond: contain information about disulfide bond</p>
+</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str,Dict[str,Dict[str,Union[str,int]]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_PTMs_glycosylation">
+<code class="sig-name descname">get_PTMs_glycosylation</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.get_PTMs_glycosylation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The glycosylation sites found on the protein. If the protein has no glycosylation sites, the function returns None.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>[type]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_PTMs_modifications">
+<code class="sig-name descname">get_PTMs_modifications</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.get_PTMs_modifications" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The generic modification found on the protein. If the protein has no PTM, the function returns None.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str,Dict[str,Union[str,int]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_chains">
+<code class="sig-name descname">get_chains</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>str<span class="p">, </span>int<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.get_chains" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dictionary the contains the chains of the protein, if no chain is defined it return None</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[Dict[str,Union[str,int]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_disulfide_bonds">
+<code class="sig-name descname">get_disulfide_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.get_disulfide_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The disulfide sites found on the protein. If the protein has no disulfide sites, the function returns None</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>[type]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_domains">
+<code class="sig-name descname">get_domains</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>int<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.get_domains" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The domains defined in the protein sequence, if no domain is defined it returns None</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str, Dict[str, int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_number_PTMs">
+<code class="sig-name descname">get_number_PTMs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Features.Features.get_number_PTMs" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of PTMs the sequence has, this include di-sulfide bonds See Note1 for more details.         If the protein has no PTMs the function returns zero</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_number_chains">
+<code class="sig-name descname">get_number_chains</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Features.Features.get_number_chains" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of chain/chains in the protein features. if no chain is defined it returns zero.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_number_disulfide_bonds">
+<code class="sig-name descname">get_number_disulfide_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Features.Features.get_number_disulfide_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of disulfide bonds the protein has, if the protein has no disulfide bonds the function return zero.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_number_domains">
+<code class="sig-name descname">get_number_domains</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Features.Features.get_number_domains" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of domains a protein has, if no domain is defined it returns zero.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_number_glycosylation_sites">
+<code class="sig-name descname">get_number_glycosylation_sites</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Features.Features.get_number_glycosylation_sites" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of glycosylation_sites the protein has, if the protein has no glycosylation sites, the function returns zero</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_number_modifications">
+<code class="sig-name descname">get_number_modifications</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Features.Features.get_number_modifications" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>returns the total number of generic modification found on the protein.         if no modification is found it return 0</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_number_sequence_variants">
+<code class="sig-name descname">get_number_sequence_variants</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Features.Features.get_number_sequence_variants" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of sequence variants the protein has, if the protein has no sequence varient, the function returns 0.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_number_splice_variants">
+<code class="sig-name descname">get_number_splice_variants</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#IPTK.Classes.Features.Features.get_number_splice_variants" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The number of slice variants in the protein, if the protein has no splice variants, the function returns zero.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_sequence_variants">
+<code class="sig-name descname">get_sequence_variants</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.get_sequence_variants" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>a dict object that contains all sequence variants within a protein, if the protein has no sequence variants the function returns None.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str,Dict[str,Union[str,int]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_signal_peptide_index">
+<code class="sig-name descname">get_signal_peptide_index</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Tuple<span class="p">[</span>int<span class="p">, </span>int<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.get_signal_peptide_index" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The Index of the signal peptide in the protein, if not signal peptide is defined it returns None</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Tuple[int,int]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.get_splice_variants">
+<code class="sig-name descname">get_splice_variants</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.get_splice_variants" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A dict object that contain the splice variants. if the protein has no splice variants the function returns None.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str,Dict[str,Union[str,int]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.has_PTMs">
+<code class="sig-name descname">has_PTMs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Features.Features.has_PTMs" title="Permalink to this definition">¶</a></dt>
+<dd><p>:return:True if the protein has a PTMs and False other wise
+:rtype: bool</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.has_chains">
+<code class="sig-name descname">has_chains</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Features.Features.has_chains" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the protein has/have chain/chains as feature and False otherwise.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>[type]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.has_disulfide_bond">
+<code class="sig-name descname">has_disulfide_bond</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Features.Features.has_disulfide_bond" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True is the protein has disulfide and False other wise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.has_domains">
+<code class="sig-name descname">has_domains</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Features.Features.has_domains" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the protein has a defined domain/domains, otherwise it return False</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.has_glycosylation_site">
+<code class="sig-name descname">has_glycosylation_site</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Features.Features.has_glycosylation_site" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the protein has a glycosylation site and False otherwise.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>[type]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.has_sequence_variants">
+<code class="sig-name descname">has_sequence_variants</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Features.Features.has_sequence_variants" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the protein has a sequence variants, and False otherwise.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.has_signal_peptide">
+<code class="sig-name descname">has_signal_peptide</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Features.Features.has_signal_peptide" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the protein has a signal peptide and False other wise.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.has_site_modifications">
+<code class="sig-name descname">has_site_modifications</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Features.Features.has_site_modifications" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the protein has a modification site and False otherwise</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.has_splice_variants">
+<code class="sig-name descname">has_splice_variants</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#IPTK.Classes.Features.Features.has_splice_variants" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if the sequence has a splice variants and False otherwise.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="IPTK.Classes.Features.Features.summary">
+<code class="sig-name descname">summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>int<span class="p">, </span>str<span class="p">]</span><span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Features.Features.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>:return:The function return a dict object that summarizes the features of the protein.
+:rtype: Dict[str,Union[str,int]]</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-IPTK.Classes.HLAChain">
 <span id="iptk-classes-hlachain-module"></span><h7>IPTK.Classes.HLAChain module<a class="headerlink" href="#module-IPTK.Classes.HLAChain" title="Permalink to this headline">¶</a></h7>
 <p>The implementation of an HLA molecules</p>
@@ -1991,22 +2885,22 @@ for information about the computational logic.</p>
 <dl class="py method">
 <dt id="IPTK.Classes.Peptide.Peptide.add_parent_protein">
 <code class="sig-name descname">add_parent_protein</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">parent_protein</span></em>, <em class="sig-param"><span class="n">start_index</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">end_index</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.add_parent_protein" title="Permalink to this definition">¶</a></dt>
-<dd><p>add a protein instance as a parent to the current peptide. 
-The library use Python-based indexing where its 0-indexed and ranges are treated as [start, end). 
+<dd><p>add a protein instance as a parent to the current peptide.
+The library use Python-based indexing where its 0-indexed and ranges are treated as [start, end).
 :param parent_protein: a Protein instance that act as a parent to the peptide.
-:type parent_protein: Protein 
+:type parent_protein: Protein
 :param start_index: the position in the parent protein where the peptide starts
-:type start_index: int 
-:param end_index: the index of the amino acid that occurs after the last amino acid in the peptide, 
+:type start_index: int
+:param end_index: the index of the amino acid that occurs after the last amino acid in the peptide,
 :type start_index: int</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="IPTK.Classes.Peptide.Peptide.get_c_terminal_flank_seq">
 <code class="sig-name descname">get_c_terminal_flank_seq</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">flank_len</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.get_c_terminal_flank_seq" title="Permalink to this definition">¶</a></dt>
-<dd><p>:param flank_len:the length of the flanking regions 
+<dd><p>:param flank_len:the length of the flanking regions
 :type flank_len: int
-:return: a list of string containing the sequences located downstream of the peptide in the parent protein. 
+:return: a list of string containing the sequences located downstream of the peptide in the parent protein.
 :rtype: [type]</p>
 </dd></dl>
 
@@ -2182,8 +3076,8 @@ The library use Python-based indexing where its 0-indexed and ranges are treated
 <dl class="py method">
 <dt id="IPTK.Classes.Peptide.Peptide.map_to_parent_protein">
 <code class="sig-name descname">map_to_parent_protein</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>numpy.ndarray<span class="p">]</span><a class="headerlink" href="#IPTK.Classes.Peptide.Peptide.map_to_parent_protein" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mapped the instance peptide to the parent protein and returned a 
-list of numpy arrays where each array has a size of 1 by protein length. 
+<dd><p>Mapped the instance peptide to the parent protein and returned a
+list of numpy arrays where each array has a size of 1 by protein length.
 within the protein the range representing the peptide is encoded as one while
 the rest is zero.</p>
 <dl class="field-list simple">
@@ -2963,8 +3857,7 @@ the floor of this ratio will be used to sample peptides from each proteins</p>
 <dl class="py function">
 <dt id="IPTK.Utils.UtilityFunction.append_to_calling_string">
 <code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">append_to_calling_string</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">param</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">def_value</span></em>, <em class="sig-param"><span class="n">cur_val</span></em>, <em class="sig-param"><span class="n">calling_string</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">is_flag</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Utils.UtilityFunction.append_to_calling_string" title="Permalink to this definition">¶</a></dt>
-<dd><p>help function that take a calling string, a parameter, a default value and current value     if the parameter does not equal its default value the function append the parameter with its current 
-value to the calling string adding a space before the calling_string.</p>
+<dd><p>help function that take a calling string, a parameter, a default value and current value     if the parameter does not equal its default value the function append the parameter with its current value to the calling string adding a space before the calling_string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -3004,7 +3897,7 @@ value to the calling string adding a space before the calling_string.</p>
 <dl class="py function">
 <dt id="IPTK.Utils.UtilityFunction.check_peptide_made_of_std_20_aa">
 <code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">check_peptide_made_of_std_20_aa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">peptide</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#IPTK.Utils.UtilityFunction.check_peptide_made_of_std_20_aa" title="Permalink to this definition">¶</a></dt>
-<dd><p>Check if the peptide is made of the standard 20 amino acids, if this is the case, 
+<dd><p>Check if the peptide is made of the standard 20 amino acids, if this is the case,
 it return the peptide sequence, otherwise it return an empty string</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3055,7 +3948,7 @@ it return the peptide sequence, otherwise it return an empty string</p>
 <dl class="py function">
 <dt id="IPTK.Utils.UtilityFunction.generate_random_protein_mapping">
 <code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">generate_random_protein_mapping</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_len</span><span class="p">:</span> <span class="n">int</span></em>, <em class="sig-param"><span class="n">max_coverage</span><span class="p">:</span> <span class="n">int</span></em><span class="sig-paren">)</span> &#x2192; numpy.ndarray<a class="headerlink" href="#IPTK.Utils.UtilityFunction.generate_random_protein_mapping" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate a NumPy array with shape of 1 by protein_len where the elements in the array 
+<dd><p>Generate a NumPy array with shape of 1 by protein_len where the elements in the array
 is a random integer between zero &amp;  max_coverage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3076,7 +3969,7 @@ is a random integer between zero &amp;  max_coverage.</p>
 <dl class="py function">
 <dt id="IPTK.Utils.UtilityFunction.get_idx_peptide_in_sequence_table">
 <code class="sig-prename descclassname">IPTK.Utils.UtilityFunction.</code><code class="sig-name descname">get_idx_peptide_in_sequence_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sequence_table</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">peptide</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span> &#x2192; List<span class="p">[</span>str<span class="p">]</span><a class="headerlink" href="#IPTK.Utils.UtilityFunction.get_idx_peptide_in_sequence_table" title="Permalink to this definition">¶</a></dt>
-<dd><p>check the sequences table if the provided peptide is locate in one of its sequences and returns 
+<dd><p>check the sequences table if the provided peptide is locate in one of its sequences and returns
 a list of protein identifiers containing the identifier of the hit proteins.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -3203,13 +4096,12 @@ a list of protein identifiers containing the identifier of the hit proteins.</p>
 </div>
 <div class="section" id="module-IPTK.Visualization.vizTools">
 <span id="iptk-visualization-viztools-module"></span><h7>IPTK.Visualization.vizTools module<a class="headerlink" href="#module-IPTK.Visualization.vizTools" title="Permalink to this headline">¶</a></h7>
-<p>The module contain visualization functions the can be used to plot the results obtained from the 
+<p>The module contain visualization functions the can be used to plot the results obtained from the
 methods of the classes defined in the Class module or from the analysis functions defined in the Analysis Module.</p>
 <dl class="py function">
 <dt id="IPTK.Visualization.vizTools.imposed_coverage_on_3D_structure">
 <code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">imposed_coverage_on_3D_structure</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path2mmCIF</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">mapped_protein</span><span class="p">:</span> <span class="n">numpy.ndarray</span></em>, <em class="sig-param"><span class="n">background_color</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'black'</span></em>, <em class="sig-param"><span class="n">low</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'red'</span></em>, <em class="sig-param"><span class="n">high</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'blue'</span></em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#IPTK.Visualization.vizTools.imposed_coverage_on_3D_structure" title="Permalink to this definition">¶</a></dt>
-<dd><p>A function to impose the peptide coverage on top of a protein 3D structure     where the color of each position is marked by a color gradient that reflect the number of peptides 
-aligned to this position. Note: Use the function with Jupyter-note book as it return an NGLWidget object that your can explore     and navigate from the browser.</p>
+<dd><p>A function to impose the peptide coverage on top of a protein 3D structure     where the color of each position is marked by a color gradient that reflect the number of peptides aligned to this position. Note: Use the function with Jupyter-note book as it return an NGLWidget object that your can explore     and navigate from the browser.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -3250,6 +4142,287 @@ aligned to this position. Note: Use the function with Jupyter-note book as it re
 <li><p><strong>ValueError</strong> – if the provided tensor is not of rank 3</p></li>
 <li><p><strong>IndexError</strong> – if the provided indices are out of bound</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="IPTK.Visualization.vizTools.plot_coverage_and_annotation">
+<code class="sig-prename descclassname">IPTK.Visualization.vizTools.</code><code class="sig-name descname">plot_coverage_and_annotation</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protein_coverage</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>numpy.ndarray<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">temp_dir</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'.'</span></em>, <em class="sig-param"><span class="n">figure_size</span><span class="p">:</span> <span class="n">Tuple<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">7, 8</span></em>, <em class="sig-param"><span class="n">figure_dpi</span><span class="p">:</span> <span class="n">int</span> <span class="o">=</span> <span class="default_value">600</span></em>, <em class="sig-param"><span class="n">coverage_track_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>str<span class="p">, </span>dict<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'coverage_dict': {'color': 'grey', 'width': 1.2}}</span></em>, <em class="sig-param"><span class="n">chains_track</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">chains_track_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>str<span class="p">, </span>dict<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'track_elements_dict': {'capstyle': 'butt', 'color': 'magenta'}, 'track_label_dict': {'color': 'black', 'fontsize': 6}}</span></em>, <em class="sig-param"><span class="n">domains_track</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">domain_track_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>str<span class="p">, </span>dict<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'track_element_names_dict': {'color': 'black', 'fontsize': 4}, 'track_elements_dict': {'capstyle': 'butt', 'color': 'blue'}, 'track_label_dict': {'color': 'black', 'fontsize': 6}}</span></em>, <em class="sig-param"><span class="n">modifications_track</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">modifications_track_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>str<span class="p">, </span>dict<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'height_frac': 0.5, 'track_label_dict': {'color': 'black', 'fontsize': 6}}</span></em>, <em class="sig-param"><span class="n">glyco_track</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">glyco_track_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>str<span class="p">, </span>dict<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'height_frac': 0.5, 'track_label_dict': {'color': 'black', 'fontsize': 6}}</span></em>, <em class="sig-param"><span class="n">disulfide_track</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">disulfide_track_dict</span><span class="o">=</span><span class="default_value">{'height_frac': 0.5, 'track_label_dict': {'color': 'black', 'fontsize': 6}}</span></em>, <em class="sig-param"><span class="n">sequence_variants_track</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">sequence_variants_track_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Union<span class="p">[</span>str<span class="p">, </span>dict<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">{'height_frac': 0.5, 'track_label_dict': {'color': 'black', 'fontsize': 6}}</span></em>, <em class="sig-param"><span class="n">splice_variants_track</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">splice_variants_track_dict</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">{'track_elements_dict': {'capstyle': 'butt', 'color': 'green'}, 'track_label_dict': {'color': 'black', 'fontsize': 6}}</span></em><span class="sig-paren">)</span> &#x2192; matplotlib.figure.Figure<a class="headerlink" href="#IPTK.Visualization.vizTools.plot_coverage_and_annotation" title="Permalink to this definition">¶</a></dt>
+<dd><p>The function plot the annotation track which summarizes all the known information about the protein and its associated peptides.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>protein_coverage: Dict[str,np.ndarray]</dt><dd><p>A dict that contain the uniprot accession of the protein as key and the protein coverage as value</p>
+</dd>
+<dt>temp_dir<span class="classifier">str</span></dt><dd><p>The name of the temp directory to download the protein XML scheme to it.</p>
+</dd>
+<dt>figure_size: list/tuple, optional</dt><dd><p>The figure size in inches. The default is 7 by 8 in which is
+(17.8*20.32) cm.</p>
+</dd>
+<dt>figure_dpi: int, optional</dt><dd><p>The resolution of the figure in dots-per-inch. The default is 600.</p>
+</dd>
+<dt>coverage_track<span class="classifier">bool, optional</span></dt><dd><p>whether or not to plot the coverage track. The default is True.</p>
+</dd>
+<dt>coverage_track_dict: dict, optional</dt><dd><p>The parameters of the function <code class="docutils literal notranslate"><span class="pre">Annotator.add_coverage_track</span></code>.
+it is only used if coverage_track is set to True.
+The default is {“coverage_dict”:{“color”:”grey”,”width”:1.2}}.</p>
+</dd>
+<dt>chains_track<span class="classifier">bool, optional</span></dt><dd><p>whether or not to plot the chain track. The default is True.</p>
+</dd>
+<dt>chains_track_dict: dict, optional</dt><dd><p>The parameters of the function <code class="docutils literal notranslate"><span class="pre">Annotator.add_stacked_track</span></code>.
+it is only used if chains_track is set to True.
+The default is {“track_label_dict”:{“fontsize”:6,”color”:”black”},
+“track_elements_dict”:{“color”:”magenta”,”capstyle”:”butt”}}.</p>
+</dd>
+<dt>domains_track<span class="classifier">bool, optional</span></dt><dd><p>whether or not to plot the domains track. The default is True.</p>
+</dd>
+<dt>domains_track_dict: dict, optional</dt><dd><p>The parameters of the function <code class="docutils literal notranslate"><span class="pre">Annotator.add_segmented_track</span></code>.
+it is only used if domains_track is set to True.
+The default is {“track_label_dict”:{“fontsize”:6,”color”:”black”},
+“track_element_names_dict”:{“fontsize”:4,”color”:”black”},
+“track_elements_dict”:{“color”:”blue”,”capstyle”:”butt”}}</p>
+</dd>
+<dt>modifications_track<span class="classifier">bool, optional</span></dt><dd><p>whether or not to plot the generic modification track.
+The default is True.</p>
+</dd>
+<dt>modifications_track_dict: dict, optional</dt><dd><p>The parameters of the function <code class="docutils literal notranslate"><span class="pre">Annotator.add_marked_positions_track</span></code>.
+it is only used if modifications_track is set to True.
+The default is {“height_frac”:0.5,
+“track_label_dict”:{“fontsize”:6,”color”:”black”}}</p>
+</dd>
+<dt>glyco_track<span class="classifier">bool, optional</span></dt><dd><p>whether or not to plot the generic glycosylation track.
+The default is True.</p>
+</dd>
+<dt>glyco_track_dict: dict, optional</dt><dd><p>The parameters of the function <code class="docutils literal notranslate"><span class="pre">Annotator.add_marked_positions_track</span></code>.
+it is only used if glyco_track is set to True.
+The default is {“height_frac”:0.5,
+“track_label_dict”:{“fontsize”:6,”color”:”black”}}</p>
+</dd>
+<dt>disulfide_track<span class="classifier">bool, optional</span></dt><dd><p>whether or not to plot the generic disulfide bond track.
+The default is True.</p>
+</dd>
+<dt>disulfide_track_dict: dict, optional</dt><dd><p>The parameters of the function <code class="docutils literal notranslate"><span class="pre">Annotator.add_marked_positions_track</span></code>.
+it is only used if disulfide_track is set to True.
+The default is {“height_frac”:0.5,
+“track_label_dict”:{“fontsize”:6,”color”:”black”}}</p>
+</dd>
+<dt>sequence_varients_track<span class="classifier">bool, optional</span></dt><dd><p>whether or not to plot the sequence varients track.
+The default is True.</p>
+</dd>
+<dt>sequence_varients_track_dict: dict, optional</dt><dd><p>The parameters of the function <code class="docutils literal notranslate"><span class="pre">Annotator.add_marked_positions_track</span></code>.
+it is only used if sequence_varients_track is set to True.
+The default is {“height_frac”:0.5,
+“track_label_dict”:{“fontsize”:6,”color”:”black”}}.</p>
+</dd>
+<dt>splice_varient_track<span class="classifier">bool, optional</span></dt><dd><p>whether or not to plot the solice varients track. The default is True.</p>
+</dd>
+<dt>splice_varients_track_dict:</dt><dd><p>The parameters of the function <code class="docutils literal notranslate"><span class="pre">Annotator.add_stacked_track</span></code>.
+it is only used if chains_track is set to True.
+The default is {“track_label_dict”:{“fontsize”:6,”color”:”black”},
+“track_elements_dict”:{“color”:”magenta”,”capstyle”:”butt”}}.</p>
+</dd>
+</dl>
+<p>In the following series of examples we are going to optimize the plotting of an annotator
+track for the Syntenin-1 protein, protein accession O00560 which has 298 amino acids</p>
+<p>## first, let’s simulate some coverage data
+&gt;&gt;&gt; sim_coverage: np.ndarray = np.concatenate([np.zeros(50),np.ones(50),np.zeros(198)])
+&gt;&gt;&gt; panel_trial1: plt.Figure = plot_coverage_and_annotation({‘O00560’:sim_coverage})</p>
+<p>Ass seen from panel_trial1 the figure looks overcrowded an un-balanced. To polish the figure, let’s first start
+by adjusting the size of the axes’ axis</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">panel_trial2</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Figure</span> <span class="o">=</span> <span class="n">plot_coverage_and_annotation</span><span class="p">(</span>
+<span class="go">    {&#39;O00560&#39;:sim_coverage},</span>
+<span class="go">    coverage_track_dict={</span>
+<span class="go">        &quot;xlabel_dict&quot;:{</span>
+<span class="go">                        &quot;fontsize&quot;:2</span>
+<span class="go">                        },</span>
+<span class="go">        &quot;ylabel_dict&quot;:{</span>
+<span class="go">                        &quot;fontsize&quot;:2</span>
+<span class="go">                        }</span>
+<span class="go">                    },</span>
+<span class="go">    chains_track_dict={</span>
+<span class="go">        &quot;track_label_dict&quot;:{</span>
+<span class="go">                        &quot;fontsize&quot;:2</span>
+<span class="go">                            }</span>
+<span class="go">                    },</span>
+<span class="go">    domain_track_dict={</span>
+<span class="go">        &quot;track_label_dict&quot;:{</span>
+<span class="go">                        &quot;fontsize&quot;:2</span>
+<span class="go">                            }</span>
+<span class="go">                    },</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl>
+<dt>modifications_track_dict={</dt><dd><blockquote>
+<div><blockquote>
+<div><dl>
+<dt>“track_label_dict”:{</dt><dd><blockquote>
+<div><p>“fontsize”:2
+}</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+<p>Okay, 2nd trial looks much better than the first trial, but we can polish it further by adjusting the font size
+and the size of domains and chains</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">panel_trial3</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Figure</span> <span class="o">=</span> <span class="n">plot_coverage_and_annotation</span><span class="p">(</span>
+<span class="go">    {&#39;O00560&#39;:sim_coverage},</span>
+<span class="go">    coverage_track_dict={</span>
+<span class="go">        &quot;xlabel_dict&quot;:{</span>
+<span class="go">                        &quot;fontsize&quot;:2</span>
+<span class="go">                        },</span>
+<span class="go">        &quot;ylabel_dict&quot;:{</span>
+<span class="go">                        &quot;fontsize&quot;:2</span>
+<span class="go">                        }</span>
+<span class="go">                    },</span>
+<span class="go">    chains_track_dict={</span>
+<span class="go">        &quot;track_label_dict&quot;:{</span>
+<span class="go">                        &quot;fontsize&quot;:2</span>
+<span class="go">                           },</span>
+<span class="go">        &quot;track_element_names_dict&quot;:{</span>
+<span class="go">                                &quot;fontsize&quot;:2</span>
+<span class="go">                                    }</span>
+<span class="go">                    },</span>
+<span class="go">    domain_track_dict={</span>
+<span class="go">        &quot;track_label_dict&quot;:{</span>
+<span class="go">                        &quot;fontsize&quot;:2</span>
+<span class="go">                           },</span>
+</pre></div>
+</div>
+<blockquote>
+<div><blockquote>
+<div><blockquote>
+<div><dl>
+<dt>“track_element_names_dict”:{</dt><dd><blockquote>
+<div><dl class="simple">
+<dt>“fontsize”:2</dt><dd><p>}</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>},</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>modifications_track_dict={</dt><dd><dl>
+<dt>“track_label_dict”:{</dt><dd><blockquote>
+<div><p>“fontsize”:2</p>
+<blockquote>
+<div><p>}</p>
+</div></blockquote>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</div></blockquote>
+<p>)</p>
+</div></blockquote>
+<p>Okay, trial 3 looks much better than the previous tow trials, let’s polish the graph further
+by adjust the size of elments in the track as well as font-size</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">panel_trial4</span><span class="p">:</span> <span class="n">plt</span><span class="o">.</span><span class="n">Figure</span> <span class="o">=</span> <span class="n">plot_coverage_and_annotation</span><span class="p">(</span>
+<span class="go">    {&#39;O00560&#39;:sim_coverage},</span>
+<span class="go">    coverage_track_dict={</span>
+<span class="go">        &quot;xlabel_dict&quot;:{</span>
+<span class="go">                        &quot;fontsize&quot;:3</span>
+<span class="go">                        },</span>
+</pre></div>
+</div>
+<blockquote>
+<div><blockquote>
+<div><dl class="simple">
+<dt>“ylabel_dict”:{</dt><dd><p>“fontsize”:3
+},</p>
+</dd>
+<dt>“coverage_dict”:{</dt><dd><p>“color”:”grey”,
+“width”:1,</p>
+</dd>
+</dl>
+<p>},
+“number_ticks”:25,</p>
+<blockquote>
+<div><p>},</p>
+</div></blockquote>
+</div></blockquote>
+<dl>
+<dt>chains_track_dict={</dt><dd><dl>
+<dt>“track_label_dict”:{</dt><dd><dl class="simple">
+<dt>“fontsize”:3</dt><dd><p>},</p>
+</dd>
+</dl>
+</dd>
+<dt>“track_element_names_dict”:{</dt><dd><dl class="simple">
+<dt>“fontsize”:3</dt><dd><p>},</p>
+</dd>
+</dl>
+</dd>
+<dt>“track_elements_dict”:{</dt><dd><blockquote>
+<div><dl class="simple">
+<dt>“color”:”blue”</dt><dd><p>}</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>},</p>
+</dd>
+</dl>
+</dd>
+<dt>domain_track_dict={</dt><dd><blockquote>
+<div><dl>
+<dt>“track_label_dict”:{</dt><dd><dl class="simple">
+<dt>“fontsize”:3</dt><dd><p>},</p>
+</dd>
+</dl>
+</dd>
+<dt>“track_element_names_dict”:{</dt><dd><p>“fontsize”:3
+},</p>
+</dd>
+<dt>“track_elements_dict”:{</dt><dd><blockquote>
+<div><dl class="simple">
+<dt>“color”:”lime”</dt><dd><p>}</p>
+</dd>
+</dl>
+</div></blockquote>
+<p>},</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl>
+<dt>modifications_track_dict={</dt><dd><dl>
+<dt>“track_label_dict”:{</dt><dd><dl class="simple">
+<dt>“fontsize”:3</dt><dd><p>},</p>
+</dd>
+</dl>
+</dd>
+<dt>“marker_bar_dict”: {</dt><dd><p>“color”:”black”,
+“linestyles”:”solid”,
+“linewidth”:0.5,
+“alpha”:0.4
+},</p>
+</dd>
+<dt>“marker_dict”:{</dt><dd><blockquote>
+<div><blockquote>
+<div><p>“s”:2,
+“color”:”red”</p>
+</div></blockquote>
+<p>}</p>
+</div></blockquote>
+<p>}</p>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>)</p>
+</div></blockquote>
+<dl class="simple">
+<dt>vispanel: matplotlib.figure.Figure</dt><dd><p>The resulting panel.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 </dd></dl>

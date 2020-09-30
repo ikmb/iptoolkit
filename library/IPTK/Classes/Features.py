@@ -338,8 +338,7 @@ class Features:
         
     def get_signal_peptide_index(self)->Tuple[int,int]:
         """
-        :return:  The Index of the signal peptide in the protein, if not signal peptide
-        is defined it returns None
+        :return:  The Index of the signal peptide in the protein, if not signal peptide is defined it returns None
         :rtype: Tuple[int,int]
         """
         if self.extracted_features["SignalPeptide"]==None:
@@ -359,8 +358,7 @@ class Features:
     
     def get_number_chains(self) -> int:
         """
-        :return: The number of chain/chains in the protein features. if no chain is
-        defined it returns zero.
+        :return: The number of chain/chains in the protein features. if no chain is defined it returns zero.
         :rtype: int
         """
         if not self.has_chains():
@@ -369,16 +367,14 @@ class Features:
     
     def get_chains(self)->Dict[Dict[str,Union[str,int]]]:
         """
-        :return: A dictionary the contains the chains of the protein, if no chain
-        is defined it return None
+        :return: A dictionary the contains the chains of the protein, if no chain is defined it return None
         :rtype: Dict[Dict[str,Union[str,int]]]
         """
         return self.extracted_features["Chains"]
     
     def has_domains(self)->bool: 
         """
-        :return: True if the protein has a defined domain/domains, otherwise it return
-        False
+        :return: True if the protein has a defined domain/domains, otherwise it return False
         :rtype: bool 
         """
         if self.extracted_features["Domains"]==None:
@@ -387,8 +383,7 @@ class Features:
     
     def get_number_domains(self)->int:
         """
-        :return: The number of domains a protein has, if no domain is defined it returns
-        zero.
+        :return: The number of domains a protein has, if no domain is defined it returns zero.
         :rtype: int
         """
         if self.extracted_features["Domains"] ==None:
@@ -397,8 +392,7 @@ class Features:
     
     def get_domains(self)->Dict[str, Dict[str, int]]:
         """
-        :return:  The domains defined in the protein sequence, if no domain is defined it
-        returns None
+        :return:  The domains defined in the protein sequence, if no domain is defined it returns None
         :rtype: Dict[str, Dict[str, int]]
         """
         return self.extracted_features["Domains"]
@@ -426,8 +420,7 @@ class Features:
     
     def has_glycosylation_site(self)->bool:
         """
-        :return: True if the protein has a glycosylation site and False 
-        otherwise.
+        :return: True if the protein has a glycosylation site and False otherwise.
         :rtype: [type]
         """
         if self.has_PTMs():
@@ -453,9 +446,12 @@ class Features:
         """
         :return:  a dictionary the contains the PTMs found within the protein \
         the PTMs are classified into the main categories:
-            1- Modifications: which is the generic case and contain information
+
+            1- Modifications: which is the generic case and contain information \
             about any sequence modification beside disulfide bonds and glycosylation.
+            
             2- glycosylation: contain information about glycosylation sites
+            
             3- DisulfideBond: contain information about disulfide bond
 
         :rtype: Dict[str,Dict[str,Dict[str,Union[str,int]]]]
@@ -464,16 +460,14 @@ class Features:
     
     def get_PTMs_modifications(self)->Dict[str,Dict[str,Union[str,int]]]:
         """
-        :return:  The generic modification found on the protein. If the protein has no 
-        PTM, the function returns None.
+        :return:  The generic modification found on the protein. If the protein has no PTM, the function returns None.
         :rtype: Dict[str,Dict[str,Union[str,int]]]
         """
         return self.extracted_features["PTMs"]["Modifications"]
     
     def get_PTMs_glycosylation(self)->Dict[str,Dict[str,Union[str,int]]]:
         """
-        :return: The glycosylation sites found on the protein. If the protein has no 
-        glycosylation sites, the function returns None.
+        :return: The glycosylation sites found on the protein. If the protein has no glycosylation sites, the function returns None.
         :rtype: [type]
         """
         return self.extracted_features["PTMs"]["GlycoSite"]
