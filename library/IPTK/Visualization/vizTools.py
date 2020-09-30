@@ -29,7 +29,9 @@ import math
 from IPTK.Analysis.AnalysisFunction import get_PTMs_modifications_positions
 from IPTK.Analysis.AnalysisFunction import get_PTMs_glycosylation_positions
 from IPTK.Analysis.AnalysisFunction import get_PTMs_disuldfide_bonds
-from IPTK.Analysis.AnalysisFunction import get_sequence_varients_positions
+from IPTK.Analysis.AnalysisFunction import get_sequence_variants_positions
+from IPTK.Analysis.AnalysisFunction import get_splice_variants_positions
+from typing import List, Tuple, Dict, Union 
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -1194,7 +1196,8 @@ def plot_peptide_length_per_experiment(counts_table:pd.DataFrame,
     # return the figure 
     return fig 
 
-def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
+def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
+                                temp_dir: str = ".",
                                 figure_size: Tuple[int]=(7,8),
                                 figure_dpi:int =600,
                                 coverage_track_dict: Dict[str,Dict[str,Union[str,dict]]]={
@@ -1222,12 +1225,12 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
                               disulfide_track_dict={
                                   "height_frac":0.5,
                               "track_label_dict":{"fontsize":6,"color":"black"}},
-                              sequence_varients_track:bool =True,
-                              sequence_varients_track_dict: Dict[str,Dict[str,Union[str,dict]]]={
+                              sequence_variants_track:bool =True,
+                              sequence_variants_track_dict: Dict[str,Dict[str,Union[str,dict]]]={
                                   "height_frac":0.5,
                               "track_label_dict":{"fontsize":6,"color":"black"}},
-                              splice_varient_track:bool=True,
-                              splice_varients_track_dict:bool={
+                              splice_variants_track:bool=True,
+                              splice_variants_track_dict:bool={
                                   "track_label_dict":{"fontsize":6,"color":"black"},
                               "track_elements_dict":{"color":"green","capstyle":"butt"}},
                               )->plt.Figure:
@@ -1236,7 +1239,10 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
         Parameters
         ----------
         protein_coverage: Dict[str,np.ndarray]
-            a dict that contain the uniprot accession of the protein as key and the protein coverage as value 
+            A dict that contain the uniprot accession of the protein as key and the protein coverage as value 
+
+        temp_dir : str 
+            The name of the temp directory to download the protein XML scheme to it. 
 
         figure_size: list/tuple, optional
             The figure size in inches. The default is 7 by 8 in which is 
@@ -1249,7 +1255,7 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             whether or not to plot the coverage track. The default is True.
         
         coverage_track_dict: dict, optional 
-            The parameters of the function ``VisTools.add_coverage_track``.
+            The parameters of the function ``Annotator.add_coverage_track``.
             it is only used if coverage_track is set to True.
             The default is {"coverage_dict":{"color":"grey","width":1.2}}.
         
@@ -1257,7 +1263,7 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             whether or not to plot the chain track. The default is True.
         
         chains_track_dict: dict, optional 
-            The parameters of the function ``VisTools.add_stacked_track``.
+            The parameters of the function ``Annotator.add_stacked_track``.
             it is only used if chains_track is set to True.
             The default is {"track_label_dict":{"fontsize":6,"color":"black"},
             "track_elements_dict":{"color":"magenta","capstyle":"butt"}}.
@@ -1266,7 +1272,7 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             whether or not to plot the domains track. The default is True.
             
         domains_track_dict: dict, optional 
-            The parameters of the function ``VisTools.add_segmented_track``.
+            The parameters of the function ``Annotator.add_segmented_track``.
             it is only used if domains_track is set to True. 
             The default is {"track_label_dict":{"fontsize":6,"color":"black"},
             "track_element_names_dict":{"fontsize":4,"color":"black"},
@@ -1277,7 +1283,7 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             The default is True.
             
         modifications_track_dict: dict, optional
-            The parameters of the function ``VisTools.add_marked_positions_track``.
+            The parameters of the function ``Annotator.add_marked_positions_track``.
             it is only used if modifications_track is set to True. 
             The default is {"height_frac":0.5,
             "track_label_dict":{"fontsize":6,"color":"black"}}
@@ -1287,7 +1293,7 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             The default is True.
         
         glyco_track_dict: dict, optional 
-            The parameters of the function ``VisTools.add_marked_positions_track``.
+            The parameters of the function ``Annotator.add_marked_positions_track``.
             it is only used if glyco_track is set to True. 
             The default is {"height_frac":0.5,
             "track_label_dict":{"fontsize":6,"color":"black"}}
@@ -1297,7 +1303,7 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             The default is True.
         
         disulfide_track_dict: dict, optional
-            The parameters of the function ``VisTools.add_marked_positions_track``.
+            The parameters of the function ``Annotator.add_marked_positions_track``.
             it is only used if disulfide_track is set to True. 
             The default is {"height_frac":0.5,
             "track_label_dict":{"fontsize":6,"color":"black"}}
@@ -1307,7 +1313,7 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             The default is True.
         
         sequence_varients_track_dict: dict, optional
-            The parameters of the function ``VisTools.add_marked_positions_track``.
+            The parameters of the function ``Annotator.add_marked_positions_track``.
             it is only used if sequence_varients_track is set to True. 
             The default is {"height_frac":0.5,
             "track_label_dict":{"fontsize":6,"color":"black"}}.
@@ -1316,18 +1322,154 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             whether or not to plot the solice varients track. The default is True.
         
         splice_varients_track_dict:
-            The parameters of the function ``VisTools.add_stacked_track``.
+            The parameters of the function ``Annotator.add_stacked_track``.
             it is only used if chains_track is set to True.
             The default is {"track_label_dict":{"fontsize":6,"color":"black"},
             "track_elements_dict":{"color":"magenta","capstyle":"butt"}}.
+        
+        Examples
+        --------
+        In the following series of examples we are going to optimize the plotting of an annotator 
+        track for the Syntenin-1 protein, protein accession O00560 which has 298 amino acids 
+        
+        ## first, let's simulate some coverage data  
+        >>> sim_coverage: np.ndarray = np.concatenate([np.zeros(50),np.ones(50),np.zeros(198)])
+        >>> panel_trial1: plt.Figure = plot_coverage_and_annotation({'O00560':sim_coverage})
+        
+        Ass seen from panel_trial1 the figure looks overcrowded an un-balanced. To polish the figure, let's first start 
+        by adjusting the size of the axes' axis 
 
+        >>> panel_trial2: plt.Figure = plot_coverage_and_annotation(
+            {'O00560':sim_coverage},
+            coverage_track_dict={
+                "xlabel_dict":{
+                                "fontsize":2
+                                },
+                "ylabel_dict":{
+                                "fontsize":2
+                                }
+                            },
+            chains_track_dict={
+                "track_label_dict":{
+                                "fontsize":2
+                                    }
+                            },
+            domain_track_dict={
+                "track_label_dict":{
+                                "fontsize":2
+                                    }
+                            },
+     modifications_track_dict={
+                "track_label_dict":{
+                                "fontsize":2
+                                }
+                            }
+            )
+        
+        Okay, 2nd trial looks much better than the first trial, but we can polish it further by adjusting the font size
+        and the size of domains and chains 
+
+        >>> panel_trial3: plt.Figure = plot_coverage_and_annotation(
+            {'O00560':sim_coverage},
+            coverage_track_dict={
+                "xlabel_dict":{
+                                "fontsize":2
+                                },
+                "ylabel_dict":{
+                                "fontsize":2
+                                }
+                            },
+            chains_track_dict={
+                "track_label_dict":{
+                                "fontsize":2
+                                   }, 
+                "track_element_names_dict":{
+                                        "fontsize":2
+                                            }
+                            },
+            domain_track_dict={
+                "track_label_dict":{
+                                "fontsize":2
+                                   },
+
+                 "track_element_names_dict":{
+                                        "fontsize":2
+                                            }
+                            },
+             modifications_track_dict={
+                "track_label_dict":{
+                                "fontsize":2
+                                   
+                                   }
+                            }
+            )
+        
+        Okay, trial 3 looks much better than the previous tow trials, let's polish the graph further 
+        by adjust the size of elments in the track as well as font-size 
+
+        >>> panel_trial4: plt.Figure = plot_coverage_and_annotation(
+            {'O00560':sim_coverage},
+            coverage_track_dict={
+                "xlabel_dict":{
+                                "fontsize":3
+                                },
+                
+                "ylabel_dict":{
+                                "fontsize":3
+                                }, 
+                
+                "coverage_dict":{
+                    "color":"grey",
+                    "width":1, 
+                },
+                "number_ticks":25, 
+
+                            },
+            chains_track_dict={
+                "track_label_dict":{
+                                "fontsize":3
+                                   }, 
+                "track_element_names_dict":{
+                                        "fontsize":3
+                                            },
+                "track_elements_dict":{
+                                    "color":"blue"
+                                        }
+                            },
+            domain_track_dict={
+                "track_label_dict":{
+                                "fontsize":3
+                                   },
+                "track_element_names_dict":{
+                                        "fontsize":3
+                                        },
+                "track_elements_dict":{
+                                    "color":"lime"
+                                      }
+                            },
+             modifications_track_dict={
+                "track_label_dict":{
+                                "fontsize":3
+                                   },
+                "marker_bar_dict": {
+                                "color":"black",
+                                "linestyles":"solid",
+                                "linewidth":0.5,
+                                "alpha":0.4
+                                }, 
+                "marker_dict":{
+                                "s":2,
+                                "color":"red"
+                             }
+                            }
+            )
         Returns
         -------
         vispanel: matplotlib.figure.Figure
             The resulting panel.
     """
     # get the protein id 
-    protin_id: str = protein_coverage.keys()
+    protin_id: str = list(protein_coverage.keys())[0]
     # adjust the protein shape 
     if len(protein_coverage[protin_id]) == 1: 
         protein_coverage[protin_id].reshape(-1,1)
@@ -1335,25 +1477,32 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     protein_features=Features(protin_id,temp_dir)
     #create the panel
     panel=Annotator(protein_length=protein_coverage[protin_id].shape[0],
-                       figure_size=fig_size, figure_dpi=fig_dpi)
+                       figure_size=figure_size, figure_dpi=figure_dpi)
     # add the base track   
     panel.add_coverage_track(protein_coverage[protin_id],
                   coverage_as_base=True,**coverage_track_dict)
     # add the chains
     if chains_track:
-        chains=protein_features.get_chains()
+        chains=protein_features.get_chains() 
         if len(chains)!=0:
+            # update the chain dictionary names from chainId --> Name, more generic for the plotting function
+            for chain_name in chains.keys(): 
+                chains[chain_name]['Name']=chains[chain_name].pop('chainId')  
+            # plot the results 
             panel.add_stacked_track(track_dict=chains,
-                                    track_label="protein chains",
+                                    track_label="Chains",
                                     **chains_track_dict)  
         else:
-            print("No chains are associated with this protein")
+            print("No chains are associated with this protein") 
     # add the domain track
     if domains_track:
         domains=protein_features.get_domains()
         if len(domains)!=0:
+            # add the domain name to the dict to make it as generic as possible --> more generic prinintg 
+            for domain in domains.keys(): 
+                domains[domain]['Name']=domain
             panel.add_segmented_track(track_dict=domains,
-                                      track_label="domains",
+                                      track_label="Domains",
                                       **domain_track_dict)
         else:
             print("No domains are known in this protein")
@@ -1362,7 +1511,7 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
         modifications=get_PTMs_modifications_positions(protein_features)
         if len(modifications) !=0:
                 panel.add_marked_positions_track(positions=modifications,
-                                                 track_label="modifications",
+                                                 track_label="Modifications",
                                                 **modifications_track_dict)
         else:
             print("No modifications are known in this protein")
@@ -1371,7 +1520,7 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
         glyco_positions=get_PTMs_glycosylation_positions(protein_features)
         if len(glyco_positions) !=0:
                 panel.add_marked_positions_track(positions=glyco_positions,
-                                                 track_label="glycosylation",
+                                                 track_label="Glycosylation",
                                                             **glyco_track_dict)
         else: 
             print("No glycosylation sites are known in this protein")
@@ -1380,27 +1529,20 @@ def add_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
         sulfide_positions=get_PTMs_disuldfide_bonds(protein_features)
         if len(sulfide_positions) !=0:
             panel.add_marked_positions_track(positions=sulfide_positions,
-                                                 track_label="disulfide bound",
+                                                 track_label="Disulfide bound",
                                                             **disulfide_track_dict)
         else:
             print("No disulfide sites are known in this protein")
         
     # add sequence varient track:
-    if sequence_varients_track: 
-        sequence_varients_positions=get_sequence_varients_positions(protein_features)
+    if sequence_variants_track: 
+        sequence_variants_positions=get_sequence_variants_positions(protein_features)
         if len(sulfide_positions)!=0:
             panel.add_marked_positions_track(
-                     positions=sequence_varients_positions,
-                     track_label="sequence varients",
-                     **sequence_varients_track)     
+                     positions=sequence_variants_positions,
+                     track_label="Sequence Varients",
+                     **sequence_variants_track)     
         else:
             print("No sequence varients sites are known in this protein")
-        
-    # add sequence varients track: 
-    if splice_varient_track: 
-        splice_varinets=get_splice_varients(protein_features)
-        if len(splice_varinets)!=0:
-            panel.add_stacked_track(track_dict=splice_varinets,
-                                        track_label="protein splice varients",
-                                        **splice_varients_track_dict)
+    plt.tight_layout() # adjust and scale the figure sizes 
     return panel.get_figure()

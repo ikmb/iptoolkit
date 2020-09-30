@@ -278,7 +278,7 @@ def get_PTMs_modifications_positions(protein_feature: Features) ->List[int] :
     :rtype: List[int]
     """
     containing=[]
-    modification_dict=protein_feature.get_PTM_modifications()
+    modification_dict=protein_feature.get_PTMs_modifications()
     if modification_dict==None: 
         return containing
     for key in modification_dict.keys():
@@ -296,7 +296,7 @@ def get_PTMs_glycosylation_positions(protein_feature: Features) ->List[int]:
     :rtype: List[int]
     """
     glyco_positions=[]
-    glyco_dict=protein_feature.get_PTM_glycosylation()
+    glyco_dict=protein_feature.get_PTMs_glycosylation()
     if glyco_dict==None: 
         return glyco_positions
     for key in glyco_dict.keys():
@@ -314,14 +314,14 @@ def get_PTMs_disuldfide_bonds(protein_feature)->List[int]:
     :rtype: List[int]
     """
     disulfide_positions=[]
-    disulfide_dict=protein_feature.get_PTM_disulfide()
+    disulfide_dict=protein_feature.get_disulfide_bonds()
     if disulfide_dict==None:
          return disulfide_positions
     for key in disulfide_dict.keys():
         disulfide_positions.append(disulfide_dict[key]["startIdx"])
     return disulfide_positions
 
-def get_sequence_varients_positions(protein_feature)->List[int]:
+def get_sequence_variants_positions(protein_feature)->List[int]:
     """
     :param protein_feature: a protein feature instance containing all protein features 
     :type protein_feature: Features
@@ -378,7 +378,7 @@ def get_domains_positions(protein_feature)->List[List[int]]:
                                     domains_dict[key]["endIdx"]])
     return domains_positions
 
-def get_splice_varients_positions(protein_feature)->List[List[int]]:
+def get_splice_variants_positions(protein_feature)->List[List[int]]:
     """
     :param protein_feature: a protein feature instance containing all protein features 
     :type protein_feature: Features

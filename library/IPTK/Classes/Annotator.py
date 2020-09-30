@@ -188,6 +188,7 @@ class Annotator:
                             track_label: str ="A segmented Track",
                             track_label_dict: Dict[str,Union[int,str]]={"fontsize":8,"color":"black"},
                             track_element_names_dict:Dict[str,Union[int,str]]={"fontsize":8,"color":"black"},
+                            center_line_dict:Dict[str,Union[int,str,float]]={"alpha":0.5,"linewidth":0.5},
                             track_elements_dict: Dict[str,Union[int,str]]={"color":"brown","capstyle":"butt"},
                             show_names: bool=True)->None:
         """
@@ -222,6 +223,10 @@ class Annotator:
             for example, the font size and the color. These parameters should 
             be provided as a dict that will be fed to the function ``axes.text``. 
             The default is {"fontsize":8,"color":"black"}.
+
+        center_line_dict: Dict[str,Union[int,str, float]], optional 
+            The parameters that control the printing of the center line of a segmented track object.
+            The default is {"fontsize":8,"color":"black"}.
             
         track_elements_dict : Dict[str,Union[int,str]], optional
             the parameters that control the printing of the feature 
@@ -242,8 +247,8 @@ class Annotator:
         >>> test_dict={"domain1":{"Name":"domain_one","startIdx":55,"endIdx":150},
                        "domain2":{"Name":"domain_Two","startIdx":190,"endIdx":225}}
         
-        # creating a VisTool instance
-        >>> example_1=VisTools(protein_length=250, figure_size=(5,3), figure_dpi=200)
+        # creating a Annotator instance
+        >>> example_1=Annotator(protein_length=250, figure_size=(5,3), figure_dpi=200)
         # add a base_track
         >>> example_1.add_base_track()
         # add the segmented track
@@ -270,7 +275,7 @@ class Annotator:
         # set the axes axis limits
         height=1
         ax.axis(xmin=0,xmax=self.protein_length,ymin=0,ymax=height)
-        ax.axhline(y=0.45*height,xmin=0,xmax=self.protein_length,color="black")
+        ax.axhline(y=0.45*height,xmin=0,xmax=self.protein_length,color="black", **center_line_dict)
         # get the position of the dictionary objects
         for key in track_dict.keys():
             segment_length=track_dict[key]["endIdx"]-track_dict[key]["startIdx"]
@@ -362,8 +367,8 @@ class Annotator:
                        "feature_2":{"Name":"Y","startIdx":85,"endIdx":225},
                        "feature_3":{"Name":"Z","startIdx":160,"endIdx":240}}
         
-        # creating a VisTool instance
-        >>> example_1=VisTools(protein_length=250, figure_size=(5,3), figure_dpi=200)
+        # creating a Annotator instance
+        >>> example_1=Annotator(protein_length=250, figure_size=(5,3), figure_dpi=200)
         # add a base_track
         >>> example_1.add_base_track()
         # add the stacked track
@@ -479,7 +484,7 @@ class Annotator:
         # first define a dict object that define some protein features.
         >>> test_list=[24,26,75,124,220]
         # creating a VisTool instance
-        >>> example_1=VisTools(protein_length=250, figure_size=(5,3), figure_dpi=200)
+        >>> example_1=Annotator(protein_length=250, figure_size=(5,3), figure_dpi=200)
         # add a base_track
         >>> example_1.add_base_track()
         # marked positions track
