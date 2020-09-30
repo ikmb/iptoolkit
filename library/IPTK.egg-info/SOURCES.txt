@@ -7,9 +7,11 @@ IPTK.egg-info/dependency_links.txt
 IPTK.egg-info/top_level.txt
 IPTK/Analysis/AnalysisFunction.py
 IPTK/Analysis/__init__.py
+IPTK/Classes/Annotator.py
 IPTK/Classes/Database.py
 IPTK/Classes/Experiment.py
 IPTK/Classes/ExperimentalSet.py
+IPTK/Classes/Features.py
 IPTK/Classes/HLAChain.py
 IPTK/Classes/HLAMolecules.py
 IPTK/Classes/HLASet.py
