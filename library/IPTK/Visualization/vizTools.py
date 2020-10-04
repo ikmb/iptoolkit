@@ -1471,8 +1471,8 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     # get the protein id 
     protin_id: str = list(protein_coverage.keys())[0]
     # adjust the protein shape 
-    if len(protein_coverage[protin_id]) == 1: 
-        protein_coverage[protin_id].reshape(-1,1)
+    if len(protein_coverage[protin_id]) == 2: 
+        protein_coverage[protin_id]=protein_coverage[protin_id].reshape(-1)
     # get all the information about the protein 
     protein_features=Features(protin_id,temp_dir)
     #create the panel
@@ -1484,7 +1484,7 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     # add the chains
     if chains_track:
         chains=protein_features.get_chains() 
-        if len(chains)!=0:
+        if chains is not None:
             # update the chain dictionary names from chainId --> Name, more generic for the plotting function
             for chain_name in chains.keys(): 
                 chains[chain_name]['Name']=chains[chain_name].pop('chainId')  
@@ -1497,7 +1497,7 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     # add the domain track
     if domains_track:
         domains=protein_features.get_domains()
-        if len(domains)!=0:
+        if domains is not None:
             # add the domain name to the dict to make it as generic as possible --> more generic prinintg 
             for domain in domains.keys(): 
                 domains[domain]['Name']=domain
