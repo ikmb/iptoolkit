@@ -1533,7 +1533,7 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     # add sequence varient track:
     if sequence_variants_track: 
         sequence_variants_positions=get_sequence_variants_positions(protein_features)
-        if len(sulfide_positions)!=0:
+        if len(sequence_variants_positions)!=0:
             panel.add_marked_positions_track(
                      positions=sequence_variants_positions,
                      track_label="Sequence Varients",
