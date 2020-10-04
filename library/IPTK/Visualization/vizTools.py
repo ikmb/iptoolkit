@@ -1229,10 +1229,6 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
                               sequence_variants_track_dict: Dict[str,Dict[str,Union[str,dict]]]={
                                   "height_frac":0.5,
                               "track_label_dict":{"fontsize":6,"color":"black"}},
-                              splice_variants_track:bool=True,
-                              splice_variants_track_dict:bool={
-                                  "track_label_dict":{"fontsize":6,"color":"black"},
-                              "track_elements_dict":{"color":"green","capstyle":"butt"}},
                               )->plt.Figure:
     """The function plot the annotation track which summarizes all the known information about the protein and its associated peptides.
         
@@ -1541,7 +1537,7 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             panel.add_marked_positions_track(
                      positions=sequence_variants_positions,
                      track_label="Sequence Varients",
-                     **splice_variants_track_dict)     
+                     **sequence_variants_track_dict)     
         else:
             print("No sequence varients sites are known in this protein")
     plt.tight_layout() # adjust and scale the figure sizes 
