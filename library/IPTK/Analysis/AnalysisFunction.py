@@ -51,9 +51,6 @@ def get_binnary_protein_overlap(exp1:Experiment, exp2:Experiment)->Proteins:
 
 def compute_binary_distance(peptides: List[str],dist_func:Callable)->np.ndarray:
     """compare the distance between every pair of peptides in a collection of peptides. 
-    @param: peptides: a collection of peptides sequences.
-    @param: dist_func: function to compute the distance between each pair of peptides. 
-    @note: 
     
     :param peptides: a collection of peptides sequences.
     :type peptides: List[str]
@@ -244,11 +241,6 @@ def compute_difference_in_representation(mapped_prot_cond1: np.ndarray,
     mapped_prot_cond2: np.ndarray) -> np.ndarray:
     """return the difference in the representation of a protein between two conditions
     by substracting the coverage of the first protein from the second proteins.
-
-
-    @param: mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
-    @param: mapped_prot_cond2: a mapped protein instance containing the protein coverage in the second condition  
-    
 
     :param mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
     :type mapped_prot_cond1: np.ndarray
