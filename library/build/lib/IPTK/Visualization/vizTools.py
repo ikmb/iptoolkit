@@ -1229,10 +1229,6 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
                               sequence_variants_track_dict: Dict[str,Dict[str,Union[str,dict]]]={
                                   "height_frac":0.5,
                               "track_label_dict":{"fontsize":6,"color":"black"}},
-                              splice_variants_track:bool=True,
-                              splice_variants_track_dict:bool={
-                                  "track_label_dict":{"fontsize":6,"color":"black"},
-                              "track_elements_dict":{"color":"green","capstyle":"butt"}},
                               )->plt.Figure:
     """The function plot the annotation track which summarizes all the known information about the protein and its associated peptides.
         
@@ -1471,8 +1467,8 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     # get the protein id 
     protin_id: str = list(protein_coverage.keys())[0]
     # adjust the protein shape 
-    if len(protein_coverage[protin_id]) == 1: 
-        protein_coverage[protin_id].reshape(-1,1)
+    if len(protein_coverage[protin_id]) == 2: 
+        protein_coverage[protin_id]=protein_coverage[protin_id].reshape(-1)
     # get all the information about the protein 
     protein_features=Features(protin_id,temp_dir)
     #create the panel
@@ -1484,7 +1480,7 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     # add the chains
     if chains_track:
         chains=protein_features.get_chains() 
-        if len(chains)!=0:
+        if chains is not None:
             # update the chain dictionary names from chainId --> Name, more generic for the plotting function
             for chain_name in chains.keys(): 
                 chains[chain_name]['Name']=chains[chain_name].pop('chainId')  
@@ -1497,7 +1493,7 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     # add the domain track
     if domains_track:
         domains=protein_features.get_domains()
-        if len(domains)!=0:
+        if domains is not None:
             # add the domain name to the dict to make it as generic as possible --> more generic prinintg 
             for domain in domains.keys(): 
                 domains[domain]['Name']=domain
@@ -1529,7 +1525,7 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
         sulfide_positions=get_PTMs_disuldfide_bonds(protein_features)
         if len(sulfide_positions) !=0:
             panel.add_marked_positions_track(positions=sulfide_positions,
-                                                 track_label="Disulfide bound",
+                                                 track_label="Disulfide Bonds",
                                                             **disulfide_track_dict)
         else:
             print("No disulfide sites are known in this protein")
@@ -1537,11 +1533,11 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     # add sequence varient track:
     if sequence_variants_track: 
         sequence_variants_positions=get_sequence_variants_positions(protein_features)
-        if len(sulfide_positions)!=0:
+        if len(sequence_variants_positions)!=0:
             panel.add_marked_positions_track(
                      positions=sequence_variants_positions,
                      track_label="Sequence Varients",
-                     **sequence_variants_track)     
+                     **sequence_variants_track_dict)     
         else:
             print("No sequence varients sites are known in this protein")
     plt.tight_layout() # adjust and scale the figure sizes 
