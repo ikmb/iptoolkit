@@ -1525,7 +1525,7 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
         sulfide_positions=get_PTMs_disuldfide_bonds(protein_features)
         if len(sulfide_positions) !=0:
             panel.add_marked_positions_track(positions=sulfide_positions,
-                                                 track_label="Disulfide bound",
+                                                 track_label="Disulfide Bonds",
                                                             **disulfide_track_dict)
         else:
             print("No disulfide sites are known in this protein")
