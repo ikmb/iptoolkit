@@ -141,7 +141,10 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
                     for prot in hit['protein']: 
                         if decoy_prefix not in prot['accession']:
                             peptides.append(hit['sequence'])
-                            protein_acc.append(prot['accession'].split('|')[1])
+                            if '|' in prot['accession']: 
+                                protein_acc.append(prot['accession'].split('|')[1])
+                            else: 
+                                protein_acc.append(prot['accession'])
     else: 
         with pepxml.read(path2XML_file) as reader: 
             for elem in reader:
@@ -162,14 +165,24 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
             raise KeyError(f'Database mismatch, the current protein accession: {protein_acc[idx]} is not defined in the provided sequence database')
         # get the index of the protein sequence
         try: 
-            start_index.append(prot_seq.index(peptides[idx]))
+            if '(' in peptides[idx]: # that is there sequence modifications in the sequence 
+                temp_peptide=peptides[idx] # that is there sequence modifications in the sequence 
+                while '(' in temp_peptide or ')' in temp_peptide: 
+                    pre_seq=temp_peptide.split('(')[0]
+                    post_seq=")".join(temp_peptide.split(')')[1:])
+                    temp_peptide=pre_seq+post_seq
+                start_index.append(prot_seq.index(temp_peptide))
+                peptide_len=len(temp_peptide)
+            else: 
+                start_index.append(prot_seq.index(peptides[idx]))
+                peptide_len=len(peptides[idx])
         except ValueError as exp:
             if remove_if_not_matched:
                 start_index.append(-1) #  add a placeholder value that will be dropped later 
             else: 
-                raise ValueError(f'Peptide sequence: {peptides[idx]} could not be extracted from protein sequence: {prot_seq}')
+                raise ValueError(f'Peptide sequence: {peptides[idx]} could not be extracted from protein sequence: {prot_seq} with accession: {protein_acc[idx]}')
         # add the end index 
-        end_index.append(start_index[idx]+len(peptides[idx]))
+        end_index.append(start_index[idx]+peptide_len)
     # build the data frame 
     ident_table: pd.DataFrame = pd.DataFrame({
         'peptide': peptides,
@@ -331,9 +344,15 @@ def fasta2dict(path2fasta:str, filter_decoy: bool = True,
             if decoy_string in seq.id:
                continue
             else:
-                results[seq.id.split('|')[1]]=str(seq.seq)
+                if '|' in seq.id: 
+                    results[seq.id.split('|')[1]]=str(seq.seq)
+                else: 
+                    results[seq.id]=str(seq.seq)
         else:
-            results[seq.id.split('|')[1]]=str(seq.seq)  
+            if '|' in seq.id: 
+                results[seq.id.split('|')[1]]=str(seq.seq)
+            else: 
+                results[seq.id]=str(seq.seq)
     # return the results 
     return results
 

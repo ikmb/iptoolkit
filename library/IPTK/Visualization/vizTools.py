@@ -609,7 +609,7 @@ def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame,
     # create a figure to plot to it 
     fig= plt.figure()
     # format the label
-    title=f't-test score: {ttest_res.statistic}, P-val: {ttest_res.pvalue }'
+    title=f't-test score: {ttest_res.statistic:.3f}, P-val: {ttest_res.pvalue:.3e}'
     # plot the results 
     ax=sns.violinplot(data=gene_exp_p_np, **plotting_kwargs)
     # set the axis of the axes and the title 

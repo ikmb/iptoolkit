@@ -1534,11 +1534,12 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
     if sequence_variants_track: 
         sequence_variants_positions=get_sequence_variants_positions(protein_features)
         if len(sequence_variants_positions)!=0:
+            print("I am here")
             panel.add_marked_positions_track(
                      positions=sequence_variants_positions,
-                     track_label="Sequence Varients",
+                     track_label="Sequence Variants",
                      **sequence_variants_track_dict)     
         else:
-            print("No sequence varients sites are known in this protein")
+            print("No sequence variants sites are known in this protein")
     plt.tight_layout() # adjust and scale the figure sizes 
     return panel.get_figure()
