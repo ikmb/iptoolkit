@@ -409,7 +409,7 @@ def create_experiment(table_format, tissue_name, hla_alleles, n_clicks):
                 )
             elif table_format=='mzTab':
                 table_pep: pd.DataFrame = inFunc.parse_mzTab_to_identification_table(
-                    path2mz_tab=PEPTIDE_TABLE_PATH, 
+                    path2mzTab=PEPTIDE_TABLE_PATH, 
                     path2fastaDB=FASTA_DATABASE_PATH,) 
             else: 
                 table_pep: pd.DataFrame = inFunc.parse_text_table(

@@ -260,7 +260,7 @@ def parse_text_table(path2file: str,
         raise IOError(f'while loading the input table: {path2file}, The following error was encountered: {exp}')
     # extract the columns of the table 
     if seq_column not in input_table.columns or accession_column not in input_table.columns :
-        raise KeyError(f'The provided names for the peptides sequence: {seq_column} and/or the indexing column: {index_acc_column} and/or accession column: {accession_column} could not be found on the table')
+        raise KeyError(f'The provided names for the peptides sequence: {seq_column} and/or the indexing column: {accession_column} and/or accession column: {accession_column} could not be found on the table')
     # allocate the lists
     peptides: List[str] = []
     protein_acc: List[str] = []
@@ -321,7 +321,7 @@ def parse_text_table(path2file: str,
                     temp_start_idx=-1
                     pass
                 else: 
-                    raise ValueError(f'Peptide sequence: {row[seq_column]} could not be extracted from protein sequence: {prot_seq}')
+                    raise ValueError(f'Peptide sequence: {row[seq_column]} could not be extracted from protein sequence: {protein_seq}')
             start_index.append(temp_start_idx)
             end_index.append(temp_start_idx+len(row[seq_column]))            
     # build the data frame 

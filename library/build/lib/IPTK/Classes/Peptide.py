@@ -46,13 +46,6 @@ class Peptide:
 		:param end_index: the index of the amino acid that occurs after the last amino acid in the peptide, 
 		:type start_index: int 
 		"""
-		if parent_protein[start_index:end_index] != self._peptide: 
-			raise ValueError(f"""The provided parent information can not be attributed to the instance peptide
-							 As according to the provided information. Extracted peptide is: 
-							 { parent_protein[start_index:end_index]}
-							 While the instance peptide is: 
-							 {self._peptide}
-							 """)
 		self._parent_proteins[parent_protein.get_id()]={
 		'protein':parent_protein, 
 		'start_index':start_index, 

@@ -120,7 +120,8 @@ def simulate_random_experiment(alleles: List[str],  path2fasta: str,  tissue_nam
     hla_set: HLASet = HLASet(alleles)
     ident_table: pd.DataFrame =simulate_an_experimental_ident_table_from_fasta(path2fasta,num_pep,num_pep)
     # to be upgraded to the new version of the Tissue class 
-    tissue: Tissue = Tissue(tissue_name,simulate_an_expression_table(num_transcripts=1000))
+    tissue: Tissue = Tissue(tissue_name,simulate_an_expression_table(num_transcripts=1000)),
+            simulate_an_expression_table(num_transcripts=100)
     database: SeqDB = SeqDB(path2fasta)
     return Experiment(proband=proband,hla_set=hla_set,tissue=tissue,database=database,
     ident_table=ident_table)

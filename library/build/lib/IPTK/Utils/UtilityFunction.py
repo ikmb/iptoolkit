@@ -220,3 +220,49 @@ def check_peptide_made_of_std_20_aa(peptide:str)->str:
             return ''
     return peptide
 
+def get_experiment_summary(ident_table: pd.DataFrame) -> pd.DataFrame:
+    """takes as an input an identification table and return a summary table containing the count of unique peptides,\
+    unique proteins, maximum peptide length, minmum peptide length, median and mean peptide length 
+
+    :param ident_table: the identification table as returned by one of the parser functions defined in the IO modules 
+    :type ident_table: pd.DataFrame
+    :return: The summary table 
+    :rtype: pd.DataFrame
+    """
+    # compute the statsitics 
+    num_unique_peptides: int = len(set(ident_table.peptide))
+    num_unique_proteins: int = len(set(ident_table.protein))
+    peptide_len: np.ndarray= np.array(ident_table.end_index) - np.array(ident_table.start_index)
+    max_len: int = np.max(peptide_len) 
+    min_len: int = np.min(peptide_len)
+    medain_len: float = np.median(peptide_len)
+    mean_len: float = np.mean(peptide_len)
+    # generate the data frame 
+    res: pd.DataFrame = pd.DataFrame({
+        'num_unique_peptides':[num_unique_peptides], 
+        'num_unique_proteins': [num_unique_proteins], 
+        'max_len': [max_len], 
+        'min_len':[min_len],
+        'median_len':[medain_len], 
+        'mean_len': [mean_len]
+    })
+    # return the results 
+    return res 
+
+def combine_summary(child_dfs: List[pd.DataFrame], root_df: pd.DataFrame = None) -> pd.DataFrame: 
+    """combine multiple summaray dataframes into one dataframe 
+
+    :param child_dfs: a list of summary dataframes to conctinate into one 
+    :type child_dfs: List[pd.DataFrame]
+    :param root_df: a dataframe to append the child dataframe to its tail, defaults to None
+    :type root_df: pd.DataFrame, optional
+    :return: a dataframe containing the root and the child dataframes 
+    :rtype: pd.DataFrame
+    """
+    if root_df is None: 
+        root_df= pd.DataFrame(columns=['num_unique_peptides','num_unique_proteins','max_len','min_len','median_len','mean_len'])
+    # loop over the child dataframes
+    for child_df in child_dfs: 
+        root_df=pd.concat([root_df, child_df], axis=0)
+    # return the results 
+    return root_df

@@ -17,8 +17,8 @@ These Tutorial can be found at the Tutorial directory</p>
 <p>The library can be installed using pip as follow: </p> 
 
 ```
- pip install  TBD
- ```
+pip install iptkl --user
+```
 
 
 ### Funding ###

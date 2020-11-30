@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="IPTK", 
+    name="IPTKL", 
     version="0.3.1",
     author="Hesham ElAbd",
     author_email="h.elabd@ikmb.uni-kiel.de",

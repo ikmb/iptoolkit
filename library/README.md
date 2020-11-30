@@ -1,5 +1,5 @@
 ![IKMB_LOGO](/Media/IKMB_LOGO.png)
-# The immunopeptidomic toolkit library, IPTK # 
+# The immunopeptidomic toolkit library, IPTKL # 
 
 ### Introduction and Project Aim ###
 <p>IPTK is a Pythonic library specialized in the analysis of HLA-peptidomes identified through an Immunopeptiomics pipeline. 
@@ -8,7 +8,7 @@ for a rich analysis and for comparing different experiments and different runs.<
 
 ### Tutorials ### 
 <p>The library have three notebooks that provide a step be step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
-These Tutorial can be found at the Tutorial directory</p>
+These Tutorial can be found at: https://github.com/ikmb/iptoolkit/tree/master/Tutorials </p>
 
 <p> IPTK have be documented using Sphnix, the manual of the library can be found at docs directory and online @readthedocs[will be added after submission] </p> 
 
@@ -17,8 +17,8 @@ These Tutorial can be found at the Tutorial directory</p>
 <p>The library can be installed using pip as follow: </p> 
 
 ```
- pip install  TBD
- ```
+pip install  iptkl
+```
 
 
 ### Funding ###
