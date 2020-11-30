@@ -440,7 +440,7 @@ def create_experiment(table_format, tissue_name, hla_alleles, n_clicks):
         else:
             try: 
                 expresson_profile: GeneExpressionDB= GeneExpressionDB(
-                path2data=GENE_EXPRESSION_TABLE,sep=',')
+                path2data=GENE_EXPRESSION_TABLE,sep='\t')
             except Exception as exp: 
                 return f'While parsing the expression table, the following error was encountered: {exp}'
         # create the location table 
@@ -454,7 +454,7 @@ def create_experiment(table_format, tissue_name, hla_alleles, n_clicks):
         else: 
             try: 
                 protein_locations: CellularLocationDB=CellularLocationDB(
-                path2data=PROTEIN_LOC_TABLE,sep=',')
+                path2data=PROTEIN_LOC_TABLE,sep='\t')
             except Exception as exp: 
                 return f'While parsing the location table, the following error was encountered: {exp}'
         # create the tissue instance 
