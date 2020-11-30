@@ -41,7 +41,8 @@ def load_identification_table(input_path: str, sep:str) -> pd.DataFrame:
     return table 
 
 def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
-    fasta_reader_param: Dict[str,str]={'filter_decoy':True, 'decoy_string':'DECOY' })->pd.DataFrame:
+    fasta_reader_param: Dict[str,str]={'filter_decoy':True, 'decoy_string':'DECOY' },
+    remove_if_not_matched: bool = True)->pd.DataFrame:
     """parse a user provided mzTab to an identification table 
 
     :param path2mzTab: the path to the input mzTab file
@@ -50,6 +51,8 @@ def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
     :type path2fastaDB: str
     :param fasta_reader_param: a dict of parameters for controlling the behavior of the fasta reader , defaults to {'filter_decoy':True, 'decoy_string':'DECOY' }
     :type fasta_reader_param: Dict[str,str], optional
+    :param remove_if_not_matched: remove the peptide if it could not be matched to the parent protein,, defaults to True
+    :type remove_if_not_matched: bool, optional
     :raises IOError: if the mztab file could not be open and loaded or if the fasta database could not be read
     :raises KeyError: if a protein id defined in the mzTab file could not be extracted from a matched sequence database
     :raises ValueError: if the peptide can not be mapped to the identified protein 
@@ -69,7 +72,7 @@ def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
     # get the peptide tables
     peptides_table: pd.DataFrame = input_file.peptide_table
     # construct the identification table 
-    peptide_seq: List[str] = peptides_table.sequence.tolist()
+    peptides: List[str] = peptides_table.sequence.tolist()
     protein_acc: List[str]= [acc.split('|')[1] for acc in peptides_table.accession.tolist()]
     start_index: List[int] = []
     end_index: List[int] = []
@@ -80,16 +83,29 @@ def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
             prot_seq: str = sequence_dict[protein_acc[idx]]
         except KeyError as exp: 
             raise KeyError(f'Database mismatch, the current protein accession: {protein_acc[idx]} is not defined in the provided sequence database')
-        # get the index of the protein sequence
+       # get the index of the protein sequence
         try: 
-            start_index.append(prot_seq.index(peptide_seq[idx]))
+            if '(' in peptides[idx]: # that is there sequence modifications in the sequence 
+                temp_peptide=peptides[idx] # that is there sequence modifications in the sequence 
+                while '(' in temp_peptide or ')' in temp_peptide: 
+                    pre_seq=temp_peptide.split('(')[0]
+                    post_seq=")".join(temp_peptide.split(')')[1:])
+                    temp_peptide=pre_seq+post_seq
+                start_index.append(prot_seq.index(temp_peptide))
+                peptide_len=len(temp_peptide)
+            else: 
+                start_index.append(prot_seq.index(peptides[idx]))
+                peptide_len=len(peptides[idx])
         except ValueError as exp:
-            raise ValueError(f'Peptide sequence: {peptide_seq[idx]} could not be extracted from protein sequence: {prot_seq}')
+            if remove_if_not_matched:
+                start_index.append(-1) #  add a placeholder value that will be dropped later 
+            else: 
+                raise ValueError(f'Peptide sequence: {peptides[idx]} could not be extracted from protein sequence: {prot_seq} with accession: {protein_acc[idx]}')
         # add the end index 
-        end_index.append(start_index[idx]+len(peptide_seq[idx]))
+        end_index.append(start_index[idx]+peptide_len)
     # build the data frame 
     ident_table: pd.DataFrame = pd.DataFrame({
-        'peptide': peptide_seq,
+        'peptide': peptides,
         'protein': protein_acc,
         'start_index':start_index,
         'end_index':end_index
