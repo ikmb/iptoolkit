@@ -10,7 +10,7 @@ for a rich analysis and for comparing different experiments and different runs.<
 <p>The library have three notebooks that provide a step be step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
 These Tutorial can be found at the Tutorial directory</p>
 
-<p> IPTK have be documented using Sphnix, the manual of the library can be found at docs directory and online [here] (https://iptk.readthedocs.io/en/latest/index.html) </p> 
+<p> IPTK have be documented using Sphnix, the manual of the library can be found at docs directory and online [here](https://iptk.readthedocs.io/en/latest/index.html) </p> 
 
 
 ### Installation ###
