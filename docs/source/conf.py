@@ -12,7 +12,7 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('/Users/heshamelabd/projects/IPTK/library/IPTK'))
+sys.path.insert(0, os.path.abspath('../../library'))
 
 
 # -- Project information -----------------------------------------------------
