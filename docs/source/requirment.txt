@@ -9,3 +9,5 @@ pyteomics
 h5py
 logomaker
 colour
+lxml
+nglview
