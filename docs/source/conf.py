@@ -24,6 +24,7 @@ author = 'Hesham ElAbd'
 # The full version, including alpha/beta/rc tags
 release = '0.4.0'
 
+master_doc = 'index'
 
 # -- General configuration ---------------------------------------------------
 
