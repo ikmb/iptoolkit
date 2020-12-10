@@ -32,6 +32,7 @@ from IPTK.Analysis.AnalysisFunction import get_PTMs_disuldfide_bonds
 from IPTK.Analysis.AnalysisFunction import get_sequence_variants_positions
 from IPTK.Analysis.AnalysisFunction import get_splice_variants_positions
 from typing import List, Tuple, Dict, Union 
+from sklearn import manifold
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -1542,3 +1543,60 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
             print("No sequence variants sites are known in this protein")
     plt.tight_layout() # adjust and scale the figure sizes 
     return panel.get_figure()
+
+def plot_MDS_from_ic_coverage(distance_matrix: pd.DataFrame, 
+    plotting_kwargs: Dict[str,str]={'c':'b'},
+    title:str ='MDS plot using immunopeptidomic coverage as a distance metric'
+    )->plt.Figure:
+    """ plot MDS using immunopeptiomic coverage distance as a precomputed distance metric 
+
+    :param distance_matrix: A pandas dataframe that contain the results of the distance matrix between each pair of experiments 
+    :type distance_matrix: pd.DataFrame
+    :param plotting_kwargs: a dict object containing parameters for the plt.plot function, defaults to {}
+    :type plotting_kwargs: Dict[str,str], optional
+    :param title: the title of the MDS plot 
+    :type title: str 
+    """
+    # Get the matrix 
+    dist=np.array(distance_matrix)
+    # Normalize the matrix to values between 0 and 1
+    dist/=np.amax(dist)
+    # Compute the MDS 
+    mds=manifold.MDS(n_components=2,dissimilarity="precomputed")
+    mds.fit(dist)
+    # get the co-ordinate of the MDS 
+    coords = mds.fit_transform(dist)
+    names=distance_matrix.columns
+    # plot the results 
+    fig=plt.figure()
+    plt.scatter(coords[:,0],coords[:,1],**plotting_kwargs)
+    for label, x, y in zip(names, coords[:,0], coords[:,1]):
+        plt.annotate(label, (x,y), xycoords = 'data')
+    plt.xlabel('First Dimension')
+    plt.ylabel('Second Dimension')
+    plt.title(title)    
+    # return the results 
+    return fig 
+
+def plot_num_peptides_per_protein_hist(num_pep_per_protein: pd.DataFrame,
+            plotting_kwargs: Dict[str,str]={'c':'b'},
+            title:str ='The Distribution of the number of peptides per protein') -> plt.Figure: 
+    """plot a dist plot showing the distribution of the number of peptides observed from each protein. 
+
+    :param num_pep_per_protein: a table containing the number of peptides observed from each protein inferred
+    :type num_pep_per_protein: pd.DataFrame
+    :param plotting_kwargs: a dict object containing parameters for the sns.distplot function, defaults to {}
+    :type plotting_kwargs: Dict[str,str], optional
+    :param title: the title of the MDS plot 
+    :type title: str 
+    :return: a dist plot constructed 
+    :rtype: plt.Figure
+    """
+    fig=plt.figure()
+    ax=sns.distplot(num_pep_per_protein.iloc[:,-1])
+    ax.set_xlabel('Number of peptides per protein')
+    ax.set_ylabel('Frequency')
+    ax.title('The distribution of number of peptides per protein')  
+    return fig 
+
+

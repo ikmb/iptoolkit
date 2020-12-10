@@ -13,7 +13,7 @@ from IPTK.Classes.Tissue import Tissue
 from IPTK.Classes.Database import SeqDB, OrganismDB
 from IPTK.Utils.Mapping import map_from_uniprot_gene
 from IPTK.Utils.Types import Sequences, MappedProtein, MappedProteins,ProteinSource
-from typing import List, Dict, Set, Tuple 
+from typing import List, Dict, Set, Tuple
 # define the analysis types 
 Peptides=List[Peptide]
 Proteins=List[Protein]
@@ -24,14 +24,6 @@ class Experiment:
 	def __init__(self, proband:Proband, hla_set:HLASet, tissue:Tissue,  database:SeqDB,
 				ident_table:pd.DataFrame)->Experiment: 
 		"""Construct an experiment instance.
-
-		
-		@param: Proband_name:a proband instance that contain the proband, name& other  meta-data . 
-		@param: Tissue: 
-		@param: database: database to exact the sequence of the identified proteins. 
-		@param: ident_table: The identification table @see IO.InFunctions for more details. 
-		@see: IPTK.IO.InFunctions.load_identification_table for more details. 
-		
 
 		:param proband: a proband instance that contain the proband, name& other  meta-data. 
 		:type proband: Proband
@@ -382,10 +374,6 @@ class Experiment:
 	
 	def get_go_location_id_parent_proteins(self, not_mapped_val: str = 'UNK')->pd.DataFrame:
 		"""retrun the gene ontology,GO, location terms for all the identified proteins. 
-		
-		@brief: 
-		@param: not_mapped_val: the default value to return incase the GO term of the protein can not be extracted. 
-		@note: This method need internet connection as it need to access uniprot mapping API to map uniprot IDs to gene IDs.  
 
 		:param not_mapped_val: The default value to return incase the GO term of the protein can not be extracted, defaults to 'UNK'
 		:type not_mapped_val: str, optional

@@ -390,13 +390,126 @@ def get_splice_variants_positions(protein_feature)->List[List[int]]:
                                     variants[key]["endIdx"]])
     return splice_variant_positions
 
+def compute_ic_distance_protein(protein_id:str, experiment_set,
+                                mode="restrictive") -> pd.DataFrame: 
+    """compute the immunopeptidomic coverage distance between a group of experiments \
+        in the experiment set using one protein defined in protein_id. 
 
+    :param protein_id: the uniprot or the identifier of the protein in Experiment objects
+    :type protein_id: str
+    :param experiment_set: An experiment set object to containing all the experiments 
+    :type experiment_set: ExperimentSet
+    :param mode: mode of calculations, if restrictive, the protein defined by protein_id MUST\
+         be present in every experiment. If is not defined an error will be through. However,\
+         incase the mode is "permissive" the absent protein will be treated as an array of zeros.\
+         it defaults to "restrictive".
+    :type mode: str, optional
+    :return: a square distance matrix contain the differs in immunopeptidomics coverage between each pair of experiments\
+         in the set of experiments. 
+    :rtype: pd.DataFrame
+    """
+    # extract the mapping array: 
+    exps=experiment_set.get_experiments()
+    mapped_arrays=dict()
+    ## loop over each experiment and extract the experiment 
+    for exp_id in exps.keys(): 
+        try: 
+            mapped_arrays[exp_id]=exps[exp].get_mapped_protein(protein_id)
+        except KeyError as exp: 
+            if mode=="permissive": 
+                mapped_arrays[exp_id]=-1
+            else: 
+                raise KeyError(f"protein id: {protein_id} is not defined in experiment: {exp_id}")
+    ## compute the pair wise distance 
+    ic_dist: np.ndarray = np.zeros((len(mapped_arrays),len(mapped_arrays)))
+    ## get the names of the arrays  
+    row_names=col_names=list(mapped_arrays.keys())
+    ## loop over the array element to fill 
+    for row_idx in range(len(row_names)): 
+        for col_idx in range(len(col_names)): 
+            # handling the 4 possible cases that can be encountered during the execution 
+            if isinstance(mapped_arrays[row_names[row_idx]], int): 
+                if isinstance(mapped_arrays[row_names[col_idx]], int):
+                    ic_dist[row_idx,col_idx]=0
+                else: 
+                    ic_dist[row_idx,col_idx]=np.sum(np.abs(mapped_arrays[row_names[col_idx]]))
+            else: 
+                if isinstance(mapped_arrays[row_names[col_idx]], int):
+                    ic_dist[row_idx,col_idx]=np.sum(np.abs(mapped_arrays[row_names[row_idx]]))
+                else: 
+                    ic_dist[row_idx,col_idx]=np.sum(np.abs(mapped_arrays[row_names[row_idx]]-mapped_arrays[row_names[col_idx]]))
+    ## construct a data frame out of the results 
+    results_df: pd.DataFrame = pd.DataFrame(mapped_arrays)   
+    results_df.columns=col_names
+    results_df.index=row_names
+    ## return the results 
+    return results_df
 
+def compute_ic_distance_experiments(experiment_set,mode="restrictive")->pd.DataFrame:
+    """compute the immunopeptidomic coverage distance between a group of experiments \
+        using all proteins in the insection or the union, depending on the mode, of the set\
+        of proteins defined in the set. 
 
-
-
-
-
+    :param experiment_set: An experiment set object to containing all the experiments 
+    :type experiment_set: ExperimentSet
+    :param mode: mode of calculations, if restrictive the proteins defined by protein_id MUST\
+        be defined in every experiment if is not defined and error will be through. However,\
+        incase it is "permissive" the absent protein will be treated as an array of zeros.\
+        it defaults to "restrictive".
+    :type mode: str, optional
+    :return: A square distance matrix containing the avarage difference in the immunopeptidomic coverage\
+        between each pair of experiments in the experiment set.  
+    :rtype: pd.DataFrame
+    """
+    ## GETTING the set of proteins depending on the mode
+    if mode=="restrictive": 
+        protin_set=experiment_set.get_proteins_present_in_all()
+    else: 
+        protein_set=[]
+        for exp_id in experiment_set.get_experiments().keys(): 
+            protein_set.extend(experiment_set[exp_id].get_proteins())
+    protin_set=list(set(protin_set))
+    ## getting the dict of experiments 
+    exps=experiment_set.get_experiments()
+    ## computing the distance tensor Tensor 
+    distance_tensor = np.zeros((len(exps),len(exps), len(protin_set)))
+    ## looping over all the elements in the tensor 
+    row_names=col_names= list(exps.keys())
+    ## FILL the tensor  
+    # ----------------
+    for row_idx in range(len(row_names)):
+        for col_idx in range(len(col_names)): 
+            for protein_idx in range(len(protin_set)):
+                ## obtain the mapped array of the rows
+                try: 
+                    mapped_array_er_pp=exps[row_names[row_idx]].get_mapped_protein(protin_set[protein_idx])
+                except KeyError: 
+                    mapped_array_er_pp=-1
+                ## obtain the mapped array of the columns 
+                try: 
+                    mapped_array_ec_pp= exps[col_names[col_idx]].get_mapped_protein(protin_set[protein_idx]) 
+                except KeyError: 
+                    mapped_array_er_pp=-1
+                ## fill the tensor using the mapped array information 
+                if isinstance(mapped_array_er_pp, int): # i.e. set to -1 --> not present   
+                    if isinstance(mapped_array_ec_pp, int): # i.e. set to -1 --> not present  
+                        distance_tensor[row_idx,col_idx,protein_idx]=0
+                    else: 
+                        distance_tensor[row_idx,col_idx,protein_idx]=np.sum(np.abs(mapped_array_ec_pp))
+                else: 
+                    if isinstance(mapped_array_ec_pp, int):
+                        distance_tensor[row_idx,col_idx,protein_idx]=np.sum(np.abs(mapped_array_er_pp))
+                    else:
+                        distance_tensor[row_idx,col_idx,protein_idx]=np.sum(np.abs(mapped_array_er_pp-mapped_array_ec_pp)) 
+    ## COMPUTE the mean across the protein set: 
+    distance_matrix= np.mean(distance_tensor,-1) 
+    ## CONSTRUCT A DF out of the results 
+    results_df=pd.DataFrame(distance_matrix)
+    ## set the names of the dataframe 
+    results_df.columns=col_names
+    results_df.index=row_names
+    ## return the results 
+    return results_df
 
 
 

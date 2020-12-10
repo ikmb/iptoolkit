@@ -13,7 +13,6 @@ from typing import List, Callable, Dict, Set
 from IPTK.IO import MEMEInterface as memeIF
 from IPTK.IO import OutFunctions as out_func
 from IPTK.Classes.Experiment import Experiment
-from IPTK.Classes.ExperimentalSet import ExperimentSet
 from IPTK.Utils.UtilityFunction import check_peptide_made_of_std_20_aa
 from IPTK.Utils.Mapping import map_from_uniprot_gene
 from scipy.stats import pearsonr
@@ -391,7 +390,7 @@ def get_splice_variants_positions(protein_feature)->List[List[int]]:
                                     variants[key]["endIdx"]])
     return splice_variant_positions
 
-def compute_ic_distance_protein(protein_id:str, experiment_set: ExperimentSet,
+def compute_ic_distance_protein(protein_id:str, experiment_set,
                                 mode="restrictive") -> pd.DataFrame: 
     """compute the immunopeptidomic coverage distance between a group of experiments \
         in the experiment set using one protein defined in protein_id. 
@@ -429,13 +428,13 @@ def compute_ic_distance_protein(protein_id:str, experiment_set: ExperimentSet,
     for row_idx in range(len(row_names)): 
         for col_idx in range(len(col_names)): 
             # handling the 4 possible cases that can be encountered during the execution 
-            if mapped_arrays[row_names[row_idx]]==-1: 
-                if mapped_arrays[row_names[col_idx]]==-1:
+            if isinstance(mapped_arrays[row_names[row_idx]], int): 
+                if isinstance(mapped_arrays[row_names[col_idx]], int):
                     ic_dist[row_idx,col_idx]=0
                 else: 
                     ic_dist[row_idx,col_idx]=np.sum(np.abs(mapped_arrays[row_names[col_idx]]))
             else: 
-                if mapped_arrays[row_names[col_idx]]==-1:
+                if isinstance(mapped_arrays[row_names[col_idx]], int):
                     ic_dist[row_idx,col_idx]=np.sum(np.abs(mapped_arrays[row_names[row_idx]]))
                 else: 
                     ic_dist[row_idx,col_idx]=np.sum(np.abs(mapped_arrays[row_names[row_idx]]-mapped_arrays[row_names[col_idx]]))
@@ -446,7 +445,7 @@ def compute_ic_distance_protein(protein_id:str, experiment_set: ExperimentSet,
     ## return the results 
     return results_df
 
-def compute_ic_distance_experiments(experiment_set: ExperimentSet,mode="restrictive")->pd.DataFrame:
+def compute_ic_distance_experiments(experiment_set,mode="restrictive")->pd.DataFrame:
     """compute the immunopeptidomic coverage distance between a group of experiments \
         using all proteins in the insection or the union, depending on the mode, of the set\
         of proteins defined in the set. 
@@ -492,13 +491,13 @@ def compute_ic_distance_experiments(experiment_set: ExperimentSet,mode="restrict
                 except KeyError: 
                     mapped_array_er_pp=-1
                 ## fill the tensor using the mapped array information 
-                if mapped_array_er_pp==-1: 
-                    if mapped_array_ec_pp==-1: 
+                if isinstance(mapped_array_er_pp, int): # i.e. set to -1 --> not present   
+                    if isinstance(mapped_array_ec_pp, int): # i.e. set to -1 --> not present  
                         distance_tensor[row_idx,col_idx,protein_idx]=0
                     else: 
                         distance_tensor[row_idx,col_idx,protein_idx]=np.sum(np.abs(mapped_array_ec_pp))
                 else: 
-                    if mapped_array_ec_pp==-1:
+                    if isinstance(mapped_array_ec_pp, int):
                         distance_tensor[row_idx,col_idx,protein_idx]=np.sum(np.abs(mapped_array_er_pp))
                     else:
                         distance_tensor[row_idx,col_idx,protein_idx]=np.sum(np.abs(mapped_array_er_pp-mapped_array_ec_pp)) 
