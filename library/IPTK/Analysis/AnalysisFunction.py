@@ -1,6 +1,6 @@
 #!/usr/bin/env Python 
-"""The module contain a collection of analysis function that can be used by the methods of
-the classes defined in the classes module. 
+"""The module contains a collection of analysis functions that can be used by the methods of
+the classes defined in the IPTK.Classes module. 
 """
 # load the modules: 
 import numpy as np 
@@ -42,21 +42,21 @@ def get_binnary_protein_overlap(exp1:Experiment, exp2:Experiment)->Proteins:
     :type exp1: Experiment
     :param exp2: an instance of class Experiment.
     :type exp2: Experiment
-    :return: a list of proteins that have been identified in both experiments. 
+    :return: a list of proteins that have been identified or inferred in both experiments. 
     :rtype: Proteins
     """
     protein_one=exp1.get_proteins()
     protein_two=exp2.get_proteins()
     return list(protein_one.intersection(protein_two))
 
-def compute_binary_distance(peptides: List[str],dist_func:Callable)->np.ndarray:
+def compute_binary_distance(peptides: List[str], dist_func:Callable)->np.ndarray:
     """compare the distance between every pair of peptides in a collection of peptides. 
     
-    :param peptides: a collection of peptides sequences.
+    :param peptides: a collection of peptides.
     :type peptides: List[str]
     :param dist_func: a function to compute the distance between each pair of peptides. 
     :type dist_func: Callable
-    :raises RuntimeError: make sure that the dist_function is suitable with the peptides which might have different lengths.
+    :raises RuntimeError: make sure that the dist_function is suitable with respect to the input peptides. For example, peptides which might have different lengths.
     :return: the distance between each pair of peptides in the provided list of peptides
     :rtype: np.ndarray
     """
@@ -80,14 +80,14 @@ def get_sequence_motif(peptides:Peptides,
     
     :param peptides: a list of string containing the peptide sequences 
     :type peptides: Peptides
-    :param temp_dir: he temp directory to write temp-files to it, defaults to "./TEMP_DIR"
+    :param temp_dir: the temp directory to write temp-files to it, defaults to "./TEMP_DIR"
     :type temp_dir: str, optional
     :param verbose: whether or not to print the output of the motif discovery tool to the stdout, defaults to False
     :type verbose: bool, optional
-    :param meme_params: a dict object that contain meme controlling parameters, defaults to {}
+    :param meme_params: a dict object that contains meme controlling parameters, defaults to {}
     :type meme_params: Dict[str,str], optional
     :raises FileNotFoundError: incase meme is not installed or could not be found in the path!
-    :raises ValueError: incase the peptides have different length! 
+    :raises ValueError: Incase the peptides have different length! 
     """
     # check the meme is installed 
     if not memeIF.is_meme_callable():
@@ -114,9 +114,9 @@ def get_sequence_motif(peptides:Peptides,
     print(f"MEME has finished execution. Results can be found at: {meme_results_dir}")
     
 def download_structure_file(pdb_id:str)->None:
-    """Download PDB/mmCIF file containing the pbd_id from PDB using BioPython library 
+    """Download PDB/mmCIF file with a user provided identifer from PDB using BioPython library 
 
-    :param pdb_id: the protein id in protein databank 
+    :param pdb_id: the protein id in protein data bank 
     :type pdb_id: str
     """
     pdb_list=PDBList()
@@ -130,7 +130,7 @@ def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
     
     :param exp1: The first experimental object 
     :type exp1: Experiment
-    :param exp2: he second experimental object 
+    :param exp2: The second experimental object 
     :type exp2: Experiment
     :return: the correlation in gene expression of the proteins inferred in the provided pair of experiment
     :rtype: float
@@ -208,7 +208,7 @@ def compute_expression_correlation(exp1:Experiment,exp2:Experiment)->float:
 def compute_change_in_protein_representation(mapped_prot_cond1: np.ndarray, 
     mapped_prot_cond2: np.ndarray)->float:
     """Compute the change in the protein representation between two conditions, by computing 
-    the difference in the area under the curve, AUC.
+    the differences in the area under the curve, AUC.
 
     :param mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
     :type mapped_prot_cond1: np.ndarray
@@ -240,7 +240,7 @@ def compute_change_in_protein_representation(mapped_prot_cond1: np.ndarray,
 def compute_difference_in_representation(mapped_prot_cond1: np.ndarray, 
     mapped_prot_cond2: np.ndarray) -> np.ndarray:
     """return the difference in the representation of a protein between two conditions
-    by substracting the coverage of the first protein from the second proteins.
+    by substracting the coverage of the first protein from the second protein.
 
     :param mapped_prot_cond1: a mapped protein instance containing the protein coverage in the first condition
     :type mapped_prot_cond1: np.ndarray
@@ -262,11 +262,12 @@ def compute_difference_in_representation(mapped_prot_cond1: np.ndarray,
     return mapped_prot_cond1-mapped_prot_cond2
 
 def get_PTMs_modifications_positions(protein_feature: Features) ->List[int] : 
-    r"""
-    :param protein_feature: a protein feature instance containing all protein features 
+    r""" return a list of integers containing the position of PTMs in the protein.
+
+    :param protein_feature: A protein feature instance containing all protein features 
     :type protein_feature: Features
     :return: A list that contains the position of the generic modifications in \
-            the protein. If no modifications is known the function returns an empty list
+            the protein. If no modifications is known the function returns an empty list.
     :rtype: List[int]
     """
     containing=[]
@@ -279,7 +280,8 @@ def get_PTMs_modifications_positions(protein_feature: Features) ->List[int] :
 
  
 def get_PTMs_glycosylation_positions(protein_feature: Features) ->List[int]:
-    r"""
+    r""" return a list of integers containing glycosylation position in the protein.
+
     :param protein_feature: a protein feature instance containing all protein features 
     :type protein_feature: Features
     :return: a list that contains the position of the generic glycosylation in \
@@ -297,7 +299,8 @@ def get_PTMs_glycosylation_positions(protein_feature: Features) ->List[int]:
 
 
 def get_PTMs_disuldfide_bonds(protein_feature)->List[int]:
-    """
+    """  return a list of integers containing dissulfide bound position in the protein.
+
     :param protein_feature: a protein feature instance containing all protein features 
     :type protein_feature: Features
     :return: A list that contains the position of the known disulfide bonds in \
@@ -314,11 +317,13 @@ def get_PTMs_disuldfide_bonds(protein_feature)->List[int]:
     return disulfide_positions
 
 def get_sequence_variants_positions(protein_feature)->List[int]:
-    """
+    """return a list of integers containing known sequence variants positions in the protein.
+
     :param protein_feature: a protein feature instance containing all protein features 
     :type protein_feature: Features
     :return: A list that contains the position of the known sequence variants in 
-            the protein. If no sequence variant/variants that is/are known in the protein, the function returns an empty list.
+            the protein. If no sequence variant/variants that is/are known in the protein,\
+            the function returns an empty list.
     :rtype: List[int]
     """
     seqVar_positions=[]
@@ -330,13 +335,14 @@ def get_sequence_variants_positions(protein_feature)->List[int]:
     return seqVar_positions
 
 def get_chain_positions(protein_feature)->List[List[int]]:
-    """
+    """ return a list of lists containing the start and end position of known chains in the protein 
+
     :param protein_feature: a protein feature instance containing all protein features 
     :type protein_feature: Features
     :return:  a list of list that contains the position of the known chain/chains \
             in the protein. each list has two elements which are the start and \
             the end position of the position lists. \
-            If no sequence variant/variants that is/are known in  the protein, \
+            If no chains are known in  the protein, \
             the function returns an empty list. \
     :rtype: List[List[int]]
     """
@@ -351,13 +357,14 @@ def get_chain_positions(protein_feature)->List[List[int]]:
 
 
 def get_domains_positions(protein_feature)->List[List[int]]:
-    """
+    """ return a list of lists containing the start and end position of known domains in the protein.  
+
     :param protein_feature: a protein feature instance containing all protein features 
     :type protein_feature: Features
     :return: a list of list that contains the position of the known domain/domains \
             in the protein. each list has two elements which are the start and \
             the end position of the domain. \
-            If no sequence domain/domains that is/are known in  the protein, \
+            If there are no domain/domains that is/are known in the protein, \
             the function returns an empty list. \
     :rtype: List[List[int]]
     """
@@ -371,7 +378,8 @@ def get_domains_positions(protein_feature)->List[List[int]]:
     return domains_positions
 
 def get_splice_variants_positions(protein_feature)->List[List[int]]:
-    """
+    """ return a list of lists containing the start and end position of known splice variants in the protein.  
+
     :param protein_feature: a protein feature instance containing all protein features 
     :type protein_feature: Features
     :return:  a list of list that contains the position of the known splice variant/variants \ 
@@ -397,14 +405,14 @@ def compute_ic_distance_protein(protein_id:str, experiment_set,
 
     :param protein_id: the uniprot or the identifier of the protein in Experiment objects
     :type protein_id: str
-    :param experiment_set: An experiment set object to containing all the experiments 
+    :param experiment_set: An experiment set object containing all the experiments 
     :type experiment_set: ExperimentSet
     :param mode: mode of calculations, if restrictive, the protein defined by protein_id MUST\
          be present in every experiment. If is not defined an error will be through. However,\
          incase the mode is "permissive" the absent protein will be treated as an array of zeros.\
          it defaults to "restrictive".
     :type mode: str, optional
-    :return: a square distance matrix contain the differs in immunopeptidomics coverage between each pair of experiments\
+    :return: a square distance matrix contain the differences in immunopeptidomics coverage between each pair of experiments\
          in the set of experiments. 
     :rtype: pd.DataFrame
     """
@@ -447,13 +455,13 @@ def compute_ic_distance_protein(protein_id:str, experiment_set,
 
 def compute_ic_distance_experiments(experiment_set,mode="restrictive")->pd.DataFrame:
     """compute the immunopeptidomic coverage distance between a group of experiments \
-        using all proteins in the insection or the union, depending on the mode, of the set\
+        using all proteins in the intersection or the union, depending on the mode, of the set\
         of proteins defined in the set. 
 
-    :param experiment_set: An experiment set object to containing all the experiments 
+    :param experiment_set: An experiment set object containing all the experiments 
     :type experiment_set: ExperimentSet
     :param mode: mode of calculations, if restrictive the proteins defined by protein_id MUST\
-        be defined in every experiment if is not defined and error will be through. However,\
+        be defined in every experiment, if it is not defined and error will be through. However,\
         incase it is "permissive" the absent protein will be treated as an array of zeros.\
         it defaults to "restrictive".
     :type mode: str, optional
