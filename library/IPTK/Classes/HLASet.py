@@ -11,15 +11,15 @@ from typing import List
 # define the class 
 class HLASet: 
     def __init__(self, hlas: HLA_Names, gene_sep: str = ':')-> HLASet:
-        """initialize an HLASet class which is a collection of HLA molecules 
+        """create an HLASet class which is a collection of HLA molecules 
         :param hlas: a list of alleles to be added to the set  
         :type hlas: HLA_Names
         :param gene_sep: Incase of HLA-DP and HLA-DQ, what is the gene separator that separate the genes' names, 
-        for example, in DQA1*0303:DQB1*0202 the separator is the colon, defaults to ':'
+        for example, in DQA1*0303:DQB1*0202 the separator is the colon, defaults to ':'.
         :type gene_sep: str, optional
         :raises ValueError: incase the list of alleles is empty 
-        :raises ValueError: incase of HLA-DP and HLA-DQ with a mismatch allele names 
-        :raises RuntimeError: incase adding the alleles failed for any reason 
+        :raises ValueError: incase of HLA-DP and HLA-DQ with a mismatch allele names.
+        :raises RuntimeError: incase adding the alleles failed for any reason.
         :return: an HLASet instance 
         :rtype: HLASet
         """
@@ -48,7 +48,7 @@ class HLASet:
 
     def get_hla_count(self)->int:
         """
-        :return: the count of HLA molecules in the set 
+        :return: The count of HLA molecules in the set 
         :rtype: int
         """
         return len(self)
@@ -74,14 +74,14 @@ class HLASet:
     
     def get_alleles(self)-> List[str]:
         """
-        :return: The class of the HLA-alleles in the current instance 
+        :return: The current alleles in the set
         :rtype: int
         """
         return list(self._hlas.keys())
     
     def has_allele(self,allele: str)->bool:
         """
-        :param allele: the name of the allele to check the instance for 
+        :param allele: The name of the alleles to check for its occurrence in the instance. 
         :type allele: str
         :return: True, if the provided allele is in the current instance, False otherwise. 
         :rtype: bool
@@ -106,7 +106,7 @@ class HLASet:
     
     def has_allele_group(self, allele_group:str)->bool:
         """
-        :param allele_group: the allele group to search the set for 
+        :param allele_group: The allele group to search the set for 
         :type allele_group: str
         :return: True, if at least one allele in the set belongs to the provided allele group, False otherwise. 
         :rtype: bool
@@ -131,14 +131,14 @@ class HLASet:
     # define some magic functions
     def __len__(self)->int:
         """
-        :return: he number of alleles in the set 
+        :return: The number of alleles in the set 
         :rtype: int
         """
         return len(self._hlas)
 
     def __str__(self) ->str:
         """
-        :return: a string form of the class  
+        :return: A string form of the class  
         :rtype: str
         """
         return f"An HLASet containing {len(self)} alleles"

@@ -7,9 +7,7 @@ import mhcnames
 # define the class 
 class HLAChain: 
     def __init__(self, name:str)->HLAChain:
-        """Create an instance an HLAChain instance a name string 
-        
-
+        """Create an HLAChain instance. 
         :param name: the allele name 
         :type name: str
         :return: an HLAChain instance 
@@ -25,14 +23,14 @@ class HLAChain:
 
     def get_class(self)->int:
         """
-        :return: The HLA class 
+        :returns: The HLA class 
         :rtype: int
         """
         return self._hla_class 
     
     def get_gene(self)->str:
         """
-        :return: the gene name
+        :return: The gene name
         :rtype: str
         """
         return self._gene
@@ -46,7 +44,7 @@ class HLAChain:
     
     def get_protein_group(self)->str:
         """
-        :return: the protein name
+        :return: The protein name
         :rtype: str
         """
         return self._protein_group
