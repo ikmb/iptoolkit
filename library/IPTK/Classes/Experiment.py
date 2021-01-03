@@ -23,15 +23,15 @@ class Experiment:
 	"""
 	def __init__(self, proband:Proband, hla_set:HLASet, tissue:Tissue,  database:SeqDB,
 				ident_table:pd.DataFrame)->Experiment: 
-		"""Construct an experiment instance.
+		"""Constructs an Experiment instance.
 
-		:param proband: a proband instance that contain the proband, name& other  meta-data. 
+		:param proband: A proband instance containing the proband, name& other meta-data. 
 		:type proband: Proband
-		:param hla_set: an HLASet instance that contain the set of alleles from which the peptide was eluted.
+		:param hla_set: an HLASet instance containing the set of alleles from which the peptide was eluted.
 		:type hla_set: HLASet
-		:param tissue: an instance of type tissue that store expression values and protein location form the corresponding tissue.
+		:param tissue: an instance of type tissue containing expression values and protein location from the corresponding tissue.
 		:type tissue: Tissue
-		:param database: a sequence database to exact the sequence of the identified proteins.
+		:param database: a sequence database to exact the sequences of the identified proteins.
 		:type database: SeqDB
 		:param ident_table: The identification table which contain the peptides inferred from analyzing raw mass spec files.  
 		:type ident_table: pd.DataFrame
