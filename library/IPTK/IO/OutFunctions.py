@@ -34,17 +34,17 @@ def write_mapped_tensor_to_h5py(tensor: np.ndarray, path2write: str, dataSet_nam
 
 def write_annotated_sequences(peptides: List[str], labels: List[int], path2write: str,
                             sep: str = ',', shuffle: bool =True) ->None:
-    """take a list of peptides along with it sequences and write the results to a CSV file.
+    """take a list of peptides along with its sequences and write the results to a CSV file.
     
-    :param peptides: a list of peptide sequences 
+    :param peptides: A list of peptide sequences 
     :type peptides: List[str]
-    :param labels: a list of numerical labels associated with the peptides 
+    :param labels: A list of numerical labels associated with the peptides 
     :type labels: List[int]
     :param path2write: the path to write the generated file 
     :type path2write: str
-    :param sep: The separator in the resulting table,  defaults to ','
+    :param sep: The separator in the resulting table, defaults to ','
     :type sep: str, optional
-    :param shuffle: Whether or not to shuffle the table , defaults to True
+    :param shuffle: Whether or not to shuffle the table, defaults to True
     :type shuffle: bool, optional
     :raises ValueError: incase the length of the tables and labels is not matching
     :raises IOError: In case writing the output table failed

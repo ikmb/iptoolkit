@@ -19,7 +19,7 @@ def is_meme_callable()->bool:
         return False
 
 def get_meme_help()->None:
-    """print the command line help interface for the meme tool
+    """Print the command line help interface for the meme tool
 
     :raises FileNotFoundError: if meme is not callable 
     """
