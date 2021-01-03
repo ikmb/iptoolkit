@@ -61,7 +61,7 @@ def plot_overlap_heatmap(results_df:pd.DataFrame, plotting_kwargs: PlottingKeywa
 def plotly_overlap_heatmap(results_df: pd.DataFrame)->Figure:
     """Plot a user provided dataframe as a heatmap using plotly library
 
-    :param results_df:  A pandas dataframe table that hold the overlapping number.
+    :param results_df: A pandas dataframe table that hold the overlapping number.
     :type results_df: pd.DataFrame
     :return: a plotly Figure containing the heatmap 
     :rtype: Figure
@@ -87,16 +87,16 @@ def plot_paired_represention(protein_one_repr: Dict[str, np.ndarray],
                             alpha: float = 0.9, title=" Parired protein representation" ) -> plt.Figure:  
     """ visualize the difference in representation for the same protein between two experiments using matplotlib library.
 
-    :param protein_one_repr: a dict object containing the legand of the first condition along with its mapped array
+    :param protein_one_repr: a dict object containing the legend of the first condition along with its mapped array
     :type protein_one_repr: Dict[str, np.ndarray]
-    :param protein_two_repr: a dict object containing the legand of the second condition along with its mapped array
+    :param protein_two_repr: a dict object containing the legend of the second condition along with its mapped array
     :type protein_two_repr: Dict[str, np.ndarray]
     :param: color_first: the color of representation for the first condition 
     :type color_first: str
     :param: color_second: the color of the second condition 
     :type color_second: str
     :param alpha: the transparency of the figure. 
-    :type alpha: the transparency of the figure. 
+    :type alpha: float. 
     :param: title: the title of the figure. 
     :type title: str
     :return: A matplotlib Figure containing the representation 
@@ -136,11 +136,11 @@ def plot_paired_represention(protein_one_repr: Dict[str, np.ndarray],
 def plotly_paired_representation(protein_one_repr: Dict[str, np.ndarray], 
                                  protein_two_repr: Dict[str, np.ndarray], 
                                  title: str =" Parired protein representation") -> Figure:
-    """compare the peptide coverage for the same protein under different conditions using the same protein using plotly library.
+    """Compare the peptide coverage for the same protein under different conditions using the same protein using plotly library.
    
-    :param protein_one_repr: a dict object containing the legand of the first condition along with its mapped array
+    :param protein_one_repr: a dict object containing the legend of the first condition along with its mapped array
     :type protein_one_repr: Dict[str, np.ndarray]
-    :param protein_two_repr: a dict object containing the legand of the second condition along with its mapped array
+    :param protein_two_repr: a dict object containing the legend of the second condition along with its mapped array
     :type protein_two_repr: Dict[str, np.ndarray]
     :return: A plotly Figure containing the representation 
     :rtype: Figure
@@ -180,11 +180,11 @@ def plot_overlay_representation(proteins: Dict[str,Dict[str,np.ndarray]], alpha:
 
     :param proteins: a nested dict object containing for each protein a child dict that contain the mapping array and the color in the figure. 
     :type proteins: Dict[str,np.ndarray]]
-    :param alpha: the transparency between proteins , defaults to 0.5
+    :param alpha: the transparency between proteins, defaults to 0.5
     :type alpha: float, optional
     :param title: The title of the figure, defaults to None
     :type title: str, optional
-    :param legend_pos: the position of the legend , defaults to 2
+    :param legend_pos: the position of the legend, defaults to 2
     :type legend_pos: int, optional
     :raises ValueError: if the provided protein have different lengths 
     :return: a matplotlib figure containing the mapped representation 
@@ -214,13 +214,13 @@ def plot_overlay_representation(proteins: Dict[str,Dict[str,np.ndarray]], alpha:
 
 def plotly_multi_traced_coverage_representation(proteins: Dict[str,Dict[str,np.ndarray]], 
                 title: str= "Protein Coverage Across  ") -> Figure : 
-    """plot a multi-traced representation for the same protein accross  using plotly library 
+    """plot a multi-traced representation for the same protein across different conditions using plotly library 
 
     :param proteins: A dict object containing for each protein the corresponding mapped array. 
-    :type proteins: [type]
+    :type proteins: Dict[str,Dict[str,np.ndarray]]
     :param title: the title of the figure, defaults to "Protein Coverage Across  "
     :type title: str, optional
-    :return: a multitraced traced figure showing the coverage of proteins accross different conditions
+    :return: a multitraced traced figure showing the coverage of proteins across different conditions
     :rtype: Figure
     """
      # un roll all the proteins to make sure they are of the correct shape 
@@ -255,7 +255,7 @@ def plotly_multi_traced_coverage_representation(proteins: Dict[str,Dict[str,np.n
 def plot_protein_coverage(mapped_protein: np.ndarray, col: str = 'r', prot_name: str = None)->plt.Figure:
     """plot the peptide coverage for a given protein. 
 
-    :param mapped_protein: a NumPy array with shape of 1 by protein length or shape protein-length
+    :param mapped_protein: a NumPy array with shape of (1, protein length) or shape (protein-length,)
     :type mapped_protein: np.ndarray
     :param col: the color of the coverage respresentation, defaults to 'r'
     :type col: str, optional
@@ -365,13 +365,13 @@ def imposed_coverage_on_3D_structure(path2mmCIF: str, mapped_protein: np.ndarray
 
     :param path2mmCIF: The path to load the mmCIF file containing the protein structure
     :type path2mmCIF: str
-    :param mapped_protein: a Numpy array of containg the number of peptides originated from each position in the array
+    :param mapped_protein: a Numpy array containing the number of peptides originated from each position in the array
     :type mapped_protein: np.ndarray
-    :param background_color: the color of the background, default is black , defaults to 'black'
+    :param background_color: the color of the background, defaults to 'black'.
     :type background_color: str, optional
-    :param low: the color of low covered position, default is red. , defaults to 'red'
+    :param low: the color of low covered position, defaults to 'red'.
     :type low: str, optional
-    :param high: the color of high covered position, default is violet., defaults to 'blue'
+    :param high: the color of high covered position, defaults to 'blue'
     :type high: str, optional
     :raises ValueError: incase the provided path to the structure file does not exists 
     :raises IOError: if the structure file can not be loaded or if more than one file are located in the provided path 
@@ -425,9 +425,9 @@ def plot_peptide_length_dist(pep_length: List[int],
                          title: str = 'Peptide Length distribution'):
     """Visualize a histogram of the eluted peptide length using seaborn library. 
     
-    :param pep_length: [description]
+    :param pep_length: a list of integer containing the peptides' lengths
     :type pep_length: List[int]
-    :param plotting_kwargs: a dict object containing parameters for the function seaborn::distplot, defaults to {}
+    :param plotting_kwargs: a dict object containing parameters for the function seaborn.distplot, defaults to {}
     :type plotting_kwargs: Dict[str,str], optional
     :param x_label: the label of the x-axis , defaults to 'Peptide Length'
     :type x_label: str, optional
@@ -483,7 +483,7 @@ def plot_num_peptides_per_parent(nums_table: pd.DataFrame,
                         x_label: str = 'Number of peptides',
                         y_label: str = 'Protein ID',
                         title: str = 'Number of peptides per protein'):
-    """Visualize a histogram of the eluted peptide length.  
+    """Plot the number of peptides belonging to each protein using seaborn library.  
 
     :param nums_table: a pandas dataframe containing number of peptides identified from each protein. 
     :type nums_table: pd.DataFrame
@@ -519,7 +519,7 @@ def plotly_num_peptides_per_parent(nums_table: pd.DataFrame,
                         x_label: str = 'Number of peptides',
                         y_label: str = 'Protein ID',
                         title: str = 'Number of peptides per protein'):
-    """Visualize a histogram of the the number of peptides per each inferred protein.  
+    """Plot the number of peptides belonging to each protein using plotly library. 
     
     :param nums_table: a pandas dataframe containing number of peptides identified from each protein. 
     :type nums_table: pd.DataFrame
@@ -562,7 +562,7 @@ def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame,
     ref_expression: pd.DataFrame , tissue_name: str, sampling_num: int = 10,
     plotting_kwargs: Dict[str,str]={'orient':'v'}, def_value: float = -1,
     ylabel: str = 'Normalized Expression') -> plt.Figure:
-    """Plot the parent protein expression in tissue relative a sampled collection of non-presented data using seaborn library.
+    """Plot the parent protein expression in tissue relative a sampled collection of non-presented proteins using seaborn library.
 
     :param expression_table: The protein expression table which contains the expresion value for each parent protein
     :type expression_table: pd.DataFrame
@@ -570,13 +570,13 @@ def plot_parent_protein_expression_in_tissue(expression_table: pd.DataFrame,
     :type ref_expression: pd.DataFrame
     :param tissue_name: The name of the tissue . 
     :type tissue_name: str
-    :param sampling_num: The number of times to sample from the non-prsenter. , defaults to 10
+    :param sampling_num: The number of times to sample from the non-prsenter, defaults to 10
     :type sampling_num: int, optional
-    :param plotting_kwargs: a dict object containing parameters for the sns.violinplot function., defaults to {'orient':'v'}
+    :param plotting_kwargs: a dict object containing parameters for the sns.violinplot function, defaults to {'orient':'v'}
     :type plotting_kwargs: Dict[str,str], optional
-    :param def_value: The default value for proteins that could not be mapped to the expression database , defaults to -1
+    :param def_value: The default value for proteins that could not be mapped to the expression database, defaults to -1
     :type def_value: float, optional
-    :param ylabel: the label on the y-axis. , defaults to 'Normalized Expression'
+    :param ylabel: the label on the y-axis, defaults to 'Normalized Expression'
     :type ylabel: str, optional
     :raises ValueError: if the reference gene expression table is smaller than the number of parents 
     """
@@ -623,7 +623,7 @@ def plotly_parent_protein_expression_in_tissue(expression_table: pd.DataFrame,
             ref_expression: pd.DataFrame , tissue_name: str, sampling_num: int = 10,
             def_value: float = -1,
             ylabel: str = 'Normalized Expression') -> Figure:
-    """plot the parent protein expression in tissue relative a sampled collection of non-presented genes using plotly library.
+    """plot the parent protein expression in tissue relative a sampled collection of non-presented proteins using plotly library.
     
     :param expression_table: The protein expression table which contains the expresion value for each parent proteins. 
     :type expression_table: pd.DataFrame
@@ -631,12 +631,12 @@ def plotly_parent_protein_expression_in_tissue(expression_table: pd.DataFrame,
     :type ref_expression: pd.DataFrame
     :param tissue_name: The name of the tissue. 
     :type tissue_name: str
-    :param sampling_num: the number of times to sample from the non-prsenter, defaults to 10
+    :param sampling_num: the number of times to sample from the non-presenters, defaults to 10
     :type sampling_num: int, optional
     :param def_value: The default value for proteins that could not be mapped to the expression database, defaults to -1
     :type def_value: float, optional
-    :param ylabel: [description], defaults to 'Normalized Expression'
-    :type ylabel: The label on the y-axis, optional
+    :param ylabel: The label on the y-axis, , defaults to 'Normalized Expression'
+    :type ylabel: str
     :raises ValueError: If the reference gene expression table is smaller than the number of parents 
     """
     # First filter the DB for the non-mapped 
@@ -723,7 +723,7 @@ def plotly_gene_expression_vs_num_peptides(exp_count_table: pd.DataFrame, tissue
     :type exp_count_table: pd.DataFrame
     :param tissue_name: The name of the tissue 
     :type tissue_name: str
-    :param def_value: The default value for proteins that could not be mapped to the expression database , defaults to -1
+    :param def_value: The default value for proteins that could not be mapped to the expression database, defaults to -1
     :type def_value: float, optional
     :param xlabel: The label on the x-axis, defaults to 'Number of peptides'
     :type xlabel: str, optional
@@ -798,7 +798,7 @@ def plotly_num_protein_per_location(protein_loc: pd.DataFrame,
     :type xlabel: str, optional
     :param ylabel: the label on the y-axis, defaults to 'Compartment'
     :type ylabel: str, optional
-    :param title: [description], defaults to 'Number of proteins per sub-cellular compartment'
+    :param title: the title of the figure, defaults to 'Number of proteins per sub-cellular compartment'
     :type title: str, optional
     """
     if drop_unknown:
@@ -872,8 +872,6 @@ def plotly_num_protein_per_go_term(
     :type ylabel: str, optional
     :param title: the title of the figure, defaults to 'Number of proteins per GO-Term'
     :type title: str, optional
-    :return: [description]
-    :rtype: Figure
     """
     if drop_unknown:
         protein2goTerm=protein2goTerm.loc[protein2goTerm.iloc[:,0]!='UNK',]
@@ -901,7 +899,7 @@ def plot_num_peptides_per_location(pep2loc: pd.DataFrame, plotting_kwargs: Dict[
     title: str= 'Number of peptides per sub-cellular compartment' ) -> plt.Figure:
     """plot the number of peptides obtained from each compartment using seaborn library.
     
-    :param pep2loc: A table that contain the count of peptides from each  location 
+    :param pep2loc: A table that contain the count of peptides from each compartment 
     :type pep2loc: pd.DataFrame
     :param plotting_kwargs: a dict object containing parameters for the sns.barplot function, defaults to {}
     :type plotting_kwargs: Dict[str,str], optional
@@ -932,7 +930,7 @@ def plotly_num_peptides_per_location(pep2loc: pd.DataFrame,
     title: str= 'Number of peptides per sub-cellular compartment' ) -> plt.Figure:
     """  plot the number of peptides obtained from each compartment using plotly library
 
-    :param pep2loc: A table that contain the count of peptides from each  location 
+    :param pep2loc: A table that contain the count of peptides from each compartment 
     :type pep2loc: pd.DataFrame
     :param drop_unknown: whether or not to drop protein with unknown location, defaults to False
     :type drop_unknown: bool, optional
@@ -968,7 +966,7 @@ def plot_num_peptide_per_go_term(pep2goTerm: pd.DataFrame,
     drop_unknown: bool = False, xlabel: str = 'Number of peptides',
     ylabel: str = 'GO-Term', 
     title: str= 'Number of peptides per GO Term' ) -> plt.Figure:
-    """plot the number of peptides obtained per Go-Term  using matplotlib library.
+    """plot the number of peptides obtained per Go-Term using seaborn library.
 
     :param pep2goTerm: A table that contain the count of peptides from each GO-Term 
     :type pep2goTerm: pd.DataFrame
@@ -982,8 +980,6 @@ def plot_num_peptide_per_go_term(pep2goTerm: pd.DataFrame,
     :type ylabel: str, optional
     :param title: The title of the figure, defaults to 'Number of peptides per GO Term'
     :type title: str, optional
-    :return: [description]
-    :rtype: plt.Figure
     """
     if drop_unknown:
         pep2goTerm=pep2goTerm.loc[pep2goTerm.iloc[:,0]!='UNK',]
@@ -1155,9 +1151,9 @@ def plot_experiment_set_counts(counts_table:pd.DataFrame,
             log_scale: bool =False, plotting_kwargs: Dict[str,str] = {}) -> plt.figure:
     """visualize the number of peptides and number of peptides-per-organism per experiment.
 
-    :param counts_table: a pandas dataframe that contain the count, organism name and the count
+    :param counts_table: a pandas dataframe that contain the count and the organism name.
     :type counts_table: pd.DataFrame
-    :param log_scale: Normalize the peptide counts one log 10, defaults to False
+    :param log_scale: Normalize the peptide counts using log 10, defaults to False
     :type log_scale: bool, optional
     :param plotting_kwargs: a dict object containing parameters for the sns.catplot function, defaults to {}
     :type plotting_kwargs: Dict[str,str], optional
