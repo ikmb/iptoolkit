@@ -1,5 +1,5 @@
 #!/usr/bin/env python 
-"""Parse the XML scheme of a uniprot protein and represent and provide a python API  
+"""Parses the XML scheme of a uniprot protein and provides a python API  
 for quering and accessing the results 
 """
 # load the modules 
@@ -10,10 +10,10 @@ import urllib
 import os 
 from typing import List, Tuple, Dict, Union
 class Features:
-    r"""The class provide a template for the features associated with a protein. \
+    r"""The class provides a template for the features associated with a protein. \
     The following features are associated with the protein \ 
     #signal peptide: dict \
-        the range of the signal peptide,if the protein has no signal, for example, a globular \
+        The range of the signal peptides, if the protein has no signal, for example, a globular \
         cytologic protein. None is used as a default, placeholder \
         value. \ 
     #chains:dict \ 
@@ -21,11 +21,11 @@ class Features:
     #domain: dict\ 
         the known domains in the protein, if no domain is defined, None is used. \ 
     #modification sites: nested dict \ 
-        that contains information about the PTM site, glycosylation site and disulfide bonds. \ 
+        that contains information about the PTM sites, glycosylation site and disulfide bonds. \ 
     #sequence variances: dict \ 
-        which contains information about the sequence variant of a protein structure. \ 
+        which contains information about the sequence variants of a protein structure. \ 
     #split variance: dict \ 
-        which contain known split variance \ 
+        which contain known splice variants \ 
     ** Notes: Although disulfide bond is not a PTMs, it is being treated as a \ 
     one here to simplify the workflow. \ 
     """
@@ -338,7 +338,7 @@ class Features:
         
     def get_signal_peptide_index(self)->Tuple[int,int]:
         """
-        :return:  The Index of the signal peptide in the protein, if not signal peptide is defined it returns None
+        :return:  The Index of the signal-peptide in the protein, if not signal peptide is defined, it returns None
         :rtype: Tuple[int,int]
         """
         if self.extracted_features["SignalPeptide"]==None:
@@ -358,7 +358,7 @@ class Features:
     
     def get_number_chains(self) -> int:
         """
-        :return: The number of chain/chains in the protein features. if no chain is defined it returns zero.
+        :return: The number of chains in the protein. if no chain is defined it returns zero.
         :rtype: int
         """
         if not self.has_chains():
@@ -367,14 +367,14 @@ class Features:
     
     def get_chains(self)->Dict[Dict[str,Union[str,int]]]:
         """
-        :return: A dictionary the contains the chains of the protein, if no chain is defined it return None
+        :return: A dictionary that contains the chains of the protein, if no chain is defined it return None
         :rtype: Dict[Dict[str,Union[str,int]]]
         """
         return self.extracted_features["Chains"]
     
     def has_domains(self)->bool: 
         """
-        :return: True if the protein has a defined domain/domains, otherwise it return False
+        :return: True if the protein has a defined domain/domains, otherwise it return False.
         :rtype: bool 
         """
         if self.extracted_features["Domains"]==None:
@@ -392,7 +392,7 @@ class Features:
     
     def get_domains(self)->Dict[str, Dict[str, int]]:
         """
-        :return:  The domains defined in the protein sequence, if no domain is defined it returns None
+        :return:  The domains defined in the protein sequence, if no domain is defined it returns None.
         :rtype: Dict[str, Dict[str, int]]
         """
         return self.extracted_features["Domains"]
@@ -444,15 +444,15 @@ class Features:
     
     def get_PTMs(self)->Dict[str,Dict[str,Dict[str,Union[str,int]]]]:
         """
-        :return:  a dictionary the contains the PTMs found within the protein \
-        the PTMs are classified into the main categories:
+        :return:  a nested dictionary that contains the PTMs found within the protein \
+        the PTMs are classified into three main categories:
 
             1- Modifications: which is the generic case and contain information \
             about any sequence modification beside disulfide bonds and glycosylation.
             
-            2- glycosylation: contain information about glycosylation sites
+            2- glycosylation: contains information about glycosylation sites
             
-            3- DisulfideBond: contain information about disulfide bond
+            3- DisulfideBond: contains information about disulfide bond
 
         :rtype: Dict[str,Dict[str,Dict[str,Union[str,int]]]]
         """
@@ -460,7 +460,7 @@ class Features:
     
     def get_PTMs_modifications(self)->Dict[str,Dict[str,Union[str,int]]]:
         """
-        :return:  The generic modification found on the protein. If the protein has no PTM, the function returns None.
+        :return:  The generic modifications found on the protein. If the protein has no PTM, the function returns None.
         :rtype: Dict[str,Dict[str,Union[str,int]]]
         """
         return self.extracted_features["PTMs"]["Modifications"]
@@ -481,7 +481,7 @@ class Features:
     
     def get_number_PTMs(self)->int:
         """
-        :return:  The number of PTMs the sequence has, this include di-sulfide bonds See Note1 for more details. \
+        :return:  The number of PTMs the sequence has, this include di-sulfide bonds. See Note1 for more details. \
         If the protein has no PTMs the function returns zero
         :rtype: int
         """
@@ -493,7 +493,7 @@ class Features:
     
     def get_number_modifications(self)->int:
         """
-        :return:  returns the total number of generic modification found on the protein. \
+        :return:  Returns the total number of generic modifications found on the protein. \
         if no modification is found it return 0
         :rtype: int
         """
@@ -514,7 +514,7 @@ class Features:
     
     def get_number_disulfide_bonds(self)->int:
         """
-        :return:  The number of disulfide bonds the protein has, if the protein has no disulfide bonds the function return zero.
+        :return: The number of disulfide bonds the protein has, if the protein has no disulfide bonds, the function return zero.
         :rtype: int
         """
         if not self.has_disulfide_bond():
@@ -534,7 +534,7 @@ class Features:
     
     def get_sequence_variants(self) -> Dict[str,Dict[str,Union[str,int]]]:
         """
-        :return: a dict object that contains all sequence variants within a protein, if the protein has no sequence variants the function returns None.
+        :return: A dict object that contains all sequence variants within a protein, if the protein has no sequence variants the function returns None.
         :rtype: Dict[str,Dict[str,Union[str,int]]]
         """
         return self.extracted_features["SeqVar"]
@@ -561,7 +561,7 @@ class Features:
     
     def get_splice_variants(self)->Dict[str,Dict[str,Union[str,int]]]:
         """
-        :return: A dict object that contain the splice variants. if the protein has no splice variants the function returns None.
+        :return: A dict object that contains the splice variants. If the protein has no splice variants the function returns None.
         :rtype: Dict[str,Dict[str,Union[str,int]]]
         """
         return self.extracted_features["SpliceVar"]
@@ -578,7 +578,7 @@ class Features:
     
     def summary(self)->Dict[str,Union[str,int]]:
         """
-        :return:The function return a dict object that summarizes the features of the protein.
+        :return: The function return a dict object that summarizes the features of the protein.
         :rtype: Dict[str,Union[str,int]]
         """
         summary=dict()
@@ -595,7 +595,7 @@ class Features:
     
     def __str__(self)->str:
         """
-        Overwrite the string representation of the class
+        The string representation of the class
         Returns
         -------
         the string representation of the class
@@ -608,7 +608,7 @@ class Features:
 
     def __repr__(self)->str: 
         """
-        :return: a formated print statement for the class 
+        :return: A formated print statement for the class 
         :rtype: str
         """
         return str(self)
