@@ -22,7 +22,7 @@ def pad_mapped_proteins(list_array: List[np.ndarray],
     :param list_array: A list of NumPy arrays where each array is a mapped_protein array, \
     the expected shape of these arrays is 1 by protein length.
     :type list_array: List[np.ndarray]
-    :param pre_pad: pre or post padding of shorter array in the library.Default is pre-padding, defaults to True
+    :param pre_pad: pre or post padding of shorter array in the list_array. Defaults to True, which mean prepadding
     :type pre_pad: bool, optional
     :param padding_char: The padding char, defaults to -1
     :type padding_char: int, optional
@@ -102,7 +102,7 @@ def generate_random_protein_mapping(protein_len: int , max_coverage: int) -> np.
     :type protein_len: int
     :param max_coverage: The maximum peptide coverage at each position 
     :type max_coverage: int
-    :return: a NumPy array contain a simulate protein coverage 
+    :return: a NumPy array containing a simulated protein coverage 
     :rtype: np.ndarray
     """
     return np.random.randint(low=0, high= max_coverage, size=(protein_len,))
@@ -112,7 +112,7 @@ def generate_color_scale(color_ranges: int )-> matplotlib.colors.LinearSegmented
     
     :param color_ranges:  the number of colors in the range
     :type color_ranges: int
-    :return: a color gradient palette
+    :return: A color gradient palette
     :rtype: matplotlib.colors.LinearSegmentedColormap
     """
     return plt.cm.get_cmap('hsv',color_ranges)
@@ -127,7 +127,7 @@ def simulate_protein_representation(num_conditions : int , protein_len: int ,
     :type protein_len: [type]
     :param protein_coverage: The maximum protein coverage 
     :type protein_coverage: [type]
-    :return: a dict of length num_conditions contains that the condition index and a simulated protein array   
+    :return: a dict of length num_conditions containing the condition index and a simulated protein array   
     :rtype: Dict[str, np.ndarray]
     """
     sim_res=dict()
@@ -145,7 +145,7 @@ def simulate_protein_binary_represention(num_conditions: int, protein_length: in
     :type num_conditions: int
     :param protein_length: The Length of the protein  
     :type protein_length: int
-    :return: A 2D matrix of shape protein_length by number of conditions, where each element can be either zero.
+    :return: A 2D matrix of shape protein_length by number of conditions, where each element can be either zero or 1.
     :rtype: np.ndarray
     """
     return np.random.randint(low=0, high=2, size=(protein_length,num_conditions)).astype(np.float64)
@@ -167,7 +167,7 @@ def save_3d_figure(outpath: str, fig2save: plt.Figure) ->None:
 
 def load_3d_figure(file_path: str) ->plt.Figure: 
     """
-    :param file_path: Load a pickled 3D figure from thr provided path 
+    :param file_path: Load a pickled 3D figure from the provided path 
     :type file_path: str
     :raises IOError: The path of the pickled figure. 
     :return: a matplotlib figure 
@@ -181,7 +181,7 @@ def load_3d_figure(file_path: str) ->plt.Figure:
         raise IOError(f'While loading your figure, the following error was encountered: {exp}')   
 
 def build_sequence_table(sequence_dict:Dict[str,str])->pd.DataFrame:
-    """construct a sequences database from sequences dict object  
+    """construct a sequences database from a sequences dict object  
     
     :param sequence_dict: a dict that contain the protein ids as keys and sequences as values. 
     :type sequence_dict: Dict[str,str]
@@ -196,9 +196,9 @@ def get_idx_peptide_in_sequence_table(sequence_table:pd.DataFrame, peptide:str)-
 
     :param sequence_table:  pandas dataframe that contain the protein ID and the associated protein sequence 
     :type sequence_table: pd.DataFrame
-    :param peptide: the peptide sequence to query the protein with 
+    :param peptide: The peptide sequence to query the protein with 
     :type peptide: str
-    :return:  a list of protein identifiers containing the identifier of the hit proteins
+    :return: A list of protein identifiers containing the identifier of the hit proteins
     :rtype: List[str]
     """
     if sequence_table.columns != ['Sequences']: 

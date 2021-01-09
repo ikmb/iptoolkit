@@ -8,11 +8,11 @@ from IPTK.Utils.Types import HLA_Chains,Genes,AlleleGroup,ProteinGroup
 # define the class 
 class HLAMolecule:
     def __init__(self,**hla_chains)->HLAMolecule:
-        """ Create an HLA molecule which is represent as a molecules that is composite of at max two HLA chains
-        :raises ValueError: if number of chains is bigger than 2
-        :raises ValueError: if the number of chains is 0
-        :raises RuntimeError: captsure any exception than might happen while creating the chains
-        :raises ValueError: if the provided chain belong to different classes, for example class one and class two
+        """ Create an HLA molecule which is represented as a molecule that is composite of at max two HLA chains
+        :raises ValueError: If number of chains is bigger than 2
+        :raises ValueError: If the number of chains is 0
+        :raises RuntimeError: Captsure any exception than might be encountered while creating the chains.
+        :raises ValueError: If the provided chain belong to different classes, for example class one and class two
         :return: an HLAMolecule instance 
         :rtype: HLAMolecule
         """
@@ -40,7 +40,7 @@ class HLAMolecule:
     
     def get_name(self,sep:str = ':')->str:
         """
-        :param sep: the name of the allele by concatenating the names of the individual chains using \
+        :param sep: The name of the allele by concatenating the names of the individual chains using \
         a separator, defaults to ':'
         :type sep: str, optional
         :return: [description]
@@ -61,7 +61,7 @@ class HLAMolecule:
     
     def get_gene(self)->Genes:
         """
-        :return: gene/pair of genes coding for the current HLA molecules 
+        :return: return gene/pair of genes coding for the current HLA molecules 
         :rtype: Genes
         """
         if len(self._chains)==2:
@@ -71,7 +71,7 @@ class HLAMolecule:
     
     def get_allele_group(self)->AlleleGroup:
         """
-        :return:  the allele group for the instance chain/pair of chains 
+        :return: The allele group for the instance chain/pair of chains 
         :rtype: AlleleGroup
         """
         if len(self._chains)==2:

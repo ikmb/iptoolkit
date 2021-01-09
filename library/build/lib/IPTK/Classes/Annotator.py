@@ -1,5 +1,5 @@
 #!/usr/bin/env python 
-r"""The class provided methods for visualizing different aspects of the protein \
+r"""The class provides methods for visualizing different aspects of the protein \
     biology. This is achieved through three main methods: 
         1- add_segmented_track: which visualize information about \
         non-overlapping protein substructures, for example, protein domains.
@@ -7,15 +7,15 @@ r"""The class provided methods for visualizing different aspects of the protein 
         2- add_stacked_track: which visualize information about \
         overlapping protein substructures, for example, splice variants. 
         
-        3- add_marked_positions_track: which visualize information about \
-        positions in the protein, for example, sequence variance, or PTM. 
+        3- add_marked_positions_track: which visualize or highlight \
+        positions in the protein, for example, sequence variants, or PTM. 
     
-    The class also provided functions for visualizing the relationship between 
+    The class also provides functions for visualizing the relationship between 
     a protein and its eluted peptide/peptides in an analogous manner to the way 
     NGS reads are aligned to genomic regions. This can be useful to identify  
-    regions in the protein with high/low number of eluted peptides, also, to 
-    visualize this aspect of the protein along with other facests of the protein 
-    like domain organization, PTM, sequence/splice variants. 
+    regions in the protein with high/low number of eluted peptides, i.e.,Coverage.
+    Also, to link it with other facests of the protein like domain organization,\
+    PTM, sequence/splice variants. 
     
     Notes
     -----
@@ -32,7 +32,7 @@ import os
 from typing import Tuple, List, Dict, Union
 # define the class 
 class Annotator:
-    r""" higher level API to plot information about the protein, for example, PTM, Splice variant etc, using matplotlib library 
+    r""" A high level API to plot information about the protein, for example, PTM, Splice variant etc, using matplotlib library 
     """
     def __init__(self,protein_length: int,figure_size:Tuple[int,int],figure_dpi:int,
                  face_color="white")->Annotator:
@@ -81,18 +81,18 @@ class Annotator:
         """
         Description
         -----------
-        add a base track to the figure. 
+        Adds a base track to the figure. 
 
         Parameters
         ----------
         space_fraction : float, optional
-            a float between 0 and 1 that represent the fraction of space left 
+            A float between 0 and 1 that represent the fraction of space left 
             below and above the track. The default is 0.3 which means that the
             track will be drown on a 40% while 60% are left as an empty space
             below and above the track.
             
         protein_name_position : float, optional
-            a float between 0 and 1 which control the relative position of the 
+            A float between 0 and 1 which control the relative position of the 
             protein name on the y-axis. The default is 0.5.
             
         track_label : string, optional
@@ -100,16 +100,16 @@ class Annotator:
             The default is "base_track".
             
         track_label_dict : Dict[str,Union[int,str]], optional
-            the parameters that control the printing of the track_label,
+            The parameters that control the printing of the track_label,
             for example, the font size and the color. These parameters should 
             be provided as dict that will be fed to the function 
             ``axes.set_ylabel``.The default is {"fontsize":8,"color":"black"}.
             
         protein_name : string, optional
-            the name of the protein to be printed to the track.
+            The name of the protein to be printed to the track.
             The default is "A protein".
             
-        protein_name_dict : dDict[str,Union[int,str]]ict, optional
+        protein_name_dict : Dict[str,Union[int,str]], optional
             the parameters that control the printing of the protein name,
             for example, the font size and the color. These parameters should 
             be provided as dict that will be fed to the function 
@@ -194,12 +194,12 @@ class Annotator:
                             center_line_dict:Dict[str,Union[int,str,float]]={"alpha":0.5,"linewidth":0.5},
                             track_elements_dict: Dict[str,Union[int,str]]={"color":"brown","capstyle":"butt"},
                             show_names: bool=True)->None:
-        """Add a segmentation track which show non-overlapping features of the protein. 
+        """Adds a segmentation track which show non-overlapping features of the protein. 
         
         Parameters
         ----------
         track_dict : Dict[str,Dict[str,Union[int,str]]]
-            a dict that contain the non-overlapping features of the protein. 
+            A dict that contain the non-overlapping features of the protein. 
             The dict is assumed to have the following structure: a dict with the
             feature_index as a key and associated features as values. The associated
             features is a dict with the following three keys:
@@ -237,7 +237,7 @@ class Annotator:
             The default is {"color":"brown","capstyle":"butt"}.
         
         show_names : bool, optional
-            whether or not to show the name of the features.The default is True.
+            whether or not to show the name of the features. The default is True.
 
         Returns
         -------
@@ -317,19 +317,19 @@ class Annotator:
         """
         Description
         -----------
-        The function add a stacked_track to a visualization panel. 
+        The function adds a stacked_track to a visualization panel. 
         The stacked track is used to show overlapping protein features, for example,
         different splice variants. 
 
         Parameters
         ----------
         track_dict : Dict[str,Dict[str,Union[int,str]]]
-             a dict that contain the overlapping features of the protein. 
+            A dict that contain the overlapping features of the protein. 
             The dict is assumed to have the following structure, a dict with the
             feature_index as a key and associated features as values. The associated
             features is a dict with the following three keys:
 
-                1- Name: which contain the feature name
+                1- Name: which contain the feature's name
                 
                 2- startIdx: which contain the start position of the feature.
                 
@@ -359,7 +359,7 @@ class Annotator:
             The default is {"color":"magenta","capstyle":"butt"}.
             
         base_line_dict : Dict[str,Union[int,str]], optional
-            the parameters that control the shape of the shape of the base line,
+            the parameters that control the shape of the base line,
             for example, color and/or line width. These parameters are going to be fed
             to the function ``axes.hlines``. 
             The default is {"color":"black","linewidth":1}.
@@ -401,8 +401,7 @@ class Annotator:
         Any panel can have zero, one or more than one stacked-track.
         Thus, in the above examples calling the method ``add_stacked_track`` 
         for the second time does NOT override the previous stacked track 
-        it create a new one and added to the figure.
-
+        it creates a new one and added to the figure.
         """
         # change the geometry to accommodate a new figure
         number_axes=len(self.fig.axes)
@@ -475,22 +474,22 @@ class Annotator:
             ``plt.hlines``. The default is {"color":"black","linestyles":"solid"}.
             
         marker_dict : Dict[str,Union[int,str]], optional
-            These parameters of marker point which sits on top of the marker bar,
+            These are the parameters for the marker points which sits on top of the marker bar,
             for example, the color, the shape or the size. 
             The default is {"color":"red","s":3}.
             
-        track_label : string, optional
+        track_label : str, optional
              The name of the track, which will be shown on the y-axis.
              The default is "A marked positions Track".
             
         track_label_dict : Dict[str,Union[int,str]], optional
-            the parameters that control the printing of the track_label,
+            The parameters that control the printing of the track_label,
             for example, the font size and the color. These parameters should 
             be provided as dict that will be fed to the function 
             ``axes.set_ylabel``.The default is {"fontsize":8,"color":"black"}.
             
        base_line_dict : Dict[str,Union[int,str]], optional
-            the parameters that control the shape of the base line, for example, color and/or line width. These parameters are going to be fed
+            The parameters that control the shape of the base line, for example, color and/or line width. These parameters are going to be fed
             to the function ``axes.hlines``. 
             The default is {"color":"black","linewidth":1}.
 
@@ -530,7 +529,6 @@ class Annotator:
         Thus, in the above examples calling the method ``add_marked_positions_track`` 
         for the second time does NOT override the previous marked-position track 
         it create a new one and added to the figure.
-
         """
         # adjust the current Geometry of the track.
         number_axes=len(self.fig.axes)
@@ -572,28 +570,27 @@ class Annotator:
         """
         Description
         -----------
-        Add a coverage plot to the panel. The coverage plot shows the 
+        Adds a coverage plot to the panel. The coverage plot shows the 
         relationship between a peptide and its experimentally detected eluted 
         peptide/peptides.
 
         Parameters
         ----------
         coverage_matrix : np.ndarray
-            a protein length by one array which summarize information the protein and 
-            the eluted peptides. The coverage matrix can be computed using the function
-            ``AntigenicProtein.compute_protein_coverage_by_peptide``.
+            A protein length by one array which summarize information about the protein and 
+            the eluted peptides.
             
         coverage_as_base : bool, optional
-            whether or not to plot the coverage as a base track for the figure.
+            Whether or not to plot the coverage as a base track for the figure.
             The default is False which means that the track appended to a figure 
             that have a default base track which can be constructed using the 
-            function ``add_base_track``. However, if coverage_as_base  is set to 
+            method ``add_base_track``. However, if coverage_as_base is set to 
             True, the function will draw the base track using the coverage matrix and
             calling the function add_base_track should be avoided. 
             
         coverage_dict : Dict[str,Union[int,str]], optional
             The parameters that control the printing of the coverage matrix, 
-            for example, the color. these parameters are fed to the function
+            for example, the color. These parameters are fed to the function
             ``axes.bar``. The default is {"color":"blue","width":1.2}.
             
         xlabel : str, optional
@@ -608,7 +605,7 @@ class Annotator:
             The label of the y-axis of the coverage track. The default is "coverage".
             
         ylabel_dict : Dict[str,Union[int,str]], optional
-            he parameters that control the x-label printing, for example,
+            The parameters that control the x-label printing, for example,
             the color and/ the font size. these parameters are fed to the function
             ``axes.set_ylabel``. The default is {"fontsize":6,"color":"black"}.
             
@@ -675,7 +672,7 @@ class Annotator:
         """
         Description
         -----------
-        write the construct fig to the hard-disk.
+        Write the constructed figure to the disk.
 
         Parameters
         ----------
@@ -691,7 +688,7 @@ class Annotator:
             ``plt.savefig``. The default is "png".
         
         figure_dpi: int, optional 
-            The dpi of the saved figure. The deafult is same which mean the figure 
+            The dpi of the saved figure. The deafult is same which means the figure 
             will be saved using the same dpi used for creating the figure. 
         
         figure_saving_dict: Dict[str,Union[int,str]],optional

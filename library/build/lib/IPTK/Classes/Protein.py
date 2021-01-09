@@ -11,7 +11,7 @@ class Protein:
 	"""representation of a protein that has been infered from an IP experiment. 
 	"""
 	def __init__(self, prot_id : str, seq: str, org: str=None) -> Protein:
-		"""construct a portein instance. 
+		"""construct a Protein instance. 
 
 		:param prot_id: the id of the protein 
 		:type prot_id: str
@@ -47,7 +47,7 @@ class Protein:
 		:type start_idxs: Index 
 		:param end_idxs: a list of integers representing the end positions
 		:type start_idxs: Index
-		:raises ValueError: if start_indxs and end_idxs MUST be of equal length are not of equal length
+		:raises ValueError: if start_indxs and end_idxs are not of equal length. 
 		:return: A numpy array with shape of 1 by the length of the protein where every element in the array donates the number of times, It has been observed in the experiment.
 		:rtype: np.ndarray
 		"""
@@ -59,14 +59,14 @@ class Protein:
 		return prote_backbone 
 	
 	def get_non_presented_peptide(self, exc_reg_s_idx: int, exc_reg_e_idx: int, length: int) -> str: 
-		"""sample a peptide from the protein sequences where the sampled peptides is not part of the \
+		"""Sample a peptide from the protein sequences where the sampled peptides are not part of the \
 		experimentally identified regions. 
 		
-		:param exc_reg_s_idx: the start point in the reference protein sequence of the experimentally identified peptide. 
+		:param exc_reg_s_idx: the start index of experimentally identified peptide, i.e. real peptide. 
 		:type exc_reg_s_idx: int
-		:param exc_reg_e_idx: the end point in the reference protein sequence of the experimentally identified peptide. 
+		:param exc_reg_e_idx: the end index of the experimentally identified peptide, i.e. real peptide. 
 		:type exc_reg_e_idx: int
-		:param length: length the non-presented peptides. 
+		:param length: length the non-presented peptide, i.e. not-experimentally identified. 
 		:type length: int
 		:raises ValueError: if the length of the peptide is bigger than the protein length 
 		:raises ValueError: if the length of the peptide is smaller than or equal to zero 
@@ -94,7 +94,7 @@ class Protein:
 		return self._org
 
 	def set_org(self,org: str)->None:
-		"""a post-instantitation mechanism to set the organism for which the protein belong.
+		"""A post-instantitation mechanism to set the organism for which the protein belong.
 	
 		:param org: the name of the organism
 		:type org: str
@@ -112,14 +112,14 @@ class Protein:
 	
 	def __len__(self)->int:
 		"""
-		:return: the length of the instances sequence  
+		:return: the length of the protein sequence  
 		:rtype: int
 		"""
 		return len(self._seq)
 	
 	def __str__(self)->str:
 		"""
-		:return: the instance's sequence 
+		:return: the protein sequence 
 		:rtype: str
 		"""
 		return self._seq

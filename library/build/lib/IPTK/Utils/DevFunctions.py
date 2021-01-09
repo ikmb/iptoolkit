@@ -15,7 +15,7 @@ from IPTK.Classes.Database import SeqDB
 from IPTK.Utils.UtilityFunction import generate_random_name
 # define the functions
 def simulate_an_experimental_ident_table_from_fasta(path2load: str, num_pep: int, num_prot: int )->pd.DataFrame:
-    """simulate an IP identification table from a fasta file. Please Note,  if the reminder of num_pep over num_prot does not equal to zero,
+    """Simulate an IP identification table from a fasta file. Please Note,  if the reminder of num_pep over num_prot does not equal to zero,
     the floor of this ratio will be used to sample peptides from each proteins 
 
     :param path2load:  The path to load the Fasta files 
@@ -69,10 +69,10 @@ def simulate_an_experimental_ident_table_from_fasta(path2load: str, num_pep: int
 def simulate_an_expression_table(num_transcripts: int = 100) ->pd.DataFrame:
     """ create a dummy expression table to be used for testing and developing Tissue based classes 
 
-    :param num_transcripts: The number of transcripts that shall be contained in the transcript , defaults to 100
+    :param num_transcripts: The number of transcripts that shall be contained in the transcript, defaults to 100
     :type num_transcripts: int, optional
     :raises ValueError: incase number of transcripts is 0
-    :return: [description]
+    :return: a stimulated expression label 
     :rtype: pd.DataFrame
     """
     # check that the input is a positive integer 
@@ -93,7 +93,6 @@ def simulate_an_expression_table(num_transcripts: int = 100) ->pd.DataFrame:
         }
     )
 
-
 def simulate_random_experiment(alleles: List[str],  path2fasta: str,  tissue_name: str='TEST_TISSUE',
         num_pep: int = 10, num_prot: int = 5, proband_name: str = None )->Experiment:
     """ Simulate a random experiment objects 
@@ -110,7 +109,7 @@ def simulate_random_experiment(alleles: List[str],  path2fasta: str,  tissue_nam
     :type num_prot: int, optional
     :param proband_name: The name of the Proband, defaults to None
     :type proband_name: str, optional
-    :return: a simulated experimental object 
+    :return: A simulated experimental object 
     :rtype: Experiment
     """
     if proband_name is None:
@@ -127,7 +126,7 @@ def simulate_random_experiment(alleles: List[str],  path2fasta: str,  tissue_nam
     ident_table=ident_table)
 
 def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->List[str]:
-    """generate a list of random peptides for testing and developing purposes.
+    """generate a list of random peptides for testing and development purposes.
     
     :param peptide_length: The peptide length 
     :type peptide_length: int
@@ -148,15 +147,15 @@ def generate_random_peptide_seq(peptide_length:int, num_peptides: int)->List[str
     return results
 
 def simulate_mapped_array_list(min_len: int = 20, max_len: int = 100, num_elem: int = 100)->List[np.ndarray]:
-    """Simulate a list of mapped arrays proteins to be used for developing purposes 
+    """Simulate a list of mapped arrays proteins to be used for development purposes 
     
-    :param min_len: the minmum length of the protein , defaults to 20
+    :param min_len: the minmum length of the protein, defaults to 20
     :type min_len: int, optional
-    :param max_len: the maximum length for the protein , defaults to 100
+    :param max_len: the maximum length for the protein, defaults to 100
     :type max_len: int, optional
-    :param num_elem: the number of arrays in the protein , defaults to 100
+    :param num_elem: the number of arrays in the protein, defaults to 100
     :type num_elem: int, optional
-    :return: a list of simulated NumPy array that represent protein peptide coverage
+    :return: A list of simulated NumPy array that represent protein peptide coverage
     :rtype: List[np.ndarray]
     """
     # allocate a list to hold the results 

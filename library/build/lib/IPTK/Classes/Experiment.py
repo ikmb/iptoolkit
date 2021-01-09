@@ -23,15 +23,15 @@ class Experiment:
 	"""
 	def __init__(self, proband:Proband, hla_set:HLASet, tissue:Tissue,  database:SeqDB,
 				ident_table:pd.DataFrame)->Experiment: 
-		"""Construct an experiment instance.
+		"""Constructs an Experiment instance.
 
-		:param proband: a proband instance that contain the proband, name& other  meta-data. 
+		:param proband: A proband instance containing the proband, name& other meta-data. 
 		:type proband: Proband
-		:param hla_set: an HLASet instance that contain the set of alleles from which the peptide was eluted.
+		:param hla_set: an HLASet instance containing the set of alleles from which the peptide was eluted.
 		:type hla_set: HLASet
-		:param tissue: an instance of type tissue that store expression values and protein location form the corresponding tissue.
+		:param tissue: an instance of type tissue containing expression values and protein location from the corresponding tissue.
 		:type tissue: Tissue
-		:param database: a sequence database to exact the sequence of the identified proteins.
+		:param database: a sequence database to exact the sequences of the identified proteins.
 		:type database: SeqDB
 		:param ident_table: The identification table which contain the peptides inferred from analyzing raw mass spec files.  
 		:type ident_table: pd.DataFrame
@@ -433,7 +433,7 @@ class Experiment:
 		return results
 
 	def get_number_of_proteins_per_compartment(self) -> pd.DataFrame: 
-		"""get the number of proteins from each compartment 
+		"""returns the number of proteins from each compartment 
 		
 		:return: A table that has two columns, namely, Compartment and Counts. 
 		:rtype: pd.DataFrame
@@ -470,7 +470,7 @@ class Experiment:
 		return res
 
 	def get_number_of_proteins_per_go_term(self) -> pd.DataFrame: 
-		"""get the number of proteins from each GO-Term 
+		"""returns the number of proteins from each GO-Term 
 		
 		:return: A table that has two columns, namely, GO-Terms and Counts. 
 		:rtype: pd.DataFrame
@@ -507,7 +507,7 @@ class Experiment:
 		return res
 
 	def get_num_peptide_per_location(self)->pd.DataFrame:
-		"""retrun the number of peptides obtained from proteins localized to different sub-cellular compartments  
+		"""retruns the number of peptides obtained from proteins localized to different sub-cellular compartments  
 		
 		:return: A table that has two columns, namely, Compartment and Counts.
 		:rtype: pd.DataFrame
@@ -548,7 +548,7 @@ class Experiment:
 		return res 
 
 	def get_num_peptide_per_go_term(self)->pd.DataFrame:
-		"""retrun the number of peptides per each GO-Term 
+		"""retruns the number of peptides per each GO-Term 
 		:return: A table that has two columns, namely, GO-Terms and Counts. 
 		:rtype: pd.DataFrame
 		"""
@@ -588,7 +588,7 @@ class Experiment:
 		return res 
 
 	def get_mapped_proteins(self)->MappedProteins: 
-		"""return a dictionary of all the proteins identified in the current experiment with all inferred
+		"""returns a dictionary of all the proteins identified in the current experiment with all inferred
 		peptides mapped to them. 
 
 		:return: a dictionary that contain the mapped proteins for all the proteins in the current instance. 
@@ -601,7 +601,7 @@ class Experiment:
 	
 	def get_mono_parent_peptides(self)->Peptides:
 		"""
-		return a list of peptides that have only one parent protein
+		returns a list of peptides that have only one parent protein
 		
 		:return: list of peptide instance 
 		:rtype: Peptides
@@ -613,7 +613,7 @@ class Experiment:
 		return results
 	
 	def get_poly_parental_peptides(self)->Peptides:	
-		"""return a list of peptides that have more than one parent proteins
+		"""returns a list of peptides that have more than one parent protein
 		:return: [list of peptide instance 
 		:rtype: Peptides
 		"""
@@ -624,7 +624,7 @@ class Experiment:
 		return results
 	
 	def get_peptide_number_parent(self, ascending: bool = False)-> pd.DataFrame:
-		"""return a pandas dataframe with the peptide sequence in the first columns and the 
+		"""returns a pandas dataframe with the peptide sequence in the first columns and the 
 		number of parent proteins in the second column. 
 		
 		:param ascending: ascending sort the peptide by their number of parent proteins, defaults to False
@@ -644,7 +644,7 @@ class Experiment:
 		return res 
 	
 	def get_number_of_children(self,pro_id: str)->int:
-		"""return the number of children, i.e. number of peptides belonging to a parent protein
+		"""returns the number of children, i.e. number of peptides belonging to a parent protein
 
 		:param pro_id: the id of the parent protein 
 		:type pro_id: str
@@ -658,12 +658,12 @@ class Experiment:
 		return children
 	
 	def get_peptides_per_protein(self, ascending: bool = False)->pd.DataFrame:
-		"""return a pandas dataframe that contain the number of peptides belonging to each protein 
+		"""returns a pandas dataframe that contain the number of peptides belonging to each protein 
 		inferred in the experiment
 		
-		:param ascending: ascending sort the proteins by their number of parent number of child peptides, defaults to False
+		:param ascending: ascending sort the proteins by their number of parents each child peptide has, defaults to False
 		:type ascending: bool, optional
-		:return: a table with the following columns, Proteins and Number_of_Peptides
+		:return: A table with the following columns, Proteins and Number_of_Peptides
 		:rtype: pd.DataFrame
 		"""
 		proteins=list(self._proteins)
@@ -678,11 +678,11 @@ class Experiment:
 		return res 
 
 	def get_n_terminal_flanked_seqs(self, flank_length: int)->Peptides:
-		"""return the n-terminal flanking sequences 
+		"""returns the n-terminal flanking sequences 
 
-		:param flank_length: the length of the flanking region upstream of the N-terminal of the peptide 
+		:param flank_length: the length of the flanking region upstream of the N-terminal of the peptide. 
 		:type flank_length: int
-		:return: a list sequences contain the N-terminal flanking sequence for each peptide in the instance.  
+		:return: a list of sequences containing the N-terminal flanking sequence for each peptide in the instance.  
 		:rtype: Peptides
 		"""
 		results=[]
@@ -691,11 +691,11 @@ class Experiment:
 		return results 
 
 	def get_c_terminal_flanked_seqs(self, flank_length: int)-> Peptides:
-		"""return the c-terminal flanking sequences
+		"""returns the c-terminal flanking sequences
 
 		:param flank_length: the length of the peptide downstream of the C-terminal of the peptide  
 		:type flank_length: int
-		:return: a list sequences contain the N-terminal flanking sequence for each peptide in the instance.  
+		:return: a list of sequences containing the N-terminal flanking sequence for each peptide in the instance.  
 		:rtype: Peptides
 		"""
 		results=[]
@@ -705,14 +705,14 @@ class Experiment:
 
 	def get_tissue_name(self)->str:
 		"""
-		:return: the tissue name 
+		:returns: the name of the tissue 
 		:rtype: str
 		"""
 		return self._tissue.get_name()
 		
 	def get_proband_name(self)->str:
 		"""
-		:return: the proband name
+		:return: the proband's name
 		:rtype: str
 		"""
 		return self._proband.get_name()
@@ -732,9 +732,9 @@ class Experiment:
 		return self._hla_set.get_alleles()
 		
 	def has_hla_allele(self, individual: str)->bool:
-		"""return whether or not the experiment contain an eluted peptides from the provided alleles 
+		"""returns whether or not the experiment contain an eluted peptides from the provided alleles 
 		
-		:param individual: is the name of the allele as a string
+		:param individual: the name of the allele as a string
 		:type individual: str
 		:return: True if the allele is a member of the instance HLASet and False otherwise.  
 		:rtype: bool
@@ -742,7 +742,7 @@ class Experiment:
 		return self._hla_set.has_allele(individual)
 	
 	def has_gene(self, locus: str)->bool:
-		"""return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided locus or not
+		"""returns whether or not the experiment contains peptides eluted from an HLA-allele belonging to the provided locus or not
 		
 		:param locus: the locus of the allele to query the hla_set against
 		:type locus: str
@@ -752,7 +752,7 @@ class Experiment:
 		return self._hla_set.has_gene(locus)
 	
 	def has_allele_group(self, gene_group:str)->bool:
-		"""return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided allele group or not
+		"""returns whether or not the experiment contains peptides eluted from an HLA-allele belonging to the provided allele group or not
 		
 		:param gene_group: the gene group to query the hla_set against 
 		:type gene_group: str
@@ -762,7 +762,7 @@ class Experiment:
 		return self._hla_set.has_allele_group(gene_group)
 	
 	def has_protein_group(self, protein_group: str)->bool:
-		""" return whether or not the experiment contain peptides eluted from an HLA-alleles belonging to the provided protein group or not
+		""" returns whether or not the experiment contains peptides eluted from an HLA-allele belonging to the provided protein group or not
 
 		:param protein_group: The protein group to query the hla_set against 
 		:type protein_group: str
@@ -773,7 +773,7 @@ class Experiment:
 	
 	def get_peptides(self)->Peptides:
 		"""
-		:return: a set of all the peptide stored in the experimental object
+		:return: a set of all the peptides stored in the experimental object
 		:rtype: Peptides
 		"""
 		return set(self._peptides.keys())
@@ -815,7 +815,7 @@ class Experiment:
 		return self._tissue
 
 	def	__len__(self)->int: 
-		""" A magic function for the len function, return the number of peptides in the experiment.
+		""" A magic function for the len function, return the number of unique peptides in the experiment.
 
 		:return: the number of unique peptides in the database
 		:rtype: int

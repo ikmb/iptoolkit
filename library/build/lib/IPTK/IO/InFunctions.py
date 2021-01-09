@@ -16,15 +16,12 @@ from pyteomics.openms import idxml
 def load_identification_table(input_path: str, sep:str) -> pd.DataFrame:
     """load & process an identification table 
     
-    :param input_path: the path two the identification table. with the following columns: peptides which hold the identified
+    :param input_path: the path to the identification table. With the following columns: peptides which hold the identified
 	peptide sequence, protein which hold the identified protein sequence, start_index, and end_index where
 	the last two columns define the position of the peptide in the parent protein. 
     :type input_path: str
     :param sep: The separator to parse the provided table. 
     :type sep: str
-    :raises IOError: [description]
-    :raises ValueError: [description]
-    :return: [description]
     :rtype: pd.DataFrame
     """
 	# load the table 
@@ -47,11 +44,11 @@ def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
 
     :param path2mzTab: the path to the input mzTab file
     :type path2mzTab: str
-    :param path2fastaDB: the path to a fasta sequence database to obtain the protein sequences 
+    :param path2fastaDB: the path to a fasta file to obtain the protein sequences 
     :type path2fastaDB: str
-    :param fasta_reader_param: a dict of parameters for controlling the behavior of the fasta reader , defaults to {'filter_decoy':True, 'decoy_string':'DECOY' }
+    :param fasta_reader_param: A dict of parameters for controlling the behavior of the fasta reader , defaults to {'filter_decoy':True, 'decoy_string':'DECOY' }
     :type fasta_reader_param: Dict[str,str], optional
-    :param remove_if_not_matched: remove the peptide if it could not be matched to the parent protein,, defaults to True
+    :param remove_if_not_matched: remove the peptide if it could not be matched to the parent protein, defaults to True
     :type remove_if_not_matched: bool, optional
     :raises IOError: if the mztab file could not be open and loaded or if the fasta database could not be read
     :raises KeyError: if a protein id defined in the mzTab file could not be extracted from a matched sequence database
@@ -123,13 +120,13 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
     :type path2XML_file: str
     :param path2fastaDB: The path to a fasta sequence database to obtain the protein sequences
     :type path2fastaDB: str
-    :param decoy_prefix: the prefix of the decoy sequences, default is DECOY, defaults to 'DECOY'
+    :param decoy_prefix: the prefix of the decoy sequences, default is DECOY
     :type decoy_prefix: str, optional
     :param is_idXML: Whether or not the provided file is an idXML, default is false which assume the provided file is a pepXML file, defaults to False
     :type is_idXML: bool, optional
-    :param fasta_reader_param: a dict of parameters for controlling the behavior of the fasta reader , defaults to {'filter_decoy':True, 'decoy_string':'DECOY' }
+    :param fasta_reader_param: A dict of parameters for controlling the behavior of the fasta reader, defaults to {'filter_decoy':True, 'decoy_string':'DECOY' }
     :type fasta_reader_param: Dict[str,str], optional
-    :param remove_if_not_matched: remove the peptide if it could not be matched to the parent protein,, defaults to True
+    :param remove_if_not_matched: remove the peptide if it could not be matched to the parent protein, defaults to True
     :type remove_if_not_matched: bool, optional
     :raises IOError: if the fasta database could not be open 
     :raises ValueError: if the XML file can not be open 
@@ -233,9 +230,9 @@ def parse_text_table(path2file: str,
     :type fasta_reader_param: Dict[str,str], optional
     :param seq_column: The name of the columns containing the peptide sequence, defaults to 'Sequence'
     :type seq_column: str, optional
-    :param accession_column: The name of the column containing the protein accession , defaults to 'Protein Accessions'
+    :param accession_column: The name of the column containing the protein accession, defaults to 'Protein Accessions'
     :type accession_column: str, optional
-    :param protein_group_sep: The separator for the protein group,, defaults to ';'
+    :param protein_group_sep: The separator for the protein group, defaults to ';'
     :type protein_group_sep: str, optional
     :param remove_protein_version: A bool if true strip the version number from the protein , defaults to True
     :type remove_protein_version: bool, optional
@@ -346,7 +343,7 @@ def fasta2dict(path2fasta:str, filter_decoy: bool = True,
     :param decoy_string: The decoy database prefix, only valid incase filter_decoy is set to true, defaults to 'DECOY'
     :type decoy_string: str, optional
     :raises IOError: [description]
-    :return: a dict where the protein ids are the keys and the protein sequences are the value 
+    :return: A dict where the protein ids are the keys and the protein sequences are the values 
     :rtype: Dict[str,str]
     """
     # check the path exists 
@@ -373,7 +370,7 @@ def fasta2dict(path2fasta:str, filter_decoy: bool = True,
     return results
 
 def download_pdb_entry(prot_id: str) ->str: 
-    """ Download the structure of a protein from protein databank form as mmCIF file. 
+    """ Download the structure of a protein from protein databank as an mmCIF file. 
 
     :param prot_id: the protein id 
     :type prot_id: str

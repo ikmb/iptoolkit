@@ -15,7 +15,7 @@ class Peptide:
 		"""class constructor 
 		:param pep_seq: the peptide sequence 
 		:type pep_seq: str
-		:return: a Peptide Sequence 
+		:return: a Peptide instance 
 		:rtype: Peptide
 		"""
 		self._peptide=pep_seq
@@ -23,7 +23,7 @@ class Peptide:
 
 	def get_length(self) -> int:
 		"""
-		:return: the length of the peptides
+		:return: the length of the peptide
 		:rtype: int
 		"""
 		return len(self._peptide) 
@@ -53,14 +53,14 @@ class Peptide:
 
 	def get_number_parent_protein(self) -> int:
 		"""
-		:return: the number of parent proteins this instance has 
+		:return: The number of parent proteins this instance has 
 		:rtype: int
 		"""
 		return len(self._parent_proteins) 
 
 	def get_flanked_peptide(self,flank_len:int)-> Sequences: 
 		"""
-		:param flank_len: the length of the flanking regions 
+		:param flank_len: The length of the flanking regions 
 		:type flank_len: int
 		:return: A list of string containing the length of the peptide + the flanking region from \
 		both the N and C terminal of the instance peptide, from all proteins.
@@ -90,7 +90,7 @@ class Peptide:
 
 	def map_to_parent_protein(self) ->MappedProtein:
 		""" Mapped the instance peptide to the parent protein and returned a 
-		list of numpy arrays where each array has a size of 1 by protein length. 
+		list of Numpy arrays where each array has a size of 1 by protein length. 
 		within the protein the range representing the peptide is encoded as one while
 		the rest is zero. 
 
@@ -113,9 +113,9 @@ class Peptide:
 
 	def get_non_presented_peptides(self, length: int )->Sequences: 
 		"""
-		:param length: The length, i.e. number of amino acids, for the non-presented peptide
+		:param length: The length of the non-presented peptides
 		:type length: int
-		:return: non-presented peptide from all the parent protein of the current peptide instance.  
+		:return: non-presented peptides from all the parent protein of the current peptide instance.  
 		:rtype: Sequences
 		"""
 		results=[]
@@ -141,7 +141,7 @@ class Peptide:
 		:param pro_id: the id of the parent protein 
 		:type pro_id: str
 		:raises ValueError: If the identifier is not a parent of the instance 
-		:return: the start and end position of the instance peptide in the parent pointed out by the provided identifier
+		:return: the start and end position of the instance peptide in the parent with the provided identifier
 		:rtype: Range
 		"""
 		if not self.is_child_of(pro_id):
@@ -156,7 +156,7 @@ class Peptide:
 		"""
 		:param pro_id: The protein identifer 
 		:type pro_id: str
-		:return: the parent protein that has an id matching the user defined pro_id
+		:return: The parent protein that has an id matching the user defined pro_id
 		:rtype: Protein
 		"""
 		if self.is_child_of(pro_id):
@@ -164,7 +164,7 @@ class Peptide:
 
 	def get_number_of_parents(self)->int:
 		"""
-		:return: the number of instance parent proteins
+		:return: The number of instance parent proteins
 		:rtype: int
 		"""
 		return len(self._parent_proteins)
@@ -173,7 +173,7 @@ class Peptide:
 		"""
 		:param flank_len: the length of the flanking regions 
 		:type flank_len: int
-		:return: a list of string containing the sequences located upstream of the peptide in the parent protein. 
+		:return: A list of string containing the sequences located upstream of the peptide in the parent protein. 
 		:rtype: List[str]
 		"""
 		# if the peptide has no parent -> return a list with an empty string 
@@ -194,9 +194,9 @@ class Peptide:
 		 
 	def get_c_terminal_flank_seq(self, flank_len: int)->List[str]:
 		"""
-		:param flank_len:the length of the flanking regions 
+		:param flank_len: The length of the flanking regions 
 		:type flank_len: int
-		:return: a list of string containing the sequences located downstream of the peptide in the parent protein. 
+		:return: A list of string containing the sequences located downstream of the peptide in the parent protein. 
 		:rtype: [type]
 		"""
 		# if the peptide has no parent -> return a list with an empty string 
@@ -220,13 +220,13 @@ class Peptide:
 		return results 
 
 	def add_org_2_parent(self,prot_name: str,org:str)->None:
-		"""add the source organism of one of the instance parent protein
+		"""adds the source organism of one of the instance parent protein
 
 		:param prot_name: The name of the protein, i.e. the identifier of the protein 
 		:type prot_name: str
-		:param org: the name of the organism 
+		:param org: The name of the organism 
 		:type org: str
-		:raises ValueError: incase the provided protein is not a parent of the provided peptide 
+		:raises ValueError: Incase the provided protein is not a parent of the provided peptide 
 		"""
 		if not self.is_child_of(prot_name):
 			raise ValueError(f'The provided protein id is not a parent of the current peptide')
@@ -234,7 +234,7 @@ class Peptide:
 	
 	def get_parents_org(self)->Organisms:
 		"""
-		:return: a list containing the name of each parent protein source organisms
+		:return: A list containing the name of each parent protein source organisms
 		:rtype: Organisms
 		"""
 		results=[]
@@ -244,24 +244,24 @@ class Peptide:
 	
 	def __len__(self)->int:
 		"""
-		:return: the length of the peptide 
+		:return: The length of the peptide 
 		:rtype: int
 		"""
 		return len(self._peptide)
 	
 	def __getitem__(self,aa_index:int)->str:
-		"""bracket based indexing into the peptide sequence
+		"""Bracket based indexing into the peptide sequence
 
 		:param aa_index: the amino acid index in the peptide sequence, for example 3rd amino acid
 		:type aa_index: int
-		:return: the amino acid correspond to the provided key  
+		:return: the amino acid correspond to the provided index  
 		:rtype: str
 		"""
 		return self._peptide[aa_index]
 	
 	def __str__(self)->str:
 		"""
-		:return: the sequence of the peptide 
+		:return: The sequence of the peptide 
 		:rtype: str
 		"""
 		return self._peptide

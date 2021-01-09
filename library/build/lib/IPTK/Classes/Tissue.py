@@ -14,15 +14,15 @@ class ExpressionProfile:
 	def __init__(self, name: str,
 	 	expression_table: pd.DataFrame, 
 		aux_proteins: pd.DataFrame = None)->ExpressionProfile: 
-		"""create an expression profile instance from an expression table. 
+		"""Create an expression profile instance from an expression table. 
 
 		:param name: the name of the tissue 
 		:type name: str
-		:param expression_table: a  dataframe with the following three columns gene id, gene name, and the expression value.   
+		:param expression_table: A dataframe with the following three columns gene id, gene name, and the expression value.   
 		:type expression_table: pd.DataFrame
 		:param aux_proteins: A table that contain the expression table of auxillary proteins that does not belong to the tissue per sa,
 		for example, pathogen-derived genes, defaults to None
-		:type if the expression table does not have the correct shape: pd.DataFrame, optional
+		:type: pd.DataFrame, optional
 		:raises ValueError: if the tissue name is None
 		:raises ValueError: if the expression table is not a pandas dataframe instance 
 		:raises ValueError: if the expression table does not have the correct shape 
@@ -79,14 +79,14 @@ class ExpressionProfile:
 
 	def get_name(self)->str:
 		"""
-		:return: the name of the tissue which the instance profile its gene expression 
+		:return: the name of the tissue where the expression profile was obtained
 		:rtype: str
 		"""
 		return self._name
 
 	def get_table(self)->pd.DataFrame:
 		"""
-		:return: return a table that contain the expression of all the transcript in the current profile \
+		:return: return a table that contain the expression of all the transcripts in the current profile \
 		including core and auxiliary proteins
 		:rtype: pd.DataFrame
 		"""
@@ -94,7 +94,7 @@ class ExpressionProfile:
 	
 	def __len__(self)->int: 
 		"""
-		:return: return the number of unique genes in the profile 
+		:return: return the number of unique transcripts in the profile 
 		:rtype: int
 		"""
 		return len(set(self._exp_map.shape[0]))
@@ -113,16 +113,16 @@ class Tissue:
 	def __init__(self, name: str, main_exp_value: GeneExpressionDB, 
 	main_location: CellularLocationDB, aux_exp_value: GeneExpressionDB = None,
 	aux_location: CellularLocationDB = None) -> Tissue:
-		"""the initializer of the AnnotatedTissue class 
+		"""The initializer of the Tissue class 
 
-		:param name: the name of the tissue 
+		:param name: The name of the tissue 
 		:type name: str
-		:param main_exp_value: A GeneExpressionDB instace contain the gene expression accross different tissues 
+		:param main_exp_value: A GeneExpressionDB instace containing the gene expression accross different tissues 
 		:type main_exp_value: GeneExpressionDB
-		:param main_location: main_location
-		:type main_location: A CellularLocationDB instance that contain the sub cellular locations for the proteins expressed in the tissue
-		:param aux_exp_value:  GeneExpressionDB instance that contain the expression table of auxillary proteins that does not belong to the tissue per sa,
-	  	for example, pathogen-derived genes or extra-cellular matrix, defaults to None
+		:param main_location: A CellularLocationDB instance that contain the sub cellular locations for the proteins expressed in the tissue
+		:type main_location: A CellularLocationDB 
+		:param aux_exp_value: A GeneExpressionDB instance that contain the expression table of auxillary proteins that does not belong to the tissue per sa,
+	  	for example, pathogen-derived genes or extra-cellular matrix, defaults to None.
 		:type aux_exp_value: GeneExpressionDB, optional
 		:param aux_location: CellularLocationDB instance that contain the sub cellular locations for proteins that does not belong to the tissue of interest per sa
 	  	for example, pathogen-derived proteins or media-added proteins, defaults to None

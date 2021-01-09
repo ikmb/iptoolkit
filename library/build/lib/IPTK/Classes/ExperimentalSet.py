@@ -1,5 +1,5 @@
 #!/usr/bin/env python 
-"""An Experimental set which is a collection of experiments.
+"""An ExperimentalSet which is a collection of experiments.
 The class provides an API for integrating and comparing different experimental instances.   
 """
 # load the modules 
@@ -23,7 +23,7 @@ class ExperimentSet:
     """an API for integrating and comparing different experimental instances
     """
     def __init__(self,**exp_id_pair)->ExperimentSet:
-        """Create an new instance using an arbitrary number of experiment id experiment instance pairs 
+        """Create a new instance using an arbitrary number of experiments. 
         """
         # an experimental dict 
         self._exps=dict()
@@ -38,7 +38,7 @@ class ExperimentSet:
                                      however, your key: {ident} has a type of {type(exp)}""")
     
     def add_experiment(self, **exp_id_pair)->None:
-        """add an arbitrary number of experiments to the set 
+        """adds an arbitrary number of experiments to the set 
         """
         for ident, exp in exp_id_pair.items():
             if isinstance(exp,Experiment): 
@@ -56,14 +56,13 @@ class ExperimentSet:
     
     def get_experiments(self)->Dict[Experiment]:
         """
-
-        :return: return a dict with all the experiments stored in the instance as value of ids as keys. 
+        :return: returns a dict with all the experiments stored in the instance as value and ids as keys. 
         :rtype: Dict[Experiment]
         """
         return self._exps
     
     def get_experiment(self, exp_name:str)->Experiment:
-        """ return the experiment pointed to by the provided experimental name
+        """ returns the experiment pointed to by the provided experimental name
 
         :param exp_name: the name of the experiment 
         :type exp_name: str
@@ -79,15 +78,14 @@ class ExperimentSet:
 
     def get_experimental_names(self)->Names:
         """
-        :return: a list with all the identifiers of the experiments in the set  
+        :return: A list with all the identifiers of the experiments in the set  
         :rtype: Names
         """
         return list(self._exps.keys())
     
     def get_unique_orgs(self)->List[str]:
         """
-
-        :return: a list of the unique organisms in the set
+        :return: A list of the unique organisms in the set
         :rtype: List[str]
         """
         unique_orgs: List[str] = []
@@ -133,7 +131,7 @@ class ExperimentSet:
         :type org: str
         :param abs_count: The absolute count, defaults to False
         :type abs_count: bool, optional
-        :return: the count of the peptides that belong to a specific organism in the database.
+        :return: The count of the peptides that belong to a specific organism in the database.
         :rtype: pd.DataFrame
         """
         # allocate and array to hold the results 
@@ -169,10 +167,10 @@ class ExperimentSet:
         return res 
     
     def drop_peptides_belong_to_org(self, org_name: str) -> None:
-        """drop all the peptides that belong to the provided organisms from all experiments in the set.
+        """drops all the peptides that belong to the provided organisms from all experiments in the set.
 
 
-        :param org_name: the name of the organism to drop 
+        :param org_name: The name of the organism to drop.
         :type org_name: str
         """
         for name in self.get_experimental_names():
@@ -182,7 +180,7 @@ class ExperimentSet:
     def __getitem__(self, name:str)->Experiment:
         """ A magic function for accessing the experiments stored in the set
 
-        :param name: the experiment name or id 
+        :param name: The experiment name or id 
         :type name: str
         :raises KeyError: if the provided name is not defined in the current instance. 
         :return: the experiment with the corresponding name
@@ -229,7 +227,7 @@ class ExperimentSet:
     
     def get_allele_count(self)->Counts:
         """
-        :return: the number of experiments obtained from each allele in the instance.
+        :return: The number of experiments obtained from each allele in the instance.
         :rtype: Counts
         """
         allele_counts=dict()
@@ -292,8 +290,8 @@ class ExperimentSet:
     
     def group_by_proband(self)->Dict[str,ExperimentSet]:
         """
-        :return: a map between each proband and an Experimentalset object represent all the experiments objects \
-        belonging to this proband. 
+        :return: a map between each proband and an Experimentalset object representing all experiments objects \
+        belonging to each unique proband in the set. 
         :rtype: Dict[str,ExperimentSet]
         """
         # define the set of tissues 
@@ -334,7 +332,7 @@ class ExperimentSet:
     
     def get_unique_proteins(self)->Proteins:
         """
-        :return: the set of unique proteins in the experimentalset
+        :return: The set of unique proteins in the experimentalset
         :rtype: Proteins
         """
         res:List[str]=[]
@@ -374,11 +372,10 @@ class ExperimentSet:
                 return False
         # return true as it is defined in all the experiment in the dataset. 
         return True
-    
-    
+
     def get_peptides_present_in_all(self)->Peptides:
         """
-        :return: the peptides that are observed in every experiments in the set.
+        :return: The peptides that are observed in every experiment in the set.
         :rtype: Peptides
         """
         all_peptides=self.get_unique_peptides()
@@ -390,7 +387,7 @@ class ExperimentSet:
     
     def get_proteins_present_in_all(self)->Proteins:
         """
-        :return: the proteins that are inferred in all experiments of the set 
+        :return: The proteins that are inferred in all experiments of the set. 
         :rtype: Proteins
         """
         all_proteins=self.get_unique_proteins()
@@ -403,7 +400,7 @@ class ExperimentSet:
     def compute_peptide_overlap_matrix(self)->np.ndarray:
         """
 
-        :return: a 2D matrix containing the number of peptide overlapping between each pair of experiments inside the current instance collection of experiment.   
+        :return: A 2D matrix containing the number of peptide overlapping between each pair of experiments inside the current instance collection of experiment.   
         :rtype: np.ndarray
         """
         # allocate the results array 
@@ -424,7 +421,7 @@ class ExperimentSet:
 
     def compute_protein_overlap_matrix(self)->np.ndarray:
         """
-        :return: return a 2D matrix containing the number of proteins overlapping between each pair of experiments inside the current instance collection of experiment.  
+        :return: returns a 2D matrix containing the number of proteins overlapping between each pair of experiments inside the current instance collection of experiment.  
         :rtype: np.ndarray
         """
         # allocate the results array 
@@ -443,9 +440,9 @@ class ExperimentSet:
         # return the results 
         return results_df 
     
-    def compute_peptide_representation_count(self)->Counts: # should be a dataframe 
+    def compute_peptide_representation_count(self)->Counts: 
         """
-        :return: The number of times a peptide was observed accross  experiments in the set 
+        :return: The number of times a peptide was observed accross experiments in the set 
         :rtype: Counts
         """
         # define the results object 
@@ -462,7 +459,7 @@ class ExperimentSet:
         # return the results after filling it 
         return results 
     
-    def compute_protein_representation_count(self)->Counts: # should be pd.df
+    def compute_protein_representation_count(self)->Counts: 
         """
         :return: The number of times a protein was observed accross the experiment in the set
         :rtype: Counts
@@ -482,7 +479,7 @@ class ExperimentSet:
     
     def compute_protein_coverage_over_the_set(self)->Dict[str, np.ndarray]:
         """
-        :return: the mapped representation for each protein in accross the entire  set
+        :return: The mapped representation for each protein accross the entire set
         :rtype: Dict[str, np.ndarray]
         """
         results:Dict[str, np.ndarray]=dict()
@@ -500,11 +497,11 @@ class ExperimentSet:
 
 
     def compute_correlation_in_experssion(self)->pd.DataFrame:
-        """compute the correlation in parent protein gene-expression across all the experiments
+        """computes the correlation in parent protein gene-expression across all the experiments
         in the set. See the function **compute_binary_correlation** in the analysis module 
         for information about the computational logic.
 
-        :return: return a 2D matrix containing the coorelation in gene expression between each pair of experiments inside the current instance collection of experiments.  
+        :return: returns a 2D matrix containing the coorelation in gene expression between each pair of experiments inside the current instance collection of experiments.  
         :rtype: pd.DataFrame
         """
         # get the experimental index
@@ -527,11 +524,11 @@ class ExperimentSet:
         return res 
 
     def compute_change_in_protein_representation(self)->np.ndarray:
-        """Compute the change in protein representation among the proteins that are presented/ detect in all of the \
+        """Computes the change in protein representation among the proteins that are presented/ detected in all of the \
         instance's experiments.
         
-        :return: a 3D tensor, T, with shape of (num-experiments, num-experiments, num-proteins), \
-        where T[i,j,k] is a the difference between experiment i & j with respect to the k th protein \
+        :returns: a 3D tensor, T, with shape of (num-experiments, num-experiments, num-proteins), \
+        where T[i,j,k] is a the difference between experiment i & j with respect to the kth protein \
         :rtype: np.ndarray
         """
         # get the number of experiments and proteins 
@@ -560,7 +557,7 @@ class ExperimentSet:
         return results_array
 
     def compute_average_distance_between_exps(self)->pd.DataFrame: 
-        """compute the average distance between experiments by taking the average over the z-axis
+        """computes the average distance between experiments by taking the average over the z-axis
         of the 3D tensor computed by the function compute_change_in_protein_representation.
         
         :return:  A 2D tensor with shape of (num-experiments, num-experiments)

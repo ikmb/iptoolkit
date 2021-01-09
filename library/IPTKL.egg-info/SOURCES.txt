@@ -30,4 +30,5 @@ IPTK/Visualization/vizTools.py
 IPTKL.egg-info/PKG-INFO
 IPTKL.egg-info/SOURCES.txt
 IPTKL.egg-info/dependency_links.txt
+IPTKL.egg-info/requires.txt
 IPTKL.egg-info/top_level.txt
