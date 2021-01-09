@@ -17,7 +17,7 @@ These Tutorial can be found at the Tutorial directory</p>
 
 
 ### Installation ###
-<p>The library can be installed using pip as follow: </p> 
+<p>The library can be installed using pip as follows: </p> 
 
 ```
 pip install iptkl --user
