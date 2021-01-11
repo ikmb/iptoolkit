@@ -26,7 +26,17 @@ pip install iptkl --user
 
 ### Notes and common troubleshooting ### 
 <p> 1- Please make sure the pip is probably installed on the system </p>
-<p> 2- for macOS user please make sure Xcode is installed, for linux user </p>
+<p> 2- For macOS users please make sure Xcode is installed. This can be done using the following command</p>
+
+```
+xcode-select --install 
+```
+
+<p> For Debian/Ubuntu users, please make sure build-essential installed. </p>
+
+```
+sudo apt install build-essential
+```
 
 ### Running the Tutorials  ####
 <p>
