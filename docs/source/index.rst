@@ -20,9 +20,9 @@ Installation:
 ===============
 The library can be installed using pip as follows: 
 
-```
-pip install iptkl --user
-```
+.. code-block:: bash
+   pip install iptkl --user
+
 
 Funding:
 ========
