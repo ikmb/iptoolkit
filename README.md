@@ -39,10 +39,11 @@ To run the tutorial locally, please run the following steps:
 <p> The library requires the following libraries to be installed in order to functional properly: </p>
 <p> numPy, pandas, biopython, seaborn, matplotlib, plotly, mhcnames, pyteomics', h5py, logomaker, colour, lxml, nglview, sklearn, scipy, statannot. levenshtein</p>
 <p> Usually this packages are installed automatically through pip. However, incase this process failed, the dependcies can be installed using the as follows:</p>
+
 ```
 pip install -r requirements.txt 
 ```
-</p>
+
 
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
