@@ -25,4 +25,4 @@ SOFTWARE.
 
 Contact 
 =======
-for further question and communication please contact h.elabd@ikmb.uni-kiel.de
+for further questions and communication please contact h.elabd@ikmb.uni-kiel.de
