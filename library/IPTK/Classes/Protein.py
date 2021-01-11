@@ -125,4 +125,4 @@ class Protein:
 		return self._seq
 
 	def __repr__(self)->str:
-		return f'A Protein instance with a length of {len(self)}'
+		return f'A protein instance with a length of {len(self)}.'

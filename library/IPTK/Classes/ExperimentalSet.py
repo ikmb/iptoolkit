@@ -206,7 +206,7 @@ class ExperimentSet:
         :return: A string representation of the class
         :rtype: str
         """
-        return f'an experimental set with {len(self)} Experiments in it'
+        return f'an experimental set with {len(self)} Experiments in it.'
         
     
     def get_tissue_counts(self)->Counts:

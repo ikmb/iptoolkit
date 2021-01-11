@@ -601,7 +601,7 @@ class Features:
         the string representation of the class
         """
         summary=self.summary()
-        string_rep=""" a protein feature class with: {}  chains, {} domains.  {} PTMs, {} sequence varients and {} splice varients""".format(
+        string_rep=""" A protein feature instance with: {}  chains, {} domains.  {} PTMs, {} sequence variants and {} splice variants""".format(
             summary["number_of_chains"],summary["number_of_domains"],
             summary["number_of_PTMs"],summary["number_of_sequence_varients"]   , summary["number_of_splice_varients"])
         return string_rep

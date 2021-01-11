@@ -172,5 +172,5 @@ class Tissue:
 		:return: a string representation for the current instance
 		:rtype: str
 		"""
-		return f'{self._exp_prof.get_name()} with an associated expression profile covering: {len(self._exp_prof)} genes and a sub-cellular location covering: {len(self._cell_loc)} genes '
+		return f'{self._exp_prof.get_name()} with an associated expression profile covering: {len(self._exp_prof)} genes and a sub-cellular location covering: {len(self._cell_loc)} genes.'
 		
