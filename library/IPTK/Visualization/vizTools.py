@@ -427,7 +427,7 @@ def plot_peptide_length_dist(pep_length: List[int],
     
     :param pep_length: a list of integer containing the peptides' lengths
     :type pep_length: List[int]
-    :param plotting_kwargs: a dict object containing parameters for the function seaborn.distplot, defaults to {}
+    :param plotting_kwargs: a dict object containing parameters for the function seaborn.histplot, defaults to {}
     :type plotting_kwargs: Dict[str,str], optional
     :param x_label: the label of the x-axis , defaults to 'Peptide Length'
     :type x_label: str, optional
@@ -437,7 +437,7 @@ def plot_peptide_length_dist(pep_length: List[int],
     :type title: str, optional
     """
     fig=plt.figure()
-    ax=sns.distplot(pep_length,**plotting_kwargs)  
+    ax=sns.histplot(pep_length,**plotting_kwargs)  
     ax.set_xlabel(x_label)
     ax.set_ylabel(y_label)
     ax.set_title(title)
@@ -492,7 +492,7 @@ def plot_num_peptides_per_parent(nums_table: pd.DataFrame,
     defaults to -1. 
     :type num_prot: int, optional
     :param plotting_kwargs: a dict object containing parameters for the function \
-    seaborn::distplot, defaults to {}
+    seaborn::histplot, defaults to {}
     :param x_label: the label of the x-axis, defaults to 'Number of peptides'
     :type x_label: str, optional
     :param y_label: the label of the y-axis, defaults to 'Protein ID'
@@ -1581,7 +1581,7 @@ def plot_num_peptides_per_protein_hist(num_pep_per_protein: pd.DataFrame,
 
     :param num_pep_per_protein: a table containing the number of peptides observed from each protein inferred
     :type num_pep_per_protein: pd.DataFrame
-    :param plotting_kwargs: a dict object containing parameters for the sns.distplot function, defaults to {}
+    :param plotting_kwargs: a dict object containing parameters for the sns.histplot function, defaults to {}
     :type plotting_kwargs: Dict[str,str], optional
     :param title: the title of the MDS plot 
     :type title: str 
@@ -1589,7 +1589,7 @@ def plot_num_peptides_per_protein_hist(num_pep_per_protein: pd.DataFrame,
     :rtype: plt.Figure
     """
     fig=plt.figure()
-    ax=sns.distplot(num_pep_per_protein.iloc[:,-1])
+    ax=sns.histplot(num_pep_per_protein.iloc[:,-1])
     ax.set_xlabel('Number of peptides per protein')
     ax.set_ylabel('Frequency')
     ax.title('The distribution of number of peptides per protein')  
