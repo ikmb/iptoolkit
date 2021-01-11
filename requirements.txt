@@ -1,0 +1,15 @@
+biopython 
+pandas 
+numpy 
+seaborn 
+matplotlib 
+plotly 
+mhcnames
+pyteomics
+h5py
+logomaker
+colour
+lxml
+nglview
+sklearn
+levenshtein
