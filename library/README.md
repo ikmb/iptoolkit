@@ -18,18 +18,9 @@ These Tutorial can be found at the Tutorial directory</p>
 
 ### Installation ###
 <p>The library can be installed using pip as follows: </p> 
-
 ```
 pip install iptkl --user
 ```
 
-
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
-
-
-
-
-
-
-
