@@ -482,6 +482,7 @@ def plot_num_peptides_per_parent(nums_table: pd.DataFrame,
                         plotting_kwargs: Dict[str,str]={},
                         x_label: str = 'Number of peptides',
                         y_label: str = 'Protein ID',
+                        hide_y_label: bool = False, 
                         title: str = 'Number of peptides per protein'):
     """Plot the number of peptides belonging to each protein using seaborn library.  
 
@@ -497,9 +498,11 @@ def plot_num_peptides_per_parent(nums_table: pd.DataFrame,
     :type x_label: str, optional
     :param y_label: the label of the y-axis, defaults to 'Protein ID'
     :type y_label: str, optional
-    :param title: The title of the figure, defaults to 'Number of peptides per protein'
+    :param hide_y_label: a boolean flag to hide the text of the y-label, defaults to False. 
+    :type hide_y_label: bool, optional
+    :param title: the title of the figure, defaults to 'Number of peptides per protein'. 
     :type title: str, optional
-    :raises ValueError: if the num_prot is bigger than the number of elements in the provided table 
+    :raises ValueError: if the num_prot is bigger than the number of elements in the provided table. 
     """
     # check the number of proteins to plot 
     if num_prot !=-1: 
@@ -510,7 +513,11 @@ def plot_num_peptides_per_parent(nums_table: pd.DataFrame,
     fig=plt.figure()
     ax=sns.barplot(x='Number_of_Peptides', y='Proteins', data=nums_table, **plotting_kwargs)
     ax.set_xlabel('Number of peptides')
-    ax.set_ylabel('Protein ID')
+    if hide_y_label:
+        ax.get_xyaxis().set_visible(False) 
+        ax.set_ylabel('')
+    else: 
+        ax.set_ylabel('Protein ID')
     ax.set_title(title)
     return fig
 
