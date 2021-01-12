@@ -54,6 +54,40 @@ To run the tutorials locally, run the following steps:
 pip install -r requirements.txt 
 ```
 
+### Visualization ### 
+<p> Incase you are working within a Jupyter-notebooks, you can set the magic command %matplotlib notebook to work interactively with the generated plots.
+However, if you are working on an IPython shell, please add the magic command %matplotlib to work. </p>
+
+### Starting the dashboard ### 
+<p> To start the dashboard: </p>
+
+<p> 1. First, install IPTK, incase you have not already, as follows</p>
+
+```
+pip install iptkl --user
+```
+
+<p> 2. Install Dash and other dependencies using, as follows  </p>
+
+```
+pip install dash dash_bootstrap_components  dash-uploader 
+```
+
+<p> 3. Making the app executable, as follows </p>
+
+```
+chmod +x ExperimentUI.py 
+```
+
+<p> 4. Launch the App, as follows </p>
+
+```
+./ExperimentUI.py  
+```
+
+<p> 5. Open the app in the browser by typing the IP: http://127.0.0.1:8050/ </p>
+
+
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
 
