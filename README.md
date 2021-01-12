@@ -55,8 +55,26 @@ pip install -r requirements.txt
 ```
 
 ### Visualization ### 
-<p> Incase you are working within a Jupyter-notebooks, you can set the magic command %matplotlib notebook to work interactively with the generated plots.
+<p> 1. Incase you are working within a Jupyter-notebooks, you can set the magic command %matplotlib notebook to work interactively with the generated plots.
 However, if you are working on an IPython shell, please add the magic command %matplotlib to work. </p>
+
+<p> 2. To save, any of the figures generated using matplotlib or seaborn, use the following command: </p>
+
+```
+fig.savefig('my_figure_name.my_extension', dpi=600)
+```
+
+<p> 3. To visualize any of the figures generated using plotly library, use either:  </p>
+
+```
+fig.show()
+```
+
+<p> which will open the figure in the browser for interactive visualization and the generated figure can then be saved from there. A second option is to save the figure directly in python, as follows </p>
+
+```
+fig.write_image('my_figure_name.my_extension')
+```
 
 ### Starting the dashboard ### 
 <p> To start the dashboard: </p>
@@ -86,7 +104,6 @@ chmod +x ExperimentUI.py
 ```
 
 <p> 5. Open the app in the browser by typing the IP: http://127.0.0.1:8050/ </p>
-
 
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
