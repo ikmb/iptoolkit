@@ -1,5 +1,5 @@
 #!/usr/bin/env python 
-"""An ExperimentalSet which is a collection of experiments.
+"""An ExperimentSet which is a collection of experiments.
 The class provides an API for integrating and comparing different experimental instances.   
 """
 # load the modules 
@@ -244,7 +244,7 @@ class ExperimentSet:
     
     def get_proband_count(self)->Counts:
         """
-        :return: The number of experiments obtained from each proband in the ExperimentalSet.
+        :return: The number of experiments obtained from each proband in the ExperimentSet.
         :rtype: Counts
         """
         proband_count=dict()
@@ -260,7 +260,7 @@ class ExperimentSet:
     
     def group_by_tissue(self)->Dict[str,ExperimentSet]:
         """
-        :return:  A map between each tissue and an ExperimentalSet object representing all experiments belonging to that tissue. 
+        :return:  A map between each tissue and an ExperimentSet object representing all experiments belonging to that tissue. 
         :rtype: Dict[str,ExperimentSet]
         """
         # define the set of tissues 
@@ -290,7 +290,7 @@ class ExperimentSet:
     
     def group_by_proband(self)->Dict[str,ExperimentSet]:
         """
-        :return: a map between each proband and an Experimentalset object representing all experiments objects \
+        :return: a map between each proband and an Experimentset object representing all experiments objects \
         belonging to each unique proband in the set. 
         :rtype: Dict[str,ExperimentSet]
         """
@@ -322,7 +322,7 @@ class ExperimentSet:
     
     def get_unique_peptides(self)->Peptides:
         """
-        :return: The set of unique peptides in the experimentalSet 
+        :return: The set of unique peptides in the experimentSet 
         :rtype: Peptides
         """
         res:List[str]=[]
@@ -332,7 +332,7 @@ class ExperimentSet:
     
     def get_unique_proteins(self)->Proteins:
         """
-        :return: The set of unique proteins in the experimentalset
+        :return: The set of unique proteins in the experimentset
         :rtype: Proteins
         """
         res:List[str]=[]
