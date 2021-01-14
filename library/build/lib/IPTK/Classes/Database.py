@@ -508,7 +508,7 @@ class OrganismDB:
 		""" return a string representation of the class 
 				:rtype: str
 		"""
-		return str(f'An organism database with: {len(self)} entry.')
+		return str(f'An organism database with: {len(self)} entries.')
 
 	def __repr__(self)->str: 
 		return str(self)

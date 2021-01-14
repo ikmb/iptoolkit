@@ -75,7 +75,7 @@ class HLAChain:
         """
         return f"""An HLA chain of class: {self.get_class()} from gene: {self.get_gene()},
                 With an allele group of: {self.get_allele_group()} and a protein group of: 
-                {self.get_protein_group()}   
+                {self.get_protein_group()}.   
                 """
 
     def __repr__(self)->str:

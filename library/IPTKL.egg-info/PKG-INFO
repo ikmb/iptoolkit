@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: IPTKL
-Version: 0.4.3
+Version: 0.4.5
 Summary: IPTK is a Pythonic library specialized in the analysis of HLA-peptidomes identified through an Immunopeptiomics pipeline.
 Home-page: https://github.com/ikmb/iptoolkit
 Author: Hesham ElAbd
@@ -31,16 +31,8 @@ Description: # The immunopeptidomic toolkit library, IPTK #
         pip install iptkl --user
         ```
         
-        
         ### Funding ###
         The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
-        
-        
-        
-        
-        
-        
-        
         
 Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3

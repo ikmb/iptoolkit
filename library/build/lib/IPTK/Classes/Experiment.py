@@ -827,9 +827,9 @@ class Experiment:
 		:return: a string representation for the tissue 
 		:rtype: str
 		"""
-		return f"""an Experimental from proband: {self._proband.get_name()}, Tissue: {self._tissue.get_name()}
-				   With an HLA Class: {self._hla_set.get_class()} With
-				   {len(self)} peptide identification from {len(self._proteins)} Protein"""
+		return f"""an experiment from proband: {self._proband.get_name()}, tissue: {self._tissue.get_name()},
+				   with an HLA Class: {self._hla_set.get_class()}. The instances contains 
+				   {len(self)} peptides identified from {len(self._proteins)} proteins."""
 	
 	
 	def __repr__(self)->str:

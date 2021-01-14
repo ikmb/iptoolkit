@@ -6,7 +6,7 @@ IPTK/Analysis/__init__.py
 IPTK/Classes/Annotator.py
 IPTK/Classes/Database.py
 IPTK/Classes/Experiment.py
-IPTK/Classes/ExperimentalSet.py
+IPTK/Classes/ExperimentSet.py
 IPTK/Classes/Features.py
 IPTK/Classes/HLAChain.py
 IPTK/Classes/HLAMolecules.py

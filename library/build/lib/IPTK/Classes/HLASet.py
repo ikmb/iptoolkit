@@ -141,7 +141,7 @@ class HLASet:
         :return: A string form of the class  
         :rtype: str
         """
-        return f"An HLASet containing {len(self)} alleles"
+        return f"An HLASet containing {len(self)} alleles."
     
     def __repr__(self)->str:
         return str(self)

@@ -271,7 +271,7 @@ class Peptide:
 		:return: A string representation for the class 
 		:rtype: str
 		"""
-		return f'A Peptide instance with {self.get_number_of_parents()} parent protein'
+		return f'A peptide instance with {self.get_number_of_parents()} parent proteins.'
 	
 		
 		
