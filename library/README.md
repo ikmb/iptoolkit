@@ -15,7 +15,6 @@ These Tutorial can be found at the Tutorial directory</p>
 
 <p> IPTK have be documented using Sphinx, the manual of the library can be found at docs directory and online at <a href= "https://iptk.readthedocs.io/en/latest/index.html"> readthedocs </a> </p> 
 
-
 ### Installation ###
 <p>The library can be installed using pip as follows: </p> 
 
