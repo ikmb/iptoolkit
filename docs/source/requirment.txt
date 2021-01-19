@@ -11,3 +11,4 @@ logomaker
 colour
 lxml
 nglview
+sphinx_rtd_theme
