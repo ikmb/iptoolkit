@@ -6,17 +6,6 @@
 The library provides a high level API for analyzing and visualizing the identified peptides, integrating transcritomics and protein structure information 
 for a rich analysis of the identified immunopeptidomes. It also provides a toolbox for integrating and comparing different experiments and/or different runs.</p>
 
-### Release 0.4 notice:
-<p> 1- Adding function to compute immunopeptiomic coverage matrix </p>
-<p> 2- Introducing MDS plots for comparing the similarities between runs based on immunopeptidomic coverage </p>   
-
-### Tutorials ### 
-<p>The library have three notebooks that provide a step be step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
-These Tutorial can be found at the Tutorial directory</p>
-
-<p> IPTK have be documented using Sphinx, the manual of the library can be found at docs directory and online at <a href= "https://iptk.readthedocs.io/en/latest/index.html"> readthedocs </a> </p> 
-
-
 ### Installation ###
 <p>The library can be installed using pip as follows: </p> 
 
@@ -32,30 +21,28 @@ pip install iptkl --user
 xcode-select --install 
 ```
 
-<p> For Debian/Ubuntu users, please make sure build-essential installed. </p>
+<p> For Debian/Ubuntu users, please make sure build-essential is installed. </p>
 
 ```
 sudo apt install build-essential
 ```
 
-### Running the tutorials  ####
-<p>
-To run the tutorials locally, run the following steps: 
-<p>1- Download the tutorials, either by cloning the repository or by downloading the tutorials along with the associated datasets only.</p>
-<p>2- Start the notebook by running jupyter-notebook from the terminal. </p>
-</p> 
+<p> 3- make sure you run the dashboard with python>=3.6, using conda or pip as follow </p>
+
+```
+pip install python==3.6
+```
 
 ### Dependencies ###
-<p> The library requires the following libraries to be installed in order to functional properly: </p>
-<p> numpy, pandas, biopython, seaborn, matplotlib, plotly, mhcnames, pyteomics', h5py, logomaker, colour, lxml, nglview, sklearn, scipy, statannot. levenshtein</p>
+<p> The library requires the following libraries to be installed in order to function properly: </p>
+<p> numpy, pandas, biopython, seaborn, matplotlib, plotly, mhcnames, pyteomics, h5py, logomaker, colour, lxml, nglview, sklearn, scipy, statannot. levenshtein</p>
 <p> Usually these packages are installed automatically through pip. However, incase this process failed, the dependencies can be installed as follows:</p>
 
 ```
 pip install -r requirements.txt 
 ```
-
 ### Visualization ### 
-<p> 1. Incase you are working within a Jupyter-notebooks, you can set the magic command %matplotlib notebook to work interactively with the generated plots.
+<p> 1. Incase you are working within a Jupyter Notebooks, you can set the magic command %matplotlib notebook to work interactively with the generated plots.
 However, if you are working on an IPython shell, please add the magic command %matplotlib to work. </p>
 
 <p> 2. To save, any of the figures generated using matplotlib or seaborn, use the following command: </p>
@@ -76,10 +63,35 @@ fig.show()
 fig.write_image('my_figure_name.my_extension')
 ```
 
-### Starting the dashboard ### 
+<p> 4. To work interactively using Plotly based figures inside Jupyter Notebooks: </p>
+
+<p> A. install chart studio as follows: </p>
+
+```
+pip install chart_studio 
+```
+
+<p> B. embed the generated plotly figure using the function chart_studio.plotly.iplot as shown in tutorial 2 and 4. </p>
+
+
+### Get Started! ### 
+<p>The library has four notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
+These tutorials can be found at the Tutorial directory</p>
+
+<p> IPTK has been documented using Sphinx, the manual of the library can be found at the docs directory and online at <a href= "https://iptk.readthedocs.io/en/latest/index.html"> readthedocs </a> </p> 
+
+#### Running the tutorials  #####
+<p>
+To run the tutorials locally, run the following steps: 
+<p>1- Download the tutorials, either by cloning the repository or by downloading the tutorials along with the associated datasets only.</p>
+<p>2- Start the notebook by running jupyter-notebook from the terminal. </p>
+</p> 
+
+
+#### Running the dashboard #### 
 <p> To start the dashboard: </p>
 
-<p> 1. First, install IPTK, incase you have not already, as follows</p>
+<p> 1. First, install IPTK, in case you have not already, as follows</p>
 
 ```
 pip install iptkl --user
@@ -94,7 +106,7 @@ pip install dash dash_bootstrap_components  dash-uploader
 <p> 3. Making the app executable, as follows </p>
 
 ```
-chmod +x ExperimentUI.py 
+chmod +x Apps/ExperimentUI.py 
 ```
 
 <p> 4. Launch the App, as follows </p>
@@ -104,6 +116,11 @@ chmod +x ExperimentUI.py
 ```
 
 <p> 5. Open the app in the browser by typing the IP: http://127.0.0.1:8050/ </p>
+
+### Release 0.4 notice:
+<p> 1- Adding function to compute immunopeptiomic coverage matrix </p>
+<p> 2- Introducing MDS plots for comparing the similarities between runs based on immunopeptidomic coverage </p>   
+
 
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 

@@ -514,7 +514,7 @@ def plot_num_peptides_per_parent(nums_table: pd.DataFrame,
     ax=sns.barplot(x='Number_of_Peptides', y='Proteins', data=nums_table, **plotting_kwargs)
     ax.set_xlabel('Number of peptides')
     if hide_y_label:
-        ax.get_xyaxis().set_visible(False) 
+        ax.get_yaxis().set_visible(False) 
         ax.set_ylabel('')
     else: 
         ax.set_ylabel('Protein ID')
@@ -715,7 +715,7 @@ def plot_gene_expression_vs_num_peptides(exp_count_table: pd.DataFrame, tissue_n
     df=exp_count_table.loc[exp_count_table.iloc[:,2]!=def_value,]
     # create a figure to plot to it 
     fig= plt.figure()
-    ax=sns.scatterplot(df.iloc[:,1],df.iloc[:,2], **plotting_kwargs)
+    ax=sns.scatterplot(x=df.iloc[:,1],y=df.iloc[:,2], **plotting_kwargs)
     ax.set_ylabel(ylabel+' in '+tissue_name)
     ax.set_xlabel(xlabel)
     ax.set_title(title)
