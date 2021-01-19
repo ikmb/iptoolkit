@@ -12,16 +12,21 @@ Analyzing, Visualizing, Comparing and Integrating Immunopeptidomics data!
 Introduction:
 =============
 IPTK is a Python library specialized in the analysis of HLA-peptidomes identified through an immunopeptidomic(IP) pipeline. 
-The library provides a high level API for analyzing and visualizing the identified peptides, integrating transcritomics and protein structure information 
-for a rich analysis of the identified immunopeptidomes. It also provides a toolbox for integrating and comparing different experiments and/or different runs
+The library provides a high level API for analyzing and visualizing the identified peptides, integrating transcriptomics and protein structure information 
+for a rich analysis of the identified immunopeptidomes. It also provides a toolbox for integrating and comparing different experiments and/or different mass-spectrometry 
+runs. 
 
 Installation:
 ===============
-The library can be installed using pip install iptkl --user 
+The library can be installed using 
+
+```
+pip install iptkl --user 
+```
 
 Funding:
 ========
-The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’)
+The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’). 
 
 .. image:: ../../Media/RTG1743.png
 
