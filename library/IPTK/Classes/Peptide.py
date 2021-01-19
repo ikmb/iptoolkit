@@ -257,13 +257,13 @@ class Peptide:
 		:return: The length of the peptide 
 		:rtype: int
 		"""
-		if '(' in self._peptide: # i.e. the peptide contain PTMs
-            temp_peptide=self._peptide# that is there sequence modifications in the sequence 
-            while '(' in temp_peptide or ')' in temp_peptide: 
-                pre_seq=temp_peptide.split('(')[0]
-                post_seq=")".join(temp_peptide.split(')')[1:])
-                temp_peptide=pre_seq+post_seq
-            return len(temp_peptide)
+		if '(' in self._peptide:
+			temp_peptide=self._peptide
+			while '(' in temp_peptide or ')' in temp_peptide:
+				pre_seq=temp_peptide.split('(')[0]
+				post_seq=")".join(temp_peptide.split(')')[1:])
+				temp_peptide=pre_seq+post_seq
+			return len(temp_peptide)
 		else: 
 			return len(self._peptide)
 	

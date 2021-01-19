@@ -131,6 +131,9 @@ chmod +x Apps/ExperimentUI.py
 <p> Corrected a bug in the Peptide class to manage peptides containing parentheses in the sequence. This bug caused the len function to return the number of characters 
 in the sequence instead of the number of amino acids. </p>
 
+### Release 0.4.10 notice:
+<p> Corrected a bug in the Experiment class to correctly compute the length of peptides containing parentheses. This bug caused the len function to return the number of characters in the sequence instead of the number of amino acids. </p>
+
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
 

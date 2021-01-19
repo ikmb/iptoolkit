@@ -19,6 +19,8 @@ for a rich analysis of the identified immunopeptidomes. It also provides a toolb
 <p> Corrected a bug in the Peptide class to manage peptides containing parentheses in the sequence. This bug caused the len function to return the number of characters 
 in the sequence instead of the number of amino acids. </p>
 
+### Release 0.4.10 notice:
+<p> Corrected a bug in the Experiment class to correctly compute the length of peptides containing parentheses. This bug caused the len function to return the number of characters in the sequence instead of the number of amino acids. </p>
 
 ### Tutorials ### 
 <p>The library have three notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.

@@ -220,7 +220,7 @@ app.layout=html.Div(
                             'value':'num_per_per_org'
                         },
                         {
-                            'label':'Protein Length Distribution', 
+                            'label':'Peptide Length Distribution', 
                             'value': 'pep_len_dist'
                         },
                         {

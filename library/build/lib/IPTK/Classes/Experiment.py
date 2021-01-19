@@ -87,7 +87,10 @@ class Experiment:
 		:return: peptides' lengths 
 		:rtype: List[int]
 		"""
-		return [len(pep) for pep in self.get_peptides()]
+		peptide_length=[]
+		for peptide in self._peptides.keys(): 
+			peptide_length.append(len(self._peptides[peptide]))
+		return peptide_length
 
 	def annotate_proteins(self, organisms_db: OrganismDB)->None:
 		"""Extract the parent organisms of each protein in the experiment from an organism database instance. 
