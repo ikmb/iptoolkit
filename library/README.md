@@ -12,6 +12,9 @@ for a rich analysis of the identified immunopeptidomes. It also provides a toolb
 ### Release 0.4.6 notice:
 <p> 1- Minor corrections in the documentation and the default values for some parameters in the visualization functions</p>
 
+### Release 0.4.7 notice:
+<p> 1- Minor corrections in the visualization module</p>
+
 ### Tutorials ### 
 <p>The library have three notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
 These tutorial can be found at the Tutorial directory at the project's Github page.</p>

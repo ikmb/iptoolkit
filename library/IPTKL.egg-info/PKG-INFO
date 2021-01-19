@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: IPTKL
-Version: 0.4.6
+Version: 0.4.7
 Summary: IPTK is a library specialized in the analysis of HLA-peptidomes identified through an immunopeptidomics pipeline.
 Home-page: https://github.com/ikmb/iptoolkit
 Author: Hesham ElAbd
@@ -23,6 +23,9 @@ Description: # The immunopeptidomic toolkit library, IPTK #
         
         ### Release 0.4.6 notice:
         <p> 1- Minor corrections in the documentation and the default values for some parameters in the visualization functions</p>
+        
+        ### Release 0.4.7 notice:
+        <p> 1- Minor corrections in the visualization module</p>
         
         ### Tutorials ### 
         <p>The library have three notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.

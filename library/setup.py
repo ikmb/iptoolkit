@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="IPTKL", 
-    version="0.4.6",
+    version="0.4.7",
     author="Hesham ElAbd",
     author_email="h.elabd@ikmb.uni-kiel.de",
     description="IPTK is a library specialized in the analysis of HLA-peptidomes identified through an immunopeptidomics pipeline.",
