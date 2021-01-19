@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath('../../library'))
 # -- Project information -----------------------------------------------------
 
 project = 'IPTK'
-copyright = '2020, Hesham ElAbd'
+copyright = '2021, Institute of Clinical Molecular Biology'
 author = 'Hesham ElAbd'
 
 # The full version, including alpha/beta/rc tags
@@ -32,7 +32,7 @@ master_doc = 'index'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [ 'sphinx.ext.autodoc',"sphinx_rtd_theme"]
+extensions = [ 'sphinx.ext.autodoc',"sphinx_rtd_theme",'sphinxcontrib.napoleon']
 
 #pdf_documents = [('index', u'rst2pdf', u'IPTK Reference', u'Hesham ElAbd'),]
 
