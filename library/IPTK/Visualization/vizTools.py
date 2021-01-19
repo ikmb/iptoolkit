@@ -1549,7 +1549,9 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
 
 def plot_MDS_from_ic_coverage(distance_matrix: pd.DataFrame, 
     plotting_kwargs: Dict[str,str]={'c':'b'},
-    title:str ='MDS plot using immunopeptidomic coverage as a distance metric'
+    title:str ='MDS plot using immunopeptidomic coverage as a distance metric', 
+    MDS_params: Dict[str:str]={'random_state':93}, 
+    plot_params: Dict[str:str]={}, 
     )->plt.Figure:
     """ plot MDS using immunopeptiomic coverage distance as a precomputed distance metric 
 
@@ -1559,13 +1561,15 @@ def plot_MDS_from_ic_coverage(distance_matrix: pd.DataFrame,
     :type plotting_kwargs: Dict[str,str], optional
     :param title: the title of the MDS plot 
     :type title: str 
+    :param MDS_params: a dict of parameters that will be forwarded to the function manifold.MDS, defaults to {'random_state':93}
+    :type MDS_params: Dict[str:str]
     """
     # Get the matrix 
     dist=np.array(distance_matrix)
     # Normalize the matrix to values between 0 and 1
     dist/=np.amax(dist)
     # Compute the MDS 
-    mds=manifold.MDS(n_components=2,dissimilarity="precomputed")
+    mds=manifold.MDS(n_components=2,dissimilarity="precomputed",**MDS_params)
     mds.fit(dist)
     # get the co-ordinate of the MDS 
     coords = mds.fit_transform(dist)

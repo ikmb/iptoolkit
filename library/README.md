@@ -22,6 +22,9 @@ in the sequence instead of the number of amino acids. </p>
 ### Release 0.4.10 notice:
 <p> Corrected a bug in the Experiment class to correctly compute the length of peptides containing parentheses. This bug caused the len function to return the number of characters in the sequence instead of the number of amino acids. </p>
 
+### Release 0.4.11 notice:
+<p> Adding more control to the function plot_MDS_from_ic_coverage to fine-tune its behavior, for example, by controlling the random seed.</p>
+
 ### Tutorials ### 
 <p>The library have three notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
 These tutorial can be found at the Tutorial directory at the project's Github page.</p>
