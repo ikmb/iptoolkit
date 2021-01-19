@@ -10,10 +10,15 @@ for a rich analysis of the identified immunopeptidomes. It also provides a toolb
 <p> 2- Introducing MDS plots for comparing the similarities between runs based on immunopeptidomic coverage </p>   
 
 ### Release 0.4.6 notice:
-<p> 1- Minor corrections in the documentation and the default values for some parameters in the visualization functions</p>
+<p> Minor corrections in the documentation and the default values for some parameters in the visualization functions</p>
 
 ### Release 0.4.7 notice:
-<p> 1- Minor corrections in the visualization module</p>
+<p> Minor corrections in the visualization module</p>
+
+### Release 0.4.8 notice:
+<p> Corrected a bug in the Peptide class to manage peptides containing parentheses in the sequence. This bug caused the len function to return the number of characters 
+in the sequence instead of the number of amino acids. </p>
+
 
 ### Tutorials ### 
 <p>The library have three notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.

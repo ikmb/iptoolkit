@@ -242,12 +242,30 @@ class Peptide:
 			results.append(self._parent_proteins[protein]['protein'].get_org())
 		return results 
 	
+	def has_PTM(self)->bool: 
+		"""check if the current peptide has a PTM in its sequence, this is done by checking for parentheses in the sequence. 
+
+		:return: if the peptide has a PTM, the function return true, otherwise it return false. 
+		:rtype: bool
+		"""
+		if '(' in self._peptide:
+			return True
+		return False
+	
 	def __len__(self)->int:
 		"""
 		:return: The length of the peptide 
 		:rtype: int
 		"""
-		return len(self._peptide)
+		if '(' in self._peptide: # i.e. the peptide contain PTMs
+            temp_peptide=self._peptide# that is there sequence modifications in the sequence 
+            while '(' in temp_peptide or ')' in temp_peptide: 
+                pre_seq=temp_peptide.split('(')[0]
+                post_seq=")".join(temp_peptide.split(')')[1:])
+                temp_peptide=pre_seq+post_seq
+            return len(temp_peptide)
+		else: 
+			return len(self._peptide)
 	
 	def __getitem__(self,aa_index:int)->str:
 		"""Bracket based indexing into the peptide sequence
@@ -272,7 +290,7 @@ class Peptide:
 		:rtype: str
 		"""
 		return f'A peptide instance with {self.get_number_of_parents()} parent proteins.'
-	
+
 		
 		
 		

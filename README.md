@@ -121,6 +121,15 @@ chmod +x Apps/ExperimentUI.py
 <p> 1- Adding function to compute immunopeptiomic coverage matrix </p>
 <p> 2- Introducing MDS plots for comparing the similarities between runs based on immunopeptidomic coverage </p>   
 
+### Release 0.4.6 notice:
+<p> Minor corrections in the documentation and the default values for some parameters in the visualization functions</p>
+
+### Release 0.4.7 notice:
+<p> Minor corrections in the visualization module</p>
+
+### Release 0.4.8 notice:
+<p> Corrected a bug in the Peptide class to manage peptides containing parentheses in the sequence. This bug caused the len function to return the number of characters 
+in the sequence instead of the number of amino acids. </p>
 
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
