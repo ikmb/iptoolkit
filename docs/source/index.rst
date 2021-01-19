@@ -33,7 +33,7 @@ The project was funded by the German Research Foundation (DFG) (Research Trainin
 Guide
 ^^^^^
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    
    license.rst
    get_started.rst
