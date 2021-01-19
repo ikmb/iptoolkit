@@ -5,19 +5,30 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="IPTKL", 
-    version="0.4.5",
+    version="0.4.6",
     author="Hesham ElAbd",
     author_email="h.elabd@ikmb.uni-kiel.de",
-    description="IPTK is a Pythonic library specialized in the analysis of HLA-peptidomes identified through an Immunopeptiomics pipeline.",
+    description="IPTK is a library specialized in the analysis of HLA-peptidomes identified through an immunopeptidomics pipeline.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ikmb/iptoolkit",
+    project_urls={
+        'Documentation': 'https://iptk.readthedocs.io/en/latest/',
+        'Funding': 'https://www.genes-environment-inflammation.de', 
+        'Tutorials': 'https://github.com/ikmb/iptoolkit/tree/master/Tutorials',
+        'Tracker': 'https://github.com/ikmb/iptoolkit/issues',
+    },
+    url='https://github.com/ikmb/iptoolkit',
     packages=setuptools.find_packages(),
     install_requires=['numpy','pandas','biopython','seaborn' ,'matplotlib', 'plotly' ,'mhcnames', 'pyteomics', 'h5py', 'logomaker', 'colour', 'lxml', 'nglview', 'sklearn', 'scipy','statannot'], 
     classifiers=[
+        'Development Status :: 3 - Alpha',
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+        "Topic :: Scientific/Engineering :: Medical Science Apps.",
+        "Intended Audience :: Science/Research",
+        "Typing :: Typed"
     ],
+    keywords='HLA immunopeptidomics antigen-processing antigen-presentation computational-immunology interactive-data-analysis MHC',
     python_requires='>=3.7',
 )

@@ -1575,8 +1575,8 @@ def plot_MDS_from_ic_coverage(distance_matrix: pd.DataFrame,
     plt.scatter(coords[:,0],coords[:,1],**plotting_kwargs)
     for label, x, y in zip(names, coords[:,0], coords[:,1]):
         plt.annotate(label, (x,y), xycoords = 'data')
-    plt.xlabel('First Dimension')
-    plt.ylabel('Second Dimension')
+    plt.xlabel('First dimension')
+    plt.ylabel('Second dimension')
     plt.title(title)    
     # return the results 
     return fig 
