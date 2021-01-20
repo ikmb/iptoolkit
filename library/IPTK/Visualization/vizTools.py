@@ -1550,8 +1550,8 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
 def plot_MDS_from_ic_coverage(distance_matrix: pd.DataFrame, 
     plotting_kwargs: Dict[str,str]={'c':'b'},
     title:str ='MDS plot using immunopeptidomic coverage as a distance metric', 
-    MDS_params: Dict[str:str]={'random_state':93}, 
-    plot_params: Dict[str:str]={}, 
+    MDS_params: Dict[str,str]={'random_state':93}, 
+    plot_params: Dict[str,str]={}, 
     )->plt.Figure:
     """ plot MDS using immunopeptiomic coverage distance as a precomputed distance metric 
 
