@@ -33,6 +33,7 @@ from IPTK.Analysis.AnalysisFunction import get_sequence_variants_positions
 from IPTK.Analysis.AnalysisFunction import get_splice_variants_positions
 from typing import List, Tuple, Dict, Union 
 from sklearn import manifold
+import pyopenms as poms 
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -1606,4 +1607,73 @@ def plot_num_peptides_per_protein_hist(num_pep_per_protein: pd.DataFrame,
     ax.title('The distribution of number of peptides per protein')  
     return fig 
 
+def plot_MS_spectrum(spectrum: poms.pyopenms_2.MSSpectrum,
+                    log_scale: bool=False,
+                    color_specs: str ='black', 
+                    color_base: str ='grey', 
+                    grid_on: bool = True, 
+                    spect_param: Dict[str,str]={},
+                    base_param: Dict[str, str]={}, 
+                    grid_param: Dict[str,str]={}, 
+                    xlabel: str='M/Z',
+                    ylabel: str= 'Intensity',
+                    title: str= None
+                    )->Union[plt.Figure]:
+    """Plotting an Mass spectrometry spectrum 
 
+    :param spectrum: a spectrum instance to plot it's peaks 
+    :type spectrum: poms.pyopenms_2.MSSpectrum
+    :param log_scale: a boolean flag of whether or not to normalize the y axis using a log scale, defaults to False
+    :type log_scale: bool, optional
+    :param color_specs: the color of the peaks in the figure, defaults to 'black'
+    :type color_specs: str, optional
+    :param color_base: the color of the baseline in the figure, defaults to 'grey'
+    :type color_base: str, optional
+    :param grid_on: , defaults to True
+    :type grid_on: a boolean flag of whether or not to add a grid to the plot, optional
+    :param spect_param: [description], defaults to {}
+    :type spect_param: Dict[str,str], optional
+    :param base_param: [description], defaults to {}
+    :type base_param: Dict[str, str], optional
+    :param grid_param: [description], defaults to {}
+    :type grid_param: Dict[str,str], optional
+    :param xlabel: [description], defaults to 'M/Z'
+    :type xlabel: str, optional
+    :param ylabel: [description], defaults to 'Intensity'
+    :type ylabel: str, optional
+    :param title: [description], defaults to None
+    :type title: str, optional
+    :return: [description]
+    :rtype: Union[plt.Figure]
+    """
+    fig=plt.Figure()
+    for x,y in zip(*spectrum.get_peaks()):
+        if log_scale: 
+            plt.vlines(x=x,ymax=np.log10(y),ymin=0,color=color_specs, 
+                    **spect_param)
+        else: 
+            plt.vlines(x=x,ymax=y,ymin=0,color=color_specs,
+                    **spect_param)
+    plt.hlines(y=0, 
+        xmin=min(spectrum.get_peaks()[0]),
+        xmax=max(spectrum.get_peaks()[0]),
+        color=color_base, **base_param)
+    if grid_on: 
+        plt.grid(**grid_param)
+    ## add the X & Y label 
+    plt.xlabel(xlabel)
+    if log_scale: 
+        plt.ylabel('log10'+ylabel)
+    ## Add the title 
+    if title is not None: 
+        plt.title(title)
+    return fig
+
+def plotly_MS_spectrum()->Figure:
+    pass 
+
+def plot_paired_spectrum()->plt.Figure:
+    pass 
+
+def plotly_paired_spectrum()->Figure:
+    pass

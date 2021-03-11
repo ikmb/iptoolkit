@@ -620,7 +620,20 @@ class ExperimentSet:
             res= pd.concat([res, temp_res],axis=0)
         # return the results 
         return res
+    def get_num_peptide_per_experiment(self)->pd.DataFrame:
+        """return a table containing the number of peptides in every experiment in the current set.
 
+        :return: A table with two columns, the first is the experiment name and the second is the peptide count per experiment.
+        :rtype: pd.DataFrame
+        """
+        pass 
+    def get_num_proteins_per_experiment(self)->pd.DataFrame:
+        """return a table containing the number of proteins in every experiment in the current set.
+
+        :return: A table with two columns, the first is the experiment name and the second is the protein count per experiment.
+        :rtype: pd.DataFrame
+        """
+        pass 
     
    
 
