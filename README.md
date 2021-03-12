@@ -137,6 +137,11 @@ in the sequence instead of the number of amino acids. </p>
 ### Release 0.4.11 notice:
 <p> Adding more control to the function plot_MDS_from_ic_coverage to fine-tune its behavior, for example, by controlling the random seed.</p>
 
+### Release 0.5 notice: 
+<p> 1- Adding a class to query AFND database for allele frequency world-wide. </p>
+<p> 2- Adding function for plotting a choropleth for allele frequencies. </p>
+<p> 3- Adding classes for working directly with mzML files using pyopenMS framework </p>
+
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
 

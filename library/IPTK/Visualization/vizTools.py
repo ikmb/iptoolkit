@@ -5,35 +5,36 @@ methods of the classes defined in the Class module or from the analysis function
 # import the module 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker 
+import os 
+import math
+import pycountry 
 import seaborn as sns 
 import logomaker as lgm 
-from colour import Color 
-from Bio.PDB import MMCIFParser
-import os 
 import nglview as nv 
-from nglview.color import ColormakerRegistry 
 import pandas as pd 
 import numpy as np 
-from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
-from IPTK.Classes.Annotator import Annotator
-from IPTK.Classes.Features import Features
-from typing import List, Dict 
-from scipy.stats import pearsonr
-from scipy.stats import ttest_ind
+import pyopenms as poms 
+import geopandas as gpd
+from scipy.stats import pearsonr,ttest_ind
 from statannot import add_stat_annotation
 import plotly.express as px 
 from plotly.graph_objects import Figure
 import plotly.graph_objects as go 
 from plotly import tools 
-import math
+from colour import Color 
+from Bio.PDB import MMCIFParser
+from nglview.color import ColormakerRegistry 
+from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
+from IPTK.Classes.Annotator import Annotator
+from IPTK.Classes.Features import Features
 from IPTK.Analysis.AnalysisFunction import get_PTMs_modifications_positions
 from IPTK.Analysis.AnalysisFunction import get_PTMs_glycosylation_positions
 from IPTK.Analysis.AnalysisFunction import get_PTMs_disuldfide_bonds
 from IPTK.Analysis.AnalysisFunction import get_sequence_variants_positions
 from IPTK.Analysis.AnalysisFunction import get_splice_variants_positions
+from IPTK.Classes.MzMLExperiment import MzMLExperiment
 from typing import List, Tuple, Dict, Union 
 from sklearn import manifold
-import pyopenms as poms 
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -1677,3 +1678,100 @@ def plot_paired_spectrum()->plt.Figure:
 
 def plotly_paired_spectrum()->Figure:
     pass
+
+    
+def plot_choropleth_allele_distribution(distribution_table:pd.DataFrame, 
+                    allele_name: str, 
+                    plt_kwargs:Dict[str,str]={'cmap':'Blues'})->plt.Figure:
+    """Plot a choropleth map of allele frequency world-wide given the distribution table
+    TBD
+    """
+    # Create a figure to plot the results 
+    #------------------------------------
+    fig, ax = plt.subplots()
+    failed_names=[]
+    world_map=gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
+    # Create a lookup table to update the lookup table 
+    #-------------------------------------------------
+    country_lookup_table={country:[-1] for country in world_map.name}
+    # Extract the country names
+    #----------------------------------------------
+    curated_countries=[]
+    for country in distribution_table.iloc[:,0]: 
+        before=len(curated_countries)
+        if 'Guinea' in country and 'Papua New Guinea' in country:
+            curated_countries.append('Papua New Guinea')
+        elif 'Papua New Guinea' in country:
+            curated_countries.append('Papua New Guinea') 
+        elif 'Russia' in country:
+            curated_countries.append('Russia')
+        elif 'Scotland' in country:
+            curated_countries.append('United Kingdom')
+        elif 'England' in country:
+            curated_countries.append('United Kingdom')
+        elif 'USA' in country:
+             curated_countries.append('United States of America')
+        elif 'Iran' in country:
+            curated_countries.append('Iran')
+        elif 'Czech Republic' in country:
+            curated_countries.append('Czechia')
+        elif 'Taiwan' in country:
+            curated_countries.append('Taiwan')
+        elif 'Kosovo' in country:
+            curated_countries.append('Kosovo')
+        elif 'Macedonia' in country:
+            curated_countries.append('Macedonia')
+        elif 'South Korea' in country:
+            curated_countries.append('South Korea')
+        elif 'Vietnam' in country:
+            curated_countries.append('Vietnam')
+        elif 'Gaza' in country:
+            curated_countries.append('Palestinian')
+        else:
+            for country_name in pycountry.countries:
+                if country_name.name in country: 
+                    curated_countries.append(country_name.name)
+                    break
+            after=len(curated_countries)
+            if before==after:
+                failed_names.append(country)
+                curated_countries.append('FAILED_CASE')
+    if len(failed_names)!=0: 
+        print(f"WARNING:: The name of the following counties could not be mapped/extracted: {' ,'.join(failed_names)}")
+    # Append the curated name 
+    local_copy=distribution_table.copy()
+    local_copy['Curated_name']=curated_countries
+    local_copy=local_copy.loc[local_copy.iloc[:,-1]!='FAILED_CASE',]
+    # Update the frequency
+    #---------------------
+    for row in local_copy.itertuples():
+        try:
+            country_lookup_table[row.Curated_name].append(float(row.Frequency))
+        except: 
+            print(f"WARNING:: The following country is not the internal database : {row.Curated_name}")
+            pass
+    country_lookup_table={name:np.max(freqs) for name,freqs in country_lookup_table.items()}
+    for key in country_lookup_table.keys():
+        if country_lookup_table[key]==-1:
+            country_lookup_table[key]=np.nan
+    # Create a list of matching order to the world_map name 
+    #------------------------------------------------------
+    aggrregated_frequencies=[]
+    for name in world_map.name:
+        aggrregated_frequencies.append(country_lookup_table[name])
+    world_map['Allele_Freq']=aggrregated_frequencies
+    # Plot the Map
+    #-------------
+    world_map.plot(column='Allele_Freq', ax=ax, legend=True,
+    legend_kwds={'label': f"{allele_name} frequency among different population",'orientation': "horizontal"},
+    missing_kwds={
+           "color": "lightgrey",
+            "label": "Missing values",
+        },
+     **plt_kwargs)
+    # Return the results
+    #-------------------
+    return fig
+
+    
+

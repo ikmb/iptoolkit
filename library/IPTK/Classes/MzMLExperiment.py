@@ -9,6 +9,7 @@ import pyopenms as poms
 import numpy as np 
 import pandas as pd 
 from typing import List, Dict  
+from IPTK.Classes.TandomSpectra import TandomSpectra
 ## CLASS DEFINITION
 #------------------
 class MzMLExperiment:
@@ -22,6 +23,7 @@ class MzMLExperiment:
         :rtype: MzMLExperiment
         """
         self.exp=poms.MSExperiment()
+        self._spectra_tree=None
         try:
             poms.MzMLFile().load(path2file,self.exp)
         except RuntimeError as exp: 
@@ -47,14 +49,14 @@ class MzMLExperiment:
         :return: a list of the MS1 spectra in the mzML file 
         :rtype: List[poms.pyopenms_2.MSSpectrum]
         """ 
-        return len([spectra for spectra in self.exp.getSpectra() if spectra.getMSLevel()==1]) 
+        return [spectra for spectra in self.exp.getSpectra() if spectra.getMSLevel()==1]
 
     def get_MS2_spectra(self):
         """
         :return: a list of the MS2 spectra in the mzML file 
         :rtype: List[poms.pyopenms_2.MSSpectrum]
         """
-        return len([spectra for spectra in self.exp.getSpectra() if spectra.getMSLevel()==1])
+        return [spectra for spectra in self.exp.getSpectra() if spectra.getMSLevel()==1]
 
     def __len__(self)->int:
         """a magic function to return the total number of spectra in the provided experiment 
@@ -99,8 +101,33 @@ class MzMLExperiment:
         """
         return np.array([spectra.getRT() for spectra in self.get_MS2_spectra()])
     
-    def get_spectra_tree(self)->Dict[poms.pyopenms_4.MSExperiment, List[poms.pyopenms_4.MSExperiment]]:
-        pass 
+    def get_spectra_tree(self)->List[TandomSpectra]:
+        # parse by forward indexing 
+        #--------------------------
+        tandom_specs=[]
+        root = None
+        children=[]
+        for spec in self.exp.getSpectra():
+            if spec.getMSLevel()==1:
+                if root is not None:
+                    tandom_specs.append(TandomSpectra(root,children))
+                    root = spec
+                    children=[]
+                else:
+                    root=spec
+            else:
+                children.append(spec)
+        return tandom_specs
+
+    def add_spectra_tree(self)->None:
+        self._spectra_tree=self.get_spectra_tree()
+
+    def get_num_MS2_per_MS1(self)->Dict[poms.pyopenms_4.MSExperiment,int]:
+        if self._spectra_tree is None:
+            return [len(spec) for spec in self.get_spectra_tree()]
+        return [len(spec) for spec in self._spectra_tree]
+    
+        
 
 
 

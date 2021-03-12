@@ -25,6 +25,11 @@ in the sequence instead of the number of amino acids. </p>
 ### Release 0.4.11 notice:
 <p> Adding more control to the function plot_MDS_from_ic_coverage to fine-tune its behavior, for example, by controlling the random seed.</p>
 
+### Release 0.5 notice: 
+<p> 1- Adding a class to query AFND database for allele frequency world-wide. </p>
+<p> 2- Adding function for plotting a choropleth for allele frequencies. </p>
+<p> 3- Adding classes for working directly with mzML files using pyopenMS framework </p>
+
 ### Tutorials ### 
 <p>The library have three notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
 These tutorial can be found at the Tutorial directory at the project's Github page.</p>
