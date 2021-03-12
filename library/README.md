@@ -29,6 +29,7 @@ in the sequence instead of the number of amino acids. </p>
 <p> 1- Adding a class to query AFND database for allele frequency world-wide. </p>
 <p> 2- Adding function for plotting a choropleth for allele frequencies. </p>
 <p> 3- Adding classes for working directly with mzML files using pyopenMS framework </p>
+<p> 4- An experimental class that act as database interface and provide method for storing and querying immunopeptidomic data</p>
 
 ### Tutorials ### 
 <p>The library have three notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
