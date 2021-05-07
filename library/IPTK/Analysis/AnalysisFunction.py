@@ -422,7 +422,7 @@ def compute_ic_distance_protein(protein_id:str, experiment_set,
     ## loop over each experiment and extract the experiment 
     for exp_id in exps.keys(): 
         try: 
-            mapped_arrays[exp_id]=exps[exp].get_mapped_protein(protein_id)
+            mapped_arrays[exp_id]=exps[exp_id].get_mapped_protein(protein_id)
         except KeyError as exp: 
             if mode=="permissive": 
                 mapped_arrays[exp_id]=-1
