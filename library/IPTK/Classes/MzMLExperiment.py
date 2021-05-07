@@ -59,9 +59,9 @@ class MzMLExperiment:
         return [spectra for spectra in self.exp.getSpectra() if spectra.getMSLevel()==1]
 
     def __len__(self)->int:
-        """a magic function to return the total number of spectra in the provided experiment 
+        """a magic function to return the total number of spectra in the provided experiment  
 
-        :return: [description]
+        :return: the number of generated spectra in the file 
         :rtype: int
         """
         return self.exp.getNrSpectra()
