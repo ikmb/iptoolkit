@@ -142,6 +142,11 @@ in the sequence instead of the number of amino acids. </p>
 <p> 2- Adding function for plotting a choropleth for allele frequencies. </p>
 <p> 3- Adding classes for working directly with mzML files using pyopenMS framework </p>
 
+
+### Release 0.5.1 notice: 
+<p> 1- Adding a function for plotting Chord Diagram using Holoviews, the graphs can be used to understand protein and peptide overlap among a set of experiments. </p>
+
+
 ### Funding ###
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
 
