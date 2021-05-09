@@ -18,3 +18,4 @@ bokeh
 holoviews
 pycountry
 geopandas
+tqdm 
