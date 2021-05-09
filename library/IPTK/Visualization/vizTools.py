@@ -15,6 +15,7 @@ import pandas as pd
 import numpy as np 
 import pyopenms as poms 
 import geopandas as gpd
+import holoviews as hv 
 from scipy.stats import pearsonr,ttest_ind
 from statannot import add_stat_annotation
 import plotly.express as px 
@@ -35,6 +36,7 @@ from IPTK.Analysis.AnalysisFunction import get_splice_variants_positions
 from IPTK.Classes.MzMLExperiment import MzMLExperiment
 from typing import List, Tuple, Dict, Union 
 from sklearn import manifold
+from bokeh.io import export_svg 
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -1669,16 +1671,6 @@ def plot_MS_spectrum(spectrum: poms.pyopenms_2.MSSpectrum,
     if title is not None: 
         plt.title(title)
     return fig
-
-def plotly_MS_spectrum()->Figure:
-    pass 
-
-def plot_paired_spectrum()->plt.Figure:
-    pass 
-
-def plotly_paired_spectrum()->Figure:
-    pass
-
     
 def plot_choropleth_allele_distribution(distribution_table:pd.DataFrame, 
                     allele_name: str, 
@@ -1773,5 +1765,52 @@ def plot_choropleth_allele_distribution(distribution_table:pd.DataFrame,
     #-------------------
     return fig
 
+def plot_chord_diagram_among_set(exp_set,
+            level:str='protein', filename='results_fig.svg',
+            fig_params:Dict[str,str]={
+                'node_cmap':'PuBu',
+                'edge_cmap':'Category20',
+                'height':700,
+                'width':700,
+                'title':"Shared Protein Representation among Individuals",
+                'edge_alpha':0.5,
+                'edge_line_width':1,
+                'label_text_color':'blue'
+            }):
+    """plot a chord diagram showing the overlap among a group of immunopeptiomics experiments 
     
+    :param exp_set: an experimental set instance containing
+    :type exp_set: An ExperimentSet
+    :param level: the level of similiarity, currently, the library support protein and peptide levels 
+    :type level: str 
+    :param filename: the name of the file to save the results as a SVG figure, defaults to results_fig.svg in the current working directory
+    :type filename: str 
+    :param fig_params: a dict of parameters to optimize the output of the figure
+    :type fig_params: dict 
+    """
+    ## Compute a dataframe with the experiment name 1 experiment name 2, # number sahred protein
+    if level=='protein':
+        overlap_table=exp_set.compute_protein_overlap_matrix()
+    else:
+        overlap_table=exp_set.compute_peptide_overlap_matrix()
+    ## Unrol the matrix into the long form 
+    overlap_table=overlap_table.stack().rename_index(['Individal_A','Individal_B']).reset_index()
+    ## Remove the diagonal elements 
+    overlap_table=overlap_table[overlap_table.loc['Individal_A']==overlap_table.loc['Individal_B']]
+    ## Get the unique experimental names 
+    unique_experimental_name=list(exp_set.get_experiments().keys())
+    unique_experimental_ds=hv.Dataset(pd.DataFrame({'Exp_id':unique_experimental_name}))
+    ## Generate a chord diagram among the nodes of the Chord  
+    chord_diagram=hv.Chord((overlap_table,unique_experimental_ds))
+    ## cutamize the output of the figure 
+    chord_diagram=chord_diagram.opts(node_color="Exp_id",edge_color="Individal_A",**fig_params)
+    ## generate the outout as SVG 
+    export_svg(hv.render(chord_diagram),filename=filename)
+    return
+
+
+    
+
+
+
 

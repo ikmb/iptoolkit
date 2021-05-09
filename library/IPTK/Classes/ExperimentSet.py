@@ -419,7 +419,7 @@ class ExperimentSet:
         # return the results 
         return results_df 
 
-    def compute_protein_overlap_matrix(self)->np.ndarray:
+    def compute_protein_overlap_matrix(self)->pd.DataFrame:
         """
         :return: returns a 2D matrix containing the number of proteins overlapping between each pair of experiments inside the current instance collection of experiment.  
         :rtype: np.ndarray
