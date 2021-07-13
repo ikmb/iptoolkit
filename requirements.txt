@@ -16,3 +16,4 @@ pyopenms
 bokeh
 holoviews
 tqdm 
+numba 

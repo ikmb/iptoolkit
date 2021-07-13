@@ -124,9 +124,11 @@ tqdm
 	https://github.com/tqdm/tqdm
    -License:
 	https://github.com/tqdm/tqdm/blob/master/LICENCE
-  
-
-
+numba
+   -URL:
+	http://numba.pydata.org
+   -License:
+	https://github.com/numba/numba/blob/master/LICENSE
 
 
 
