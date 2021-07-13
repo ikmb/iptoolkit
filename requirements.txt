@@ -12,10 +12,7 @@ colour
 lxml
 nglview
 sklearn
-levenshtein
 pyopenms 
 bokeh
 holoviews
-pycountry
-geopandas
 tqdm 

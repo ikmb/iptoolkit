@@ -13,16 +13,17 @@ from IPTK.Classes.Tissue import Tissue
 from IPTK.Classes.Database import SeqDB, OrganismDB
 from IPTK.Utils.Mapping import map_from_uniprot_gene
 from IPTK.Utils.Types import Sequences, MappedProtein, MappedProteins,ProteinSource
+from tqdm import tqdm 
 from typing import List, Dict, Set, Tuple
 # define the analysis types 
 Peptides=List[Peptide]
 Proteins=List[Protein]
 # define the experiment class 
 class Experiment: 
-	"""A representation of an immunopeptidomic experiment. 
+	"""A representation of an immunopeptidomics experiment. 
 	"""
 	def __init__(self, proband:Proband, hla_set:HLASet, tissue:Tissue,  database:SeqDB,
-				ident_table:pd.DataFrame)->Experiment: 
+				ident_table:pd.DataFrame,progress_bar:bool=True)->Experiment: 
 		"""Constructs an Experiment instance.
 
 		:param proband: A proband instance containing the proband, name& other meta-data. 
@@ -71,7 +72,7 @@ class Experiment:
 		# store the identified proteins as set of protein ids 
 		self._proteins: List[str]=list(set(ident_table.iloc[:,1].tolist()))
 		# fill the instance dict 
-		for idx in range(ident_table.shape[0]): 
+		for idx in tqdm(range(ident_table.shape[0])): 
 			# if the peptide is not in the peptide dictionary we add to it. 
 			if ident_table.iloc[idx,0] not in self._peptides.keys():
 				self._peptides[ident_table.iloc[idx,0]]= Peptide(ident_table.iloc[idx,0])
@@ -145,7 +146,7 @@ class Experiment:
 			for org in self._peptides[pep].get_parents_org():
 				peptides_per_organims[org]+=1 # increment the counter 
 		# make the data compatible with data frames 
-		for org in peptides_per_organims.keys(): 
+		for org in peptides_per_organims.keys():
 			peptides_per_organims[org] = [peptides_per_organims[org]]
 		# create a dataframe
 		res: pd.DataFrame = pd.DataFrame(peptides_per_organims).T
@@ -733,7 +734,17 @@ class Experiment:
 		:rtype: List[str]
 		"""
 		return self._hla_set.get_alleles()
-		
+	
+	def get_hla_set(self)->List[str]: 
+		"""return the instance hla set 
+
+		Returns:
+			HLASet: the instance hla set 
+		"""
+		return self._hla_set
+
+
+
 	def has_hla_allele(self, individual: str)->bool:
 		"""returns whether or not the experiment contain an eluted peptides from the provided alleles 
 		

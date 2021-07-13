@@ -7,14 +7,12 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker 
 import os 
 import math
-import pycountry 
 import seaborn as sns 
 import logomaker as lgm 
 import nglview as nv 
 import pandas as pd 
 import numpy as np 
 import pyopenms as poms 
-import geopandas as gpd
 import holoviews as hv 
 from scipy.stats import pearsonr,ttest_ind
 from statannot import add_stat_annotation
@@ -1670,99 +1668,6 @@ def plot_MS_spectrum(spectrum: poms.pyopenms_2.MSSpectrum,
     ## Add the title 
     if title is not None: 
         plt.title(title)
-    return fig
-    
-def plot_choropleth_allele_distribution(distribution_table:pd.DataFrame, 
-                    allele_name: str, 
-                    plt_kwargs:Dict[str,str]={'cmap':'Blues'})->plt.Figure:
-    """Plot a choropleth map of allele frequency world-wide given the distribution table
-    TBD
-    """
-    # Create a figure to plot the results 
-    #------------------------------------
-    fig, ax = plt.subplots()
-    failed_names=[]
-    world_map=gpd.read_file(gpd.datasets.get_path('naturalearth_lowres'))
-    # Create a lookup table to update the lookup table 
-    #-------------------------------------------------
-    country_lookup_table={country:[-1] for country in world_map.name}
-    # Extract the country names
-    #----------------------------------------------
-    curated_countries=[]
-    for country in distribution_table.iloc[:,0]: 
-        before=len(curated_countries)
-        if 'Guinea' in country and 'Papua New Guinea' in country:
-            curated_countries.append('Papua New Guinea')
-        elif 'Papua New Guinea' in country:
-            curated_countries.append('Papua New Guinea') 
-        elif 'Russia' in country:
-            curated_countries.append('Russia')
-        elif 'Scotland' in country:
-            curated_countries.append('United Kingdom')
-        elif 'England' in country:
-            curated_countries.append('United Kingdom')
-        elif 'USA' in country:
-             curated_countries.append('United States of America')
-        elif 'Iran' in country:
-            curated_countries.append('Iran')
-        elif 'Czech Republic' in country:
-            curated_countries.append('Czechia')
-        elif 'Taiwan' in country:
-            curated_countries.append('Taiwan')
-        elif 'Kosovo' in country:
-            curated_countries.append('Kosovo')
-        elif 'Macedonia' in country:
-            curated_countries.append('Macedonia')
-        elif 'South Korea' in country:
-            curated_countries.append('South Korea')
-        elif 'Vietnam' in country:
-            curated_countries.append('Vietnam')
-        elif 'Gaza' in country:
-            curated_countries.append('Palestinian')
-        else:
-            for country_name in pycountry.countries:
-                if country_name.name in country: 
-                    curated_countries.append(country_name.name)
-                    break
-            after=len(curated_countries)
-            if before==after:
-                failed_names.append(country)
-                curated_countries.append('FAILED_CASE')
-    if len(failed_names)!=0: 
-        print(f"WARNING:: The name of the following counties could not be mapped/extracted: {' ,'.join(failed_names)}")
-    # Append the curated name 
-    local_copy=distribution_table.copy()
-    local_copy['Curated_name']=curated_countries
-    local_copy=local_copy.loc[local_copy.iloc[:,-1]!='FAILED_CASE',]
-    # Update the frequency
-    #---------------------
-    for row in local_copy.itertuples():
-        try:
-            country_lookup_table[row.Curated_name].append(float(row.Frequency))
-        except: 
-            print(f"WARNING:: The following country is not the internal database : {row.Curated_name}")
-            pass
-    country_lookup_table={name:np.max(freqs) for name,freqs in country_lookup_table.items()}
-    for key in country_lookup_table.keys():
-        if country_lookup_table[key]==-1:
-            country_lookup_table[key]=np.nan
-    # Create a list of matching order to the world_map name 
-    #------------------------------------------------------
-    aggrregated_frequencies=[]
-    for name in world_map.name:
-        aggrregated_frequencies.append(country_lookup_table[name])
-    world_map['Allele_Freq']=aggrregated_frequencies
-    # Plot the Map
-    #-------------
-    world_map.plot(column='Allele_Freq', ax=ax, legend=True,
-    legend_kwds={'label': f"{allele_name} frequency among different population",'orientation': "horizontal"},
-    missing_kwds={
-           "color": "lightgrey",
-            "label": "Missing values",
-        },
-     **plt_kwargs)
-    # Return the results
-    #-------------------
     return fig
 
 def plot_chord_diagram_among_set(exp_set,

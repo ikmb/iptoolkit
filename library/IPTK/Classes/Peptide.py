@@ -5,6 +5,7 @@
 from __future__ import annotations
 import numpy as np 
 import pandas as pd
+from IPTK.Classes.Protein import Protein
 from typing import List 
 from IPTK.Utils.Types import Range, Sequences, MappedProtein, Organisms
 # define the class 
@@ -35,7 +36,7 @@ class Peptide:
 		"""
 		return self._peptide
 
-	def add_parent_protein(self, parent_protein, 
+	def add_parent_protein(self, parent_protein:Protein, 
 						start_index: int, end_index: int) -> None:
 		"""add a protein instance as a parent to the current peptide. 
 		The library use Python-based indexing where its 0-indexed and ranges are treated as [start, end). 
@@ -82,7 +83,7 @@ class Peptide:
 				start_idx=parent_protein['start_index'] - flank_len
 			# check the C-terminal side 
 			if flank_len+parent_protein['end_index'] > len(protein_seq): 
-				end_idx=len(protein_seq) 
+				end_idx=len(protein_seq)
 			else: 
 				end_idx= flank_len+parent_protein['end_index']	
 			results.append(protein_seq[start_idx:end_idx])
@@ -109,7 +110,7 @@ class Peptide:
 			temp_array=np.zeros(shape=(1,len(pp['protein'])))
 			temp_array[0,pp['start_index']:pp['end_index']]= 1
 			results.append(temp_array) 
-		return results 
+		return results
 
 	def get_non_presented_peptides(self, length: int )->Sequences: 
 		"""

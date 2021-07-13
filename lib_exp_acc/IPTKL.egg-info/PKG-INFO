@@ -1,0 +1,66 @@
+Metadata-Version: 2.1
+Name: IPTKL
+Version: 0.4.12
+Summary: IPTK is a library specialized in the analysis of HLA-peptidomes identified through an immunopeptidomics pipeline.
+Home-page: https://github.com/ikmb/iptoolkit
+Author: Hesham ElAbd
+Author-email: h.elabd@ikmb.uni-kiel.de
+License: UNKNOWN
+Project-URL: Documentation, https://iptk.readthedocs.io/en/latest/
+Project-URL: Funding, https://www.genes-environment-inflammation.de
+Project-URL: Tutorials, https://github.com/ikmb/iptoolkit/tree/master/Tutorials
+Project-URL: Tracker, https://github.com/ikmb/iptoolkit/issues
+Description: # The immunopeptidomic toolkit library, IPTK # 
+        
+        ### Introduction and Project Aim ###
+        <p>IPTK is a Python library specialized in the analysis of HLA-peptidomes identified through an immunopeptidomic(IP) pipeline. 
+        The library provides a high level API for analyzing and visualizing the identified peptides, integrating transcritomics and protein structure information 
+        for a rich analysis of the identified immunopeptidomes. It also provides a toolbox for integrating and comparing different experiments and/or different runs.</p>
+        
+        ### Release 0.4.0 notice:
+        <p> 1- Adding function to compute immunopeptiomic coverage matrix </p>
+        <p> 2- Introducing MDS plots for comparing the similarities between runs based on immunopeptidomic coverage </p>   
+        
+        ### Release 0.4.6 notice:
+        <p> Minor corrections in the documentation and the default values for some parameters in the visualization functions</p>
+        
+        ### Release 0.4.7 notice:
+        <p> Minor corrections in the visualization module</p>
+        
+        ### Release 0.4.8 notice:
+        <p> Corrected a bug in the Peptide class to manage peptides containing parentheses in the sequence. This bug caused the len function to return the number of characters 
+        in the sequence instead of the number of amino acids. </p>
+        
+        ### Release 0.4.10 notice:
+        <p> Corrected a bug in the Experiment class to correctly compute the length of peptides containing parentheses. This bug caused the len function to return the number of characters in the sequence instead of the number of amino acids. </p>
+        
+        ### Release 0.4.11 notice:
+        <p> Adding more control to the function plot_MDS_from_ic_coverage to fine-tune its behavior, for example, by controlling the random seed.</p>
+        
+        ### Tutorials ### 
+        <p>The library have three notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
+        These tutorial can be found at the Tutorial directory at the project's Github page.</p>
+        
+        <p> IPTK has been documented using Sphinx, the manual of the library can be found at docs directory and online at <a href= "https://iptk.readthedocs.io/en/latest/index.html"> readthedocs </a> </p> 
+        
+        ### Installation ###
+        <p>The library can be installed using pip as follows: </p> 
+        
+        ```
+        pip install iptkl --user
+        ```
+        
+        ### Funding ###
+        The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’). 
+        
+Keywords: HLA immunopeptidomics antigen-processing antigen-presentation computational-immunology interactive-data-analysis MHC
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Topic :: Scientific/Engineering :: Medical Science Apps.
+Classifier: Intended Audience :: Science/Research
+Classifier: Typing :: Typed
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown

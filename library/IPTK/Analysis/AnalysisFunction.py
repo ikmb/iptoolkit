@@ -8,6 +8,7 @@ import pandas as pd
 import subprocess as sp 
 import os
 from Bio.PDB import PDBList
+from numba import jit 
 from Bio.motifs.meme import Motif 
 from typing import List, Callable, Dict, Set
 from IPTK.IO import MEMEInterface as memeIF
@@ -48,6 +49,28 @@ def get_binnary_protein_overlap(exp1:Experiment, exp2:Experiment)->Proteins:
     protein_one=exp1.get_proteins()
     protein_two=exp2.get_proteins()
     return list(protein_one.intersection(protein_two))
+
+
+@jit(nopython=True,nogil=True,cache=True,parallel=True)
+def compute_binary_distance_axf(peptides: List[str], dist_func:Callable)->np.ndarray:
+    """Compare the distance between every pair of peptides in a collection of peptides. 
+    
+    :param peptides: a collection of peptides.
+    :type peptides: List[str]
+    :param dist_func: a function to compute the distance between each pair of peptides. 
+    :type dist_func: Callable, that have been generated using Numba JIT.
+    :raises RuntimeError: make sure that the dist_function is suitable with respect to the input peptides. For example, peptides which might have different lengths.
+    :return: the distance between each pair of peptides in the provided list of peptides
+    :rtype: np.ndarray
+    """
+    num_peptides=len(peptides)
+    distance_matrix=np.zeros(shape=(num_peptides,num_peptides))
+    # compute the pair wise distance 
+    for raw_idx in range(num_peptides):
+        for col_idx in range(num_peptides):
+            distance_matrix[raw_idx,col_idx]=dist_func(peptides[raw_idx],peptides[col_idx])
+    # return the results 
+    return distance_matrix
 
 def compute_binary_distance(peptides: List[str], dist_func:Callable)->np.ndarray:
     """compare the distance between every pair of peptides in a collection of peptides. 

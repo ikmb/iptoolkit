@@ -35,7 +35,7 @@ pip install python==3.6
 
 ### Dependencies ###
 <p> The library requires the following libraries to be installed in order to function properly: </p>
-<p> numpy, pandas, biopython, seaborn, matplotlib, plotly, mhcnames, pyteomics, h5py, logomaker, colour, lxml, nglview, sklearn, scipy, statannot. levenshtein</p>
+<p> numpy, pandas, biopython, seaborn, matplotlib, plotly, mhcnames, pyteomics, h5py, logomaker, colour, lxml, nglview, sklearn, scipy, statannot</p>
 <p> Usually these packages are installed automatically through pip. However, incase this process failed, the dependencies can be installed as follows:</p>
 
 ```
@@ -74,19 +74,25 @@ pip install chart_studio
 <p> B. embed the generated plotly figure using the function chart_studio.plotly.iplot as shown in tutorial 2 and 4. </p>
 
 
-### Get Started! ### 
+### Get Started! ###
+
 <p>The library has four notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
 These tutorials can be found at the Tutorial directory</p>
 
 <p> IPTK has been documented using Sphinx, the manual of the library can be found at the docs directory and online at <a href= "https://iptk.readthedocs.io/en/latest/index.html"> readthedocs </a> </p> 
 
-#### Running the tutorials  #####
+### Contact ###
+
+<p> Please feel free to write an email to the developer at h.elabd@ikmb.uni-kiel.de or to open an issue here incase of a bug or a required feature. </p>
+
+
+#### Running the tutorials #####
+
 <p>
 To run the tutorials locally, run the following steps: 
-<p>1- Download the tutorials, either by cloning the repository or by downloading the tutorials along with the associated datasets only.</p>
-<p>2- Start the notebook by running jupyter-notebook from the terminal. </p>
-</p> 
-
+    <p>1- Download the tutorials, either by cloning the repository or by downloading the tutorials along with the associated datasets only.</p>
+    <p>2- Start the notebook by running jupyter-notebook from the terminal. </p>
+</p>
 
 #### Running the dashboard #### 
 <p> To start the dashboard: </p>
@@ -116,6 +122,22 @@ chmod +x Apps/ExperimentUI.py
 ```
 
 <p> 5. Open the app in the browser by typing the IP: http://127.0.0.1:8050/ </p>
+
+## Notes on the mechanics of IPTK ##
+
+### How does IPTK map HLA types to the identified peptides? ###
+
+<p> The class Experiment is utilized to link or connect different aspects of an experiment together, for example, the transcriptomic layer with the list of identified peptides.
+In case of HLA information, it is assumed that all peptides identified in an experiments are coming from the same pool of HLA molecules, e.g. HLA-DRB1*15:01 and HLA-DRB1*13:01, incase HLA-DR
+specific antibody has been used for the pulldown of HLA proteins or up to 6 HLA-I alleles, incase HLA pan specific antibodies have been used. The Experiment class is initialized with
+an *HLA* instance that stores information about HLA types, i.e. HLA types are linked with the list of identified peptides using the experiment class. Incase more than one experiment are compared, an *ExperimentSet*
+can be constructed from all experiments, the *ExperimentSet* provides the method,  
+
+ </p>
+
+
+
+
 
 ### Release 0.4 notice:
 <p> 1- Adding function to compute immunopeptiomic coverage matrix </p>
