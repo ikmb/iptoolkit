@@ -10,6 +10,7 @@ import pyopenms as poms
 from IPTK.Classes.MzMLExperiment import MzMLExperiment
 import pandas as pd
 from typing import List, Callable
+from tqdm import tqdm 
 ## CLASS DEFINTION
 #-----------------
 class MzMLExperimentSet:
@@ -27,7 +28,7 @@ class MzMLExperimentSet:
             raise ValueError(f'The provided path: {path2files} sequences does not exists!!')
         mzML_files=[p_file for p_file in os.listdir(path2files) if '.mzML' in p_file]
         self._files={}
-        for mzML_file in mzML_files: 
+        for mzML_file in tqdm(mzML_files): 
             try:
                 self._files[mzML_file.split('.')[0]]=MzMLExperiment(os.path.join(path2files,mzML_file))
             except Exception as exp:
@@ -42,7 +43,7 @@ class MzMLExperimentSet:
         """
         # get the count of MS spectra in each file
         counts_dict=dict()
-        for p_file in self._files.keys():
+        for p_file in tqdm(self._files.keys()):
             counts_dict[p_file]=len(self._files[p_file])
         # construct a pandas dataframe from the dict
         table=pd.DataFrame().from_dict(counts_dict,orient='index')
@@ -59,7 +60,7 @@ class MzMLExperimentSet:
         :rtype: pd.DataFrame
         """
         counts_dict=dict()
-        for p_file in self._files.keys():
+        for p_file in tqdm(self._files.keys()):
             counts_dict[p_file]=self._files[p_file].get_num_MS2_spectra()
         # construct a pandas dataframe from the dict
         table=pd.DataFrame().from_dict(counts_dict,orient='index')
@@ -76,7 +77,7 @@ class MzMLExperimentSet:
         :rtype: pd.DataFrame
         """
         counts_dict=dict()
-        for p_file in self._files.keys():
+        for p_file in tqdm(self._files.keys()):
             counts_dict[p_file]=self._files[p_file].get_num_MS2_spectra()
         # construct a pandas dataframe from the dict
         table=pd.DataFrame().from_dict(counts_dict,orient='index')
