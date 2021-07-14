@@ -5,9 +5,11 @@
 from __future__ import annotations
 from Bio import SeqIO 
 import os
+import time 
 import pandas as pd 
 from typing import List, Dict 
 from Bio import SeqIO
+from tqdm import tqdm 
 # define the class 
 class SeqDB: 
 	"""Load a FASTA file and constructs a lock up dictionary where sequence ids are  keys and sequences are values. 
@@ -25,8 +27,8 @@ class SeqDB:
 			raise FileNotFoundError(f"Your provided path: {path2fasta} does not exist!")
 		# define a private variable to hold the results 
 		self._seqs=dict() 
-		seq_gen=SeqIO.parse(path2fasta,'fasta')
-		for seq in seq_gen: 
+		print(f"Reading the input fasta sequence ..., starting at: {time.ctime()}")
+		for seq in tqdm(SeqIO.parse(path2fasta,'fasta')): 
 			key=seq.id.split('|')[1]
 			self._seqs[key]=str(seq.seq) 
 		return
@@ -441,13 +443,14 @@ class OrganismDB:
 		:rtype: OrganismDB
 		"""
 		try: 
+			print(f"Reading the input fasta file, ..., started at: {time.ctime()}")
 			seq_gene=SeqIO.parse(path2Fasta,'fasta')
 		except Exception as exp: 
 			raise IOError(f'While loading your input database: {path2Fasta}, the following error was encountered: {exp}')
 		# define a dict that hold the map 
 		self._map: Dict[str,str] = dict()
 		# fill the elements in the map 
-		for seq in seq_gene: 
+		for seq in tqdm(seq_gene): 
 			temp_name_org: List[str]=seq.id.split('|')
 			self._map[temp_name_org[1]]= temp_name_org[2].split('_')[1]
 	
@@ -465,6 +468,7 @@ class OrganismDB:
 		:return: A table containing the number of proteins per organism
 		:rtype: pd.DataFrame
 		"""
+		print(f"computing the number of proteins per organism: ..., started at {time.ctime()}")
 		unique_orgs: List[str] = self.get_unique_orgs()
 		# create a dict counter 
 		counter: Dict[str,int]= dict()
@@ -472,7 +476,7 @@ class OrganismDB:
 		for org in unique_orgs: 
 			counter[org]=0
 		# fill the dict with counts 
-		for key in self._map.keys(): 
+		for key in tqdm(self._map.keys()): 
 			counter[self._map[key]]+=1
 		# chaning the map from int -> List[int] to fit the dataframe requirements 
 		for key in counter: 
