@@ -9,8 +9,12 @@ import os
 from Bio import SeqIO
 from Bio.PDB import PDBList
 from pyteomics.mztab import MzTab
-from pyteomics import pepxml, auxiliary
+from pyteomics import pepxml
 from pyteomics.openms import idxml
+from pyteomics.mzid import MzIdentML
+from tqdm import tqdm 
+import time 
+
 # define the functions of the modules
 
 def load_identification_table(input_path: str, sep:str) -> pd.DataFrame:
@@ -74,7 +78,8 @@ def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
     start_index: List[int] = []
     end_index: List[int] = []
     # fill extract the start and end-index information from the library 
-    for idx in range(len(protein_acc)):
+    print(f"Parsing the provided mzTab table ... started at: {time.ctime()}")
+    for idx in tqdm(range(len(protein_acc))):
         # get the protein sequence 
         try:
             prot_seq: str = sequence_dict[protein_acc[idx]]
@@ -149,7 +154,8 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
     #  parse the XML file 
     if is_idXML: 
         with idxml.IDXML(path2XML_file) as reader:
-            for elem in reader:
+            print(f"Parsing the provided idXML table ..., started at: {time.ctime()}")
+            for elem in tqdm(reader):
                 for hit in elem['PeptideHit']:
                     for prot in hit['protein']: 
                         if decoy_prefix not in prot['accession']:
@@ -159,8 +165,9 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
                             else: 
                                 protein_acc.append(prot['accession'])
     else: 
-        with pepxml.read(path2XML_file) as reader: 
-            for elem in reader:
+        with pepxml.read(path2XML_file) as reader:
+            print(f"Parsing the provided pepXML table ..., started at: {time.ctime()}") 
+            for elem in tqdm(reader):
                 for hit in elem['search_hit']:
                     for protein in hit['proteins']: 
                         if decoy_prefix not in protein['protein']:
@@ -170,7 +177,8 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
     start_index: List[int] = []
     end_index: List[int] = []
     # fill extract the start and end-index information from the library 
-    for idx in range(len(protein_acc)):
+    print(f"Removing modifications from the file and extracting the indices within the source protein ..., started at: {time.ctime()}")
+    for idx in tqdm(range(len(protein_acc))):
         # get the protein sequence 
         try:
             prot_seq: str = sequence_dict[protein_acc[idx]]
@@ -264,7 +272,8 @@ def parse_text_table(path2file: str,
     start_index: List[int] = []
     end_index: List[int] = []
     # loop of the table to fill the lists 
-    for _, row in input_table.iterrows():
+    print(f"Parsing the provided table ... started at: {time.ctime()}")
+    for _, row in tqdm(input_table.iterrows()):
         # check if the peptide is present in more than one protein 
         if protein_group_sep in row[accession_column]:
             accessions: List[str] =row[accession_column].split(protein_group_sep)
@@ -332,6 +341,59 @@ def parse_text_table(path2file: str,
     # return the results 
     return ident_table 
 
+def parse_mzIdentML_to_identification_table(file2load:MzIdentML)->pd.DataFrame:
+    """Parse an input mzIdentML file and parse its content and return an identification table 
+
+    Args:
+        file2load (MzIdentML): The path to load the MzIdentML file 
+
+    Raises:
+        IOError: [description]
+
+    Returns:
+        pd.DataFrame: an identification table 
+    """
+    if not os.path.exists(file2load):
+        raise IOError(f"The provided path to load the file: {file2load} does not exists")
+    ## create a list to hold the results 
+    temp_seq, accession, start_idx, end_idx=[],[],[],[]
+    ## loop over all the array
+    try:
+        print(f"Parsing the input MzIdentML ..., started at: {time.ctime()}")
+        for rec in tqdm(MzIdentML(file2load)):
+            for item in rec['SpectrumIdentificationItem']:
+                if item['passThreshold']==True:
+                    evidences=item['PeptideEvidenceRef']
+                    for evidence in evidences: 
+                        if evidence['isDecoy']==False:
+                          temp_seq.append(evidence['PeptideSequence'])
+                          accession.append(evidence['accession'])
+                          start_idx.append(evidence['start'])
+                          end_idx.append(evidence['end'])        
+    except Exception as exp:
+        raise IOError(f"While Parsing the content of the file, the following error was encounterred: {str(exp)}")
+    ## remove peptide sequence
+    print(f"Cleaning the peptide sequence, from modifications ..., started at: {time.ctime()}")
+    peptide_seq=[]
+    for pep in tqdm(temp_seq):
+        if '(' in pep:
+            loop=True
+            while(loop):
+                start_pos=pep.find('(')
+                end_pos=pep.find(')')
+                pep=pep[:start_pos]+pep[end_pos+1:]
+                if '(' not in pep:
+                    loop=False
+        else:
+            peptide_seq.append(pep)
+    ## create a pandas dataframe 
+    return pd.DataFrame({
+        'peptide': peptide_seq,
+        'protein': accession,
+        'start_index':start_idx,
+        'end_index':end_idx
+    })
+
 def fasta2dict(path2fasta:str, filter_decoy: bool = True,
             decoy_string: str = 'DECOY')->Dict[str,str]: 
     """loads a fasta file and construct a dict object where ids are keys and sequences are the value
@@ -352,7 +414,8 @@ def fasta2dict(path2fasta:str, filter_decoy: bool = True,
     # load the fasta file 
     seq_gen: SeqIO.FastaIO.FastaIterator = SeqIO.parse(path2fasta,'fasta')
     results=dict()
-    for seq in seq_gen: 
+    print(f"parsing the input fasta file ..., started at: {time.ctime()}")
+    for seq in tqdm(seq_gen): 
         if filter_decoy:
             if decoy_string in seq.id:
                continue
