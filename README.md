@@ -131,17 +131,34 @@ chmod +x Apps/ExperimentUI.py
 
 <p> 5. Open the app in the browser by typing the IP: http://127.0.0.1:8050/ </p>
 
-## Notes on the mechanics of IPTK ##
+## FAQs ##
 
 ### How does IPTK map HLA types to the identified peptides? ###
 
 <p> The class Experiment is utilized to link or connect different aspects of an experiment together, for example, the transcriptomic layer with the list of identified peptides.
 In case of HLA information, it is assumed that all peptides identified in an experiments are coming from the same pool of HLA molecules, e.g. HLA-DRB1*15:01 and HLA-DRB1*13:01, incase HLA-DR
 specific antibody has been used for the pulldown of HLA proteins or up to 6 HLA-I alleles, incase HLA pan specific antibodies have been used. The Experiment class is initialized with
-an *HLA* instance that stores information about HLA types, i.e. HLA types are linked with the list of identified peptides using the experiment class. Incase more than one experiment are compared, an *ExperimentSet*
-can be constructed from all experiments, the *ExperimentSet* provides the method,  
-
+an HLASet instance that stores information about HLA types, i.e. HLA types are linked with the list of identified peptides using the experiment class. Finally, the function compute_protein_coverage defined in the AnalysisFunction module will be used to compare protein coverage among different experiments.
  </p>
+
+### What the difference between source code inside library directory and lib_exp_acc? ###
+
+<p> The code inside library uses, contains stable IPTK code, meanwhile, the code inside lib_exp_acc contain experimental code, which one one hand, might contain features not included inside the stable version of the library, on the other hand, it is an experimental code so it might change tremendously between different pushes. For users of IPTK we highly recommend looking up the source code under the library directory, as it contain the source code inside the PyPi and Conda packages. On the other hand, IPTK, developers are highly recommended to work with the code inside lib_exp_acc?</p>
+
+### Where can I get IPTK? ###
+
+<p> IPTK can be downloaded from PyPi and Conda as described below: </p>
+
+1. Pip based installation 
+
+```
+pip install iptkl --user
+```
+2. Conda based installation
+
+```
+pip install iptkl --user
+```
 
 ## Release 0.6 notice ##
 
