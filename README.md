@@ -135,41 +135,78 @@ can be constructed from all experiments, the *ExperimentSet* provides the method
 
  </p>
 
+## Release 0.6 notice ##
 
+<p> Version 0.6 brings major upgrades to the library and introduce a wide array of function and classes for automating and accelerating IPTK performance </p>
+<p> 1- IPTK can now parse and work with mzIdentML files using the function parse_mzIdentML_to_identification_table define in the IO module of the library </p>
+<p> 2- IPTK can now process and read mzML files directly using PyOpenMS </p>
+<p> 3- IPTK has an improved function executional speed thanks to the AcceleratedFunctions module in the Analysis module which provides an acceleration using Numba</p>
+<p> 4- Current release also introduce, the Wrappers module which provide a simple abstraction for creating Experiment and ExperimentSet</p>
+<p> 5- Introducing ReplicatedExperiments which provides a simple API for creating experiments obtained from replicates </p>
+<p> 6- IPTK, current support concurrent execution, the wrapper submodules, now utilizes multiprocessing for parsing and reading multiple datasets on-parallel </p>
+<p> 7- Introducing, chordDiagram for showing overlap among experiments and Proband of experiments </p>
 
+## The road to version 1.0 ##
 
+<p> The major plan is to, first, increase and enhance IPTK scale and execution speed by offloading computational intensive tasks to RUST. Second, increase automation by providing custom analysis recipes for performing commonly used routines. Third, provide an API for integrating other omics layers, namely metabolomics and proteomics. Finally, adding support to PTM modified HLA peptides and proteins</p>
 
-### Release 0.4 notice:
-<p> 1- Adding function to compute immunopeptiomic coverage matrix </p>
-<p> 2- Introducing MDS plots for comparing the similarities between runs based on immunopeptidomic coverage </p>   
+### Planned features for 0.7.* Release ###
 
-### Release 0.4.6 notice:
-<p> Minor corrections in the documentation and the default values for some parameters in the visualization functions</p>
+<p> 1. Release 0.7.1 will aim at supporting the integration of Proteomic data with the library </p>
+<p> 2. Release 0.7.2 will aim at supporting the integration of Metabolomics data with the library</p>
+<p> 3. Release 0.7.3 will aim at standardizing all omics API and provide a high-level abstraction for working with them</p>
+<p> 4. Release 0.7.4-0.7.7 will aim at re-implement all the class in Rust and provide a python wrapper around these classes, Thus ensuring fast and concurrent execution</p>
 
-### Release 0.4.7 notice:
-<p> Minor corrections in the visualization module</p>
+### Planned features for 0.8.* ###
 
-### Release 0.4.8 notice:
-<p> Corrected a bug in the Peptide class to manage peptides containing parentheses in the sequence. This bug caused the len function to return the number of characters 
-in the sequence instead of the number of amino acids. </p>
+<p> 1. Release 0.8.1-0.8.4 will aim at re-implement all IPTK parsers in Rust and provide a python binder to it</p>
+<p> 2. Release 0.8.5-0.8.8 will aim at re-implementing all analysis function using Rust </p>
 
-### Release 0.4.10 notice:
-<p> Corrected a bug in the Experiment class to correctly compute the length of peptides containing parentheses. This bug caused the len function to return the number of characters in the sequence instead of the number of amino acids. </p>
+### Planned features for 0.9.* ###
 
-### Release 0.4.11 notice:
-<p> Adding more control to the function plot_MDS_from_ic_coverage to fine-tune its behavior, for example, by controlling the random seed.</p>
+<p> Different minor releases will introduce different analysis Recipes to automate analysis tasks</p>
 
-### Release 0.5 notice: 
+### Planning for version 1.0.0 ###
+
+<p> IPTK version 1.0 is release on PyPi and on BioConda </p>
+
+## Previous versions Release notice ##
+
+### Release 0.5 notice: ###
+
 <p> 1- Adding a class to query AFND database for allele frequency world-wide. </p>
 <p> 2- Adding function for plotting a choropleth for allele frequencies. </p>
 <p> 3- Adding classes for working directly with mzML files using pyopenMS framework </p>
+<p> 4- An experimental class that act as database interface and provide method for storing and querying immunopeptidomic data</p>
 
+### Release 0.4.11 notice: ###
 
-### Release 0.5.1 notice: 
-<p> 1- Adding a function for plotting Chord Diagram using Holoviews, the graphs can be used to understand protein and peptide overlap among a set of experiments. </p>
+<p> Adding more control to the function plot_MDS_from_ic_coverage to fine-tune its behavior, for example, by controlling the random seed.</p>
 
+### Release 0.4.10 notice: ###
+
+<p> Corrected a bug in the Experiment class to correctly compute the length of peptides containing parentheses. This bug caused the len function to return the number of characters in the sequence instead of the number of amino acids. </p>
+
+### Release 0.4.8 notice: ###
+
+<p> Corrected a bug in the Peptide class to manage peptides containing parentheses in the sequence. This bug caused the len function to return the number of characters 
+in the sequence instead of the number of amino acids. </p>
+
+### Release 0.4.7 notice: ###
+
+<p> Minor corrections in the visualization module</p>
+
+### Release 0.4.6 notice: ###
+
+<p> Minor corrections in the documentation and the default values for some parameters in the visualization functions</p>
+
+### Release 0.4.0 notice: ###
+
+<p> 1- Adding function to compute immunopeptiomic coverage matrix </p>
+<p> 2- Introducing MDS plots for comparing the similarities between runs based on immunopeptidomic coverage </p>  
 
 ### Funding ###
+
 The project was funded by the German Research Foundation (DFG) (Research Training Group 1743, ‘Genes, Environment and Inflammation’) 
 
 ![IKMB_LOGO](/Media/RTG1743.png)
