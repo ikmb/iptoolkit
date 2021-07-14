@@ -3,6 +3,7 @@
 """
 # load the modules 
 from __future__ import annotations
+import time
 import pandas as pd
 import numpy as np 
 from IPTK.Classes.Peptide import Peptide
@@ -72,6 +73,7 @@ class Experiment:
 		# store the identified proteins as set of protein ids 
 		self._proteins: List[str]=list(set(ident_table.iloc[:,1].tolist()))
 		# fill the instance dict 
+		print(f"Creating an experimental object, ... started at: {time.ctime()}")
 		for idx in tqdm(range(ident_table.shape[0])): 
 			# if the peptide is not in the peptide dictionary we add to it. 
 			if ident_table.iloc[idx,0] not in self._peptides.keys():
@@ -100,12 +102,13 @@ class Experiment:
 		identified in the experiment.
 		:type organisms_db: OrganismDB
 		"""
+		print(f"annotating proteins with source organism information ..., started at: {time.ctime()}")
 		# get the organism
 		proteins: List[str]= self.get_proteins()
 		# allocate a list to store the parent proteins source organisms
 		orgs: Dict[str,str] = dict()
 		#  fill the list of elements in the list 
-		for protein in proteins:
+		for protein in tqdm(proteins):
 			orgs[protein]=organisms_db.get_org(protein) # This might rise a KeyError incase the protein is not in the database
 		# add the organism info 
 		self.add_org_info(orgs)
@@ -117,10 +120,11 @@ class Experiment:
 		:return: list of all UNIQUE organisms inferred from the inferred proteins.   
 		:rtype: List[str]
 		"""
+		print(f"Getting source organism information ..., started at: {time.ctime()}")
 		# allocate a list to hold the results
 		unique_results: List[str]=[]
 		# get the organisms
-		for peptide in self.get_peptides():
+		for peptide in tqdm(self.get_peptides()):
 			unique_results.extend(self._peptides[peptide].get_parents_org())
 		# create a set the contain the unique proteins
 		unique_results = list(set(unique_results))
@@ -134,20 +138,18 @@ class Experiment:
 		:return: a table with two columns, namely, Organisms and Counts
 		:rtype: pd.DataFrame
 		"""
+		print(f"Computing peptides per organism table ..., starting at: {time.ctime()}")
 		# allocate a list to hold the organims per proteins
 		peptides_per_organims : Dict[str, int] = dict()
 		# get the number of organims 
 		organisms: List[str] = self.get_orgs()
 		# initialize the counter with zeros 
 		for org in organisms:
-			 peptides_per_organims[org] = 0
+			 peptides_per_organims[org] = [0]
 		# obtain the data from the peptides 
-		for pep in self.get_peptides(): 
+		for pep in tqdm(self.get_peptides()): 
 			for org in self._peptides[pep].get_parents_org():
-				peptides_per_organims[org]+=1 # increment the counter 
-		# make the data compatible with data frames 
-		for org in peptides_per_organims.keys():
-			peptides_per_organims[org] = [peptides_per_organims[org]]
+				peptides_per_organims[org][0]+=1 # increment the counter 
 		# create a dataframe
 		res: pd.DataFrame = pd.DataFrame(peptides_per_organims).T
 		# add the index as an extra-columns 
@@ -168,13 +170,15 @@ class Experiment:
 		:param org: the organims name
 		:type org: str
 		"""
+		print(f"Removing peptides belonging to: {org} ..., starting at: {time.ctime()}")
 		# remove the peptides belonging to the provided organisms
-		for pep in self.get_peptides():
+		for pep in tqdm(self.get_peptides()):
 			if org in self._peptides[pep].get_parents_org():
 				self._peptides.pop(pep) # remove the peptide from the database 
-		# update the list of proteins in the database by dropping proteins with no associated peptide 
+		# update the list of proteins in the database by dropping proteins with no associated peptide
+		print(f"Updating protein list..., starting at: {time.ctime()}") 
 		new_proteins: List[str] = []
-		for pep in self.get_peptides():
+		for pep in tqdm(self.get_peptides()):
 			new_proteins.extend(self._peptides[pep].get_parent_proteins())
 		# update the list of parent proteins
 		self._proteins=list(set(new_proteins))
@@ -198,8 +202,9 @@ class Experiment:
 		"""
 		if len(prot2org) < len(self._proteins):
 			raise RuntimeWarning(f'The provided dictionary does cover all proteins in the experimental object')
+		print(f"Adding organism information ..., starting at: {time.ctime()}")
 		# add the info to each parent protein
-		for prot in prot2org.keys(): 
+		for prot in tqdm(prot2org.keys()): 
 			for pep in self._peptides.keys():
 				if self._peptides[pep].is_child_of(prot):
 					self._peptides[pep].add_org_2_parent(prot, prot2org[prot])
@@ -215,7 +220,7 @@ class Experiment:
 		:rtype: Sequences
 		"""
 		results: List[str]=[]
-		for pep_idx in self._peptides.keys(): 
+		for pep_idx in tqdm(self._peptides.keys()): 
 			results.extend(self._peptides[pep_idx].get_flanked_peptide(flank_length))
 		return results
 	
@@ -228,7 +233,7 @@ class Experiment:
 		:rtype: Sequences
 		"""
 		results: List[str]=[]
-		for _ in range(fold): 
+		for _ in tqdm(range(fold)): 
 			for pep_idx in self._peptides.keys(): 
 				results.extend(self._peptides[pep_idx].get_non_presented_peptides(len(pep_idx)))
 		return results
@@ -243,7 +248,7 @@ class Experiment:
 		:rtype: MappedProtein
 		"""
 		results=[]
-		for pep_idx in self._peptides.keys(): 
+		for pep_idx in tqdm(self._peptides.keys()): 
 			results.extend(self._peptides[pep_idx].map_to_parent_protein())
 		return results 
 	
@@ -256,7 +261,7 @@ class Experiment:
 		:return: the peptide instance with the coresponding sequence
 		:rtype: Peptide
 		"""
-		if pep_seq not in self._peptides.keys(): 
+		if pep_seq not in tqdm(self._peptides.keys()): 
 			raise KeyError(f"your provided petide sequence: {pep_seq} is not defined in the current experiment.") 
 		return self._peptides[pep_seq]
 	
@@ -296,10 +301,12 @@ class Experiment:
 		:rtype: pd.DataFrame
 		"""
 		proteins: List[str] = list(self.get_proteins())
+		print(f"Mapping Uniprot accession to ENSEMBLE IDs ..., starting at: {time.ctime()}")
 		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
 		# allocate a list to hold the expression values 
 		expression: List[float] = []
-		for prot in proteins:
+		print(f"Computing the expression of parent proteins ..., starting at: {time.ctime()}")
+		for prot in tqdm(proteins):
 			# get  all transcripts that map to the protein -> port
 			temp_df: pd.DataFrame = map2Ensemble.loc[map2Ensemble.iloc[:,0]==prot]
 			# if one-to-one mapping is returned 
@@ -339,10 +346,12 @@ class Experiment:
 		:rtype: pd.DataFrame
 		"""
 		proteins: List[str] = list(self.get_proteins())
+		print(f"Mapping Uniprot accession to ENSEMBLE IDs ..., starting at: {time.ctime()}")
 		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
 		# allocate a list to hold the main location
 		main_locations: List[str] = []
-		for prot in proteins:
+		print(f"Getting the Subcellular location of parent proteins ..., starting at: {time.ctime()}")
+		for prot in tqdm(proteins):
 			# we get a pandas dataframe that contain all the ensemble ids belonging to this protein.  
 			temp_df: pd.DataFrame = map2Ensemble.loc[map2Ensemble.iloc[:,0]==prot]
 			if temp_df.shape[0]==1: 
@@ -385,10 +394,12 @@ class Experiment:
 		:rtype: pd.DataFrame
 		"""
 		proteins: List[str] = list(self.get_proteins())
+		print(f"Mapping Uniprot accession to ENSEMBLE IDs ..., starting at: {time.ctime()}")
 		map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
+		print(f"Getting the GO Subcellular compartment of parent proteins ..., starting at: {time.ctime()}")
 		#allocate a list to hold the go terms
 		go_terms: List[str] = []
-		for prot in proteins:
+		for prot in tqdm(proteins):
 			# we get a pandas dataframe that contain all the ensemble ids belonging to this protein.  
 			temp_df: pd.DataFrame = map2Ensemble.loc[map2Ensemble.iloc[:,0]==prot]
 			if temp_df.shape[0]==1: 
@@ -453,13 +464,11 @@ class Experiment:
 		compartment_counts: Dict[str,int] = dict()
 		# initialize the counts 
 		for comp in unique_compartments: 
-			compartment_counts[comp]=0
+			compartment_counts[comp]=[0]
 		# update the counter 
-		for loc in locations: 
-			compartment_counts[loc]+=1
-		# prepare the dict to be compatible with dataframe 
-		for key in  compartment_counts.keys():
-			compartment_counts[key]= [compartment_counts[key]]
+		print(f"counting proteins per compartment ..., starting at: {time.ctime()}")
+		for loc in tqdm(locations): 
+			compartment_counts[loc][0]+=1
 		# construct a data frame from the results 
 		res: pd.DataFrame = pd.DataFrame(compartment_counts).T
 		# add the index as an extra-columns 
@@ -492,6 +501,7 @@ class Experiment:
 		for term in unique_terms: 
 			terms_counts[term]=0
 		# update the counter 
+		print(f"counting proteins per GO term ..., starting at: {time.ctime()}")
 		for term in go_terms: 
 			terms_counts[term]+=1
 		# prepare the dict to be compatible with dataframe 
@@ -526,7 +536,8 @@ class Experiment:
 		parent_protein_locs: pd.DataFrame = self.get_main_sub_cellular_location_of_parent_proteins()
 		peptide_count_parents: pd.DataFrame = self.get_peptides_per_protein()
 		# loop over the parent proteins and update the countert 
-		for idx in range(parent_protein_locs.shape[0]):
+		print(f"Computing results table, ... starting at: {time.ctime()}")
+		for idx in tqdm(range(parent_protein_locs.shape[0])):
 			# get the number of peptides belonging to this protein  
 			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_locs.iloc[idx,0]]['Number_of_Peptides'].tolist()[0]
 			# get the locations 
@@ -566,7 +577,8 @@ class Experiment:
 		parent_protein_go_terms: pd.DataFrame = self.get_go_location_id_parent_proteins()
 		peptide_count_parents: pd.DataFrame = self.get_peptides_per_protein()
 		# loop over the parent proteins and update the countert 
-		for idx in range(parent_protein_go_terms.shape[0]):
+		print(f"Computing results table, ... starting at: {time.ctime()}")
+		for idx in tqdm(range(parent_protein_go_terms.shape[0])):
 			# get the number of peptides belonging to this protein  
 			num_peptides: int = peptide_count_parents.loc[peptide_count_parents.iloc[:,0]==parent_protein_go_terms.iloc[idx,0]]['Number_of_Peptides'].tolist()[0]
 			# get the locations 
@@ -599,7 +611,7 @@ class Experiment:
 		:rtype: MappedProteins
 		"""
 		results=dict()
-		for prot in self._proteins:
+		for prot in tqdm(self._proteins):
 			results[prot]=self.get_mapped_protein(prot)
 		return results 
 	
@@ -611,7 +623,7 @@ class Experiment:
 		:rtype: Peptides
 		"""
 		results: List[Peptide]=[]
-		for pep in self._peptides.keys():
+		for pep in tqdm(self._peptides.keys()):
 			if self._peptides[pep].get_number_of_parents()==1:
 				results.append(self._peptides[pep])
 		return results
@@ -622,7 +634,7 @@ class Experiment:
 		:rtype: Peptides
 		"""
 		results: List[Peptide]=[]
-		for pep in self._peptides.keys():
+		for pep in tqdm(self._peptides.keys()):
 			if self._peptides[pep].get_number_of_parents()>1:
 				results.append(self._peptides[pep])
 		return results
@@ -638,7 +650,7 @@ class Experiment:
 		"""
 		peptides=list(self._peptides.keys())
 		num_parents=[]
-		for second in peptides: 
+		for second in tqdm(peptides): 
 			num_parents.append(self._peptides[second].get_number_of_parents())
 		# combine the results into a dataframe 
 		res=pd.DataFrame({'Peptides':peptides,'Number_of_parents':num_parents})
@@ -672,7 +684,7 @@ class Experiment:
 		"""
 		proteins=list(self._proteins)
 		number_peptides=[]
-		for prot in proteins: 
+		for prot in tqdm(proteins): 
 			number_peptides.append(self.get_number_of_children(prot))
 		# construct a pandas dataframe with the proteins and number of peptides 
 		res=pd.DataFrame({'Proteins':proteins,'Number_of_Peptides':number_peptides})
@@ -690,7 +702,7 @@ class Experiment:
 		:rtype: Peptides
 		"""
 		results=[]
-		for pep_id in self._peptides.keys(): 
+		for pep_id in tqdm(self._peptides.keys()): 
 			results.extend(self._peptides[pep_id].get_n_terminal_flank_seq(flank_length))
 		return results 
 
@@ -703,7 +715,7 @@ class Experiment:
 		:rtype: Peptides
 		"""
 		results=[]
-		for pep_id in self._peptides.keys(): 
+		for pep_id in tqdm(self._peptides.keys()): 
 			results.extend(self._peptides[pep_id].get_c_terminal_flank_seq(flank_length))
 		return results 
 
@@ -742,8 +754,6 @@ class Experiment:
 			HLASet: the instance hla set 
 		"""
 		return self._hla_set
-
-
 
 	def has_hla_allele(self, individual: str)->bool:
 		"""returns whether or not the experiment contain an eluted peptides from the provided alleles 
