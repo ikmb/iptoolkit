@@ -4,6 +4,8 @@ The class provides an API for integrating and comparing different experimental i
 """
 # load the modules 
 from __future__ import annotations
+import time
+from tqdm import tqdm 
 import numpy as np 
 import pandas as pd
 from IPTK.Classes.Experiment import Experiment 
@@ -12,8 +14,6 @@ from IPTK.Analysis.AnalysisFunction import get_binnary_peptide_overlap, get_binn
 from IPTK.Analysis.AnalysisFunction import compute_change_in_protein_representation
 from IPTK.Analysis.AnalysisFunction import compute_expression_correlation
 from typing import Dict, List
-
-from plotly.data import experiment 
 ## define some types 
 Experiments=Dict[str,Experiment]
 Names=List[str]
@@ -109,7 +109,7 @@ class ExperimentSet:
         for org in unique_orgs:
             org_counter[org]=0
         # update the counts 
-        for name in self.get_experimental_names():
+        for name in tqdm(self.get_experimental_names()):
             for _, row in self._exps[name].get_peptides_per_organism().iterrows():
                  org_counter[row['Organisms']]+=row['Counts']
        	# make the data compatible with data frames 
@@ -141,7 +141,7 @@ class ExperimentSet:
         # loop over all the experiments in the set 
         # initialize the counters 
         experimental_name: List[str] = self.get_experimental_names()
-        for row_idx in range(len(experimental_name)):
+        for row_idx in tqdm(range(len(experimental_name))):
             # get the counts per column 
             org_row: pd.DataFrame = self._exps[experimental_name[row_idx]].get_peptides_per_organism()
             org_row_count: int = org_row.loc[org_row.iloc[:,0]==org]['Counts'] 
@@ -273,7 +273,7 @@ class ExperimentSet:
         for tissue in tissues:
             tissue_counter[tissue]=0
         # loop over all the elements in the set 
-        for exp in self._exps.keys(): 
+        for exp in tqdm(self._exps.keys()): 
             tissue_=self._exps[exp].get_tissue_name()
             if tissue_ in tissues2exps.keys():
                 temp_pair: Dict[str,Experiment]={
@@ -304,7 +304,7 @@ class ExperimentSet:
         for proband in probands: 
             proband_counter[proband]=0
         # loop over all the elements in the set 
-        for exp in self._exps.keys(): 
+        for exp in tqdm(self._exps.keys()): 
             proband_=self._exps[exp].get_proband_name()
             if proband_ in proband2exps.keys():
                 temp_pair: Dict[str,Experiment]={
@@ -408,7 +408,7 @@ class ExperimentSet:
         # allocate the results array 
         results_array=np.zeros(shape=(len(self), len(self))) 
         experiment_names=self.get_experimental_names()
-        for raw_idx in range(len(experiment_names)):
+        for raw_idx in tqdm(range(len(experiment_names))):
             for col_idx in range(len(experiment_names)):
                 results_array[raw_idx,col_idx]=len(
                     get_binnary_peptide_overlap(self[experiment_names[raw_idx]],
@@ -429,7 +429,7 @@ class ExperimentSet:
         # allocate the results array 
         results_array=np.zeros(shape=(len(self), len(self))) 
         experiment_names=self.get_experimental_names()
-        for raw_idx in range(len(experiment_names)):
+        for raw_idx in tqdm(range(len(experiment_names))):
             for col_idx in range(len(experiment_names)):
                 results_array[raw_idx,col_idx]=len(
                     get_binnary_protein_overlap(self[experiment_names[raw_idx]],
@@ -454,7 +454,7 @@ class ExperimentSet:
         for peptide in unique_peptides:
             results[peptide]=0
         # loop over all the experiment to count the peptides 
-        for peptide in unique_peptides:
+        for peptide in tqdm(unique_peptides):
             for exp_name in self.get_experimental_names():
                 if self[exp_name].is_member(peptide):
                     results[peptide]+=1
@@ -472,7 +472,7 @@ class ExperimentSet:
         for prot in unique_proteins:
             results[prot]=0
         # loop over all the experiments to count the peptides 
-        for prot in unique_proteins:
+        for prot in tqdm(unique_proteins):
             for exp_name in self.get_experimental_names():
                 if self[exp_name].is_a_parent_protein(prot):
                     results[prot]+=1
@@ -487,7 +487,7 @@ class ExperimentSet:
         results:Dict[str, np.ndarray]=dict()
         unique_proteins=self.get_unique_proteins()
         # get a consent representation 
-        for prot in unique_proteins:
+        for prot in tqdm(unique_proteins):
             for exp_name in self.get_experimental_names():
                 if self[exp_name].is_a_parent_protein(prot):
                     if prot in results.keys(): 
@@ -511,7 +511,7 @@ class ExperimentSet:
         # allocate an array to hold the results
         res_array: np.ndarray = np.zeros((len(exps_ids),len(exps_ids)))
         # fill the array with the expression correlation 
-        for row_idx in range(len(exps_ids)): 
+        for row_idx in tqdm(range(len(exps_ids))): 
             for col_idx in range(len(exps_ids)):
                 res_array[row_idx,col_idx] = compute_expression_correlation(
                     self.get_experiment(exps_ids[row_idx]),
@@ -542,7 +542,7 @@ class ExperimentSet:
         # create some counters 
         col_counter: int = 0
         row_counter: int= 0
-        for prod_idx in range(len(present_in_all)): 
+        for prod_idx in tqdm(range(len(present_in_all))): 
             for exp_col in self.get_experiments().keys():
                 for exp_row in self.get_experiments().keys():
                     results_array[row_counter,col_counter,prod_idx]=compute_change_in_protein_representation(
