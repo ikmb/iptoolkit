@@ -1,19 +1,23 @@
 ![IKMB_LOGO](/Media/IKMB_LOGO.png)
+
 # The immunopeptidomic toolkit library, IPTK # 
 
-### Introduction and Project Aim ###
+## Introduction and Project Aim ##
+
 <p>IPTK is a Python library specialized in the analysis of HLA-peptidomes identified through an Immunopeptidomic(IP) pipeline. 
 The library provides a high level API for analyzing and visualizing the identified peptides, integrating transcritomics and protein structure information 
 for a rich analysis of the identified immunopeptidomes. It also provides a toolbox for integrating and comparing different experiments and/or different runs.</p>
 
 ### Installation ###
+
 <p>The library can be installed using pip as follows: </p> 
 
 ```
 pip install iptkl --user
 ```
 
-### Notes and common troubleshooting ### 
+### Notes and common troubleshooting ###
+
 <p> 1- Please make sure that pip is installed on the system. </p>
 <p> 2- For macOS users please make sure Xcode is installed. This can be done using the following command</p>
 
@@ -34,6 +38,7 @@ pip install python==3.6
 ```
 
 ### Dependencies ###
+
 <p> The library requires the following libraries to be installed in order to function properly: </p>
 <p> numpy, pandas, biopython, seaborn, matplotlib, plotly, mhcnames, pyteomics, h5py, logomaker, colour, lxml, nglview, sklearn, scipy, statannot</p>
 <p> Usually these packages are installed automatically through pip. However, incase this process failed, the dependencies can be installed as follows:</p>
@@ -41,7 +46,9 @@ pip install python==3.6
 ```
 pip install -r requirements.txt 
 ```
-### Visualization ### 
+
+### Visualization ###
+
 <p> 1. Incase you are working within a Jupyter Notebooks, you can set the magic command %matplotlib notebook to work interactively with the generated plots.
 However, if you are working on an IPython shell, please add the magic command %matplotlib to work. </p>
 
@@ -74,7 +81,7 @@ pip install chart_studio
 <p> B. embed the generated plotly figure using the function chart_studio.plotly.iplot as shown in tutorial 2 and 4. </p>
 
 
-### Get Started! ###
+## Get Started! ##
 
 <p>The library has four notebooks that provide a step-by-step guidance to use the library and to utilize its major APIs for interacting with an IPs data.
 These tutorials can be found at the Tutorial directory</p>
@@ -86,7 +93,7 @@ These tutorials can be found at the Tutorial directory</p>
 <p> Please feel free to write an email to the developer at h.elabd@ikmb.uni-kiel.de or to open an issue here incase of a bug or a required feature. </p>
 
 
-#### Running the tutorials #####
+## Running the tutorials ###
 
 <p>
 To run the tutorials locally, run the following steps: 
@@ -94,7 +101,8 @@ To run the tutorials locally, run the following steps:
     <p>2- Start the notebook by running jupyter-notebook from the terminal. </p>
 </p>
 
-#### Running the dashboard #### 
+## Running the dashboard ##
+
 <p> To start the dashboard: </p>
 
 <p> 1. First, install IPTK, in case you have not already, as follows</p>
