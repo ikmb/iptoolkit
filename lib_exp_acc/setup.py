@@ -19,7 +19,7 @@ setuptools.setup(
     },
     url='https://github.com/ikmb/iptoolkit',
     packages=setuptools.find_packages(),
-    install_requires=['numpy','pandas','biopython','seaborn' ,'matplotlib', 'plotly' ,'mhcnames', 'pyteomics', 'h5py', 'logomaker', 'colour', 'lxml', 'nglview', 'sklearn', 'scipy','statannot'], 
+    install_requires=['numpy','pandas','biopython','seaborn' ,'matplotlib', 'plotly' ,'mhcnames', 'pyteomics', 'h5py', 'logomaker', 'colour', 'lxml', 'nglview', 'sklearn', 'scipy'], 
     classifiers=[
         'Development Status :: 3 - Alpha',
         "Programming Language :: Python :: 3",

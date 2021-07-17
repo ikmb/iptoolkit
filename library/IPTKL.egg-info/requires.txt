@@ -12,7 +12,6 @@ lxml
 nglview
 sklearn
 scipy
-statannot
 numba
 pyopenms
 bokeh

@@ -37,7 +37,6 @@ requirements:
     - scipy
     - seaborn
     - sklearn
-    - statannot
     - tqdm
   run:
     - biopython
@@ -60,7 +59,6 @@ requirements:
     - scipy
     - seaborn
     - sklearn
-    - statannot
     - tqdm
 
 test:

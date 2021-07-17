@@ -13,4 +13,4 @@ lxml
 nglview
 sklearn
 scipy
-statannot
+

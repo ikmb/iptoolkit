@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="iptkl", 
-    version="0.6.7",
+    version="0.6.8",
     author="Hesham ElAbd",
     author_email="h.elabd@ikmb.uni-kiel.de",
     description="IPTK is a library specialized in the analysis of HLA-peptidomes identified through an immunopeptidomics pipeline.",
@@ -20,7 +20,7 @@ setuptools.setup(
     url='https://github.com/ikmb/iptoolkit',
     packages=setuptools.find_packages(),
     install_requires=['pandas','biopython','seaborn' ,'matplotlib', 'plotly' ,'mhcnames', 'pyteomics', 'h5py', 'logomaker', 'colour', 'lxml',
-             'nglview', 'sklearn', 'scipy','statannot', 'numba', 'pyopenms','bokeh','holoviews','tqdm','numba','goatools','dash'], 
+             'nglview', 'sklearn', 'scipy', 'numba', 'pyopenms','bokeh','holoviews','tqdm','numba','goatools','dash'], 
     classifiers=[
         'Development Status :: 3 - Alpha',
         "Programming Language :: Python :: 3",

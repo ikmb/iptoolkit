@@ -43,7 +43,7 @@ pip install python==3.6
 ### Dependencies ###
 
 <p> The library requires the following libraries to be installed in order to function properly: </p>
-<p> numpy, pandas, biopython, seaborn, matplotlib, plotly, mhcnames, pyteomics, h5py, logomaker, colour, lxml, nglview, sklearn, scipy, statannot</p>
+<p> numpy, pandas, biopython, seaborn, matplotlib, plotly, mhcnames, pyteomics, h5py, logomaker, colour, lxml, nglview, sklearn, scipy</p>
 <p> Usually these packages are installed automatically through pip. However, incase this process failed, the dependencies can be installed as follows:</p>
 
 ```

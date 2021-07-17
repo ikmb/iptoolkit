@@ -20,7 +20,6 @@ from IPTK.Classes.Features import Features
 from typing import List, Dict 
 from scipy.stats import pearsonr
 from scipy.stats import ttest_ind
-from statannot import add_stat_annotation
 import plotly.express as px 
 from plotly.graph_objects import Figure
 import plotly.graph_objects as go 

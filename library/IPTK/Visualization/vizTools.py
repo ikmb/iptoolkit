@@ -15,7 +15,6 @@ import numpy as np
 import pyopenms as poms 
 import holoviews as hv 
 from scipy.stats import pearsonr,ttest_ind
-from statannot import add_stat_annotation
 import plotly.express as px 
 from plotly.graph_objects import Figure
 import plotly.graph_objects as go 
