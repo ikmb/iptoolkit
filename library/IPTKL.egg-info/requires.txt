@@ -20,3 +20,4 @@ holoviews
 tqdm
 numba
 goatools
+dash

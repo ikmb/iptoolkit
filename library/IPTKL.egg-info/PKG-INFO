@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: iptkl
-Version: 0.6.6
+Version: 0.6.7
 Summary: IPTK is a library specialized in the analysis of HLA-peptidomes identified through an immunopeptidomics pipeline.
 Home-page: https://github.com/ikmb/iptoolkit
 Author: Hesham ElAbd
@@ -30,13 +30,13 @@ Description: # The immunopeptidomic toolkit library, IPTK #
         
         #### Release 0.6.6 notice ####
         
-        <p> 1- Introducing GOEngine class which provide an easy-to-use wrapper around goatools for performing GOEA on the identified proteins.</p>
+        <p> 1- Introducing GOEngine class which provides an easy-to-use wrapper around goatools for performing GOEA on the identified proteins.</p>
         
-        <p> 2- current release supports Jaccard index as a metric of similarity among experiments</p>
+        <p> 2- Current release supports Jaccard index as a metric of similarity among experiments</p>
         
         <p> 3- Introducing support for visualizing GOEA results </p>
         
-        <p> 4- correction os minor bugs and documentation typos in previous releases </p>
+        <p> 4- Correction of minor bugs and documentation typos in previous releases </p>
         
         ## The road to version 1.0 ##
         

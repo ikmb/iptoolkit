@@ -3,6 +3,7 @@
 the classes defined in the IPTK.Classes module. 
 """
 # load the modules: 
+from multiprocessing import Value
 import numpy as np 
 import pandas as pd 
 import subprocess as sp 
@@ -10,7 +11,7 @@ import os
 from Bio.PDB import PDBList
 from numba import jit 
 from Bio.motifs.meme import Motif 
-from typing import List, Callable, Dict, Set
+from typing import List, Callable, Dict, Set, Union
 from IPTK.IO import MEMEInterface as memeIF
 from IPTK.IO import OutFunctions as out_func
 from IPTK.Classes.Experiment import Experiment
@@ -18,7 +19,6 @@ from IPTK.Utils.UtilityFunction import check_peptide_made_of_std_20_aa
 from IPTK.Utils.Mapping import map_from_uniprot_gene
 from scipy.stats import pearsonr
 from IPTK.Classes.Features import Features
-from tqdm import tqdm 
 # define some types 
 Peptides=List[str]
 Proteins=List[str]
@@ -509,7 +509,7 @@ def compute_ic_distance_experiments(experiment_set,mode="restrictive")->pd.DataF
     row_names=col_names= list(exps.keys())
     ## FILL the tensor  
     # ----------------
-    for row_idx in tqdm(range(len(row_names))):
+    for row_idx in range(len(row_names)):
         for col_idx in range(len(col_names)): 
             for protein_idx in range(len(protin_set)):
                 ## obtain the mapped array of the rows
@@ -542,6 +542,24 @@ def compute_ic_distance_experiments(experiment_set,mode="restrictive")->pd.DataF
     results_df.index=row_names
     ## return the results 
     return results_df
+
+def compute_jaccard_index(exp1:Experiment,exp2:Experiment, level:str='peptide')->float:
+    """Compute Jaccard index between samples two samples 
+
+    Args:
+        exp1 (Experiment): The first experimental instance 
+        exp2 (Experiment): The first experimental instance 
+        level (str): The level of computing the overlap between samples, can be any of peptide or protein 
+
+    Returns:
+        float: Jaccard index computed with regard to the to provide level
+    """
+    if level != 'peptide' and level != 'protein': 
+        raise ValueError(f"Level: {level} is not supported, currently only level, peptide and protein are supported")
+    if level=='peptide':
+        return (len(exp1.get_peptides().intersection(exp2.get_peptides())) / len(exp1.get_peptides().union(exp2.get_peptides())))
+    if level=='protein':
+        return (len(exp1.get_proteins().intersection(exp2.get_proteins())) / len(exp1.get_proteins().union(exp2.get_proteins())))
 
 
 
