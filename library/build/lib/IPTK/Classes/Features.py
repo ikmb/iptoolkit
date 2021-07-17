@@ -121,6 +121,12 @@ class Features:
                         "endIdx":int(feature.location.end)
                             }
                         }
+            # extract transmembrane features:
+            elif feature.qualifiers["type"]=='transmembrane region':
+                if "transmembrane_region" in self.extracted_features.keys():
+                    self.extracted_features["transmembrane_region"].append((int(feature.location.start),int(feature.location.end)))
+                else:
+                    self.extracted_features["transmembrane_region"]=[(int(feature.location.start),int(feature.location.end))]
             # extract the topological information:
             elif feature.qualifiers["type"]=="modified residue":
                 if "PTMs" in self.extracted_features.keys():
@@ -325,7 +331,9 @@ class Features:
             self.extracted_features["SeqVar"]=None
         if "SpliceVar" not in self.extracted_features.keys():
             self.extracted_features["SpliceVar"]=None
-            
+        if 'transmembrane_region' not in self.extracted_features.keys():
+            self.extracted_features["transmembrane_region"]=None
+        return 
     # accessor methods:
     def has_signal_peptide(self)->bool:
         """
@@ -372,14 +380,38 @@ class Features:
         """
         return self.extracted_features["Chains"]
     
+    def has_transmembrane_domains(self)->bool:
+        """
+        Returns:
+            bool: True if the protein has transmembrane region and false otherwise
+        """
+        return self.extracted_features["transmembrane_region"]!=None
+
+    def get_transmembrane_regions(self)->List[Tuple[int,int]]:
+        """return a list containing the boundaries of transmembrane regions in the protein 
+
+        Returns:
+            List[Tuple[int,int]]: a list containing the boundaries of transmembrane regions in the protein 
+        """
+        return self.extracted_features["transmembrane_region"]
+    
+    def get_num_transmembrane_regions(self)->int:
+        """Return the number of transmembrane regions on the protein 
+
+        Returns:
+            int: Return the number of transmembrane regions on the protein
+        """
+        print()
+        if self.extracted_features["transmembrane_region"]!=None:
+            return len(self.get_transmembrane_regions())
+        return 0
+
     def has_domains(self)->bool: 
         """
         :return: True if the protein has a defined domain/domains, otherwise it return False.
         :rtype: bool 
         """
-        if self.extracted_features["Domains"]==None:
-            return False
-        return True
+        return  self.extracted_features["Domains"]!=None
     
     def get_number_domains(self)->int:
         """
@@ -463,13 +495,17 @@ class Features:
         :return:  The generic modifications found on the protein. If the protein has no PTM, the function returns None.
         :rtype: Dict[str,Dict[str,Union[str,int]]]
         """
-        return self.extracted_features["PTMs"]["Modifications"]
+        if self.extracted_features["PTMs"] is None: return None
+        if "Modifications" in self.extracted_features["PTMs"].keys():
+            return self.extracted_features["PTMs"]["Modifications"]
+        return None
     
     def get_PTMs_glycosylation(self)->Dict[str,Dict[str,Union[str,int]]]:
         """
         :return: The glycosylation sites found on the protein. If the protein has no glycosylation sites, the function returns None.
         :rtype: [type]
         """
+        if self.extracted_features["PTMs"] is None: return None 
         return self.extracted_features["PTMs"]["GlycoSite"]
     
     def get_disulfide_bonds(self)->Dict[str,Dict[str,Union[str,int]]]:
@@ -477,6 +513,7 @@ class Features:
         :return: The disulfide sites found on the protein. If the protein has no disulfide sites, the function returns None
         :rtype: [type]
         """
+        if self.extracted_features["PTMs"] is None: return None
         return self.extracted_features["PTMs"]["DisulfideBond"]
     
     def get_number_PTMs(self)->int:
@@ -591,6 +628,7 @@ class Features:
         summary["number_of_disulfide_bonds"]=self.get_number_disulfide_bonds()
         summary["number_of_sequence_varients"]=self.get_number_sequence_variants()
         summary["number_of_splice_varients"]=self.get_number_splice_variants()
+        summary["number_of_transmembrane_regions"]=self.get_num_transmembrane_regions()
         return summary
     
     def __str__(self)->str:
@@ -601,9 +639,11 @@ class Features:
         the string representation of the class
         """
         summary=self.summary()
-        string_rep=""" A protein feature instance with: {}  chains, {} domains.  {} PTMs, {} sequence variants and {} splice variants""".format(
-            summary["number_of_chains"],summary["number_of_domains"],
-            summary["number_of_PTMs"],summary["number_of_sequence_varients"]   , summary["number_of_splice_varients"])
+        string_rep=""" A protein feature instance with: {}  chains, {} transmembrane regions,  {} domains.  {} PTMs, {} sequence variants and {} splice variants""".format(
+            summary["number_of_chains"],summary["number_of_transmembrane_regions"],summary["number_of_domains"],
+            summary["number_of_PTMs"],summary["number_of_sequence_varients"],
+            summary["number_of_splice_varients"],
+            )
         return string_rep
 
     def __repr__(self)->str: 

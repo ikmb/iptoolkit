@@ -5,34 +5,36 @@ methods of the classes defined in the Class module or from the analysis function
 # import the module 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker 
+import os 
+import math
 import seaborn as sns 
 import logomaker as lgm 
-from colour import Color 
-from Bio.PDB import MMCIFParser
-import os 
 import nglview as nv 
-from nglview.color import ColormakerRegistry 
 import pandas as pd 
 import numpy as np 
-from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
-from IPTK.Classes.Annotator import Annotator
-from IPTK.Classes.Features import Features
-from typing import List, Dict 
-from scipy.stats import pearsonr
-from scipy.stats import ttest_ind
+import pyopenms as poms 
+import holoviews as hv 
+from scipy.stats import pearsonr,ttest_ind
 from statannot import add_stat_annotation
 import plotly.express as px 
 from plotly.graph_objects import Figure
 import plotly.graph_objects as go 
 from plotly import tools 
-import math
+from colour import Color 
+from Bio.PDB import MMCIFParser
+from nglview.color import ColormakerRegistry 
+from IPTK.Utils.Types import PlottingKeywards, MappedProteinRepresentation
+from IPTK.Classes.Annotator import Annotator
+from IPTK.Classes.Features import Features
 from IPTK.Analysis.AnalysisFunction import get_PTMs_modifications_positions
 from IPTK.Analysis.AnalysisFunction import get_PTMs_glycosylation_positions
 from IPTK.Analysis.AnalysisFunction import get_PTMs_disuldfide_bonds
 from IPTK.Analysis.AnalysisFunction import get_sequence_variants_positions
 from IPTK.Analysis.AnalysisFunction import get_splice_variants_positions
-from typing import List, Tuple, Dict, Union 
+from IPTK.Classes.MzMLExperiment import MzMLExperiment
+from typing import Counter, List, Tuple, Dict, Union 
 from sklearn import manifold
+from bokeh.io import export_svg 
 # define some helper and formater functions 
 @ticker.FuncFormatter
 def major_formatter(x,pos):
@@ -240,7 +242,7 @@ def plotly_multi_traced_coverage_representation(proteins: Dict[str,Dict[str,np.n
          # increase the counter 
         trace_counter+=1
     # update the title and the layout of the figure
-    fig.update_layout(title=title+" "+str(trace_counter)+" Conditions",
+    fig.update_layout(title=title+" "+str(trace_counter-1)+" Conditions", # correcting an indexing bug 
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)')
     # update the axis 
@@ -1217,6 +1219,12 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
                                    "track_element_names_dict":{"fontsize":4,"color":"black"},
                                    "track_elements_dict":{"color":"blue","capstyle":"butt"}
                                   },
+                                transmembrane_track:bool=True, 
+                                transmembrane_track_dict:Dict[str,Dict[str,Union[str,dict]]]={
+                                  "track_label_dict":{"fontsize":6,"color":"black"},
+                                   "track_element_names_dict":{"fontsize":4,"color":"black"},
+                                   "track_elements_dict":{"color":"blue","capstyle":"butt"}
+                                  },
                               modifications_track:bool=True,
                               modifications_track_dict:Dict[str,Dict[str,Union[str,dict]]]={
                                   "height_frac":0.5,
@@ -1274,6 +1282,16 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
         domains_track_dict: dict, optional 
             The parameters of the function ``Annotator.add_segmented_track``.
             it is only used if domains_track is set to True. 
+            The default is {"track_label_dict":{"fontsize":6,"color":"black"},
+            "track_element_names_dict":{"fontsize":4,"color":"black"},
+            "track_elements_dict":{"color":"blue","capstyle":"butt"}}
+
+        transmembrane_track : bool, optional
+            whether or not to plot the transmembrane track. The default is True.
+            
+        transmembrane_track_dict: dict, optional 
+            The parameters of the function ``Annotator.add_segmented_track``.
+            it is only used if transmembrane_track is set to True. 
             The default is {"track_label_dict":{"fontsize":6,"color":"black"},
             "track_element_names_dict":{"fontsize":4,"color":"black"},
             "track_elements_dict":{"color":"blue","capstyle":"butt"}}
@@ -1506,6 +1524,24 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
                                       **domain_track_dict)
         else:
             print("No domains are known in this protein")
+    # add the transmembrane track
+    if transmembrane_track:
+        transmembrane_regions=protein_features.get_transmembrane_regions()
+        if transmembrane_regions is not None:
+            # prepear a dict containing the transmembrane regions, 
+            trans_regions=dict()
+            counter=1
+            for region in transmembrane_regions:
+                trans_regions['TM'+str(counter)]={
+                    "Name":"TM"+str(counter),
+                    "startIdx":region[0],
+                    "endIdx":region[1]}
+                counter+=1
+            panel.add_segmented_track(track_dict=trans_regions,
+                                      track_label="Transmembrane",
+                                      **transmembrane_track_dict)
+        else:
+            print("No transmembrane regions are known in this protein")
     # add the modification track
     if modifications_track:
         modifications=get_PTMs_modifications_positions(protein_features)
@@ -1605,5 +1641,134 @@ def plot_num_peptides_per_protein_hist(num_pep_per_protein: pd.DataFrame,
     ax.set_ylabel('Frequency')
     ax.title('The distribution of number of peptides per protein')  
     return fig 
+
+def plot_MS_spectrum(spectrum: poms.pyopenms_2.MSSpectrum,
+                    log_scale: bool=False,
+                    color_specs: str ='black', 
+                    color_base: str ='grey', 
+                    grid_on: bool = True, 
+                    spect_param: Dict[str,str]={},
+                    base_param: Dict[str, str]={}, 
+                    grid_param: Dict[str,str]={}, 
+                    xlabel: str='M/Z',
+                    ylabel: str= 'Intensity',
+                    title: str= None
+                    )->Union[plt.Figure]:
+    """Plotting an Mass spectrometry spectrum 
+
+    :param spectrum: a spectrum instance to plot it's peaks 
+    :type spectrum: poms.pyopenms_2.MSSpectrum
+    :param log_scale: a boolean flag of whether or not to normalize the y axis using a log scale, defaults to False
+    :type log_scale: bool, optional
+    :param color_specs: the color of the peaks in the figure, defaults to 'black'
+    :type color_specs: str, optional
+    :param color_base: the color of the baseline in the figure, defaults to 'grey'
+    :type color_base: str, optional
+    :param grid_on: , defaults to True
+    :type grid_on: a boolean flag of whether or not to add a grid to the plot, optional
+    :param spect_param: [description], defaults to {}
+    :type spect_param: Dict[str,str], optional
+    :param base_param: [description], defaults to {}
+    :type base_param: Dict[str, str], optional
+    :param grid_param: [description], defaults to {}
+    :type grid_param: Dict[str,str], optional
+    :param xlabel: [description], defaults to 'M/Z'
+    :type xlabel: str, optional
+    :param ylabel: [description], defaults to 'Intensity'
+    :type ylabel: str, optional
+    :param title: [description], defaults to None
+    :type title: str, optional
+    :return: [description]
+    :rtype: Union[plt.Figure]
+    """
+    fig=plt.Figure()
+    for x,y in zip(*spectrum.get_peaks()):
+        if log_scale: 
+            plt.vlines(x=x,ymax=np.log10(y),ymin=0,color=color_specs, 
+                    **spect_param)
+        else: 
+            plt.vlines(x=x,ymax=y,ymin=0,color=color_specs,
+                    **spect_param)
+    plt.hlines(y=0, 
+        xmin=min(spectrum.get_peaks()[0]),
+        xmax=max(spectrum.get_peaks()[0]),
+        color=color_base, **base_param)
+    if grid_on: 
+        plt.grid(**grid_param)
+    ## add the X & Y label 
+    plt.xlabel(xlabel)
+    if log_scale: 
+        plt.ylabel('log10'+ylabel)
+    ## Add the title 
+    if title is not None: 
+        plt.title(title)
+    return fig
+
+def plot_chord_diagram_among_set(exp_set,
+            level:str='protein', filename='results_fig.svg',
+            fig_params:Dict[str,str]={
+                'node_cmap':'PuBu',
+                'edge_cmap':'Category20',
+                'height':700,
+                'width':700,
+                'title':"Shared Protein Representation among Individuals",
+                'edge_alpha':0.5,
+                'edge_line_width':1,
+                'label_text_color':'blue'
+            }):
+    """plot a chord diagram showing the overlap among a group of immunopeptiomics experiments 
+    
+    :param exp_set: an experimental set instance containing
+    :type exp_set: An ExperimentSet
+    :param level: the level of similiarity, currently, the library support protein and peptide levels 
+    :type level: str 
+    :param filename: the name of the file to save the results as a SVG figure, defaults to results_fig.svg in the current working directory
+    :type filename: str 
+    :param fig_params: a dict of parameters to optimize the output of the figure
+    :type fig_params: dict 
+    """
+    ## Compute a dataframe with the experiment name 1 experiment name 2, # number sahred protein
+    if level=='protein':
+        overlap_table=exp_set.compute_protein_overlap_matrix()
+    else:
+        overlap_table=exp_set.compute_peptide_overlap_matrix()
+    ## Unrol the matrix into the long form 
+    overlap_table=overlap_table.stack().rename_index(['Individal_A','Individal_B']).reset_index()
+    ## Remove the diagonal elements 
+    overlap_table=overlap_table[overlap_table.loc['Individal_A']==overlap_table.loc['Individal_B']]
+    ## Get the unique experimental names 
+    unique_experimental_name=list(exp_set.get_experiments().keys())
+    unique_experimental_ds=hv.Dataset(pd.DataFrame({'Exp_id':unique_experimental_name}))
+    ## Generate a chord diagram among the nodes of the Chord  
+    chord_diagram=hv.Chord((overlap_table,unique_experimental_ds))
+    ## cutamize the output of the figure 
+    chord_diagram=chord_diagram.opts(node_color="Exp_id",edge_color="Individal_A",**fig_params)
+    ## generate the outout as SVG 
+    export_svg(hv.render(chord_diagram),filename=filename)
+    return
+
+def plotly_goea_results(res_df:pd.DataFrame, focus:str='CC')->go.Figure:
+    """ plot a bubble plot of the generate plotly figure.
+
+    Args:
+        res_df (pd.DataFrame): the input table as computed by the GOEngine 
+        focus (str, optional): The class of GO term to focus on, can be any of 'CC' for cellular_component,
+        MF for molecular functions or 'MF' for molecular functions. Defaults to 'CC'.
+
+    Returns:
+        go.Figure: a plotly figure showing the results 
+    """
+    if focus.upper() not in ['CC','MF','BP']:
+        raise ValueError(f"The value of focus: {focus} is not supported, currently, supporting: {','.join(['CC','MF','BP'])}")
+    filtered_df=res_df.loc[res_df.NS==focus].copy(deep=True)
+    filtered_df['p_fdr_bh']= -1*np.log10([float(num) for num in filtered_df['p_fdr_bh']])
+    fig=px.scatter(filtered_df,
+            y="name", x="p_fdr_bh",
+	        size="study_count",
+            labels={'p_fdr_bh':'-log10(p-val)','name':''},
+            template='plotly_white')
+    return fig
+
+
 
 

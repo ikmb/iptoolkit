@@ -1,4 +1,3 @@
-numpy
 pandas
 biopython
 seaborn
@@ -14,3 +13,10 @@ nglview
 sklearn
 scipy
 statannot
+numba
+pyopenms
+bokeh
+holoviews
+tqdm
+numba
+goatools

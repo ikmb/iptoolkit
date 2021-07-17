@@ -5,6 +5,7 @@
 from __future__ import annotations
 from Bio import SeqIO 
 import os
+import time 
 import pandas as pd 
 from typing import List, Dict 
 from Bio import SeqIO
@@ -25,8 +26,7 @@ class SeqDB:
 			raise FileNotFoundError(f"Your provided path: {path2fasta} does not exist!")
 		# define a private variable to hold the results 
 		self._seqs=dict() 
-		seq_gen=SeqIO.parse(path2fasta,'fasta')
-		for seq in seq_gen: 
+		for seq in SeqIO.parse(path2fasta,'fasta'): 
 			key=seq.id.split('|')[1]
 			self._seqs[key]=str(seq.seq) 
 		return
@@ -441,6 +441,7 @@ class OrganismDB:
 		:rtype: OrganismDB
 		"""
 		try: 
+			print(f"Reading the input fasta file, ..., started at: {time.ctime()}")
 			seq_gene=SeqIO.parse(path2Fasta,'fasta')
 		except Exception as exp: 
 			raise IOError(f'While loading your input database: {path2Fasta}, the following error was encountered: {exp}')
@@ -465,6 +466,7 @@ class OrganismDB:
 		:return: A table containing the number of proteins per organism
 		:rtype: pd.DataFrame
 		"""
+		print(f"computing the number of proteins per organism: ..., started at {time.ctime()}")
 		unique_orgs: List[str] = self.get_unique_orgs()
 		# create a dict counter 
 		counter: Dict[str,int]= dict()

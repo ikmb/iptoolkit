@@ -1,7 +1,7 @@
 """"
 A configuration wrapper most of the library parameters 
 """
-from __future__ import __annotations__
+from __future__ import annotations
 from typing import Dict,Set,List,Union
 import matplotlib as mpl 
 class ParamConfig:

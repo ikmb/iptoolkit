@@ -9,7 +9,6 @@ import time
 import pandas as pd 
 from typing import List, Dict 
 from Bio import SeqIO
-from tqdm import tqdm 
 # define the class 
 class SeqDB: 
 	"""Load a FASTA file and constructs a lock up dictionary where sequence ids are  keys and sequences are values. 
@@ -27,8 +26,7 @@ class SeqDB:
 			raise FileNotFoundError(f"Your provided path: {path2fasta} does not exist!")
 		# define a private variable to hold the results 
 		self._seqs=dict() 
-		print(f"Reading the input fasta sequence ..., starting at: {time.ctime()}")
-		for seq in tqdm(SeqIO.parse(path2fasta,'fasta')): 
+		for seq in SeqIO.parse(path2fasta,'fasta'): 
 			key=seq.id.split('|')[1]
 			self._seqs[key]=str(seq.seq) 
 		return
@@ -450,7 +448,7 @@ class OrganismDB:
 		# define a dict that hold the map 
 		self._map: Dict[str,str] = dict()
 		# fill the elements in the map 
-		for seq in tqdm(seq_gene): 
+		for seq in seq_gene: 
 			temp_name_org: List[str]=seq.id.split('|')
 			self._map[temp_name_org[1]]= temp_name_org[2].split('_')[1]
 	
@@ -476,7 +474,7 @@ class OrganismDB:
 		for org in unique_orgs: 
 			counter[org]=0
 		# fill the dict with counts 
-		for key in tqdm(self._map.keys()): 
+		for key in self._map.keys(): 
 			counter[self._map[key]]+=1
 		# chaning the map from int -> List[int] to fit the dataframe requirements 
 		for key in counter: 

@@ -145,7 +145,14 @@ class HLASet:
     
     def __repr__(self)->str:
         return str(self)
-            
+    
+    def get_names(self)->List[str]: 
+        """Return a list of all HLA allele names defined in the set
+
+        Returns:
+            List[str]: [description]
+        """
+        return [molecule.get_names() for molecule in self._hlas.values()]
             
             
             

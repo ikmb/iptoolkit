@@ -1,0 +1,1 @@
+This directory contain the recipe, i.e. meta.yaml for building the library using BioConda 

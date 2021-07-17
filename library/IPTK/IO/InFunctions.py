@@ -16,7 +16,6 @@ from tqdm import tqdm
 import time 
 
 # define the functions of the modules
-
 def load_identification_table(input_path: str, sep:str) -> pd.DataFrame:
     """load & process an identification table 
     
@@ -177,8 +176,7 @@ def parse_xml_based_format_to_identification_table(path2XML_file: str, path2fast
     start_index: List[int] = []
     end_index: List[int] = []
     # fill extract the start and end-index information from the library 
-    print(f"Removing modifications from the file and extracting the indices within the source protein ..., started at: {time.ctime()}")
-    for idx in tqdm(range(len(protein_acc))):
+    for idx in range(len(protein_acc)):
         # get the protein sequence 
         try:
             prot_seq: str = sequence_dict[protein_acc[idx]]
@@ -373,9 +371,8 @@ def parse_mzIdentML_to_identification_table(file2load:MzIdentML)->pd.DataFrame:
     except Exception as exp:
         raise IOError(f"While Parsing the content of the file, the following error was encounterred: {str(exp)}")
     ## remove peptide sequence
-    print(f"Cleaning the peptide sequence, from modifications ..., started at: {time.ctime()}")
     peptide_seq=[]
-    for pep in tqdm(temp_seq):
+    for pep in temp_seq:
         if '(' in pep:
             loop=True
             while(loop):
@@ -414,8 +411,7 @@ def fasta2dict(path2fasta:str, filter_decoy: bool = True,
     # load the fasta file 
     seq_gen: SeqIO.FastaIO.FastaIterator = SeqIO.parse(path2fasta,'fasta')
     results=dict()
-    print(f"parsing the input fasta file ..., started at: {time.ctime()}")
-    for seq in tqdm(seq_gen): 
+    for seq in seq_gen: 
         if filter_decoy:
             if decoy_string in seq.id:
                continue

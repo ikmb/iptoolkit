@@ -10,9 +10,8 @@ import numpy as np
 import pandas as pd
 from IPTK.Classes.Experiment import Experiment 
 from IPTK.Classes.Peptide import Peptide
-from IPTK.Analysis.AnalysisFunction import get_binnary_peptide_overlap, get_binnary_protein_overlap 
-from IPTK.Analysis.AnalysisFunction import compute_change_in_protein_representation
-from IPTK.Analysis.AnalysisFunction import compute_expression_correlation
+from IPTK.Analysis.AnalysisFunction import (get_binnary_peptide_overlap, get_binnary_protein_overlap, 
+    compute_jaccard_index, compute_change_in_protein_representation,compute_expression_correlation)
 from typing import Dict, List
 ## define some types 
 Experiments=Dict[str,Experiment]
@@ -399,20 +398,28 @@ class ExperimentSet:
                 results.append(protein)
         return results 
         
-    def compute_peptide_overlap_matrix(self)->np.ndarray:
+    def compute_peptide_overlap_matrix(self, method:str='count')->np.ndarray:
         """
 
         :return: A 2D matrix containing the number of peptide overlapping between each pair of experiments inside the current instance collection of experiment.   
         :rtype: np.ndarray
+        :param method: The method of computing the overlap methods, can be count or jaccard, incase of count, exact matches between samples are used, i.e. number of overlaps,\
+             meanwhile, incase of jaccard, jaccard Index between each pair of sample is used.  
+        :type protein: str
         """
+        # validate input method: 
+        #----------------------
+        if method!='count' and method!='jaccard':
+            raise ValueError(f"Method: {method} is not supported!, only count and jaccard are currently supported.")
         # allocate the results array 
         results_array=np.zeros(shape=(len(self), len(self))) 
         experiment_names=self.get_experimental_names()
         for raw_idx in tqdm(range(len(experiment_names))):
             for col_idx in range(len(experiment_names)):
-                results_array[raw_idx,col_idx]=len(
-                    get_binnary_peptide_overlap(self[experiment_names[raw_idx]],
-                                                self[experiment_names[col_idx]])) # compute the peptide overlap    
+                if method=='count':
+                    results_array[raw_idx,col_idx]=len(get_binnary_peptide_overlap(self[experiment_names[raw_idx]],self[experiment_names[col_idx]])) # compute the peptide overlap    
+                elif method=='jaccard':
+                    results_array[raw_idx,col_idx]=compute_jaccard_index(self[experiment_names[raw_idx]],self[experiment_names[col_idx]],level='peptide')
         # construct a dataframe from the results 
         results_df=pd.DataFrame(results_array)      
         # add the columns and index to the results df 
@@ -421,19 +428,27 @@ class ExperimentSet:
         # return the results 
         return results_df 
 
-    def compute_protein_overlap_matrix(self)->pd.DataFrame:
+    def compute_protein_overlap_matrix(self,method:str='count')->pd.DataFrame:
         """
         :return: returns a 2D matrix containing the number of proteins overlapping between each pair of experiments inside the current instance collection of experiment.  
         :rtype: np.ndarray
+        :param method: The method of computing the overlap methods, can be count or jaccard, incase of count, exact matches between samples are used, i.e. number of overlaps,\
+             meanwhile, incase of jaccard, jaccard Index between each pair of sample is used.  
+        :type protein: str
         """
+        # validate input method: 
+        #----------------------
+        if method!='count' and method!='jaccard':
+            raise ValueError(f"Method: {method} is not supported!, only count and jaccard are currently supported.")
         # allocate the results array 
         results_array=np.zeros(shape=(len(self), len(self))) 
         experiment_names=self.get_experimental_names()
         for raw_idx in tqdm(range(len(experiment_names))):
             for col_idx in range(len(experiment_names)):
-                results_array[raw_idx,col_idx]=len(
-                    get_binnary_protein_overlap(self[experiment_names[raw_idx]],
-                                                self[experiment_names[col_idx]])) # compute the peptide overlap    
+                if method=='count':
+                    results_array[raw_idx,col_idx]=len(get_binnary_protein_overlap(self[experiment_names[raw_idx]],self[experiment_names[col_idx]])) # compute the peptide overlap    
+                elif method=='jaccard':
+                    results_array[raw_idx,col_idx]=compute_jaccard_index(self[experiment_names[raw_idx]],self[experiment_names[col_idx]],level='protein')
         # construct a dataframe from the results 
         results_df=pd.DataFrame(results_array)      
         # add the columns and index to the results df 

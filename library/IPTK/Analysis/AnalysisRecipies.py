@@ -9,7 +9,6 @@ import itertools
 from tqdm import tqdm 
 import time 
 from typing import Dict, List, Set
-from IPTK.Classes.ExperimentSet import ExperimentSet
 
 def compute_protein_coverage(experiment1:Experiment,experiment2:Experiment,progress_bar:bool=True)->Dict[str,Dict[str,np.ndarray]]:
     """ Compute the difference in protein coverage among the two input experiments

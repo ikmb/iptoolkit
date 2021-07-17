@@ -56,7 +56,7 @@ class Protein:
 			raise ValueError(f"""Annotation list MUST have an equal length where your lists have length : {len(start_idxs)}, {(end_idxs)} respectively.""")
 		## check arrays have the correct type 
 		if not isinstance(start_idxs,np.ndarray):start_idxs=np.array(start_idxs,dtype=np.int32)
-		if not isinstance(end_idxs,dtype=np.int32):end_idxs=np.array(end_idxs,dtype=np.int32)
+		if not isinstance(end_idxs,np.ndarray):end_idxs=np.array(end_idxs,dtype=np.int32)
 		## call the accelerated function  
 		return axf._get_mapped_proteins(start_idxs,end_idxs,len(self)) 
 	

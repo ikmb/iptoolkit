@@ -42,6 +42,3 @@ def _get_non_presented_peptides(exc_reg_s_idx: int, exc_reg_e_idx: int, length: 
             neg_seq=seq[anc_point:anc_point+length] 
             try_flag=False
     return neg_seq
-
-@jit(nopython=True,nogil=True,parallel=False,cache=True)
-def _

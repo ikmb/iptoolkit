@@ -13,7 +13,7 @@ class HLAChain:
         :return: an HLAChain instance 
         :rtype: HLAChain
         """
-        self._name=name
+        self._name:str=name
         name=mhcnames.parse_allele_name(name)
         # extract fields from the name
         self._hla_class=self.get_chain_class(name.gene)

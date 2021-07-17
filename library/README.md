@@ -16,6 +16,16 @@ The library provides a high level API for analyzing and visualizing the identifi
 <p> 6- IPTK, current support concurrent execution, the wrapper submodules, now utilizes multiprocessing for parsing and reading multiple datasets on-parallel </p>
 <p> 7- Introducing, chordDiagram for showing overlap among experiments and Proband of experiments </p>
 
+#### Release 0.6.6 notice ####
+
+<p> 1- Introducing GOEngine class which provides an easy-to-use wrapper around goatools for performing GOEA on the identified proteins.</p>
+
+<p> 2- Current release supports Jaccard index as a metric of similarity among experiments</p>
+
+<p> 3- Introducing support for visualizing GOEA results </p>
+
+<p> 4- Correction of minor bugs and documentation typos in previous releases </p>
+
 ## The road to version 1.0 ##
 
 <p> The major plan is to, first, increase and enhance IPTK scale and execution speed by offloading computational intensive tasks to RUST. Second, increase automation by providing custom analysis recipes for performing commonly used routines. Third, provide an API for integrating other omics layers, namely metabolomics and proteomics. Finally, adding support to PTM modified HLA peptides and proteins</p>

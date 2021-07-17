@@ -131,6 +131,13 @@ chmod +x Apps/ExperimentUI.py
 
 <p> 5. Open the app in the browser by typing the IP: http://127.0.0.1:8050/ </p>
 
+<p> 6. Getting starting !!!</p>
+<p> A simple test case can be found at the test_data directory, </p>
+<p> 6.a For the identification file drag the file: 0810202_0.5_all_ids_merged_psm_perc_filtered.idXML</p>
+<p> 6.b select idXML from the Format drop-down menu</p>
+<p> 6.c For the Fasta Database, drag the file: human_proteome.fasta </p>
+<p> 6.d Click Create Experiment, wait a few second and enjoy analyzing the data </p>
+
 ## FAQs ##
 
 ### How does IPTK map HLA types to the identified peptides? ###
@@ -170,6 +177,17 @@ pip install iptkl --user
 <p> 5- Introducing ReplicatedExperiments which provides a simple API for creating experiments obtained from replicates </p>
 <p> 6- IPTK, current support concurrent execution, the wrapper submodules, now utilizes multiprocessing for parsing and reading multiple datasets on-parallel </p>
 <p> 7- Introducing, chordDiagram for showing overlap among experiments and Proband of experiments </p>
+
+### Release 0.6.6 notice ###
+
+<p> 1- Introducing GOEngine class which provides an easy-to-use wrapper around goatools for performing GOEA on the identified proteins.</p>
+
+<p> 2- current release supports Jaccard index as a metric of similarity among experiments</p>
+
+<p> 3- Introducing support for visualizing GOEA results </p>
+
+<p> 4- correction of minor bugs and documentation typos in previous releases </p>
+
 
 ## The road to version 1.0 ##
 

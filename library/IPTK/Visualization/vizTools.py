@@ -32,7 +32,7 @@ from IPTK.Analysis.AnalysisFunction import get_PTMs_disuldfide_bonds
 from IPTK.Analysis.AnalysisFunction import get_sequence_variants_positions
 from IPTK.Analysis.AnalysisFunction import get_splice_variants_positions
 from IPTK.Classes.MzMLExperiment import MzMLExperiment
-from typing import List, Tuple, Dict, Union 
+from typing import Counter, List, Tuple, Dict, Union 
 from sklearn import manifold
 from bokeh.io import export_svg 
 # define some helper and formater functions 
@@ -242,7 +242,7 @@ def plotly_multi_traced_coverage_representation(proteins: Dict[str,Dict[str,np.n
          # increase the counter 
         trace_counter+=1
     # update the title and the layout of the figure
-    fig.update_layout(title=title+" "+str(trace_counter)+" Conditions",
+    fig.update_layout(title=title+" "+str(trace_counter-1)+" Conditions", # correcting an indexing bug 
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)')
     # update the axis 
@@ -1219,6 +1219,12 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
                                    "track_element_names_dict":{"fontsize":4,"color":"black"},
                                    "track_elements_dict":{"color":"blue","capstyle":"butt"}
                                   },
+                                transmembrane_track:bool=True, 
+                                transmembrane_track_dict:Dict[str,Dict[str,Union[str,dict]]]={
+                                  "track_label_dict":{"fontsize":6,"color":"black"},
+                                   "track_element_names_dict":{"fontsize":4,"color":"black"},
+                                   "track_elements_dict":{"color":"blue","capstyle":"butt"}
+                                  },
                               modifications_track:bool=True,
                               modifications_track_dict:Dict[str,Dict[str,Union[str,dict]]]={
                                   "height_frac":0.5,
@@ -1276,6 +1282,16 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
         domains_track_dict: dict, optional 
             The parameters of the function ``Annotator.add_segmented_track``.
             it is only used if domains_track is set to True. 
+            The default is {"track_label_dict":{"fontsize":6,"color":"black"},
+            "track_element_names_dict":{"fontsize":4,"color":"black"},
+            "track_elements_dict":{"color":"blue","capstyle":"butt"}}
+
+        transmembrane_track : bool, optional
+            whether or not to plot the transmembrane track. The default is True.
+            
+        transmembrane_track_dict: dict, optional 
+            The parameters of the function ``Annotator.add_segmented_track``.
+            it is only used if transmembrane_track is set to True. 
             The default is {"track_label_dict":{"fontsize":6,"color":"black"},
             "track_element_names_dict":{"fontsize":4,"color":"black"},
             "track_elements_dict":{"color":"blue","capstyle":"butt"}}
@@ -1508,6 +1524,24 @@ def plot_coverage_and_annotation(protein_coverage:Dict[str,np.ndarray],
                                       **domain_track_dict)
         else:
             print("No domains are known in this protein")
+    # add the transmembrane track
+    if transmembrane_track:
+        transmembrane_regions=protein_features.get_transmembrane_regions()
+        if transmembrane_regions is not None:
+            # prepear a dict containing the transmembrane regions, 
+            trans_regions=dict()
+            counter=1
+            for region in transmembrane_regions:
+                trans_regions['TM'+str(counter)]={
+                    "Name":"TM"+str(counter),
+                    "startIdx":region[0],
+                    "endIdx":region[1]}
+                counter+=1
+            panel.add_segmented_track(track_dict=trans_regions,
+                                      track_label="Transmembrane",
+                                      **transmembrane_track_dict)
+        else:
+            print("No transmembrane regions are known in this protein")
     # add the modification track
     if modifications_track:
         modifications=get_PTMs_modifications_positions(protein_features)
@@ -1713,8 +1747,27 @@ def plot_chord_diagram_among_set(exp_set,
     export_svg(hv.render(chord_diagram),filename=filename)
     return
 
+def plotly_goea_results(res_df:pd.DataFrame, focus:str='CC')->go.Figure:
+    """ plot a bubble plot of the generate plotly figure.
 
-    
+    Args:
+        res_df (pd.DataFrame): the input table as computed by the GOEngine 
+        focus (str, optional): The class of GO term to focus on, can be any of 'CC' for cellular_component,
+        MF for molecular functions or 'MF' for molecular functions. Defaults to 'CC'.
+
+    Returns:
+        go.Figure: a plotly figure showing the results 
+    """
+    if focus.upper() not in ['CC','MF','BP']:
+        raise ValueError(f"The value of focus: {focus} is not supported, currently, supporting: {','.join(['CC','MF','BP'])}")
+    filtered_df=res_df.loc[res_df.NS==focus].copy(deep=True)
+    filtered_df['p_fdr_bh']= -1*np.log10([float(num) for num in filtered_df['p_fdr_bh']])
+    fig=px.scatter(filtered_df,
+            y="name", x="p_fdr_bh",
+	        size="study_count",
+            labels={'p_fdr_bh':'-log10(p-val)','name':''},
+            template='plotly_white')
+    return fig
 
 
 

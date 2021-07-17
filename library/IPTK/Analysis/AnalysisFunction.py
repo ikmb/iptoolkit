@@ -3,6 +3,7 @@
 the classes defined in the IPTK.Classes module. 
 """
 # load the modules: 
+from multiprocessing import Value
 import numpy as np 
 import pandas as pd 
 import subprocess as sp 
@@ -10,7 +11,7 @@ import os
 from Bio.PDB import PDBList
 from numba import jit 
 from Bio.motifs.meme import Motif 
-from typing import List, Callable, Dict, Set
+from typing import List, Callable, Dict, Set, Union
 from IPTK.IO import MEMEInterface as memeIF
 from IPTK.IO import OutFunctions as out_func
 from IPTK.Classes.Experiment import Experiment
@@ -542,5 +543,22 @@ def compute_ic_distance_experiments(experiment_set,mode="restrictive")->pd.DataF
     ## return the results 
     return results_df
 
+def compute_jaccard_index(exp1:Experiment,exp2:Experiment, level:str='peptide')->float:
+    """Compute Jaccard index between samples two samples 
+
+    Args:
+        exp1 (Experiment): The first experimental instance 
+        exp2 (Experiment): The first experimental instance 
+        level (str): The level of computing the overlap between samples, can be any of peptide or protein 
+
+    Returns:
+        float: Jaccard index computed with regard to the to provide level
+    """
+    if level != 'peptide' and level != 'protein': 
+        raise ValueError(f"Level: {level} is not supported, currently only level, peptide and protein are supported")
+    if level=='peptide':
+        return (len(exp1.get_peptides().intersection(exp2.get_peptides())) / len(exp1.get_peptides().union(exp2.get_peptides())))
+    if level=='protein':
+        return (len(exp1.get_proteins().intersection(exp2.get_proteins())) / len(exp1.get_proteins().union(exp2.get_proteins())))
 
 
