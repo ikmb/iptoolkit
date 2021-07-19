@@ -11,7 +11,7 @@
 The library provides a high level API for analyzing and visualizing the identified peptides, integrating transcritomics and protein structure information 
 for a rich analysis of the identified immunopeptidomes. It also provides a toolbox for integrating and comparing different experiments and/or different runs.</p>
 
-## Installation ## 
+## Installation ##
 
 ### Installation With pip ###
 
@@ -54,7 +54,7 @@ pip install -r requirements.txt
 
 ### Installation with BioConda ###
 
-<p> 1. Install bioconda from the official website [here](https://bioconda.github.io/user/install.html)</p>
+<p> 1. Install bioconda from the official website <a href= "https://bioconda.github.io/user/install.html"> here </a></p>
 
 <p> 2. Create a new environment </p>
 
@@ -78,7 +78,7 @@ conda install -c bioconda iptkl
 
 #### Conda found conflicts and can not install the library ###
 
-<p> 1. install mamba from [here](https://github.com/mamba-org/mamba)</p>
+<p> 1. install mamba from <a href= "https://github.com/mamba-org/mamba"> here </a> </p>
 
 <p> 2. In the same environment install iptkl </p>
 
