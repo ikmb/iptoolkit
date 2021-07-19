@@ -11,9 +11,11 @@
 The library provides a high level API for analyzing and visualizing the identified peptides, integrating transcritomics and protein structure information 
 for a rich analysis of the identified immunopeptidomes. It also provides a toolbox for integrating and comparing different experiments and/or different runs.</p>
 
-### Installation ###
+## Installation ## 
 
-<p>The library can be installed using pip as follows: </p> 
+### Installation With pip ###
+
+<p>The library can be installed using pip as follows: </p>
 
 ```
 pip install iptkl --user
@@ -50,7 +52,57 @@ pip install python==3.6
 pip install -r requirements.txt 
 ```
 
-### Visualization ###
+### Installation with BioConda ###
+
+<p> 1. Install bioconda from the official website [here](https://bioconda.github.io/user/install.html)</p>
+
+<p> 2. Create a new environment </p>
+
+```
+conda create -n iptk_env
+```
+
+<p> 3. Active the new environment </p>
+
+```
+conda active iptkl_env
+```
+
+<p> 4. Instal iptk from the bioconda chanel </p> 
+
+```
+conda install -c bioconda iptkl 
+```
+
+### Notes and common troubleshooting ### 
+
+#### Conda found conflicts and can not install the library ###
+
+<p> 1. install mamba from [here](https://github.com/mamba-org/mamba)</p>
+
+<p> 2. In the same environment install iptkl </p>
+
+```
+mamba install -c bioconda iptkl 
+```
+
+<p> 3. If mamba was able to install the library, then we are fine, else we go one step further </p>
+
+<p> 3.a. create a new conda environment </p>
+
+```
+conda create -n iptk_env
+```
+
+<p> 3.b. install the library using pip</p>
+
+```
+pip install ptkl
+```
+
+<p> 4. Enjoy analyzing your data ..</p>
+
+## Visualization ##
 
 <p> 1. Incase you are working within a Jupyter Notebooks, you can set the magic command %matplotlib notebook to work interactively with the generated plots.
 However, if you are working on an IPython shell, please add the magic command %matplotlib to work. </p>
@@ -164,10 +216,11 @@ an HLASet instance that stores information about HLA types, i.e. HLA types are l
 ```
 pip install iptkl --user
 ```
+
 2. Conda based installation
 
 ```
-pip install iptkl --user
+conda install -c bioconda iptkl
 ```
 
 ## Release 0.6 notice ##
