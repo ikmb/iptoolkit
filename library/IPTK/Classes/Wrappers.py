@@ -212,7 +212,7 @@ class RExperimentSet:
     def __init__(self,path:str,path2fasta:List[str],
         fileformat:List[str]=['idXML'], tissue_name:List[str]=['total PMBC'],
         proband_name:List[str]=['Default Proband'],
-        hla_set:List[List[str]]=[['DRB1*15:01','DRB1*15:01']],
+        hla_set:List[List[str]]=['DRB1*15:01','DRB1*15:01'],
         num_worker:int=mp.cpu_count(),
         parser_param:Dict[str,Union[list,set,dict,int,float]]={}
         )->RExperimentSet:
@@ -249,8 +249,8 @@ class RExperimentSet:
         with ProcessPoolExecutor(num_worker) as exc:
             for idx in range(len(filenames)):
                 parsed_name=filenames[idx].split('/')[-1].split('.')[0]
-                list_jobs.append(exc.submit(build_experiments,parsed_name,filenames,path2fasta,
-                fileformat, tissue_name, proband_name, hla_set,parser_param
+                list_jobs.append(exc.submit(build_experiments,parsed_name,filenames[idx],path2fasta,
+                fileformat, tissue_name[0], proband_name, hla_set,parser_param
                 ))
         success_process=0
         exps=dict()
@@ -260,7 +260,7 @@ class RExperimentSet:
             success_process+=1
             print(f"Progress: {success_process} files have been read and parsed into experiment, progress is: {(success_process/len(filenames))*100}%")
         ## create instance resources 
-        self._exps=ExperimentSet(exps)
+        self._exps=ExperimentSet(**exps)
         self._cashed_results=dict()
         return
 
@@ -411,7 +411,8 @@ class ReplicatedExperimentSet:
 ## Define helper analysis function use for multiprocessing 
 #---------------------------------------------------------
 def build_experiments(parsed_name:str, file_name:str, path2fasta:str, fileformat:str,
-                    tissue_name:str, proband_name:str, hla_set:str)->Tuple[str,Experiment]:
+                    tissue_name:str, proband_name:str, hla_set:str,
+                    parser_param:Dict[str,Union[list,set,dict,int,float]])->Tuple[str,Experiment]:
     """[summary]
 
     Args:
@@ -428,7 +429,7 @@ def build_experiments(parsed_name:str, file_name:str, path2fasta:str, fileformat
     Returns:
         Experiment: An experimental object constructed from the provided parameter 
     """
-    return parsed_name, RExperiment(file_name, path2fasta, fileformat, tissue_name, proband_name, hla_set).get_experiment()
+    return parsed_name, RExperiment(file_name, path2fasta, fileformat, tissue_name, proband_name, hla_set,parser_param).get_experiment()
 ###========================================================================================================================
 def build_repeated_experiments(path:str, anchor_name:str, path2fasta:str, fileformat:str,
                     tissue_name:str, proband_name:str, hla_set:str)->Tuple[str,Experiment]:

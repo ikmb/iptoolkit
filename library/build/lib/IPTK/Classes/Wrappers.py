@@ -21,7 +21,7 @@ from concurrent import futures
 import multiprocessing as mp 
 ## Define the experiment class 
 class RExperiment:
-    def __init__(self,filepath:str, path2fasta:str, fileformat:str='idXML',tissue_name:str='total PMBC',
+    def __init__(self,filepath:str, path2fasta:str, fileformat:str='idXML',tissue_name:str='total PBMC',
                 proband_name:str='Default Proband', hla_set:List[str]=['DRB1*15:01','DRB1*15:01'],
                 parser_param:Dict[str,Union[list,set,dict,int,float]]={})->RExperiment:
         """A Wrapper class for constracting an experimental dataset using user defined parameters\
@@ -103,7 +103,7 @@ class RExperiment:
 
 class ReplicatedExperiment:
     def __init__(self,path:str, anchor_name:str ,path2fasta:str,
-        fileformat:str='idXML', tissue_name:str='total PMBC', proband_name:str='Default Proband',
+        fileformat:str='idXML', tissue_name:str='total PBMC', proband_name:str='Default Proband',
         hla_set:List[str]=['DRB1*15:01','DRB1*15:01'],
         parser_param:Dict[str,Union[list,set,dict,int,float]]={})->ReplicatedExperiment:
         """A Wrapper around an IPTK.Classes.Wrapper.Experiment instance, providing a consise, easy-to-use,  
@@ -139,7 +139,7 @@ class ReplicatedExperiment:
         try:
             for file_name in tqdm(replicates):
                 parsed_name=file_name.split('/')[-1].split('.')[0]
-                exps[parsed_name]=RExperiment(file_name, path2fasta, fileformat, tissue_name, proband_name, hla_set,parser_param=parser_param).get_experiment()
+                exps[parsed_name]=RExperiment(file_name, path2fasta, fileformat, tissue_name, proband_name, hla_set,parser_param).get_experiment()
         except Exception as exp:
             raise RuntimeError(f"Creating an Experimental instance from the file: {file_name} failed with the following error \n{str(exp)}\n")
         self._exps=ExperimentSet(**exps)
@@ -210,7 +210,7 @@ class ReplicatedExperiment:
     
 class RExperimentSet:
     def __init__(self,path:str,path2fasta:List[str],
-        fileformat:List[str]=['idXML'], tissue_name:List[str]=['total PMBC'],
+        fileformat:List[str]=['idXML'], tissue_name:str='total PMBC',
         proband_name:List[str]=['Default Proband'],
         hla_set:List[List[str]]=[['DRB1*15:01','DRB1*15:01']],
         num_worker:int=mp.cpu_count(),
@@ -225,8 +225,8 @@ class RExperimentSet:
                 Defaults to 'idXML'.
             tissue_name (str, optional): The name of the tissue to utilize, this is used for initializing the gene expression table\
                 Defaults to 'total PMBC'.
-            proband_name (str, optional): the name of the proband from whome the data was obtained. Defaults to 'Default Proband'.
-            hla_set (List[str], optional): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
+            proband_name (str, optional): the name of the proband from whom the data was obtained. Defaults to 'Default Proband'.
+            hla_set (List[str], optional): A list of HLA alleles from whom the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
             parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded the file parser.
         Raises:
             ValueError: in case no file could not be found in the root directory or if the length of parameter mismatched
@@ -249,7 +249,7 @@ class RExperimentSet:
         with ProcessPoolExecutor(num_worker) as exc:
             for idx in range(len(filenames)):
                 parsed_name=filenames[idx].split('/')[-1].split('.')[0]
-                list_jobs.append(exc.submit(build_experiments,parsed_name,filenames,path2fasta,
+                list_jobs.append(exc.submit(build_experiments,parsed_name,filenames[idx],path2fasta,
                 fileformat, tissue_name, proband_name, hla_set,parser_param
                 ))
         success_process=0
@@ -260,7 +260,7 @@ class RExperimentSet:
             success_process+=1
             print(f"Progress: {success_process} files have been read and parsed into experiment, progress is: {(success_process/len(filenames))*100}%")
         ## create instance resources 
-        self._exps=ExperimentSet(exps)
+        self._exps=ExperimentSet(**exps)
         self._cashed_results=dict()
         return
 
@@ -411,7 +411,7 @@ class ReplicatedExperimentSet:
 ## Define helper analysis function use for multiprocessing 
 #---------------------------------------------------------
 def build_experiments(parsed_name:str, file_name:str, path2fasta:str, fileformat:str,
-                    tissue_name:str, proband_name:str, hla_set:str)->Tuple[str,Experiment]:
+                    tissue_name:str, proband_name:str, hla_set:str,parser_param:Dict[str,Union[list,set,dict,int,float]]={})->Tuple[str,Experiment]:
     """[summary]
 
     Args:
@@ -423,15 +423,18 @@ def build_experiments(parsed_name:str, file_name:str, path2fasta:str, fileformat
         tissue_name (str): The name of the tissue to utilize, this is used for initializing the gene expression table\
                  Defaults to 'total PMBC'.
         proband_name (str): the name of the proband from whome the data was obtained. Defaults to 'Default Proband'.
-        hla_set (str): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].   
+        hla_set (str): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
+        parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded the file parser.   
 
     Returns:
         Experiment: An experimental object constructed from the provided parameter 
     """
-    return parsed_name, RExperiment(file_name, path2fasta, fileformat, tissue_name, proband_name, hla_set).get_experiment()
+    return parsed_name, RExperiment(file_name, path2fasta, fileformat, tissue_name, proband_name, hla_set,parser_param).get_experiment()
 ###========================================================================================================================
 def build_repeated_experiments(path:str, anchor_name:str, path2fasta:str, fileformat:str,
-                    tissue_name:str, proband_name:str, hla_set:str)->Tuple[str,Experiment]:
+                    tissue_name:str, proband_name:str, hla_set:str,
+                    parser_param:Dict[str,Union[list,set,dict,int,float]]={}
+                    )->Tuple[str,Experiment]:
     """Build a new ReplicatedExperiment instance 
 
     Args:
@@ -444,9 +447,10 @@ def build_repeated_experiments(path:str, anchor_name:str, path2fasta:str, filefo
                  Defaults to 'total PMBC'.
         proband_name (str): the name of the proband from whome the data was obtained. Defaults to 'Default Proband'.
         hla_set (str): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].   
+        parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded the file parser.   
 
     Returns:
         ReplicatedExperimentSet: a collection of replicated Experiments. 
     """
-    return anchor_name, ReplicatedExperiment(path, anchor_name, path2fasta, fileformat, tissue_name, proband_name, hla_set)
+    return anchor_name, ReplicatedExperiment(path, anchor_name, path2fasta, fileformat, tissue_name, proband_name, hla_set,parser_param)
 

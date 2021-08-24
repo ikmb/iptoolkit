@@ -1,9 +1,10 @@
+# The immunopeptidomic toolkit library, IPTK # 
+
 ![IKMB_LOGO](/Media/IKMB_LOGO.png)
 
 [![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat)](http://bioconda.github.io/recipes/iptkl/README.html) 
 
 [![PyPI version](https://badge.fury.io/py/iptkl.svg)](https://badge.fury.io/py/iptkl)
-# The immunopeptidomic toolkit library, IPTK # 
 
 ## Introduction and Project Aim ##
 
@@ -194,6 +195,14 @@ chmod +x Apps/ExperimentUI.py
 <p> 6.d Click Create Experiment, wait a few second and enjoy analyzing the data </p>
 
 ## FAQs ##
+
+### How can I cite IPTK ? ###
+
+<p> IPTK has been recently published in BMC Bioinformatics <a href= "https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-021-04315-0"> here </a>   </p>
+
+### How can I access the raw data used for developing IPTK ? ###
+
+<p> The raw data has been deployed to PRIDE and can be accessed <a href= "https://www.ebi.ac.uk/pride/archive/projects/PXD023032"> here </a>  
 
 ### How does IPTK map HLA types to the identified peptides? ###
 
