@@ -1732,9 +1732,11 @@ def plot_chord_diagram_among_set(exp_set,
     else:
         overlap_table=exp_set.compute_peptide_overlap_matrix()
     ## Unrol the matrix into the long form 
-    overlap_table=overlap_table.stack().rename_index(['Individal_A','Individal_B']).reset_index()
+    overlap_table=overlap_table.stack().reset_index()
+    overlap_table.columns=['Individal_A','Individal_B','Num_over_lap']
+    print(overlap_table)
     ## Remove the diagonal elements 
-    overlap_table=overlap_table[overlap_table.loc['Individal_A']==overlap_table.loc['Individal_B']]
+    overlap_table=overlap_table[overlap_table.iloc[:,0]!=overlap_table.iloc[:,1]]
     ## Get the unique experimental names 
     unique_experimental_name=list(exp_set.get_experiments().keys())
     unique_experimental_ds=hv.Dataset(pd.DataFrame({'Exp_id':unique_experimental_name}))

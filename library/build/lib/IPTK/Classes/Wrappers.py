@@ -283,7 +283,7 @@ class ReplicatedExperimentSet:
     def __init__(self,path:str,path2fasta:List[str],
         fileformat:List[str]=['idXML'], tissue_name:List[str]=['total PMBC'],
         proband_name:List[str]=['Default Proband'],
-        hla_set:List[List[str]]=[['DRB1*15:01','DRB1*15:01']],
+        hla_set:List[List[str]]=['DRB1*15:01','DRB1*15:01'],
         num_worker:int=mp.cpu_count(),
         parser_param:Dict[str,Union[list,set,dict,int,float]]={})->ReplicatedExperimentSet:
         """

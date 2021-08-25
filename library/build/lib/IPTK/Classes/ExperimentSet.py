@@ -647,6 +647,8 @@ class ExperimentSet:
         results:pd.DataFrame= pd.DataFrame({ exp_name:[len(exp.get_peptides())] for exp_name, exp in self._exps.items()},
                                 index=['experiment','num_peptide']).T
         results.sort_values(by='num_peptide', inplace=True, ascending=False)
+        results[['experiment']]=results.index
+        results=results.reset_index(drop=True)
         return results
 
     def get_num_proteins_per_experiment(self)->pd.DataFrame:
