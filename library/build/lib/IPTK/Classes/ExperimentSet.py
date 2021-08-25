@@ -12,6 +12,7 @@ from IPTK.Classes.Experiment import Experiment
 from IPTK.Classes.Peptide import Peptide
 from IPTK.Analysis.AnalysisFunction import (get_binnary_peptide_overlap, get_binnary_protein_overlap, 
     compute_jaccard_index, compute_change_in_protein_representation,compute_expression_correlation)
+from IPTK.Classes.Database import OrganismDB
 from typing import Dict, List
 ## define some types 
 Experiments=Dict[str,Experiment]
@@ -637,7 +638,7 @@ class ExperimentSet:
             res= pd.concat([res, temp_res],axis=0)
         # return the results 
         return res
-
+        
     def get_num_peptide_per_experiment(self)->pd.DataFrame:
         """return a table containing the number of peptides in every experiment in the current set.
 
@@ -647,8 +648,6 @@ class ExperimentSet:
         results:pd.DataFrame= pd.DataFrame({ exp_name:[len(exp.get_peptides())] for exp_name, exp in self._exps.items()},
                                 index=['experiment','num_peptide']).T
         results.sort_values(by='num_peptide', inplace=True, ascending=False)
-        results[['experiment']]=results.index
-        results=results.reset_index(drop=True)
         return results
 
     def get_num_proteins_per_experiment(self)->pd.DataFrame:
@@ -661,8 +660,29 @@ class ExperimentSet:
                                 index=['experiment','num_proteins']).T
         results.sort_values(by='num_peptide', inplace=True, ascending=False)
         return results
+
+    def annotate_all_proteins_with_org_info(self,path2fasta:str)->None:
+        """Annotate all proteins in the experimental objcts with the source organism informations 
+
+        Args:
+            path2fasta (str): the path to the fasta database 
+        """
+        org_db=OrganismDB(path2fasta)
+        for _,exp_obj in self.get_experiments().items():
+            exp_obj.annotate_proteins(org_db)
+
+    def remove_proteins_belonging_to_org(self,org_name:str)->None:
+        """Remove from all experiments the peptide that belong to one organism 
+
+        Args:
+            org_name (str): The name of the organisms
+        """
+        for _,exp_obj in self.get_experiments().items():
+            exp_obj.drop_peptide_belong_to_org(org_name)
     
-   
+
+
+
 
 
 

@@ -3,6 +3,7 @@
 """
 # load the modules 
 from __future__ import annotations
+from IPTK.Classes.Features import Features
 import time
 import pandas as pd
 import numpy as np 
@@ -16,6 +17,7 @@ from IPTK.Utils.Mapping import map_from_uniprot_gene
 from IPTK.Utils.Types import Sequences, MappedProtein, MappedProteins,ProteinSource
 from tqdm import tqdm 
 from typing import List, Dict, Set, Tuple
+import os 
 # define the analysis types 
 Peptides=List[Peptide]
 Proteins=List[Protein]
@@ -692,7 +694,75 @@ class Experiment:
 		res.sort_values(axis=0, by='Number_of_Peptides',ascending=ascending, inplace=True)
 		# return the results 
 		return res 
+	
+	def get_protein_org_table(self,org_dict:Dict[str,str]=None)->pd.DataFrame:
+		"""Return a table that contain the annotation results for each peptide, the table has the following structure\
+			pep_seq,protein_source,organism 
 
+		Returns:
+			pd.DataFrame: A table that contain the annotation results for each peptide, the table has the following structure\
+			pep_seq,protein_source,organism
+			org_dict: A dictionary that contains a mapping of organism short name to full names, e.g. CANAL to C. albicans
+		"""
+		pep_seqs=[]
+		pro_name=[]
+		org=[]
+		for pep_seq, pep_obj in tqdm(self._peptides.items()):
+			protein_names=pep_obj.get_parent_proteins()
+			protein_orgs=pep_obj.get_parents_org()
+			for idx in range(len(protein_names)):
+				pep_seqs.append(pep_seq)
+				pro_name.append(protein_names[idx])
+				org.append(org_dict[protein_orgs[idx]])
+		return pd.DataFrame({
+        'peptide_seq':pep_seqs,
+        'protein_namess':pro_name,
+        'protein_orgs':org
+    	})			
+
+	def get_proteins_info_table(self,temp_dir:str=None)->pd.DataFrame:
+		"""Return a table that contain the annotation results for each peptide, the table has the following structure\
+			pep_seq,protein_source,full_name,organism,sub_cellular_loc,sub_cellular_top
+		Args:
+			temp_dir (str): a temp-directory to download the uniprot-XML files of each protein, if not provided defaults to TEMP in the current working directory
+			the file is cleared after the analysis is done.  
+		Returns:
+			pd.DataFrame: A table that contain the annotation results for each peptide, the table has the following structure\
+			pep_seq,protein_source,full_name,organism,sub_cellular_loc,sub_cellular_top.
+		"""
+		pep_seqs=[]
+		pro_name=[]
+		full_name=[]
+		org=[]
+		sub_cell_loc=[]
+		sub_cell_top=[]
+		if temp_dir is None:
+			temp_dir='TEMP'
+			try:
+				os.mkdir(temp_dir)
+			except:
+				pass 
+		for pep_seq, pep_obj in tqdm(self._peptides.items()):
+			protein_names=pep_obj.get_parent_proteins()
+			protein_orgs=pep_obj.get_parents_org()
+			for idx in range(len(protein_names)):
+				feat = Features(uniprot_id=protein_names[idx],temp_dir=temp_dir)
+				pep_seqs.append(pep_seq)
+				pro_name.append(protein_names[idx])
+				full_name.append(feat.get_full_name())
+				sub_cell_loc.append(feat.get_subcellular_location())
+				sub_cell_top.append(feat.get_subcellular_topology())
+				org.append(feat.get_organism())
+		os.system(f"rm -rf {temp_dir}/*xml")
+		return pd.DataFrame({
+        'peptide_seq':pep_seqs,
+        'protein_namess':pro_name,
+        'protein_orgs':org,
+		'full_name':full_name,
+		'sub_cell_loc':sub_cell_loc,
+		'sub_cell_top':sub_cell_top
+    	})		
+		
 	def get_n_terminal_flanked_seqs(self, flank_length: int)->Peptides:
 		"""returns the n-terminal flanking sequences 
 
@@ -854,8 +924,7 @@ class Experiment:
 		return f"""an experiment from proband: {self._proband.get_name()}, tissue: {self._tissue.get_name()},
 				   with an HLA Class: {self._hla_set.get_class()}. The instances contains 
 				   {len(self)} peptides identified from {len(self._proteins)} proteins."""
-	
-	
+
 	def __repr__(self)->str:
 		return str(self)
 	
