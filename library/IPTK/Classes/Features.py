@@ -50,6 +50,7 @@ class Features:
         record: SeqIO.SeqRecord = SeqIO.read(file_path,"uniprot-xml")
         # fill the provided record 
         self.extracted_features=dict()
+        self.annotations=record.annotations
         # parse the features in the record.feature object
         for feature in record.features:
             # extract sequences signal peptide
@@ -631,6 +632,61 @@ class Features:
         summary["number_of_transmembrane_regions"]=self.get_num_transmembrane_regions()
         return summary
     
+    def get_database_name(self)->str:
+        """Return the database from which the protein is located 
+
+        Returns:
+            str: the protein sequence of the database
+        """
+        try:
+            return self.annotations['TrEMBL']
+        except:
+            return 'UNK'  
+
+    def get_full_name(self)->List[str]:
+        """return the recommended full names for each protein 
+
+        Returns:
+            List[str]: a list of full names
+        """
+        try:
+            return self.annotations['recommendedName_fullName']
+        except:
+            return ['UNK']
+    
+    def get_subcellular_location(self)->List[str]:
+        """The subcellular location of the locations 
+
+        Returns:
+            List[str]: subcellular location of the locations
+        """
+        try:
+            return self.annotations['comment_subcellularlocation_location']
+        except:
+            return ['UNK']
+    
+    def get_subcellular_topology(self)->List[str]:
+        """Gets the Sub-cellular protein toplogy 
+
+        Returns:
+            List[str]: it is the list of protein topologies 
+        """
+        try:
+            return self.annotations['comment_subcellularlocation_topology']
+        except:
+            return ['UNK']
+    
+    def get_organism(self)->str:
+        """Return The organism from which the protein originated
+
+        Returns:
+            str: The organism from which the protein originated
+        """
+        try:
+            return self.annotations['organism']
+        except: 
+            return 'UNK'
+            
     def __str__(self)->str:
         """
         The string representation of the class
