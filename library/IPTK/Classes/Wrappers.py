@@ -283,7 +283,7 @@ class ReplicatedExperimentSet:
     def __init__(self,path:str,path2fasta:List[str],
         fileformat:List[str]=['idXML'], tissue_name:List[str]=['total PMBC'],
         proband_name:List[str]=['Default Proband'],
-        hla_set:List[List[str]]=[['DRB1*15:01','DRB1*15:01']],
+        hla_set:List[List[str]]=['DRB1*15:01','DRB1*15:01'],
         num_worker:int=mp.cpu_count(),
         parser_param:Dict[str,Union[list,set,dict,int,float]]={})->ReplicatedExperimentSet:
         """
@@ -411,7 +411,7 @@ class ReplicatedExperimentSet:
 ## Define helper analysis function use for multiprocessing 
 #---------------------------------------------------------
 def build_experiments(parsed_name:str, file_name:str, path2fasta:str, fileformat:str,
-                    tissue_name:str, proband_name:str, hla_set:str,
+                    tissue_name:str, proband_name:str, hla_set:List[str],
                     parser_param:Dict[str,Union[list,set,dict,int,float]])->Tuple[str,Experiment]:
     """[summary]
 
@@ -424,7 +424,7 @@ def build_experiments(parsed_name:str, file_name:str, path2fasta:str, fileformat
         tissue_name (str): The name of the tissue to utilize, this is used for initializing the gene expression table\
                  Defaults to 'total PMBC'.
         proband_name (str): the name of the proband from whome the data was obtained. Defaults to 'Default Proband'.
-        hla_set (str): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].   
+        hla_set (List[str]): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].   
 
     Returns:
         Experiment: An experimental object constructed from the provided parameter 
@@ -432,7 +432,8 @@ def build_experiments(parsed_name:str, file_name:str, path2fasta:str, fileformat
     return parsed_name, RExperiment(file_name, path2fasta, fileformat, tissue_name, proband_name, hla_set,parser_param).get_experiment()
 ###========================================================================================================================
 def build_repeated_experiments(path:str, anchor_name:str, path2fasta:str, fileformat:str,
-                    tissue_name:str, proband_name:str, hla_set:str)->Tuple[str,Experiment]:
+                    tissue_name:str, proband_name:str, hla_set:str,
+                    parser_param:Dict[str,Union[list,set,dict,int,float]])->Tuple[str,Experiment]:
     """Build a new ReplicatedExperiment instance 
 
     Args:
