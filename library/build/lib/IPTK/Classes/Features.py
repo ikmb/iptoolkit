@@ -283,35 +283,44 @@ class Features:
                         varient_amino_acid=feature.qualifiers["variation"]
                     else:
                         varient_amino_acid=None
-                    self.extracted_features["SeqVar"][
-                        "Sequence_varient_number_0"]={
-                        "VarientId":feature.qualifiers["id"],
-                        "SNP_Id":snp_id,
-                        "original":original_amino_acid,
-                        "variation":varient_amino_acid,
-                        "startIdx":int(feature.location.start),
-                        "endIdx":int(feature.location.end)
-                        }
+                    try:
+                        self.extracted_features["SeqVar"][
+                            "Sequence_varient_number_0"]={
+                            "VarientId":feature.qualifiers["id"],
+                            "SNP_Id":snp_id,
+                            "original":original_amino_acid,
+                            "variation":varient_amino_acid,
+                            "startIdx":int(feature.location.start),
+                            "endIdx":int(feature.location.end)
+                            }
+                    except: 
+                        pass 
             # extract splice vaients from the protein sequences: 
             elif feature.qualifiers["type"]=="splice variant":
                 if "SpliceVar" in self.extracted_features.keys():
-                    SpliceVarIdx=len(self.extracted_features["SpliceVar"])
-                    spliceVarient_name="splice_varient_number_"+str(SpliceVarIdx)
-                    self.extracted_features["SpliceVar"][spliceVarient_name]={
-                        "Name":feature.qualifiers["id"],
-                        "Isoform":feature.qualifiers["description"],
-                        "startIdx":int(feature.location.start),
-                        "endIdx":int(feature.location.end)
-                        }
-                else: 
-                    self.extracted_features["SpliceVar"]={}
-                    self.extracted_features["SpliceVar"][
-                        "splice_varient_number_0"]={
-                        "Name":feature.qualifiers["id"],
-                        "Isoform":feature.qualifiers["description"],
-                        "startIdx":int(feature.location.start),
-                        "endIdx":int(feature.location.end)
-                        }
+                    try:
+                        SpliceVarIdx=len(self.extracted_features["SpliceVar"])
+                        spliceVarient_name="splice_varient_number_"+str(SpliceVarIdx)
+                        self.extracted_features["SpliceVar"][spliceVarient_name]={
+                            "Name":feature.qualifiers["id"],
+                            "Isoform":feature.qualifiers["description"],
+                            "startIdx":int(feature.location.start),
+                            "endIdx":int(feature.location.end)
+                            }
+                    except:
+                        pass 
+                else:
+                    try: 
+                        self.extracted_features["SpliceVar"]={}
+                        self.extracted_features["SpliceVar"][
+                            "splice_varient_number_0"]={
+                            "Name":feature.qualifiers["id"],
+                            "Isoform":feature.qualifiers["description"],
+                            "startIdx":int(feature.location.start),
+                            "endIdx":int(feature.location.end)
+                            }
+                    except:
+                        pass 
         # fill in the empty object with None:
         if "SignalPeptide" not in self.extracted_features.keys():
             self.extracted_features["SignalPeptide"]=None
