@@ -21,24 +21,27 @@ from concurrent import futures
 import multiprocessing as mp 
 ## Define the experiment class 
 class RExperiment:
-    def __init__(self,filepath:str, path2fasta:str, fileformat:str='idXML',tissue_name:str='total PMBC',
-                proband_name:str='Default Proband', hla_set:List[str]=['DRB1*15:01','DRB1*15:01'],
+    def __init__(self, 
+                filepath:str, path2fasta:str,
+                fileformat:str='idXML',tissue_name:Union[str,Tissue]='total PMBC',
+                proband_name:str='Default Proband',
+                hla_set:List[str]=['DRB1*15:01','DRB1*15:01'],
                 parser_param:Dict[str,Union[list,set,dict,int,float]]={})->RExperiment:
         """A Wrapper class for constracting an experimental dataset using user defined parameters\
-            The class take care of initializing all classes and functions provided an easy-to-use interface\
-            for working with immunopeptidomics data 
+            The class takes care of initializing all classes and functions providing an easy-to-use interface\
+            for working with immunopeptidomics identification files. 
         Args:
-            filepath (str): the path to load the input file, for example and idXML or an Identification table 
+            filepath (str): the path to load the input file, for example, pepXML or idXML. 
             path2fasta (str): the path to load Fasta database 
             fileformat (str, optional): type of input format, can be any of idXML, pepXML, mzTab or a CSV Table.\
                  Defaults to 'idXML'.
-            tissue_name (str, optional): The name of the tissue to utilize, this is used for initializing the gene expression table\
-                 Defaults to 'total PMBC'.
-            proband_name (str, optional): the name of the proband from whome the data was obtained. Defaults to 'Default Proband'.
-            hla_set (List[str], optional): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
-            parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded the file parser
+            tissue_name (Union[str,Tissue]): The name of the tissue to utilize, incase type(tissue_name) is string, this is used for initializing the gene expression table\
+                 Defaults to 'total PMBC'. Otherwise, please provide a Tissue instance, this can also avoid problem related to quering the internet and failures to query the input. 
+            proband_name (str, optional): the name of the proband from whom the data was obtained. Defaults to 'Default Proband'.
+            hla_set (List[str], optional): A list of HLA alleles from whom the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
+            parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded to the file parser
         Returns:
-            cExperimet: an IPTK.Class.Wrapper.Experiment class, an IPTK.Class.Experiment.Experiment can be extracted from the resutned instance using the get_experiment method 
+            RExperimet: an IPTK.Class.Wrapper.RExperimet class, an IPTK.Class.Experiment.RExperimet can be extracted from the extracted instance using the get_experiment method 
         """
         ## Checking that the input is correct 
         if not os.path.exists(filepath):
@@ -57,13 +60,18 @@ class RExperiment:
             self._seqBD= SeqDB(path2fasta=path2fasta)
         except Exception as exp:
             raise IOError(f"While loading the fasta database the following error was Encountered : \n{str(exp)}\n")
-        self._expresson_profile = GeneExpressionDB() # use the data on the human protein atlas @https://www.proteinatlas.org/about/download --> Normal tissue data 
-        self._protein_locations = CellularLocationDB() # use the data on the human protein atlas @https://www.proteinatlas.org/about/download --> Subcellular location data
-        try:
-            self._tissue= Tissue(name=tissue_name,main_exp_value=self._expresson_profile, 
+        if isinstance(tissue_name,str):
+            self._expresson_profile = GeneExpressionDB() # use the data on the human protein atlas @https://www.proteinatlas.org/about/download --> Normal tissue data 
+            self._protein_locations = CellularLocationDB() # use the data on the human protein atlas @https://www.proteinatlas.org/about/download --> Subcellular location data
+            try:
+                self._tissue= Tissue(name=tissue_name,main_exp_value=self._expresson_profile, 
                         main_location=self._protein_locations) # create the tissue instance
-        except Exception as exp:
-            raise RuntimeError(f"While creating a tissue instance, the following error was Encountered: \n{str(exp)}\n")
+            except Exception as exp:
+                raise RuntimeError(f"While creating a tissue instance, the following error was Encountered: \n{str(exp)}\n")
+        elif isinstance(tissue_name,Tissue):
+            self._tissue=tissue_name
+        else:
+            raise ValueError(f"Unknown input type, the provided input for the parameter tissue name, should either a string, i.e. str or a Tissue, however, your input has a type of: {type(tissue_name)}")
         try:
             if fileformat == 'idXML':
                     input_table = parse_xml_based_format_to_identification_table(path2XML_file= filepath, path2fastaDB=path2fasta, is_idXML= True, **parser_param)
@@ -210,27 +218,27 @@ class ReplicatedExperiment:
     
 class RExperimentSet:
     def __init__(self,path:str,path2fasta:List[str],
-        fileformat:List[str]=['idXML'], tissue_name:List[str]=['total PMBC'],
-        proband_name:List[str]=['Default Proband'],
-        hla_set:List[List[str]]=['DRB1*15:01','DRB1*15:01'],
+        fileformat:str='idXML',
+        tissue_name:Union[str,Tissue]='total PMBC',
+        proband_name:List[str]='Default Proband',
+        hla_set:List[str]=['DRB1*15:01','DRB1*15:01'],
         num_worker:int=mp.cpu_count(),
         parser_param:Dict[str,Union[list,set,dict,int,float]]={}
         )->RExperimentSet:
-        """Construction an ExperimentSet from all the input identification table
+        """Construction an ExperimentSet from all the identification files located at the path directory
 
         Args:
-            path (Union[str,os.path]): The path to the root directory. 
-            path2fasta (str): the path to load Fasta database 
+            path (Union[str,os.path]): The path to a directory containing a collection of identification files in a one format. 
+            path2fasta (str): The path to load Fasta database, this should be the same Fasta file used for performing database search engines.  
             fileformat (str, optional): type of input format, can be any of idXML, pepXML, mzTab or a CSV Table (IdTable).\
                 Defaults to 'idXML'.
-            tissue_name (str, optional): The name of the tissue to utilize, this is used for initializing the gene expression table\
+            tissue_name (Union[str,Tissue], optional): The name of the tissue to be utilize, this is used for initializing the gene expression table\
                 Defaults to 'total PMBC'.
-            proband_name (str, optional): the name of the proband from whome the data was obtained. Defaults to 'Default Proband'.
-            hla_set (List[str], optional): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
+            proband_name (str, optional): the name of the proband from whom the data was obtained. Defaults to 'Default Proband'.
+            hla_set (List[str], optional): A list of HLA alleles from whom the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
             parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded the file parser.
         Raises:
             ValueError: in case no file could not be found in the root directory or if the length of parameter mismatched
-
         Returns:
             RExperimentSet: An RExperimentSet containing a collection of experiments each of which correspond to a file found in the provided root directory 
         """
@@ -245,12 +253,13 @@ class RExperimentSet:
         # build the collection of experiments 
         list_jobs=[]
         print(f"Creating an ExperimentSet from: {len(filenames)} files using: {num_worker}, starting at: {time.ctime()}")
+        print(f"Submitting jobs to a process pool with: {num_worker} processes.")
         # submitting the jobs to a process pool 
         with ProcessPoolExecutor(num_worker) as exc:
             for idx in range(len(filenames)):
                 parsed_name=filenames[idx].split('/')[-1].split('.')[0]
                 list_jobs.append(exc.submit(build_experiments,parsed_name,filenames[idx],path2fasta,
-                fileformat, tissue_name[0], proband_name, hla_set,parser_param
+                fileformat, tissue_name, proband_name, hla_set,parser_param
                 ))
         success_process=0
         exps=dict()

@@ -147,11 +147,13 @@ class Experiment:
 		organisms: List[str] = self.get_orgs()
 		# initialize the counter with zeros 
 		for org in organisms:
-			 peptides_per_organims[org] = [0]
+			 peptides_per_organims[org] = set()
 		# obtain the data from the peptides 
 		for pep in tqdm(self.get_peptides()): 
 			for org in self._peptides[pep].get_parents_org():
-				peptides_per_organims[org][0]+=1 # increment the counter 
+				peptides_per_organims[org].add(pep) # increment the counter 
+		for key in list(peptides_per_organims.keys()):
+			peptides_per_organims[key]=[len(peptides_per_organims[key])]
 		# create a dataframe
 		res: pd.DataFrame = pd.DataFrame(peptides_per_organims).T
 		# add the index as an extra-columns 

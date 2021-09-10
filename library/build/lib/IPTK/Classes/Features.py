@@ -254,7 +254,8 @@ class Features:
                     else:
                         varient_amino_acid=None
                     # fill the entries
-                    self.extracted_features["SeqVar"][varient_name]={
+                    try:
+                        self.extracted_features["SeqVar"][varient_name]={
                         "VarientId":feature.qualifiers["id"],
                         "SNP_Id":snp_id,
                         "original":original_amino_acid,
@@ -262,6 +263,8 @@ class Features:
                         "startIdx":int(feature.location.start),
                         "endIdx":int(feature.location.end)
                         }
+                    except:
+                        pass 
                 else:
                     self.extracted_features["SeqVar"]={}
                     if "description" in feature.qualifiers.keys():
