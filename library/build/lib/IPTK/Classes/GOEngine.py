@@ -90,6 +90,21 @@ class GOEngine:
         print(f"{len(self._gene_ids)} Genes have been correctly loaded")
         return 
 
+    def load_list_proteins(self,list_proteins: List[str])->None:
+        """loads a list of proteins to the engine
+
+        Args:
+            list_proteins (List[str]): The list of target proteins
+        """
+        if self._gene_ids is not None:
+            raise ValueError(f"There some data still in the engine, the first 10 genes are: {','.join(self._gene_ids[:10])}\
+                clean your engine from previous data using the function, clean_engine and try again.")
+        print(f"Map uniprot to Entrez gene ids ..., starting at: {time.ctime()}")
+        self._gene_ids= [int(gene_id) for gene_id in map_from_uniprot_to_Entrez_Gene(list_proteins).iloc[:,1].to_list()]
+        print(f"{len(self._gene_ids)} Genes have been correctly loaded")
+        return 
+
+    
     def run_analysis(self, quite:bool=False, only_signifcant:bool=True,
             significance_level:float=0.05, get_list_term:bool=False)->Union[pd.DataFrame, List[GOEnrichmentRecord]]:
         if quite:

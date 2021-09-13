@@ -8,12 +8,15 @@ import time
 from tqdm import tqdm 
 import numpy as np 
 import pandas as pd
+import random
 from IPTK.Classes.Experiment import Experiment 
 from IPTK.Classes.Peptide import Peptide
 from IPTK.Analysis.AnalysisFunction import (get_binnary_peptide_overlap, get_binnary_protein_overlap, 
     compute_jaccard_index, compute_change_in_protein_representation,compute_expression_correlation)
 from IPTK.Classes.Database import OrganismDB
-from typing import Dict, List
+from typing import Dict, List, Tuple
+from IPTK.Utils.Mapping import map_from_uniprot_gene
+from scipy.stats import ttest_ind
 ## define some types 
 Experiments=Dict[str,Experiment]
 Names=List[str]
@@ -679,21 +682,111 @@ class ExperimentSet:
         """
         for _,exp_obj in self.get_experiments().items():
             exp_obj.drop_peptide_belong_to_org(org_name)
-    
 
+    def get_num_experiments_per_protein(self)->pd.DataFrame:
+        """Returns a pandas dataframe containing the number of experiments in which a protein has been identified\
+        """ 
+        print(f"{time.ctime()} :: Getting the set of proteins identified in the ExperimentSet ...") 
+        unique_proteins=set()
+        for _,exp in tqdm(self._exps.items()):
+            unique_proteins.update(exp.get_proteins())
+        unique_proteins=list(unique_proteins)
+        print(f"{time.ctime()} :: Compute the number of times a protein has been observed across all experiments in the instance") 
+        counts=[]  
+        for protein in tqdm(unique_proteins):
+            temp_counts=0
+            for _,exp in self._exps.items():
+                if protein in exp.get_proteins():
+                    temp_counts+=1
+            counts.append(temp_counts)
+        # create a pandas data frame of the results 
+        return pd.DataFrame({
+            'protein_id':unique_proteins,
+            'num_exps':counts
+        }) 
+               
+    def compare_gene_expression_by_num_experiments(self)->Tuple[pd.DataFrame,pd.DataFrame]:
+        """Compare the gene expression among proteins that have been observed at different frequency, i.e. observed\
+            in a different number of experiments.
 
+        Returns:
+            Tuple[pd.DataFrame,pd.DataFrame]: A tuple of two data frames (df), the first df contains gene expression of each group of proteins, 
+            While the df is a square matrix containing the results of comparing the average gene expression among each pair of groups
+        """
+        # for each protein, obtain the number of experiments in which the protein was observed
+        #------------------------------------------------------
+        num_prot_per_exp=self.get_num_experiments_per_protein() 
+        unique_num_groups=set(num_prot_per_exp.iloc[:,1].to_list())
+        # Store gene expression values
+        #------------------------------------------------------ 
+        gene_expression=dict()
+        print(f"Getting the gene expression for each group of accessions, starting at: {time.ctime()}")
+        for group in tqdm(unique_num_groups):
+            input_table=num_prot_per_exp.loc[num_prot_per_exp.iloc[:,1]==group,]
+            print(f"Obtaining the gene expression from genes belonging to group: {group}, starting at : {time.ctime()}")
+            expression_table=self._get_genes_expression(input_table)
+            gene_expression[group]=[expression_table]
+        # Obtain pair-wise distance among the groups
+        #------------------------------------------------------ 
+        print(f"Comparing the pair-wise gene expression differences among different groups using a two-sided t-test")
+        expression_comp=np.zeros((len(gene_expression),len(gene_expression)))
+        groups_names=list(gene_expression.keys())
+        for row_idx in tqdm(range(len(groups_names))):
+            for col_idx in range(len(groups_names)):
+                p_value=ttest_ind(a=gene_expression[groups_names[row_idx]][0],
+                        b=gene_expression[groups_names[col_idx]][0])[1]
+                expression_comp[row_idx,col_idx]=p_value
+        # Construct dataframes from the computed results
+        #------------------------------------------------------  
+        gene_expression_table=pd.DataFrame(gene_expression)
+        expression_comp=pd.DataFrame(expression_comp)
+        expression_comp.columns=groups_names
+        expression_comp.index=groups_names
+        # Return the results
+        #------------------------------------------------------ 
+        return  gene_expression_table, expression_comp
+        
+    def _get_genes_expression(self, input_table: pd.DataFrame)->List[float]:
+        """Get the gene-expression from the input_table which
 
+        Args:
+            input_table (pd.DataFrame): a pandas dataframe table containing uniprot ids as the first column and group id as the second column
 
-
-
-
-
-
-
-
-
-
-
-
-
+        Returns:
+            List[float]: a list of gene expression values from the corresponding uniprot accession numbers.\
+                gene expression is extracted from the corresponding tissue used for initalizing the Experimental instance\
+                    Please notice, that the function expects all experiments to obtained from the SAME TISSUE.  
+        """
+        # get the expression profile
+        expression_profile=random.choice([exp._tissue.get_expression_profile() for exp in self._exps.values()])
+        # get a list of uniprot id in the database 
+        proteins=input_table.iloc[:,0].to_list()
+        # map to uniprot ids
+        print(f"Mapping Uniprot accession to ENSEMBLE IDs ..., starting at: {time.ctime()}")
+        map2Ensemble: pd.DataFrame = map_from_uniprot_gene(proteins)
+        # allocate a list to hold the gene expression 
+        expression: List[float] = []
+        print(f"Computing the expression of parent proteins ..., starting at: {time.ctime()}")
+        expression=[]
+        # loop over proteins to get gene expression values 
+        for prot in tqdm(proteins):
+            temp_df = map2Ensemble.loc[map2Ensemble.iloc[:,0]==prot]
+            # if we have a direct one to one mapping between uniprot ids and ensemble ids
+            if temp_df.shape[0] ==1:
+                try:
+                    expression.append(expression_profile.get_gene_id_expression(temp_df.iloc[0,1])) # add the expression of the gene if ensemble id was there, otherwise skip.
+                except KeyError:
+                    pass
+            else:
+                # we have more than one mapping 
+                temp_ens_ids: List[str] =  temp_df.iloc[:,1].tolist()
+                temp_res_raw: List[int] = []
+                for ens_id in temp_ens_ids:
+                    try: 
+                        temp_res_raw.append(expression_profile.get_gene_id_expression(ens_id))
+                    except KeyError:
+                        pass
+                if len(temp_res_raw)!=0: 
+                    expression.append(np.mean(temp_res_raw))	 
+        return expression
 

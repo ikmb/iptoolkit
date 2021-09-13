@@ -23,7 +23,7 @@ import multiprocessing as mp
 class RExperiment:
     def __init__(self, 
                 filepath:str, path2fasta:str,
-                fileformat:str='idXML',tissue_name:Union[str,Tissue]='total PMBC',
+                fileformat:str='idXML',tissue_name:Union[str,Tissue]='total PBMC',
                 proband_name:str='Default Proband',
                 hla_set:List[str]=['DRB1*15:01','DRB1*15:01'],
                 parser_param:Dict[str,Union[list,set,dict,int,float]]={})->RExperiment:
@@ -36,7 +36,7 @@ class RExperiment:
             fileformat (str, optional): type of input format, can be any of idXML, pepXML, mzTab or a CSV Table.\
                  Defaults to 'idXML'.
             tissue_name (Union[str,Tissue]): The name of the tissue to utilize, incase type(tissue_name) is string, this is used for initializing the gene expression table\
-                 Defaults to 'total PMBC'. Otherwise, please provide a Tissue instance, this can also avoid problem related to quering the internet and failures to query the input. 
+                 Defaults to 'total PBMC'. Otherwise, please provide a Tissue instance, this can also avoid problem related to quering the internet and failures to query the input. 
             proband_name (str, optional): the name of the proband from whom the data was obtained. Defaults to 'Default Proband'.
             hla_set (List[str], optional): A list of HLA alleles from whom the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
             parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded to the file parser
@@ -111,7 +111,7 @@ class RExperiment:
 
 class ReplicatedExperiment:
     def __init__(self,path:str, anchor_name:str ,path2fasta:str,
-        fileformat:str='idXML', tissue_name:str='total PMBC', proband_name:str='Default Proband',
+        fileformat:str='idXML', tissue_name:str='total PBMC', proband_name:str='Default Proband',
         hla_set:List[str]=['DRB1*15:01','DRB1*15:01'],
         parser_param:Dict[str,Union[list,set,dict,int,float]]={})->ReplicatedExperiment:
         """A Wrapper around an IPTK.Classes.Wrapper.Experiment instance, providing a consise, easy-to-use,  
@@ -124,7 +124,7 @@ class ReplicatedExperiment:
             fileformat (str, optional): type of input format, can be any of idXML, pepXML, mzTab or a CSV Table (IdTable).\
                  Defaults to 'idXML'.
             tissue_name (str, optional): The name of the tissue to utilize, this is used for initializing the gene expression table\
-                 Defaults to 'total PMBC'.
+                 Defaults to 'total PBMC'.
             proband_name (str, optional): the name of the proband from whom the data was obtained. Defaults to 'Default Proband'.
             hla_set (List[str], optional): A list of HLA alleles from whom the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
             parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded the file parser.
@@ -219,7 +219,7 @@ class ReplicatedExperiment:
 class RExperimentSet:
     def __init__(self,path:str,path2fasta:List[str],
         fileformat:str='idXML',
-        tissue_name:Union[str,Tissue]='total PMBC',
+        tissue_name:Union[str,Tissue]='total PBMC',
         proband_name:List[str]='Default Proband',
         hla_set:List[str]=['DRB1*15:01','DRB1*15:01'],
         num_worker:int=mp.cpu_count(),
@@ -233,7 +233,7 @@ class RExperimentSet:
             fileformat (str, optional): type of input format, can be any of idXML, pepXML, mzTab or a CSV Table (IdTable).\
                 Defaults to 'idXML'.
             tissue_name (Union[str,Tissue], optional): The name of the tissue to be utilize, this is used for initializing the gene expression table\
-                Defaults to 'total PMBC'.
+                Defaults to 'total PBMC'.
             proband_name (str, optional): the name of the proband from whom the data was obtained. Defaults to 'Default Proband'.
             hla_set (List[str], optional): A list of HLA alleles from whom the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
             parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded the file parser.
@@ -264,8 +264,12 @@ class RExperimentSet:
         success_process=0
         exps=dict()
         for fut in futures.as_completed(list_jobs):
-            name,experiment=fut.result()
-            exps[name]=experiment
+            try:
+                name,experiment=fut.result()
+                exps[name]=experiment
+            except Exception as exp: 
+                print("For one of the experiments, the file was empty, skipping this file, please check your input identification file ...")
+                continue
             success_process+=1
             print(f"Progress: {success_process} files have been read and parsed into experiment, progress is: {(success_process/len(filenames))*100}%")
         ## create instance resources 
@@ -290,7 +294,7 @@ class RExperimentSet:
         
 class ReplicatedExperimentSet:
     def __init__(self,path:str,path2fasta:List[str],
-        fileformat:List[str]=['idXML'], tissue_name:List[str]=['total PMBC'],
+        fileformat:List[str]=['idXML'], tissue_name:List[str]=['total PBMC'],
         proband_name:List[str]=['Default Proband'],
         hla_set:List[List[str]]=['DRB1*15:01','DRB1*15:01'],
         num_worker:int=mp.cpu_count(),
@@ -302,7 +306,7 @@ class ReplicatedExperimentSet:
             fileformat (str, optional): type of input format, can be any of idXML, pepXML, mzTab or a CSV Table (IdTable).\
                  Defaults to 'idXML'.
             tissue_name (str, optional): The name of the tissue to utilize, this is used for initializing the gene expression table\
-                 Defaults to 'total PMBC'.
+                 Defaults to 'total PBMC'.
             proband_name (str, optional): the name of the proband from whome the data was obtained. Defaults to 'Default Proband'.
             hla_set (List[str], optional): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].            
             parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded the file parser.
@@ -431,7 +435,7 @@ def build_experiments(parsed_name:str, file_name:str, path2fasta:str, fileformat
         fileformat (str): type of input format, can be any of idXML, pepXML, mzTab or a CSV Table (IdTable).\
                  Defaults to 'idXML'.
         tissue_name (str): The name of the tissue to utilize, this is used for initializing the gene expression table\
-                 Defaults to 'total PMBC'.
+                 Defaults to 'total PBMC'.
         proband_name (str): the name of the proband from whome the data was obtained. Defaults to 'Default Proband'.
         hla_set (List[str]): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].   
 
@@ -452,7 +456,7 @@ def build_repeated_experiments(path:str, anchor_name:str, path2fasta:str, filefo
         fileformat (str): type of input format, can be any of idXML, pepXML, mzTab or a CSV Table (IdTable).\
                  Defaults to 'idXML'.
         tissue_name (str): The name of the tissue to utilize, this is used for initializing the gene expression table\
-                 Defaults to 'total PMBC'.
+                 Defaults to 'total PBMC'.
         proband_name (str): the name of the proband from whome the data was obtained. Defaults to 'Default Proband'.
         hla_set (str): A list of HLA alleles from whome the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].   
 
