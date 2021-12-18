@@ -5,7 +5,8 @@ from __future__ import annotations
 import os
 import re
 import time
-from typing import List, Dict, Tuple, Union 
+from typing import List, Dict, Tuple, Union
+from typing_extensions import runtime 
 from IPTK.Classes.Experiment import Experiment
 from IPTK.Classes.ExperimentSet import ExperimentSet
 from IPTK.Classes.Database import SeqDB, GeneExpressionDB, CellularLocationDB,OrganismDB
@@ -23,25 +24,38 @@ import multiprocessing as mp
 class RExperiment:
     def __init__(self, 
                 filepath:str, path2fasta:str,
-                fileformat:str='idXML',tissue_name:Union[str,Tissue]='total PBMC',
+                fileformat:str='idXML',
+                expression_profile:GeneExpressionDB=GeneExpressionDB(),
+                subcellular_location:CellularLocationDB=CellularLocationDB(),
+                tissue_name:str='total PBMC',
                 proband_name:str='Default Proband',
                 hla_set:List[str]=['DRB1*15:01','DRB1*15:01'],
                 parser_param:Dict[str,Union[list,set,dict,int,float]]={})->RExperiment:
-        """A Wrapper class for constracting an experimental dataset using user defined parameters\
-            The class takes care of initializing all classes and functions providing an easy-to-use interface\
-            for working with immunopeptidomics identification files. 
+        """A waraper for generating an experimental object 
+
         Args:
-            filepath (str): the path to load the input file, for example, pepXML or idXML. 
-            path2fasta (str): the path to load Fasta database 
-            fileformat (str, optional): type of input format, can be any of idXML, pepXML, mzTab or a CSV Table.\
-                 Defaults to 'idXML'.
-            tissue_name (Union[str,Tissue]): The name of the tissue to utilize, incase type(tissue_name) is string, this is used for initializing the gene expression table\
-                 Defaults to 'total PBMC'. Otherwise, please provide a Tissue instance, this can also avoid problem related to quering the internet and failures to query the input. 
-            proband_name (str, optional): the name of the proband from whom the data was obtained. Defaults to 'Default Proband'.
-            hla_set (List[str], optional): A list of HLA alleles from whom the data was obtained. Defaults to ['DRB1*15:01','DRB1*15:01'].
-            parser_param (Union[list,set,dict,int,float], optional): A list of parameters to be forwarded to the file parser
+            filepath (str): the path to a file to load the data
+            path2fasta (str): the path to the database used for identifying the hits 
+            fileformat (str, optional): The format of the input file. Defaults to 'idXML'.
+            expression_profile (GeneExpressionDB, optional): The gene expression database to get the expression of proteins in the input file. Defaults to GeneExpressionDB().
+            subcellular_location (CellularLocationDB, optional): The sub-cellular location of each protein in the database. Defaults to CellularLocationDB().
+            proband_name (str, optional): The name of the protein. Defaults to 'Default Proband'.
+            hla_set (List[str], optional): The set of the HLA proteins from which the HLA protein was identified. Defaults to ['DRB1*15:01','DRB1*15:01'].
+            parser_param (Dict[str,Union[list,set,dict,int,float]], optional): [description]. Defaults to {}.
+
+        Raises:
+            ValueError: if the path to the input database is not valid 
+            ValueError: if the path to the database is invalid 
+            ValueError: if the file format is not subported 
+            RuntimeError: if parsing the names in the HLASet failed 
+            IOError: if loading the database failed 
+            RuntimeError: [description]
+            ValueError: [description]
+            ValueError: [description]
+            RuntimeError: [description]
+
         Returns:
-            RExperimet: an IPTK.Class.Wrapper.RExperimet class, an IPTK.Class.Experiment.RExperimet can be extracted from the extracted instance using the get_experiment method 
+            RExperiment: [description]
         """
         ## Checking that the input is correct 
         if not os.path.exists(filepath):
@@ -60,18 +74,10 @@ class RExperiment:
             self._seqBD= SeqDB(path2fasta=path2fasta)
         except Exception as exp:
             raise IOError(f"While loading the fasta database the following error was Encountered : \n{str(exp)}\n")
-        if isinstance(tissue_name,str):
-            self._expresson_profile = GeneExpressionDB() # use the data on the human protein atlas @https://www.proteinatlas.org/about/download --> Normal tissue data 
-            self._protein_locations = CellularLocationDB() # use the data on the human protein atlas @https://www.proteinatlas.org/about/download --> Subcellular location data
-            try:
-                self._tissue= Tissue(name=tissue_name,main_exp_value=self._expresson_profile, 
-                        main_location=self._protein_locations) # create the tissue instance
-            except Exception as exp:
-                raise RuntimeError(f"While creating a tissue instance, the following error was Encountered: \n{str(exp)}\n")
-        elif isinstance(tissue_name,Tissue):
-            self._tissue=tissue_name
-        else:
-            raise ValueError(f"Unknown input type, the provided input for the parameter tissue name, should either a string, i.e. str or a Tissue, however, your input has a type of: {type(tissue_name)}")
+        try:
+            self._tissue=Tissue(name=tissue_name,main_exp_value=expression_profile,main_location=subcellular_location)
+        except Exception as exp:
+            raise RuntimeError(f"Creating a tissue instance failed due to the following exception: {str(exp)}")
         try:
             if fileformat == 'idXML':
                     input_table = parse_xml_based_format_to_identification_table(path2XML_file= filepath, path2fastaDB=path2fasta, is_idXML= True, **parser_param)
