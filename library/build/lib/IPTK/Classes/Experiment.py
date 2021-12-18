@@ -26,7 +26,7 @@ class Experiment:
 	"""A representation of an immunopeptidomics experiment. 
 	"""
 	def __init__(self, proband:Proband, hla_set:HLASet, tissue:Tissue,  database:SeqDB,
-				ident_table:pd.DataFrame,progress_bar:bool=True)->Experiment: 
+				ident_table:pd.DataFrame)->Experiment: 
 		"""Constructs an Experiment instance.
 
 		:param proband: A proband instance containing the proband, name& other meta-data. 

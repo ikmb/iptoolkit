@@ -395,7 +395,7 @@ class GeneExpressionDB:
 		# return the table 
 		try: 
 			table: pd.DataFrame = self._table.loc[self._table.iloc[:,2]==tissue_name]
-			res: pd.DataFrame = table[['Gene','Gene name','NX']]
+			res: pd.DataFrame = table[['Gene','Gene name','nTPM']]
 			return res
 		except Exception as exp:
 			raise RuntimeError(f'While loading the database the following error was encountered: {exp}')
@@ -406,7 +406,7 @@ class GeneExpressionDB:
 		:return: The expression of all genes accross all tissues in the database. 
 		:rtype: pd.DataFrame
 		"""
-		return self._table[['Gene', 'Gene name', 'NX']]
+		return self._table[['Gene', 'Gene name', 'nTPM']]
 		
 	def __len__(self)->int: 
 		"""return the number of tissues in the database

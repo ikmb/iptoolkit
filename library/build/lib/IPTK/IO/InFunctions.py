@@ -42,7 +42,8 @@ def load_identification_table(input_path: str, sep:str) -> pd.DataFrame:
 
 def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
     fasta_reader_param: Dict[str,str]={'filter_decoy':True, 'decoy_string':'DECOY' },
-    remove_if_not_matched: bool = True)->pd.DataFrame:
+    remove_if_not_matched: bool = True,
+    )->pd.DataFrame:
     """parse a user provided mzTab to an identification table 
 
     :param path2mzTab: the path to the input mzTab file
@@ -58,6 +59,8 @@ def parse_mzTab_to_identification_table(path2mzTab: str, path2fastaDB: str,
     :raises ValueError: if the peptide can not be mapped to the identified protein 
     :return: the identification table 
     :rtype: pd.DataFrame
+
+    Note: 
     """
     # load the files 
     try: 

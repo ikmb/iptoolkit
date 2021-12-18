@@ -130,7 +130,7 @@ class GOEngine:
     def __del__(self)->None:
         """class destructor, clean work directory if  clean_work_dir is set to True 
         """
-        if self.clean_work_dir: os.system(f"rm -f {self.work_dir}/*")
+        if self._clean_work_dir: os.system(f"rm -f {self.work_dir}/*")
         return 
 
 
