@@ -14,7 +14,7 @@ def map_from_uniprot_pdb(uniprots: List[str])-> pd.DataFrame:
     :return: A table that contain the mapping between each uniprot and its corresponding PDB ID/IDs  
     :rtype: pd.DataFrame
     """
-    url: str ='https://www.uniprot.org/uploadlists/'
+    url: str ='https://legacy.uniprot.org/uploadlists/'
     # define the query parameters 
     q_params: Dict[str, str]={
         'from': 'ACC+ID', 
@@ -56,7 +56,7 @@ def map_from_uniprot_gene(uniprots: List[str])->pd.DataFrame:
     :return: A table that contain the mapping between each uniprot and its corresponding Gene ID/IDs  
     :rtype: pd.DataFrame
     """
-    url: str ='https://www.uniprot.org/uploadlists/'
+    url: str ='https://legacy.uniprot.org/uploadlists/'
     # define the query parameters 
     q_params: Dict[str, str]={
         'from': 'ACC+ID', 
@@ -98,7 +98,7 @@ def map_from_uniprot_to_Entrez_Gene(uniprots: List[str])->pd.DataFrame:
     :return: A table that contain the mapping between each uniprot and its corresponding Gene ID/IDs  
     :rtype: pd.DataFrame
     """
-    url: str ='https://www.uniprot.org/uploadlists/'
+    url: str ='https://legacy.uniprot.org/uploadlists/'
     # define the query parameters 
     q_params: Dict[str, str]={
         'from': 'ACC+ID', 

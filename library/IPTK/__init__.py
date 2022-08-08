@@ -1,3 +1,3 @@
-__version__='0.6.21'
-__release_date__='18.12.2021'
-__version_name__='Reformer'
+__version__='0.6.23'
+__release_date__='08.08.2022'
+__version_name__='African Wild Dog'
